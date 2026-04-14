@@ -16,10 +16,23 @@
 - [MiV_input_features.h5](source-MiV_input_features_h5.md) — STIM place-field features (peak rate 20 Hz, selectivity type)
 - [MiV_input_spikes.h5](source-MiV_input_spikes_h5.md) — STIM spike trains (586K spikes) + spatial trajectory
 - [OLM_forest.h5](source-OLM_forest_h5.md) — OLM morphology forest (438 cells, ~954 pts/cell)
+- [OLM_forest_syns.h5](source-OLM_forest_syns_h5.md) — OLM synapse attribute table (1.59M synapses, 6 attributes)
+- [OLM_connections.h5](source-OLM_connections_h5.md) — OLM outgoing connectivity (360K→PVBC, 1.23M→PYR edges)
 - [OLM_tree.h5](source-OLM_tree_h5.md) — single OLM cell exemplar (GID 0, 954 points)
+- [PVBC_forest.h5](source-PVBC_forest_h5.md) — PVBC morphology forest (1,474 cells, 1820 pts/cell)
+- [PVBC_forest_syns.h5](source-PVBC_forest_syns_h5.md) — PVBC synapse attribute table (~12.1M synapses, 6 attributes)
+- [PVBC_connections.h5](source-PVBC_connections_h5.md) — PVBC outgoing connectivity (12.1M total edges, 4 projections)
 - [PVBC_tree.h5](source-PVBC_tree_h5.md) — single PVBC cell exemplar (GID 0, 1820 points)
 - [PYR_forest.h5](source-PYR_forest_h5.md) — PYR forest stub (80k cell registry, no coord data)
+- [PYR_forest_compressed.h5](source-PYR_forest_compressed_h5.md) — full PYR morphology (80k cells, gzip, 4.4 GB)
+- [PYR_connections_compressed.h5](source-PYR_connections_compressed_h5.md) — full PYR connectivity (2.68B edges, gzip, 6.2 GB)
 - [PYR_tree.h5](source-PYR_tree_h5.md) — single PYR cell exemplar (GID 0, 10346 points)
+- [MiV_Connections_Microcircuit_20220410.h5](source-MiV_Connections_Microcircuit_20220410_h5.md) — all-population connectivity snapshot (2022-04-10, 6.4 GB)
+
+## Sources — MiV Microcircuit Small (Microcircuit_Small/)
+
+- [MiV_Cells_Microcircuit_Small_20220410.h5](source-MiV_Cells_Microcircuit_Small_20220410_h5.md) — small-scale cell coordinates (44 OLM cells, ~10% subset)
+- [MiV_Connections_Microcircuit_Small_20220410.h5](source-MiV_Connections_Microcircuit_Small_20220410_h5.md) — small-scale connectivity (36K OLM→PVBC, 124K OLM→PYR edges)
 
 ## Concepts
 

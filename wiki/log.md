@@ -1,5 +1,9 @@
 # Wiki Log
 
+## [2026-04-17] ingest | 5 files recovered via Globus Transfer API
+
+Previously corrupted/truncated files were re-transferred from the MiV Globus guest collection (`0028aea1-ffc7-44b6-aec9-dd748ac839c4`) to Aurora Flare (`f39a7a0f-5bfc-46ce-9615-ba9f8592814f`) using CAE OMNI with Globus-to-Globus Transfer API. Created source pages: `source-MiV_Cells_Microcircuit_20220410_h5.md` (15.7 GB), `source-MiV_Cells_Microcircuit_20220412_h5.md` (18.4 GB), `source-MiV_Connections_Microcircuit_20220412_h5.md` (6.9 GB), `source-PYR_forest_syns_compressed_h5.md` (11.2 GB, 2.68B synapses), `source-dmosopt_Motoneuron_h5.md` (121 MB, DMOSOPT optimization). Added Motoneuron Model section to `index.md`.
+
 ## [2026-04-14] ingest | MiV Microcircuit HDF5 files — new additions (10 files)
 
 Used `~/miniconda3/bin/h5md` to generate markdown from 10 newly added HDF5 files. Created source pages: `source-OLM_connections_h5.md`, `source-OLM_forest_syns_h5.md`, `source-PVBC_forest_h5.md`, `source-PVBC_forest_syns_h5.md`, `source-PVBC_connections_h5.md`, `source-PYR_forest_compressed_h5.md`, `source-PYR_connections_compressed_h5.md`, `source-MiV_Connections_Microcircuit_20220410_h5.md`, `source-MiV_Cells_Microcircuit_Small_20220410_h5.md`, `source-MiV_Connections_Microcircuit_Small_20220410_h5.md`. Updated `index.md`. Failed files (corrupted/truncated): `MiV_Cells_Microcircuit_20220410.h5`, `MiV_Cells_Microcircuit_20220412.h5`, `MiV_Connections_Microcircuit_20220412.h5`, `PYR_forest_syns_compressed.h5`, `Motoneuron_model/motoneuron_20230210/dmosopt_Motoneuron.h5`.

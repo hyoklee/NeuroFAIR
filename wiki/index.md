@@ -28,6 +28,14 @@
 - [PYR_connections_compressed.h5](source-PYR_connections_compressed_h5.md) — full PYR connectivity (2.68B edges, gzip, 6.2 GB)
 - [PYR_tree.h5](source-PYR_tree_h5.md) — single PYR cell exemplar (GID 0, 10346 points)
 - [MiV_Connections_Microcircuit_20220410.h5](source-MiV_Connections_Microcircuit_20220410_h5.md) — all-population connectivity snapshot (2022-04-10, 6.4 GB)
+- [MiV_Cells_Microcircuit_20220410.h5](source-MiV_Cells_Microcircuit_20220410_h5.md) — full-circuit cell attributes snapshot (2022-04-10, 15.7 GB)
+- [MiV_Cells_Microcircuit_20220412.h5](source-MiV_Cells_Microcircuit_20220412_h5.md) — full-circuit cell attributes snapshot (2022-04-12, 18.4 GB)
+- [MiV_Connections_Microcircuit_20220412.h5](source-MiV_Connections_Microcircuit_20220412_h5.md) — all-population connectivity snapshot (2022-04-12, 6.9 GB)
+- [PYR_forest_syns_compressed.h5](source-PYR_forest_syns_compressed_h5.md) — PYR synapse attribute table (2.68B synapses, 7 attributes, gzip, 11.2 GB)
+
+## Sources — Motoneuron Model (Motoneuron_model/)
+
+- [dmosopt_Motoneuron.h5](source-dmosopt_Motoneuron_h5.md) — DMOSOPT optimization results (42K evaluations, 11 params, 5 objectives, 121 MB)
 
 ## Sources — MiV Microcircuit Small (Microcircuit_Small/)
 

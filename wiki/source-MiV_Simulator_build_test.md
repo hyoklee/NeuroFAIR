@@ -102,25 +102,58 @@ Test module imports fine but collects no tests in the PBS single-rank environmen
 
 | Test | Error |
 |---|---|
-| `test_mechanisms.py::test_mechanisms_compile_and_load` | `LookupError` — mechanism not compiled |
-| `test_gfluct3.py::test_run_with_Gfluct3` | `LookupError` — mechanism not compiled |
+| `test_mechanisms.py::test_mechanisms_compile_and_load` | `AssertionError` — `isfile` checks a directory path (upstream test bug) |
+| `test_gfluct3.py::test_run_with_Gfluct3` | `LookupError: 'tstop' is not a defined hoc variable` |
 
-Root cause: `nrnivmodl` (NEURON 9.x, pip wheel) hardcodes the pip build temp path
-`/tmp/tmpxzg66zp3/wheel/platlib/bin/nrnmech_makefile` which no longer exists after
-installation.  `Gfluct3.mod` could not be compiled.
+**`test_run_with_Gfluct3` root cause**: `Gfluct3.mod` *does* compile and link
+successfully.  The failure is at `h.tstop = simdur` (line 43).  In NEURON 9.x,
+`stdrun.hoc` is no longer auto-loaded; `h.tstop`, `h.run()`, etc. are undefined
+until `h.load_file('stdrun.hoc')` is called explicitly.  The test needs a one-line
+fix upstream: add `h.load_file('stdrun.hoc')` before `h.tstop = simdur`.
 
-### Steps [9–10] — MiV CLI tools
+**`test_mechanisms_compile_and_load` root cause**: The test calls `isfile()` on
+a path that is a directory (`compiled/<hash>/`).  Should be `isdir()`.  Upstream
+test bug, unrelated to the build environment.
 
-Both tools failed on first attempt due to renamed CLI options:
+**Fix for `nrnivmodl`** (PBS job 8445183 confirmed): export
+`NRNHOME=<miv_env>/lib/python3.12/site-packages/neuron/.data` before running
+`nrnivmodl`; the script then uses `${NRNHOME}/bin/nrnmech_makefile` instead of
+the stale pip temp path.
 
-| Tool | Wrong option | Correct option |
-|---|---|---|
-| `show-h5types` | `--input-file` | `--input-path` |
-| `query-cell-attrs` | `--population` | `--populations` |
+### Step [9] — `show-h5types`
 
-Updated PBS script corrects both.  CLI tools load correctly once neuroh5 is
-installed (the earlier `ModuleNotFoundError: No module named 'neuroh5'` is fully
-resolved).
+```
+Name       Start    Count
+====       =====    =====
+STIM       0        1000
+PYR        1000     80000
+PVBC       81000    1474
+OLM        82474    438
+```
+
+4 populations confirmed.  Correct option is `--input-path` (not `--input-file`).
+
+### Step [10] — `query-cell-attrs --populations OLM`
+
+Run via `mpiexec -n 1` (bare execution crashes with `internal_Comm_dup` unless
+Aurora MPICH appears before OpenMPI in `LD_LIBRARY_PATH`).
+
+```
+Population OLM; Namespace: Arc Distances
+    Attribute: U Distance — GIDs 143–186 (44 cells)
+    Attribute: V Distance — GIDs 143–186 (44 cells)
+Population OLM; Namespace: Generated Coordinates
+    Attribute: L Coordinate — GIDs 143–186
+    Attribute: U Coordinate — GIDs 143–186
+    Attribute: V Coordinate — GIDs 143–186
+    Attribute: X Coordinate — GIDs 143–186
+    Attribute: Y Coordinate — GIDs 143–186
+    (Z Coordinate also present)
+```
+
+OLM cells in the Small dataset occupy GIDs 143–186 (44 cells), storing arc
+distances and generated Cartesian/curvilinear coordinates.  Correct options are
+`--populations` (not `--population`) and `--input-path` (not `--input-file`).
 
 ### Step [11] — CoreNEURON GPU check
 
@@ -140,9 +173,13 @@ CoreNEURON GPU backend confirmed available on Aurora compute nodes.
    `nrnmech_makefile`.  Workaround: build NEURON from source on Aurora, or find
    and patch `nrnmech_makefile` reference inside the installed wheel.
 
-2. **mpi4py ABI mismatch**: Parallel I/O via neuroh5 may encounter errors under
-   concurrent MPI workloads.  Recommendation: rebuild mpi4py using the exact
-   Aurora MPICH runtime headers.
+2. **mpi4py / OpenMPI conflict** (resolved in PBS job 8445212): The `miv` conda
+   env contains OpenMPI's `libmpi.so.40` (pulled in by conda-forge dependencies).
+   With `${MIV_PREFIX}/lib` first in `LD_LIBRARY_PATH`, OpenMPI is loaded instead
+   of Aurora MPICH — causing `Fatal error in internal_Comm_dup` crashes.  Fix:
+   prepend `${AURORA_MPICH}/lib` to `LD_LIBRARY_PATH` so the correct library is
+   found first.  The `query-cell-attrs` CLI tool also requires `mpiexec -n 1` to
+   set up the PMI process-management environment before MPI can initialize.
 
 3. **`test_eval_network.py` failures**: 17 tests fail with `AttributeError`,
    suggesting `machinable` or mock API has diverged from the test expectations.

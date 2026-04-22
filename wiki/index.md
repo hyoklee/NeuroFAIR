@@ -53,6 +53,10 @@
 - [Morphology SWC Format](concept-morphology-swc.md) — per-cell tree morphology layout in forest/tree files
 - [Cell Coordinates and Arc Distances](concept-cell-coordinates.md) — curvilinear hippocampal coordinate system
 
+## Build and Test Reports
+
+- [MiV-Simulator build and test on Aurora](source-MiV_Simulator_build_test.md) — PBS job results: neuroh5 cmake build, 208 tests (170+38 pass), CoreNEURON GPU, known issues
+
 ## Schema
 
 - [CLAUDE.md](CLAUDE.md) — wiki schema and workflows for LLM maintenance

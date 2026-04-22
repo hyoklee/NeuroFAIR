@@ -1,5 +1,9 @@
 # Wiki Log
 
+## [2026-04-22] build-test | MiV-Simulator on Aurora — 208 tests run, neuroh5 cmake OK
+
+Built MiV-Simulator v0.3.0 on Aurora compute node (PBS job 8445030, debug queue, `gpu_hack`). neuroh5 C++ extension compiled from source (`~/neuroh5`) against Aurora parallel HDF5 1.14.6 and MPICH 5.0 via manual cmake — resolving previous `H5Pset_dxpl_mpio` failures with serial or HDF5 2.x builds. Test results: pure-Python 38 passed / 18 failed (`test_eval_network` AttributeErrors, likely machinable API drift); NEURON tests 170 passed / 2 failed (Gfluct3 mechanism — `nrnivmodl` broken in NEURON 9.x pip wheel); CoreNEURON GPU confirmed (`GPU mode set OK`). mpi4py ABI mismatch warnings at runtime (struct sizes differ between build headers and runtime MPICH). CLI option names corrected: `--input-path` / `--populations`. Created `source-MiV_Simulator_build_test.md`.
+
 ## [2026-04-17] ingest | 5 files recovered via Globus Transfer API
 
 Previously corrupted/truncated files were re-transferred from the MiV Globus guest collection (`0028aea1-ffc7-44b6-aec9-dd748ac839c4`) to Aurora Flare (`f39a7a0f-5bfc-46ce-9615-ba9f8592814f`) using CAE OMNI with Globus-to-Globus Transfer API. Created source pages: `source-MiV_Cells_Microcircuit_20220410_h5.md` (15.7 GB), `source-MiV_Cells_Microcircuit_20220412_h5.md` (18.4 GB), `source-MiV_Connections_Microcircuit_20220412_h5.md` (6.9 GB), `source-PYR_forest_syns_compressed_h5.md` (11.2 GB, 2.68B synapses), `source-dmosopt_Motoneuron_h5.md` (121 MB, DMOSOPT optimization). Added Motoneuron Model section to `index.md`.

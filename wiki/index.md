@@ -57,6 +57,8 @@
 
 - [MiV-Simulator build and test on Aurora](source-MiV_Simulator_build_test.md) — PBS job results: neuroh5 cmake build, 208 tests (170+38 pass), CoreNEURON GPU, known issues
 - [MiV-Simulator build and test on Polaris](miv_polaris_build_test.md) — PBS jobs 7097199–7097215: neuroh5 cmake (gcc/GNU MPICH), 204/223 tests pass, CoreNEURON A100 GPU confirmed; GNU Cray MPICH SHM transport blocks multi-rank neuroh5 I/O
+- [MiV-Simulator PR #103 on Polaris](miv_pr103_polaris_test.md) — PBS job 7097324: patch fixes np.float_ (test_coding.py 3/3 pass), mpi_env check requires MIV_SKIP_MPI_CHECK=1; 207/226 pass
+- [neuroh5 shared-memory crash fix](neuroh5_shm_crash_fix.md) — int overflow in alltoallv sdispls for >2 GB datasets; P2P Isend/Irecv fix; **12/12 I/O tests pass** (job 7097644); PR: iraikov/neuroh5#19
 
 ## Schema
 

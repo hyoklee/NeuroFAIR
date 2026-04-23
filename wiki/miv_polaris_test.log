@@ -1,0 +1,2474 @@
+==== miv-simulator + neuroh5 test on Polaris ====
+Date:      Wed Apr 22 11:39:39 PM UTC 2026
+Job:       7097199.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov
+Nodes:     1  (x3109c0s13b1n0.hsn.cm.polaris.alcf.anl.gov )
+Python:    /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/bin/python3  Python 3.11.7
+VENV:      /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv
+
+=== [1] GPU check ===
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+
+=== [2] Import checks ===
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+  OK  mpi4py: 3.1.4
+  OK  h5py: 3.16.0
+  OK  numpy: 2.4.4
+  OK  neuroh5: ok
+  OK  neuroh5.io: ['NeuroH5CellAttrGen', 'NeuroH5CellAttrIter', 'NeuroH5EdgeIter']
+  OK  miv_simulator: ok
+  OK  neuron: 9.0.1
+
+=== [3] Parallel neuroh5 I/O tests (4 ranks) ===
+
+============================================================
+  Test 1: scatter_read_trees
+============================================================
+Attempting to use an MPI routine (internal_Comm_dup) before initializing or after finalizing MPICH
+Attempting to use an MPI routine (internal_Comm_dup) before initializing or after finalizing MPICH
+Attempting to use an MPI routine (internal_Comm_dup) before initializing or after finalizing MPICH
+Attempting to use an MPI routine (internal_Comm_dup) before initializing or after finalizing MPICH
+x3109c0s13b1n0.hsn.cm.polaris.alcf.anl.gov: rank 1 exited with code 1
+
+=== [4a] miv-simulator pure Python tests ===
+============================= test session starts ==============================
+collecting ... collected 63 items / 1 error
+
+==================================== ERRORS ====================================
+____________________ ERROR collecting tests/test_coding.py _____________________
+tests/test_coding.py:1: in <module>
+    from miv_simulator import coding as t
+src/miv_simulator/coding.py:5: in <module>
+    SpikeTimesLike = EventArray[NDArray[np.float_], "SpikeTimesLike ..."]
+/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/numpy/__init__.py:778: in __getattr__
+    raise AttributeError(
+E   AttributeError: `np.float_` was removed in the NumPy 2.0 release. Use `np.float64` instead.
+=========================== short test summary info ============================
+ERROR tests/test_coding.py - AttributeError: `np.float_` was removed in the N...
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+============================== 1 error in 25.04s ===============================
+
+=== [4b] miv-simulator eval_network + synapses tests ===
+============================= test session starts ==============================
+collecting ... collected 159 items
+
+tests/test_eval_network.py::test_explicit_params_label_is_used FAILED    [  0%]
+tests/test_eval_network.py::test_default_label_picks_first_key FAILED    [  1%]
+tests/test_eval_network.py::test_all_param_names_mapped FAILED           [  1%]
+tests/test_eval_network.py::test_nested_path_fallback FAILED             [  2%]
+tests/test_eval_network.py::test_tuple_sec_type_flat_key_lookup FAILED   [  3%]
+tests/test_eval_network.py::test_tuple_sec_type_nested_path_fallback FAILED [  3%]
+tests/test_eval_network.py::test_tuple_sec_type_propagated_to_modify_syn_param PASSED [  4%]
+tests/test_eval_network.py::test_network_run_called_with_output_false FAILED [  5%]
+tests/test_eval_network.py::test_output_json_written_with_correct_structure FAILED [  5%]
+tests/test_eval_network.py::test_output_json_objectives_match_compute_objectives FAILED [  6%]
+tests/test_eval_network.py::test_output_json_constraints_keyed_by_population FAILED [  6%]
+tests/test_eval_network.py::test_no_output_file_when_output_path_is_none FAILED [  7%]
+tests/test_eval_network.py::test_kwargs_from_operational_config_forwarded_to_init_network FAILED [  8%]
+tests/test_eval_network.py::test_explicit_network_kwargs_not_overwritten_by_op_config FAILED [  8%]
+tests/test_eval_network.py::test_network_shutdown_called FAILED          [  9%]
+tests/test_eval_network.py::test_cleanup_true_raises_runtime_error FAILED [ 10%]
+tests/test_eval_network.py::test_io_utils_mkout_spikeout_lfpout_called FAILED [ 10%]
+tests/test_eval_network.py::test_io_utils_recsout_called_when_recording_profile_set FAILED [ 11%]
+tests/test_synapses.py::TestSynParamFromDict::test_all_fields_populated PASSED [ 11%]
+tests/test_synapses.py::TestSynParamFromDict::test_missing_key_raises PASSED [ 12%]
+tests/test_synapses.py::TestSynParamFromDict::test_extra_keys_ignored PASSED [ 13%]
+tests/test_synapses.py::TestGetMechRulesDict::test_value_only PASSED     [ 13%]
+tests/test_synapses.py::TestGetMechRulesDict::test_origin_valid_section PASSED [ 14%]
+tests/test_synapses.py::TestGetMechRulesDict::test_origin_empty_section_raises PASSED [ 15%]
+tests/test_synapses.py::TestGetMechRulesDict::test_origin_parent_always_valid PASSED [ 15%]
+tests/test_synapses.py::TestGetMechRulesDict::test_origin_branch_origin_always_valid PASSED [ 16%]
+tests/test_synapses.py::TestGetMechRulesDict::test_origin_invalid_raises PASSED [ 16%]
+tests/test_synapses.py::TestGetMechRulesDict::test_none_values_excluded PASSED [ 17%]
+tests/test_synapses.py::TestGetMechRulesDict::test_both_value_and_origin PASSED [ 18%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_no_filters_selects_all PASSED [ 18%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_syn_sections_filter PASSED [ 19%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_syn_indexes_filter PASSED [ 20%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_syn_types_excitatory_only PASSED [ 20%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_layers_filter PASSED [ 21%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_sources_filter PASSED [ 22%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_swc_types_filter PASSED [ 22%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_combined_syn_type_and_layer PASSED [ 23%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_empty_result_when_no_match PASSED [ 23%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_duplicate_values_deduplicated PASSED [ 24%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_valid_count_limits_scope PASSED [ 25%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreBasics::test_ensure_gid_storage_creates_entry PASSED [ 25%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreBasics::test_ensure_gid_storage_idempotent PASSED [ 26%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreBasics::test_ensure_mech_storage_creates_has_mech_array PASSED [ 27%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreBasics::test_ensure_param_array_fills_with_nan PASSED [ 27%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreBasics::test_ensure_param_array_idempotent PASSED [ 28%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreBasics::test_has_mechanism_false_before_set PASSED [ 28%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreBasics::test_has_mechanism_true_after_set PASSED [ 29%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreSetGet::test_set_and_get_numeric_value PASSED [ 30%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreSetGet::test_set_and_get_complex_value PASSED [ 30%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreSetGet::test_unknown_mechanism_returns_false PASSED [ 31%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreSetGet::test_unknown_param_returns_false PASSED [ 32%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreSetGet::test_resize_triggered_on_out_of_bounds_index PASSED [ 32%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreSetGet::test_resize_preserves_existing_values PASSED [ 33%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_global_default_none_selector PASSED [ 33%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_list_selector_applies_only_to_listed_ids PASSED [ 34%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_callable_selector PASSED [ 35%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_most_recent_default_takes_precedence PASSED [ 35%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_has_default_params_true_when_matching PASSED [ 36%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_has_default_params_false_when_none_match PASSED [ 37%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_get_default_params_returns_correct_set PASSED [ 37%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_hierarchy_specific_overrides_default PASSED [ 38%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_hierarchy_fallback_to_default PASSED [ 38%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_hierarchy_no_value_returns_none PASSED [ 39%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_set_default_unknown_mech_returns_false PASSED [ 40%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_complex_value_stored_and_retrieved PASSED [ 40%]
+tests/test_synapses.py::TestResizeArrays::test_resize_extends_has_mech_array PASSED [ 41%]
+tests/test_synapses.py::TestResizeArrays::test_resize_extends_param_arrays_with_nan PASSED [ 42%]
+tests/test_synapses.py::TestResizeArrays::test_resize_preserves_existing_bool_flags PASSED [ 42%]
+tests/test_synapses.py::TestResizeArrays::test_resize_noop_when_new_size_smaller PASSED [ 43%]
+tests/test_synapses.py::TestResizeArrays::test_gid_not_present_is_noop PASSED [ 44%]
+tests/test_synapses.py::TestCreateSelector::test_none_selector_matches_all PASSED [ 44%]
+tests/test_synapses.py::TestCreateSelector::test_list_selector_matches_only_listed_ids PASSED [ 45%]
+tests/test_synapses.py::TestCreateSelector::test_ndarray_selector PASSED [ 45%]
+tests/test_synapses.py::TestCreateSelector::test_callable_selector_delegates PASSED [ 46%]
+tests/test_synapses.py::TestSynapseStore::test_add_synapses_from_arrays_stores_core_fields PASSED [ 47%]
+tests/test_synapses.py::TestSynapseStore::test_add_synapses_initializes_source_defaults PASSED [ 47%]
+tests/test_synapses.py::TestSynapseStore::test_get_synapse_returns_none_for_unknown_gid PASSED [ 48%]
+tests/test_synapses.py::TestSynapseStore::test_get_synapse_returns_none_for_unknown_syn_id PASSED [ 49%]
+tests/test_synapses.py::TestSynapseStore::test_get_synapse_view_fields_match_stored PASSED [ 49%]
+tests/test_synapses.py::TestSynapseStore::test_get_synapses_by_filter_single_field PASSED [ 50%]
+tests/test_synapses.py::TestSynapseStore::test_get_synapses_by_filter_multiple_values PASSED [ 50%]
+tests/test_synapses.py::TestSynapseStore::test_get_synapses_by_filter_empty_result PASSED [ 51%]
+tests/test_synapses.py::TestSynapseStore::test_keys_yields_all_syn_ids PASSED [ 52%]
+tests/test_synapses.py::TestSynapseStore::test_items_yields_all_synapse_views PASSED [ 52%]
+tests/test_synapses.py::TestSynapseStore::test_keys_empty_for_unknown_gid PASSED [ 53%]
+tests/test_synapses.py::TestSynapseStore::test_ensure_capacity_grows_on_overflow PASSED [ 54%]
+tests/test_synapses.py::TestSynapseView::test_property_reads_correct_values PASSED [ 54%]
+tests/test_synapses.py::TestSynapseView::test_property_setter_mutates_backing_array PASSED [ 55%]
+tests/test_synapses.py::TestSynapseView::test_source_view_reads_gid_population_delay PASSED [ 55%]
+tests/test_synapses.py::TestSynapseView::test_source_view_setter_persists PASSED [ 56%]
+tests/test_synapses.py::TestGetSynFilterDict::test_valid_syn_types_no_convert PASSED [ 57%]
+tests/test_synapses.py::TestGetSynFilterDict::test_valid_syn_types_with_convert PASSED [ 57%]
+tests/test_synapses.py::TestGetSynFilterDict::test_unknown_syn_type_raises PASSED [ 58%]
+tests/test_synapses.py::TestGetSynFilterDict::test_valid_swc_type_with_convert PASSED [ 59%]
+tests/test_synapses.py::TestGetSynFilterDict::test_unknown_swc_type_raises PASSED [ 59%]
+tests/test_synapses.py::TestGetSynFilterDict::test_valid_layer_with_convert PASSED [ 60%]
+tests/test_synapses.py::TestGetSynFilterDict::test_unknown_layer_raises PASSED [ 61%]
+tests/test_synapses.py::TestGetSynFilterDict::test_valid_source_with_convert PASSED [ 61%]
+tests/test_synapses.py::TestGetSynFilterDict::test_unknown_source_raises PASSED [ 62%]
+tests/test_synapses.py::TestGetSynFilterDict::test_unrecognized_filter_name_raises_by_default PASSED [ 62%]
+tests/test_synapses.py::TestGetSynFilterDict::test_unrecognized_filter_name_allowed_when_check_false PASSED [ 63%]
+tests/test_synapses.py::TestGetSynFilterDict::test_input_deep_copied PASSED [ 64%]
+tests/test_synapses.py::TestGetSynFilterDict::test_empty_rules_returns_empty_dict PASSED [ 64%]
+tests/test_synapses.py::TestValidateSynMechParam::test_valid_mech_param_returns_true PASSED [ 65%]
+tests/test_synapses.py::TestValidateSynMechParam::test_valid_netcon_param_returns_true PASSED [ 66%]
+tests/test_synapses.py::TestValidateSynMechParam::test_unknown_syn_name_returns_false PASSED [ 66%]
+tests/test_synapses.py::TestValidateSynMechParam::test_unknown_param_name_returns_false PASSED [ 67%]
+tests/test_synapses.py::TestSynapseManagerInitSynIdAttrs::test_init_stores_all_synapses PASSED [ 67%]
+tests/test_synapses.py::TestSynapseManagerInitSynIdAttrs::test_duplicate_gid_raises PASSED [ 68%]
+tests/test_synapses.py::TestSynapseManagerInitSynIdAttrs::test_empty_syn_ids_is_noop PASSED [ 69%]
+tests/test_synapses.py::TestSynapseManagerInitSynIdAttrs::test_init_from_iter_dict_mode PASSED [ 69%]
+tests/test_synapses.py::TestSynapseManagerInitEdgeAttrs::test_sets_source_population PASSED [ 70%]
+tests/test_synapses.py::TestSynapseManagerInitEdgeAttrs::test_sets_explicit_delays PASSED [ 71%]
+tests/test_synapses.py::TestSynapseManagerInitEdgeAttrs::test_uninitialized_gid_raises PASSED [ 71%]
+tests/test_synapses.py::TestSynapseManagerInitEdgeAttrs::test_unknown_syn_id_raises PASSED [ 72%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_by_syn_type PASSED [ 72%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_by_layer PASSED [ 73%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_by_sources PASSED [ 74%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_by_swc_type PASSED [ 74%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_combined_criteria PASSED [ 75%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_empty_gid_returns_empty PASSED [ 76%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_no_filters_returns_all PASSED [ 76%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_synapse_ids_dtype PASSED [ 77%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_synapse_ids_no_filters_returns_all PASSED [ 77%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_cache_returns_same_result PASSED [ 78%]
+tests/test_synapses.py::TestSynapseManagerPartitionBySource::test_all_populations_present_in_result PASSED [ 79%]
+tests/test_synapses.py::TestSynapseManagerPartitionBySource::test_gc_yields_correct_syn_ids PASSED [ 79%]
+tests/test_synapses.py::TestSynapseManagerPartitionBySource::test_mc_yields_correct_syn_ids PASSED [ 80%]
+tests/test_synapses.py::TestSynapseManagerPartitionBySource::test_partition_with_explicit_syn_ids PASSED [ 81%]
+tests/test_synapses.py::TestSynapseManagerPartitionBySource::test_unknown_gid_returns_empty_iterators PASSED [ 81%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_add_and_has_point_process PASSED [ 82%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_get_point_process PASSED [ 83%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_duplicate_point_process_raises PASSED [ 83%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_get_missing_throw_false_returns_none PASSED [ 84%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_add_has_get_netcon PASSED [ 84%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_del_netcon_removes_entry PASSED [ 85%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_del_netcon_throw_false_when_absent PASSED [ 86%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_add_has_get_vecstim PASSED [ 86%]
+tests/test_synapses.py::TestAddDefaultMechanismParameters::test_default_params_readable_via_get_effective PASSED [ 87%]
+tests/test_synapses.py::TestAddDefaultMechanismParameters::test_default_applies_to_all_synapses PASSED [ 88%]
+tests/test_synapses.py::TestAddDefaultMechanismParameters::test_gaba_label_resolves_to_exp2syn PASSED [ 88%]
+tests/test_synapses.py::TestAddMechanismParametersFromIter::test_sets_parameter_via_iter PASSED [ 89%]
+tests/test_synapses.py::TestAddMechanismParametersFromIter::test_duplicate_raises_in_error_mode PASSED [ 89%]
+tests/test_synapses.py::TestAddMechanismParametersFromIter::test_duplicate_skipped_in_skip_mode PASSED [ 90%]
+tests/test_synapses.py::TestAddMechanismParametersFromIter::test_duplicate_overwritten_in_overwrite_mode PASSED [ 91%]
+tests/test_synapses.py::TestAddMechanismParametersFromIter::test_unknown_gid_raises PASSED [ 91%]
+tests/test_synapses.py::TestGetMechanismParameters::test_returns_set_value PASSED [ 92%]
+tests/test_synapses.py::TestGetMechanismParameters::test_returns_none_for_unknown_syn_id PASSED [ 93%]
+tests/test_synapses.py::TestGetMechanismParameters::test_raises_for_unknown_syn_id PASSED [ 93%]
+tests/test_synapses.py::TestGetMechanismParameters::test_returns_none_when_no_params_set PASSED [ 94%]
+tests/test_synapses.py::TestModifySynParam::test_raises_when_sec_type_not_in_cell PASSED [ 94%]
+tests/test_synapses.py::TestModifySynParam::test_raises_when_param_name_is_none PASSED [ 95%]
+tests/test_synapses.py::TestModifySynParam::test_raises_when_value_is_none PASSED [ 96%]
+tests/test_synapses.py::TestModifySynParam::test_raises_when_param_not_recognized PASSED [ 96%]
+tests/test_synapses.py::TestModifySynParam::test_populates_mech_dict_on_first_call PASSED [ 97%]
+tests/test_synapses.py::TestModifySynParam::test_second_call_overwrites_mech_dict_value PASSED [ 98%]
+tests/test_synapses.py::TestModifySynParam::test_tau_stored_for_all_syn_ids PASSED [ 98%]
+tests/test_synapses.py::TestModifySynParam::test_netcon_weight_stored_for_all_syn_ids PASSED [ 99%]
+tests/test_synapses.py::TestModifySynParam::test_second_call_overwrites_param_store_value PASSED [100%]
+
+=================================== FAILURES ===================================
+______________________ test_explicit_params_label_is_used ______________________
+tests/test_eval_network.py:246: in test_explicit_params_label_is_used
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+----------------------------- Captured stdout call -----------------------------
+Tried loading an MPI library from:
+libmpi.so: libmpi.so: cannot open shared object file: No such file or directory
+libmpich.so: libmpich.so: cannot open shared object file: No such file or directory
+Is an MPI library such as openmpi, mpich, intel-mpi or sgi-mpt installed? If yes, it may be installed in a non-standard location that you can add to LD_LIBRARY_PATH (or DYLD_LIBRARY_PATH on macOS), or on Linux or macOS you can provide a full path in MPI_LIB_NRN_PATH
+
+Tried loading an MPI library from:
+libmpi.so: libmpi.so: cannot open shared object file: No such file or directory
+libmpich.so: libmpich.so: cannot open shared object file: No such file or directory
+Is an MPI library such as openmpi, mpich, intel-mpi or sgi-mpt installed? If yes, it may be installed in a non-standard location that you can add to LD_LIBRARY_PATH (or DYLD_LIBRARY_PATH on macOS), or on Linux or macOS you can provide a full path in MPI_LIB_NRN_PATH
+
+______________________ test_default_label_picks_first_key ______________________
+tests/test_eval_network.py:282: in test_default_label_picks_first_key
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+_________________________ test_all_param_names_mapped __________________________
+tests/test_eval_network.py:323: in test_all_param_names_mapped
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+__________________________ test_nested_path_fallback ___________________________
+tests/test_eval_network.py:372: in test_nested_path_fallback
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+_____________________ test_tuple_sec_type_flat_key_lookup ______________________
+tests/test_eval_network.py:425: in test_tuple_sec_type_flat_key_lookup
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+___________________ test_tuple_sec_type_nested_path_fallback ___________________
+tests/test_eval_network.py:477: in test_tuple_sec_type_nested_path_fallback
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+__________________ test_network_run_called_with_output_false ___________________
+tests/test_eval_network.py:543: in test_network_run_called_with_output_false
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+_______________ test_output_json_written_with_correct_structure ________________
+tests/test_eval_network.py:581: in test_output_json_written_with_correct_structure
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+_____________ test_output_json_objectives_match_compute_objectives _____________
+tests/test_eval_network.py:618: in test_output_json_objectives_match_compute_objectives
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+_______________ test_output_json_constraints_keyed_by_population _______________
+tests/test_eval_network.py:651: in test_output_json_constraints_keyed_by_population
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+_________________ test_no_output_file_when_output_path_is_none _________________
+tests/test_eval_network.py:682: in test_no_output_file_when_output_path_is_none
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+________ test_kwargs_from_operational_config_forwarded_to_init_network _________
+tests/test_eval_network.py:726: in test_kwargs_from_operational_config_forwarded_to_init_network
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+__________ test_explicit_network_kwargs_not_overwritten_by_op_config ___________
+tests/test_eval_network.py:777: in test_explicit_network_kwargs_not_overwritten_by_op_config
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+_________________________ test_network_shutdown_called _________________________
+tests/test_eval_network.py:831: in test_network_shutdown_called
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+____________________ test_cleanup_true_raises_runtime_error ____________________
+tests/test_eval_network.py:885: in test_cleanup_true_raises_runtime_error
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+__________________ test_io_utils_mkout_spikeout_lfpout_called __________________
+tests/test_eval_network.py:919: in test_io_utils_mkout_spikeout_lfpout_called
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+___________ test_io_utils_recsout_called_when_recording_profile_set ____________
+tests/test_eval_network.py:953: in test_io_utils_recsout_called_when_recording_profile_set
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+=========================== short test summary info ============================
+FAILED tests/test_eval_network.py::test_explicit_params_label_is_used - Attri...
+FAILED tests/test_eval_network.py::test_default_label_picks_first_key - Attri...
+FAILED tests/test_eval_network.py::test_all_param_names_mapped - AttributeErr...
+FAILED tests/test_eval_network.py::test_nested_path_fallback - AttributeError...
+FAILED tests/test_eval_network.py::test_tuple_sec_type_flat_key_lookup - Attr...
+FAILED tests/test_eval_network.py::test_tuple_sec_type_nested_path_fallback
+FAILED tests/test_eval_network.py::test_network_run_called_with_output_false
+FAILED tests/test_eval_network.py::test_output_json_written_with_correct_structure
+FAILED tests/test_eval_network.py::test_output_json_objectives_match_compute_objectives
+FAILED tests/test_eval_network.py::test_output_json_constraints_keyed_by_population
+FAILED tests/test_eval_network.py::test_no_output_file_when_output_path_is_none
+FAILED tests/test_eval_network.py::test_kwargs_from_operational_config_forwarded_to_init_network
+FAILED tests/test_eval_network.py::test_explicit_network_kwargs_not_overwritten_by_op_config
+FAILED tests/test_eval_network.py::test_network_shutdown_called - AttributeEr...
+FAILED tests/test_eval_network.py::test_cleanup_true_raises_runtime_error - A...
+FAILED tests/test_eval_network.py::test_io_utils_mkout_spikeout_lfpout_called
+FAILED tests/test_eval_network.py::test_io_utils_recsout_called_when_recording_profile_set
+======================== 17 failed, 142 passed in 2.91s ========================
+
+=== [5] CoreNEURON GPU backend probe ===
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+  NEURON import OK
+  CoreNEURON: <neuron.coreneuron.coreneuron object at 0x152bd3678890>
+  GPU attr present: True
+  GPU mode set: True
+
+=== [6] MiV CLI tools ===
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+Tried loading an MPI library from:
+libmpi.so: libmpi.so: cannot open shared object file: No such file or directory
+libmpich.so: libmpich.so: cannot open shared object file: No such file or directory
+Is an MPI library such as openmpi, mpich, intel-mpi or sgi-mpt installed? If yes, it may be installed in a non-standard location that you can add to LD_LIBRARY_PATH (or DYLD_LIBRARY_PATH on macOS), or on Linux or macOS you can provide a full path in MPI_LIB_NRN_PATH
+
+Tried loading an MPI library from:
+libmpi.so: libmpi.so: cannot open shared object file: No such file or directory
+libmpich.so: libmpich.so: cannot open shared object file: No such file or directory
+Is an MPI library such as openmpi, mpich, intel-mpi or sgi-mpt installed? If yes, it may be installed in a non-standard location that you can add to LD_LIBRARY_PATH (or DYLD_LIBRARY_PATH on macOS), or on Linux or macOS you can provide a full path in MPI_LIB_NRN_PATH
+
+Tried loading an MPI library from:
+libmpi.so: libmpi.so: cannot open shared object file: No such file or directory
+libmpich.so: libmpich.so: cannot open shared object file: No such file or directory
+Is an MPI library such as openmpi, mpich, intel-mpi or sgi-mpt installed? If yes, it may be installed in a non-standard location that you can add to LD_LIBRARY_PATH (or DYLD_LIBRARY_PATH on macOS), or on Linux or macOS you can provide a full path in MPI_LIB_NRN_PATH
+
+---
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+Tried loading an MPI library from:
+libmpi.so: libmpi.so: cannot open shared object file: No such file or directory
+libmpich.so: libmpich.so: cannot open shared object file: No such file or directory
+Is an MPI library such as openmpi, mpich, intel-mpi or sgi-mpt installed? If yes, it may be installed in a non-standard location that you can add to LD_LIBRARY_PATH (or DYLD_LIBRARY_PATH on macOS), or on Linux or macOS you can provide a full path in MPI_LIB_NRN_PATH
+
+Tried loading an MPI library from:
+libmpi.so: libmpi.so: cannot open shared object file: No such file or directory
+libmpich.so: libmpich.so: cannot open shared object file: No such file or directory
+Is an MPI library such as openmpi, mpich, intel-mpi or sgi-mpt installed? If yes, it may be installed in a non-standard location that you can add to LD_LIBRARY_PATH (or DYLD_LIBRARY_PATH on macOS), or on Linux or macOS you can provide a full path in MPI_LIB_NRN_PATH
+
+Tried loading an MPI library from:
+libmpi.so: libmpi.so: cannot open shared object file: No such file or directory
+libmpich.so: libmpich.so: cannot open shared object file: No such file or directory
+Is an MPI library such as openmpi, mpich, intel-mpi or sgi-mpt installed? If yes, it may be installed in a non-standard location that you can add to LD_LIBRARY_PATH (or DYLD_LIBRARY_PATH on macOS), or on Linux or macOS you can provide a full path in MPI_LIB_NRN_PATH
+
+
+=== [7] Generating wiki summary ===
+  Wiki saved: /home/hyoklee/NeuroFAIR/wiki/miv_polaris_build_test.md
+
+==== Done ====
+Date: Wed Apr 22 11:40:18 PM UTC 2026
+Results: /lus/grand/projects/gpu_hack/iowarp/miv_polaris/results/
+Wiki:    /home/hyoklee/NeuroFAIR/wiki/miv_polaris_build_test.md
+==== miv-simulator + neuroh5 test on Polaris ====
+Date:      Wed Apr 22 11:49:52 PM UTC 2026
+Job:       7097203.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov
+Nodes:     1  (x3109c0s13b0n0.hsn.cm.polaris.alcf.anl.gov )
+Python:    /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/bin/python3  Python 3.11.7
+VENV:      /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv
+
+=== [1] GPU check ===
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+
+=== [2] Import checks ===
+  OK  mpi4py: 3.1.4
+  OK  h5py: 3.16.0
+  OK  numpy: 2.4.4
+  OK  neuroh5: ok
+  OK  neuroh5.io: ['NeuroH5CellAttrGen', 'NeuroH5CellAttrIter', 'NeuroH5EdgeIter']
+  OK  miv_simulator: ok
+  OK  neuron: 9.0.1
+numprocs=1
+
+=== [3] Parallel neuroh5 I/O tests (4 ranks) ===
+
+============================================================
+  Test 1: scatter_read_trees
+============================================================
+HDF5-DIAG: Error detected in HDF5 (1.14.3) MPI-process 0:
+  #000: ../../src/H5D.c line 1061 in H5Dread(): can't synchronously read data
+    major: Dataset
+    minor: Read failed
+  #001: ../../src/H5D.c line 1008 in H5D__read_api_common(): can't read data
+    major: Dataset
+    minor: Read failed
+  #002: ../../src/H5VLcallback.c line 2092 in H5VL_dataset_read_direct(): dataset read failed
+    major: Virtual Object Layer
+    minor: Read failed
+  #003: ../../src/H5VLcallback.c line 2048 in H5VL__dataset_read(): dataset read failed
+    major: Virtual Object Layer
+    minor: Read failed
+  #004: ../../src/H5VLnative_dataset.c line 366 in H5VL__native_dataset_read(): unable to set up file and memory dataspaces
+    major: Dataset
+    minor: Unable to initialize object
+  #005: ../../src/H5VLnative_dataset.c line 187 in H5VL__native_dataset_io_setup(): selection + offset not within extent for file dataspace
+    major: Dataspace
+    minor: Out of range
+hdf5::read: error in H5Dread: Assertion 'ierr >= 0' failed in file '/home/hyoklee/neuroh5/include/hdf5/read_template.hh' line 64
+terminate called after throwing an instance of 'AssertionFailureException'
+  what():  hdf5::read: error in H5Dread: Assertion 'ierr >= 0' failed in file '/home/hyoklee/neuroh5/include/hdf5/read_template.hh' line 64
+x3109c0s13b0n0.hsn.cm.polaris.alcf.anl.gov: rank 0 died from signal 6 and dumped core
+x3109c0s13b0n0.hsn.cm.polaris.alcf.anl.gov: rank 2 died from signal 15
+
+=== [4a] miv-simulator pure Python tests ===
+============================= test session starts ==============================
+collecting ... collected 63 items
+
+tests/test_connections.py::TestChooseSynapseProjection::test_exact_match_returns_population_name PASSED [  1%]
+tests/test_connections.py::TestChooseSynapseProjection::test_inhibitory_match_returns_population_name PASSED [  3%]
+tests/test_connections.py::TestChooseSynapseProjection::test_wrong_swc_type_returns_none PASSED [  4%]
+tests/test_connections.py::TestChooseSynapseProjection::test_wrong_layer_returns_none PASSED [  6%]
+tests/test_connections.py::TestChooseSynapseProjection::test_multiple_candidates_selects_one PASSED [  7%]
+tests/test_connections.py::TestPartitionSynapsesToProjections::test_all_synapses_assigned PASSED [  9%]
+tests/test_connections.py::TestPartitionSynapsesToProjections::test_excitatory_synapses_go_to_PopExc PASSED [ 11%]
+tests/test_connections.py::TestPartitionSynapsesToProjections::test_inhibitory_synapses_go_to_PopInh PASSED [ 12%]
+tests/test_connections.py::TestPartitionSynapsesToProjections::test_cdist_dict_populated_for_all_synapses PASSED [ 14%]
+tests/test_connections.py::TestPartitionSynapsesToProjections::test_assertion_fails_when_projection_is_empty PASSED [ 15%]
+tests/test_connections.py::TestSelectLayerSourceVertices::test_empty_source_gids_returns_empty_arrays PASSED [ 17%]
+tests/test_connections.py::TestSelectLayerSourceVertices::test_output_length_matches_syn_ids PASSED [ 19%]
+tests/test_connections.py::TestSelectLayerSourceVertices::test_source_vertices_are_valid_gids PASSED [ 20%]
+tests/test_connections.py::TestSelectLayerSourceVertices::test_syn_ids_ordered_by_cable_distance PASSED [ 22%]
+tests/test_connections.py::TestSelectLayerSourceVertices::test_distances_are_sum_of_u_and_v PASSED [ 23%]
+tests/test_connections.py::TestSelectLayerSourceVertices::test_contacts_greater_than_1_multiplies_counts PASSED [ 25%]
+tests/test_connections.py::TestConsolidateProjectionConnections::test_empty_lists_raise_assertion PASSED [ 26%]
+tests/test_connections.py::TestConsolidateProjectionConnections::test_single_layer_writes_gid_dict_entry PASSED [ 28%]
+tests/test_connections.py::TestConsolidateProjectionConnections::test_returns_correct_count PASSED [ 30%]
+tests/test_connections.py::TestConsolidateProjectionConnections::test_multi_layer_concatenates_arrays PASSED [ 31%]
+tests/test_connections.py::TestConsolidateProjectionConnections::test_syn_id_dtype_is_uint32 PASSED [ 33%]
+tests/test_connections.py::TestConnectionProbability::test_width_stored_correctly PASSED [ 34%]
+tests/test_connections.py::TestConnectionProbability::test_scale_factor_is_width_over_3 PASSED [ 36%]
+tests/test_connections.py::TestConnectionProbability::test_filter_by_distance_excludes_distant_sources PASSED [ 38%]
+tests/test_connections.py::TestConnectionProbability::test_filter_by_distance_includes_nearby_sources PASSED [ 39%]
+tests/test_connections.py::TestConnectionProbability::test_get_probability_probs_sum_to_one PASSED [ 41%]
+tests/test_connections.py::TestConnectionProbability::test_get_probability_probs_are_non_negative PASSED [ 42%]
+tests/test_connections.py::TestConnectionProbability::test_missing_layer_config_raises_runtime_error PASSED [ 44%]
+tests/test_connections.py::TestGenerateSynapticConnections::test_connection_dict_contains_both_projections PASSED [ 46%]
+tests/test_connections.py::TestGenerateSynapticConnections::test_total_count_matches_number_of_synapses PASSED [ 47%]
+tests/test_connections.py::TestGenerateSynapticConnections::test_gid_dict_structure_is_correct PASSED [ 49%]
+tests/test_connections.py::TestGenerateSynapticConnections::test_exc_connections_sourced_from_exc_gids PASSED [ 50%]
+tests/test_connections.py::TestGenerateSynapticConnections::test_deterministic_with_fixed_seeds PASSED [ 52%]
+tests/test_input_features.py::test_temporal_feature_population PASSED    [ 53%]
+tests/test_input_features.py::test_visual_feature_encoding FAILED        [ 55%]
+tests/test_distribute_synapses.py::TestUpdateSynapseStatistics::test_excitatory_counts_accumulate PASSED [ 57%]
+tests/test_distribute_synapses.py::TestUpdateSynapseStatistics::test_mixed_types_accumulate_separately PASSED [ 58%]
+tests/test_distribute_synapses.py::TestUpdateSynapseStatistics::test_unknown_syn_type_raises PASSED [ 60%]
+tests/test_distribute_synapses.py::TestCheckSynapses::test_no_warning_when_layers_populated PASSED [ 61%]
+tests/test_distribute_synapses.py::TestCheckSynapses::test_warning_when_layer_missing PASSED [ 63%]
+tests/test_distribute_synapses.py::TestLocalSynSummary::test_output_contains_layer_and_swc_type_counts PASSED [ 65%]
+tests/test_distribute_synapses.py::TestGetNodeAttribute::test_returns_none_when_name_absent PASSED [ 66%]
+tests/test_distribute_synapses.py::TestGetNodeAttribute::test_returns_value_when_x_is_none PASSED [ 68%]
+tests/test_distribute_synapses.py::TestGetNodeAttribute::test_returns_first_element_when_no_3d_points PASSED [ 69%]
+tests/test_distribute_synapses.py::TestGetNodeAttribute::test_interpolates_at_position PASSED [ 71%]
+tests/test_distribute_synapses.py::TestSynapseSegDensity::test_returns_positive_density_for_nonzero_mean PASSED [ 73%]
+tests/test_distribute_synapses.py::TestSynapseSegDensity::test_layers_dict_has_correct_structure PASSED [ 74%]
+tests/test_distribute_synapses.py::TestSynapseSegCounts::test_returns_positive_count_for_nonzero_mean PASSED [ 76%]
+tests/test_distribute_synapses.py::TestSynapseSegCounts::test_zero_count_for_zero_mean PASSED [ 77%]
+tests/test_distribute_synapses.py::TestDistributeUniformSynapses::test_returns_all_required_keys PASSED [ 79%]
+tests/test_distribute_synapses.py::TestDistributeUniformSynapses::test_syn_ids_are_contiguous_from_zero PASSED [ 80%]
+tests/test_distribute_synapses.py::TestDistributeUniformSynapses::test_syn_locs_in_unit_interval PASSED [ 82%]
+tests/test_distribute_synapses.py::TestDistributeUniformSynapses::test_swc_type_matches_section PASSED [ 84%]
+tests/test_distribute_synapses.py::TestDistributeUniformSynapses::test_syn_types_match_excitatory PASSED [ 85%]
+tests/test_distribute_synapses.py::TestDistributePoissonSynapses::test_returns_all_required_keys PASSED [ 87%]
+tests/test_distribute_synapses.py::TestDistributePoissonSynapses::test_syn_locs_in_unit_interval PASSED [ 88%]
+tests/test_distribute_synapses.py::TestDistributePoissonSynapses::test_swc_type_matches_section PASSED [ 90%]
+tests/test_distribute_synapses.py::TestDistributePoissonSynapses::test_reproducibility_with_same_seed PASSED [ 92%]
+tests/test_distribute_synapses.py::TestDistributePoissonSynapses::test_different_seeds_give_different_results PASSED [ 93%]
+tests/test_distribute_synapses.py::TestSynapseSegDensityGuard::test_raises_after_max_retries_when_density_nonpositive PASSED [ 95%]
+tests/test_distribute_synapses.py::TestSynapseSegDensityGuard::test_error_message_contains_retry_count PASSED [ 96%]
+tests/test_distribute_synapses.py::TestDistributePoissonSynapsesGuard::test_raises_after_max_placement_retries_when_segment_unreachable PASSED [ 98%]
+tests/test_distribute_synapses.py::TestDistributePoissonSynapsesGuard::test_error_message_contains_retry_count PASSED [100%]
+
+=================================== FAILURES ===================================
+_________________________ test_visual_feature_encoding _________________________
+tests/test_input_features.py:586: in test_visual_feature_encoding
+    feature_space = FeatureSpace(name="sensory_space", dimensions=4)
+E   TypeError: FeatureSpace.__init__() got an unexpected keyword argument 'dimensions'
+=============================== warnings summary ===============================
+tests/test_distribute_synapses.py::TestUpdateSynapseStatistics::test_excitatory_counts_accumulate
+  /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/rbf/linalg.py:11: DeprecationWarning: Please import `LinAlgWarning` from the `scipy.linalg` namespace; the `scipy.linalg.misc` namespace is deprecated and will be removed in SciPy 2.0.0.
+    from scipy.linalg.misc import LinAlgWarning
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_input_features.py::test_visual_feature_encoding - TypeError...
+=================== 1 failed, 62 passed, 1 warning in 32.56s ===================
+numprocs=1
+
+=== [4b] miv-simulator eval_network + synapses tests ===
+============================= test session starts ==============================
+collecting ... collected 159 items
+
+tests/test_eval_network.py::test_explicit_params_label_is_used FAILED    [  0%]
+tests/test_eval_network.py::test_default_label_picks_first_key FAILED    [  1%]
+tests/test_eval_network.py::test_all_param_names_mapped FAILED           [  1%]
+tests/test_eval_network.py::test_nested_path_fallback FAILED             [  2%]
+tests/test_eval_network.py::test_tuple_sec_type_flat_key_lookup FAILED   [  3%]
+tests/test_eval_network.py::test_tuple_sec_type_nested_path_fallback FAILED [  3%]
+tests/test_eval_network.py::test_tuple_sec_type_propagated_to_modify_syn_param PASSED [  4%]
+tests/test_eval_network.py::test_network_run_called_with_output_false FAILED [  5%]
+tests/test_eval_network.py::test_output_json_written_with_correct_structure FAILED [  5%]
+tests/test_eval_network.py::test_output_json_objectives_match_compute_objectives FAILED [  6%]
+tests/test_eval_network.py::test_output_json_constraints_keyed_by_population FAILED [  6%]
+tests/test_eval_network.py::test_no_output_file_when_output_path_is_none FAILED [  7%]
+tests/test_eval_network.py::test_kwargs_from_operational_config_forwarded_to_init_network FAILED [  8%]
+tests/test_eval_network.py::test_explicit_network_kwargs_not_overwritten_by_op_config FAILED [  8%]
+tests/test_eval_network.py::test_network_shutdown_called FAILED          [  9%]
+tests/test_eval_network.py::test_cleanup_true_raises_runtime_error FAILED [ 10%]
+tests/test_eval_network.py::test_io_utils_mkout_spikeout_lfpout_called FAILED [ 10%]
+tests/test_eval_network.py::test_io_utils_recsout_called_when_recording_profile_set FAILED [ 11%]
+tests/test_synapses.py::TestSynParamFromDict::test_all_fields_populated PASSED [ 11%]
+tests/test_synapses.py::TestSynParamFromDict::test_missing_key_raises PASSED [ 12%]
+tests/test_synapses.py::TestSynParamFromDict::test_extra_keys_ignored PASSED [ 13%]
+tests/test_synapses.py::TestGetMechRulesDict::test_value_only PASSED     [ 13%]
+tests/test_synapses.py::TestGetMechRulesDict::test_origin_valid_section PASSED [ 14%]
+tests/test_synapses.py::TestGetMechRulesDict::test_origin_empty_section_raises PASSED [ 15%]
+tests/test_synapses.py::TestGetMechRulesDict::test_origin_parent_always_valid PASSED [ 15%]
+tests/test_synapses.py::TestGetMechRulesDict::test_origin_branch_origin_always_valid PASSED [ 16%]
+tests/test_synapses.py::TestGetMechRulesDict::test_origin_invalid_raises PASSED [ 16%]
+tests/test_synapses.py::TestGetMechRulesDict::test_none_values_excluded PASSED [ 17%]
+tests/test_synapses.py::TestGetMechRulesDict::test_both_value_and_origin PASSED [ 18%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_no_filters_selects_all PASSED [ 18%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_syn_sections_filter PASSED [ 19%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_syn_indexes_filter PASSED [ 20%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_syn_types_excitatory_only PASSED [ 20%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_layers_filter PASSED [ 21%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_sources_filter PASSED [ 22%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_swc_types_filter PASSED [ 22%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_combined_syn_type_and_layer PASSED [ 23%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_empty_result_when_no_match PASSED [ 23%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_duplicate_values_deduplicated PASSED [ 24%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_valid_count_limits_scope PASSED [ 25%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreBasics::test_ensure_gid_storage_creates_entry PASSED [ 25%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreBasics::test_ensure_gid_storage_idempotent PASSED [ 26%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreBasics::test_ensure_mech_storage_creates_has_mech_array PASSED [ 27%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreBasics::test_ensure_param_array_fills_with_nan PASSED [ 27%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreBasics::test_ensure_param_array_idempotent PASSED [ 28%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreBasics::test_has_mechanism_false_before_set PASSED [ 28%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreBasics::test_has_mechanism_true_after_set PASSED [ 29%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreSetGet::test_set_and_get_numeric_value PASSED [ 30%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreSetGet::test_set_and_get_complex_value PASSED [ 30%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreSetGet::test_unknown_mechanism_returns_false PASSED [ 31%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreSetGet::test_unknown_param_returns_false PASSED [ 32%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreSetGet::test_resize_triggered_on_out_of_bounds_index PASSED [ 32%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreSetGet::test_resize_preserves_existing_values PASSED [ 33%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_global_default_none_selector PASSED [ 33%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_list_selector_applies_only_to_listed_ids PASSED [ 34%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_callable_selector PASSED [ 35%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_most_recent_default_takes_precedence PASSED [ 35%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_has_default_params_true_when_matching PASSED [ 36%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_has_default_params_false_when_none_match PASSED [ 37%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_get_default_params_returns_correct_set PASSED [ 37%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_hierarchy_specific_overrides_default PASSED [ 38%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_hierarchy_fallback_to_default PASSED [ 38%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_hierarchy_no_value_returns_none PASSED [ 39%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_set_default_unknown_mech_returns_false PASSED [ 40%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_complex_value_stored_and_retrieved PASSED [ 40%]
+tests/test_synapses.py::TestResizeArrays::test_resize_extends_has_mech_array PASSED [ 41%]
+tests/test_synapses.py::TestResizeArrays::test_resize_extends_param_arrays_with_nan PASSED [ 42%]
+tests/test_synapses.py::TestResizeArrays::test_resize_preserves_existing_bool_flags PASSED [ 42%]
+tests/test_synapses.py::TestResizeArrays::test_resize_noop_when_new_size_smaller PASSED [ 43%]
+tests/test_synapses.py::TestResizeArrays::test_gid_not_present_is_noop PASSED [ 44%]
+tests/test_synapses.py::TestCreateSelector::test_none_selector_matches_all PASSED [ 44%]
+tests/test_synapses.py::TestCreateSelector::test_list_selector_matches_only_listed_ids PASSED [ 45%]
+tests/test_synapses.py::TestCreateSelector::test_ndarray_selector PASSED [ 45%]
+tests/test_synapses.py::TestCreateSelector::test_callable_selector_delegates PASSED [ 46%]
+tests/test_synapses.py::TestSynapseStore::test_add_synapses_from_arrays_stores_core_fields PASSED [ 47%]
+tests/test_synapses.py::TestSynapseStore::test_add_synapses_initializes_source_defaults PASSED [ 47%]
+tests/test_synapses.py::TestSynapseStore::test_get_synapse_returns_none_for_unknown_gid PASSED [ 48%]
+tests/test_synapses.py::TestSynapseStore::test_get_synapse_returns_none_for_unknown_syn_id PASSED [ 49%]
+tests/test_synapses.py::TestSynapseStore::test_get_synapse_view_fields_match_stored PASSED [ 49%]
+tests/test_synapses.py::TestSynapseStore::test_get_synapses_by_filter_single_field PASSED [ 50%]
+tests/test_synapses.py::TestSynapseStore::test_get_synapses_by_filter_multiple_values PASSED [ 50%]
+tests/test_synapses.py::TestSynapseStore::test_get_synapses_by_filter_empty_result PASSED [ 51%]
+tests/test_synapses.py::TestSynapseStore::test_keys_yields_all_syn_ids PASSED [ 52%]
+tests/test_synapses.py::TestSynapseStore::test_items_yields_all_synapse_views PASSED [ 52%]
+tests/test_synapses.py::TestSynapseStore::test_keys_empty_for_unknown_gid PASSED [ 53%]
+tests/test_synapses.py::TestSynapseStore::test_ensure_capacity_grows_on_overflow PASSED [ 54%]
+tests/test_synapses.py::TestSynapseView::test_property_reads_correct_values PASSED [ 54%]
+tests/test_synapses.py::TestSynapseView::test_property_setter_mutates_backing_array PASSED [ 55%]
+tests/test_synapses.py::TestSynapseView::test_source_view_reads_gid_population_delay PASSED [ 55%]
+tests/test_synapses.py::TestSynapseView::test_source_view_setter_persists PASSED [ 56%]
+tests/test_synapses.py::TestGetSynFilterDict::test_valid_syn_types_no_convert PASSED [ 57%]
+tests/test_synapses.py::TestGetSynFilterDict::test_valid_syn_types_with_convert PASSED [ 57%]
+tests/test_synapses.py::TestGetSynFilterDict::test_unknown_syn_type_raises PASSED [ 58%]
+tests/test_synapses.py::TestGetSynFilterDict::test_valid_swc_type_with_convert PASSED [ 59%]
+tests/test_synapses.py::TestGetSynFilterDict::test_unknown_swc_type_raises PASSED [ 59%]
+tests/test_synapses.py::TestGetSynFilterDict::test_valid_layer_with_convert PASSED [ 60%]
+tests/test_synapses.py::TestGetSynFilterDict::test_unknown_layer_raises PASSED [ 61%]
+tests/test_synapses.py::TestGetSynFilterDict::test_valid_source_with_convert PASSED [ 61%]
+tests/test_synapses.py::TestGetSynFilterDict::test_unknown_source_raises PASSED [ 62%]
+tests/test_synapses.py::TestGetSynFilterDict::test_unrecognized_filter_name_raises_by_default PASSED [ 62%]
+tests/test_synapses.py::TestGetSynFilterDict::test_unrecognized_filter_name_allowed_when_check_false PASSED [ 63%]
+tests/test_synapses.py::TestGetSynFilterDict::test_input_deep_copied PASSED [ 64%]
+tests/test_synapses.py::TestGetSynFilterDict::test_empty_rules_returns_empty_dict PASSED [ 64%]
+tests/test_synapses.py::TestValidateSynMechParam::test_valid_mech_param_returns_true PASSED [ 65%]
+tests/test_synapses.py::TestValidateSynMechParam::test_valid_netcon_param_returns_true PASSED [ 66%]
+tests/test_synapses.py::TestValidateSynMechParam::test_unknown_syn_name_returns_false PASSED [ 66%]
+tests/test_synapses.py::TestValidateSynMechParam::test_unknown_param_name_returns_false PASSED [ 67%]
+tests/test_synapses.py::TestSynapseManagerInitSynIdAttrs::test_init_stores_all_synapses PASSED [ 67%]
+tests/test_synapses.py::TestSynapseManagerInitSynIdAttrs::test_duplicate_gid_raises PASSED [ 68%]
+tests/test_synapses.py::TestSynapseManagerInitSynIdAttrs::test_empty_syn_ids_is_noop PASSED [ 69%]
+tests/test_synapses.py::TestSynapseManagerInitSynIdAttrs::test_init_from_iter_dict_mode PASSED [ 69%]
+tests/test_synapses.py::TestSynapseManagerInitEdgeAttrs::test_sets_source_population PASSED [ 70%]
+tests/test_synapses.py::TestSynapseManagerInitEdgeAttrs::test_sets_explicit_delays PASSED [ 71%]
+tests/test_synapses.py::TestSynapseManagerInitEdgeAttrs::test_uninitialized_gid_raises PASSED [ 71%]
+tests/test_synapses.py::TestSynapseManagerInitEdgeAttrs::test_unknown_syn_id_raises PASSED [ 72%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_by_syn_type PASSED [ 72%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_by_layer PASSED [ 73%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_by_sources PASSED [ 74%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_by_swc_type PASSED [ 74%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_combined_criteria PASSED [ 75%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_empty_gid_returns_empty PASSED [ 76%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_no_filters_returns_all PASSED [ 76%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_synapse_ids_dtype PASSED [ 77%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_synapse_ids_no_filters_returns_all PASSED [ 77%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_cache_returns_same_result PASSED [ 78%]
+tests/test_synapses.py::TestSynapseManagerPartitionBySource::test_all_populations_present_in_result PASSED [ 79%]
+tests/test_synapses.py::TestSynapseManagerPartitionBySource::test_gc_yields_correct_syn_ids PASSED [ 79%]
+tests/test_synapses.py::TestSynapseManagerPartitionBySource::test_mc_yields_correct_syn_ids PASSED [ 80%]
+tests/test_synapses.py::TestSynapseManagerPartitionBySource::test_partition_with_explicit_syn_ids PASSED [ 81%]
+tests/test_synapses.py::TestSynapseManagerPartitionBySource::test_unknown_gid_returns_empty_iterators PASSED [ 81%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_add_and_has_point_process PASSED [ 82%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_get_point_process PASSED [ 83%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_duplicate_point_process_raises PASSED [ 83%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_get_missing_throw_false_returns_none PASSED [ 84%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_add_has_get_netcon PASSED [ 84%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_del_netcon_removes_entry PASSED [ 85%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_del_netcon_throw_false_when_absent PASSED [ 86%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_add_has_get_vecstim PASSED [ 86%]
+tests/test_synapses.py::TestAddDefaultMechanismParameters::test_default_params_readable_via_get_effective PASSED [ 87%]
+tests/test_synapses.py::TestAddDefaultMechanismParameters::test_default_applies_to_all_synapses PASSED [ 88%]
+tests/test_synapses.py::TestAddDefaultMechanismParameters::test_gaba_label_resolves_to_exp2syn PASSED [ 88%]
+tests/test_synapses.py::TestAddMechanismParametersFromIter::test_sets_parameter_via_iter PASSED [ 89%]
+tests/test_synapses.py::TestAddMechanismParametersFromIter::test_duplicate_raises_in_error_mode PASSED [ 89%]
+tests/test_synapses.py::TestAddMechanismParametersFromIter::test_duplicate_skipped_in_skip_mode PASSED [ 90%]
+tests/test_synapses.py::TestAddMechanismParametersFromIter::test_duplicate_overwritten_in_overwrite_mode PASSED [ 91%]
+tests/test_synapses.py::TestAddMechanismParametersFromIter::test_unknown_gid_raises PASSED [ 91%]
+tests/test_synapses.py::TestGetMechanismParameters::test_returns_set_value PASSED [ 92%]
+tests/test_synapses.py::TestGetMechanismParameters::test_returns_none_for_unknown_syn_id PASSED [ 93%]
+tests/test_synapses.py::TestGetMechanismParameters::test_raises_for_unknown_syn_id PASSED [ 93%]
+tests/test_synapses.py::TestGetMechanismParameters::test_returns_none_when_no_params_set PASSED [ 94%]
+tests/test_synapses.py::TestModifySynParam::test_raises_when_sec_type_not_in_cell PASSED [ 94%]
+tests/test_synapses.py::TestModifySynParam::test_raises_when_param_name_is_none PASSED [ 95%]
+tests/test_synapses.py::TestModifySynParam::test_raises_when_value_is_none PASSED [ 96%]
+tests/test_synapses.py::TestModifySynParam::test_raises_when_param_not_recognized PASSED [ 96%]
+tests/test_synapses.py::TestModifySynParam::test_populates_mech_dict_on_first_call PASSED [ 97%]
+tests/test_synapses.py::TestModifySynParam::test_second_call_overwrites_mech_dict_value PASSED [ 98%]
+tests/test_synapses.py::TestModifySynParam::test_tau_stored_for_all_syn_ids PASSED [ 98%]
+tests/test_synapses.py::TestModifySynParam::test_netcon_weight_stored_for_all_syn_ids PASSED [ 99%]
+tests/test_synapses.py::TestModifySynParam::test_second_call_overwrites_param_store_value PASSED [100%]
+
+=================================== FAILURES ===================================
+______________________ test_explicit_params_label_is_used ______________________
+tests/test_eval_network.py:246: in test_explicit_params_label_is_used
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+______________________ test_default_label_picks_first_key ______________________
+tests/test_eval_network.py:282: in test_default_label_picks_first_key
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+_________________________ test_all_param_names_mapped __________________________
+tests/test_eval_network.py:323: in test_all_param_names_mapped
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+__________________________ test_nested_path_fallback ___________________________
+tests/test_eval_network.py:372: in test_nested_path_fallback
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+_____________________ test_tuple_sec_type_flat_key_lookup ______________________
+tests/test_eval_network.py:425: in test_tuple_sec_type_flat_key_lookup
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+___________________ test_tuple_sec_type_nested_path_fallback ___________________
+tests/test_eval_network.py:477: in test_tuple_sec_type_nested_path_fallback
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+__________________ test_network_run_called_with_output_false ___________________
+tests/test_eval_network.py:543: in test_network_run_called_with_output_false
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+_______________ test_output_json_written_with_correct_structure ________________
+tests/test_eval_network.py:581: in test_output_json_written_with_correct_structure
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+_____________ test_output_json_objectives_match_compute_objectives _____________
+tests/test_eval_network.py:618: in test_output_json_objectives_match_compute_objectives
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+_______________ test_output_json_constraints_keyed_by_population _______________
+tests/test_eval_network.py:651: in test_output_json_constraints_keyed_by_population
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+_________________ test_no_output_file_when_output_path_is_none _________________
+tests/test_eval_network.py:682: in test_no_output_file_when_output_path_is_none
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+________ test_kwargs_from_operational_config_forwarded_to_init_network _________
+tests/test_eval_network.py:726: in test_kwargs_from_operational_config_forwarded_to_init_network
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+__________ test_explicit_network_kwargs_not_overwritten_by_op_config ___________
+tests/test_eval_network.py:777: in test_explicit_network_kwargs_not_overwritten_by_op_config
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+_________________________ test_network_shutdown_called _________________________
+tests/test_eval_network.py:831: in test_network_shutdown_called
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+____________________ test_cleanup_true_raises_runtime_error ____________________
+tests/test_eval_network.py:885: in test_cleanup_true_raises_runtime_error
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+__________________ test_io_utils_mkout_spikeout_lfpout_called __________________
+tests/test_eval_network.py:919: in test_io_utils_mkout_spikeout_lfpout_called
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+___________ test_io_utils_recsout_called_when_recording_profile_set ____________
+tests/test_eval_network.py:953: in test_io_utils_recsout_called_when_recording_profile_set
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+=========================== short test summary info ============================
+FAILED tests/test_eval_network.py::test_explicit_params_label_is_used - Attri...
+FAILED tests/test_eval_network.py::test_default_label_picks_first_key - Attri...
+FAILED tests/test_eval_network.py::test_all_param_names_mapped - AttributeErr...
+FAILED tests/test_eval_network.py::test_nested_path_fallback - AttributeError...
+FAILED tests/test_eval_network.py::test_tuple_sec_type_flat_key_lookup - Attr...
+FAILED tests/test_eval_network.py::test_tuple_sec_type_nested_path_fallback
+FAILED tests/test_eval_network.py::test_network_run_called_with_output_false
+FAILED tests/test_eval_network.py::test_output_json_written_with_correct_structure
+FAILED tests/test_eval_network.py::test_output_json_objectives_match_compute_objectives
+FAILED tests/test_eval_network.py::test_output_json_constraints_keyed_by_population
+FAILED tests/test_eval_network.py::test_no_output_file_when_output_path_is_none
+FAILED tests/test_eval_network.py::test_kwargs_from_operational_config_forwarded_to_init_network
+FAILED tests/test_eval_network.py::test_explicit_network_kwargs_not_overwritten_by_op_config
+FAILED tests/test_eval_network.py::test_network_shutdown_called - AttributeEr...
+FAILED tests/test_eval_network.py::test_cleanup_true_raises_runtime_error - A...
+FAILED tests/test_eval_network.py::test_io_utils_mkout_spikeout_lfpout_called
+FAILED tests/test_eval_network.py::test_io_utils_recsout_called_when_recording_profile_set
+======================== 17 failed, 142 passed in 3.15s ========================
+numprocs=1
+
+=== [5] CoreNEURON GPU backend probe ===
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+  NEURON import OK
+  CoreNEURON: <neuron.coreneuron.coreneuron object at 0x15178f178590>
+  GPU attr present: True
+  GPU mode set: True
+
+=== [6] MiV CLI tools ===
+numprocs=1
+---
+numprocs=1
+
+=== [7] Generating wiki summary ===
+  Wiki saved: /home/hyoklee/NeuroFAIR/wiki/miv_polaris_build_test.md
+
+==== Done ====
+Date: Wed Apr 22 11:50:42 PM UTC 2026
+Results: /lus/grand/projects/gpu_hack/iowarp/miv_polaris/results/
+Wiki:    /home/hyoklee/NeuroFAIR/wiki/miv_polaris_build_test.md
+==== miv-simulator + neuroh5 test on Polaris ====
+Date:      Wed Apr 22 11:53:58 PM UTC 2026
+Job:       7097206.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov
+Nodes:     1  (x3109c0s13b0n0.hsn.cm.polaris.alcf.anl.gov )
+Python:    /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/bin/python3  Python 3.11.7
+VENV:      /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv
+
+=== [1] GPU check ===
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+
+=== [2] Import checks ===
+  OK  mpi4py: 3.1.4
+  OK  h5py: 3.16.0
+  OK  numpy: 2.4.4
+  OK  neuroh5: ok
+  OK  neuroh5.io: ['NeuroH5CellAttrGen', 'NeuroH5CellAttrIter', 'NeuroH5EdgeIter']
+  OK  miv_simulator: ok
+  OK  neuron: 9.0.1
+numprocs=1
+
+=== [3] Parallel neuroh5 I/O tests (4 ranks) ===
+
+============================================================
+  Test 1: scatter_read_trees
+============================================================
+HDF5-DIAG: Error detected in HDF5 (1.14.3) MPI-process 0:
+  #000: ../../src/H5D.c line 1061 in H5Dread(): can't synchronously read data
+    major: Dataset
+    minor: Read failed
+  #001: ../../src/H5D.c line 1008 in H5D__read_api_common(): can't read data
+    major: Dataset
+    minor: Read failed
+  #002: ../../src/H5VLcallback.c line 2092 in H5VL_dataset_read_direct(): dataset read failed
+    major: Virtual Object Layer
+    minor: Read failed
+  #003: ../../src/H5VLcallback.c line 2048 in H5VL__dataset_read(): dataset read failed
+    major: Virtual Object Layer
+    minor: Read failed
+  #004: ../../src/H5VLnative_dataset.c line 366 in H5VL__native_dataset_read(): unable to set up file and memory dataspaces
+    major: Dataset
+    minor: Unable to initialize object
+  #005: ../../src/H5VLnative_dataset.c line 187 in H5VL__native_dataset_io_setup(): selection + offset not within extent for file dataspace
+    major: Dataspace
+    minor: Out of range
+hdf5::read: error in H5Dread: Assertion 'ierr >= 0' failed in file '/home/hyoklee/neuroh5/include/hdf5/read_template.hh' line 64
+terminate called after throwing an instance of 'AssertionFailureException'
+  what():  hdf5::read: error in H5Dread: Assertion 'ierr >= 0' failed in file '/home/hyoklee/neuroh5/include/hdf5/read_template.hh' line 64
+x3109c0s13b0n0.hsn.cm.polaris.alcf.anl.gov: rank 0 died from signal 6 and dumped core
+x3109c0s13b0n0.hsn.cm.polaris.alcf.anl.gov: rank 2 died from signal 15
+
+=== [4a] miv-simulator pure Python tests ===
+============================= test session starts ==============================
+collecting ... collected 63 items
+
+tests/test_connections.py::TestChooseSynapseProjection::test_exact_match_returns_population_name PASSED [  1%]
+tests/test_connections.py::TestChooseSynapseProjection::test_inhibitory_match_returns_population_name PASSED [  3%]
+tests/test_connections.py::TestChooseSynapseProjection::test_wrong_swc_type_returns_none PASSED [  4%]
+tests/test_connections.py::TestChooseSynapseProjection::test_wrong_layer_returns_none PASSED [  6%]
+tests/test_connections.py::TestChooseSynapseProjection::test_multiple_candidates_selects_one PASSED [  7%]
+tests/test_connections.py::TestPartitionSynapsesToProjections::test_all_synapses_assigned PASSED [  9%]
+tests/test_connections.py::TestPartitionSynapsesToProjections::test_excitatory_synapses_go_to_PopExc PASSED [ 11%]
+tests/test_connections.py::TestPartitionSynapsesToProjections::test_inhibitory_synapses_go_to_PopInh PASSED [ 12%]
+tests/test_connections.py::TestPartitionSynapsesToProjections::test_cdist_dict_populated_for_all_synapses PASSED [ 14%]
+tests/test_connections.py::TestPartitionSynapsesToProjections::test_assertion_fails_when_projection_is_empty PASSED [ 15%]
+tests/test_connections.py::TestSelectLayerSourceVertices::test_empty_source_gids_returns_empty_arrays PASSED [ 17%]
+tests/test_connections.py::TestSelectLayerSourceVertices::test_output_length_matches_syn_ids PASSED [ 19%]
+tests/test_connections.py::TestSelectLayerSourceVertices::test_source_vertices_are_valid_gids PASSED [ 20%]
+tests/test_connections.py::TestSelectLayerSourceVertices::test_syn_ids_ordered_by_cable_distance PASSED [ 22%]
+tests/test_connections.py::TestSelectLayerSourceVertices::test_distances_are_sum_of_u_and_v PASSED [ 23%]
+tests/test_connections.py::TestSelectLayerSourceVertices::test_contacts_greater_than_1_multiplies_counts PASSED [ 25%]
+tests/test_connections.py::TestConsolidateProjectionConnections::test_empty_lists_raise_assertion PASSED [ 26%]
+tests/test_connections.py::TestConsolidateProjectionConnections::test_single_layer_writes_gid_dict_entry PASSED [ 28%]
+tests/test_connections.py::TestConsolidateProjectionConnections::test_returns_correct_count PASSED [ 30%]
+tests/test_connections.py::TestConsolidateProjectionConnections::test_multi_layer_concatenates_arrays PASSED [ 31%]
+tests/test_connections.py::TestConsolidateProjectionConnections::test_syn_id_dtype_is_uint32 PASSED [ 33%]
+tests/test_connections.py::TestConnectionProbability::test_width_stored_correctly PASSED [ 34%]
+tests/test_connections.py::TestConnectionProbability::test_scale_factor_is_width_over_3 PASSED [ 36%]
+tests/test_connections.py::TestConnectionProbability::test_filter_by_distance_excludes_distant_sources PASSED [ 38%]
+tests/test_connections.py::TestConnectionProbability::test_filter_by_distance_includes_nearby_sources PASSED [ 39%]
+tests/test_connections.py::TestConnectionProbability::test_get_probability_probs_sum_to_one PASSED [ 41%]
+tests/test_connections.py::TestConnectionProbability::test_get_probability_probs_are_non_negative PASSED [ 42%]
+tests/test_connections.py::TestConnectionProbability::test_missing_layer_config_raises_runtime_error PASSED [ 44%]
+tests/test_connections.py::TestGenerateSynapticConnections::test_connection_dict_contains_both_projections PASSED [ 46%]
+tests/test_connections.py::TestGenerateSynapticConnections::test_total_count_matches_number_of_synapses PASSED [ 47%]
+tests/test_connections.py::TestGenerateSynapticConnections::test_gid_dict_structure_is_correct PASSED [ 49%]
+tests/test_connections.py::TestGenerateSynapticConnections::test_exc_connections_sourced_from_exc_gids PASSED [ 50%]
+tests/test_connections.py::TestGenerateSynapticConnections::test_deterministic_with_fixed_seeds PASSED [ 52%]
+tests/test_input_features.py::test_temporal_feature_population PASSED    [ 53%]
+tests/test_input_features.py::test_visual_feature_encoding FAILED        [ 55%]
+tests/test_distribute_synapses.py::TestUpdateSynapseStatistics::test_excitatory_counts_accumulate PASSED [ 57%]
+tests/test_distribute_synapses.py::TestUpdateSynapseStatistics::test_mixed_types_accumulate_separately PASSED [ 58%]
+tests/test_distribute_synapses.py::TestUpdateSynapseStatistics::test_unknown_syn_type_raises PASSED [ 60%]
+tests/test_distribute_synapses.py::TestCheckSynapses::test_no_warning_when_layers_populated PASSED [ 61%]
+tests/test_distribute_synapses.py::TestCheckSynapses::test_warning_when_layer_missing PASSED [ 63%]
+tests/test_distribute_synapses.py::TestLocalSynSummary::test_output_contains_layer_and_swc_type_counts PASSED [ 65%]
+tests/test_distribute_synapses.py::TestGetNodeAttribute::test_returns_none_when_name_absent PASSED [ 66%]
+tests/test_distribute_synapses.py::TestGetNodeAttribute::test_returns_value_when_x_is_none PASSED [ 68%]
+tests/test_distribute_synapses.py::TestGetNodeAttribute::test_returns_first_element_when_no_3d_points PASSED [ 69%]
+tests/test_distribute_synapses.py::TestGetNodeAttribute::test_interpolates_at_position PASSED [ 71%]
+tests/test_distribute_synapses.py::TestSynapseSegDensity::test_returns_positive_density_for_nonzero_mean PASSED [ 73%]
+tests/test_distribute_synapses.py::TestSynapseSegDensity::test_layers_dict_has_correct_structure PASSED [ 74%]
+tests/test_distribute_synapses.py::TestSynapseSegCounts::test_returns_positive_count_for_nonzero_mean PASSED [ 76%]
+tests/test_distribute_synapses.py::TestSynapseSegCounts::test_zero_count_for_zero_mean PASSED [ 77%]
+tests/test_distribute_synapses.py::TestDistributeUniformSynapses::test_returns_all_required_keys PASSED [ 79%]
+tests/test_distribute_synapses.py::TestDistributeUniformSynapses::test_syn_ids_are_contiguous_from_zero PASSED [ 80%]
+tests/test_distribute_synapses.py::TestDistributeUniformSynapses::test_syn_locs_in_unit_interval PASSED [ 82%]
+tests/test_distribute_synapses.py::TestDistributeUniformSynapses::test_swc_type_matches_section PASSED [ 84%]
+tests/test_distribute_synapses.py::TestDistributeUniformSynapses::test_syn_types_match_excitatory PASSED [ 85%]
+tests/test_distribute_synapses.py::TestDistributePoissonSynapses::test_returns_all_required_keys PASSED [ 87%]
+tests/test_distribute_synapses.py::TestDistributePoissonSynapses::test_syn_locs_in_unit_interval PASSED [ 88%]
+tests/test_distribute_synapses.py::TestDistributePoissonSynapses::test_swc_type_matches_section PASSED [ 90%]
+tests/test_distribute_synapses.py::TestDistributePoissonSynapses::test_reproducibility_with_same_seed PASSED [ 92%]
+tests/test_distribute_synapses.py::TestDistributePoissonSynapses::test_different_seeds_give_different_results PASSED [ 93%]
+tests/test_distribute_synapses.py::TestSynapseSegDensityGuard::test_raises_after_max_retries_when_density_nonpositive PASSED [ 95%]
+tests/test_distribute_synapses.py::TestSynapseSegDensityGuard::test_error_message_contains_retry_count PASSED [ 96%]
+tests/test_distribute_synapses.py::TestDistributePoissonSynapsesGuard::test_raises_after_max_placement_retries_when_segment_unreachable PASSED [ 98%]
+tests/test_distribute_synapses.py::TestDistributePoissonSynapsesGuard::test_error_message_contains_retry_count PASSED [100%]
+
+=================================== FAILURES ===================================
+_________________________ test_visual_feature_encoding _________________________
+tests/test_input_features.py:586: in test_visual_feature_encoding
+    feature_space = FeatureSpace(name="sensory_space", dimensions=4)
+E   TypeError: FeatureSpace.__init__() got an unexpected keyword argument 'dimensions'
+=============================== warnings summary ===============================
+tests/test_distribute_synapses.py::TestUpdateSynapseStatistics::test_excitatory_counts_accumulate
+  /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/rbf/linalg.py:11: DeprecationWarning: Please import `LinAlgWarning` from the `scipy.linalg` namespace; the `scipy.linalg.misc` namespace is deprecated and will be removed in SciPy 2.0.0.
+    from scipy.linalg.misc import LinAlgWarning
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_input_features.py::test_visual_feature_encoding - TypeError...
+=================== 1 failed, 62 passed, 1 warning in 4.12s ====================
+numprocs=1
+
+=== [4b] miv-simulator eval_network + synapses tests ===
+============================= test session starts ==============================
+collecting ... collected 159 items
+
+tests/test_eval_network.py::test_explicit_params_label_is_used FAILED    [  0%]
+tests/test_eval_network.py::test_default_label_picks_first_key FAILED    [  1%]
+tests/test_eval_network.py::test_all_param_names_mapped FAILED           [  1%]
+tests/test_eval_network.py::test_nested_path_fallback FAILED             [  2%]
+tests/test_eval_network.py::test_tuple_sec_type_flat_key_lookup FAILED   [  3%]
+tests/test_eval_network.py::test_tuple_sec_type_nested_path_fallback FAILED [  3%]
+tests/test_eval_network.py::test_tuple_sec_type_propagated_to_modify_syn_param PASSED [  4%]
+tests/test_eval_network.py::test_network_run_called_with_output_false FAILED [  5%]
+tests/test_eval_network.py::test_output_json_written_with_correct_structure FAILED [  5%]
+tests/test_eval_network.py::test_output_json_objectives_match_compute_objectives FAILED [  6%]
+tests/test_eval_network.py::test_output_json_constraints_keyed_by_population FAILED [  6%]
+tests/test_eval_network.py::test_no_output_file_when_output_path_is_none FAILED [  7%]
+tests/test_eval_network.py::test_kwargs_from_operational_config_forwarded_to_init_network FAILED [  8%]
+tests/test_eval_network.py::test_explicit_network_kwargs_not_overwritten_by_op_config FAILED [  8%]
+tests/test_eval_network.py::test_network_shutdown_called FAILED          [  9%]
+tests/test_eval_network.py::test_cleanup_true_raises_runtime_error FAILED [ 10%]
+tests/test_eval_network.py::test_io_utils_mkout_spikeout_lfpout_called FAILED [ 10%]
+tests/test_eval_network.py::test_io_utils_recsout_called_when_recording_profile_set FAILED [ 11%]
+tests/test_synapses.py::TestSynParamFromDict::test_all_fields_populated PASSED [ 11%]
+tests/test_synapses.py::TestSynParamFromDict::test_missing_key_raises PASSED [ 12%]
+tests/test_synapses.py::TestSynParamFromDict::test_extra_keys_ignored PASSED [ 13%]
+tests/test_synapses.py::TestGetMechRulesDict::test_value_only PASSED     [ 13%]
+tests/test_synapses.py::TestGetMechRulesDict::test_origin_valid_section PASSED [ 14%]
+tests/test_synapses.py::TestGetMechRulesDict::test_origin_empty_section_raises PASSED [ 15%]
+tests/test_synapses.py::TestGetMechRulesDict::test_origin_parent_always_valid PASSED [ 15%]
+tests/test_synapses.py::TestGetMechRulesDict::test_origin_branch_origin_always_valid PASSED [ 16%]
+tests/test_synapses.py::TestGetMechRulesDict::test_origin_invalid_raises PASSED [ 16%]
+tests/test_synapses.py::TestGetMechRulesDict::test_none_values_excluded PASSED [ 17%]
+tests/test_synapses.py::TestGetMechRulesDict::test_both_value_and_origin PASSED [ 18%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_no_filters_selects_all PASSED [ 18%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_syn_sections_filter PASSED [ 19%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_syn_indexes_filter PASSED [ 20%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_syn_types_excitatory_only PASSED [ 20%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_layers_filter PASSED [ 21%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_sources_filter PASSED [ 22%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_swc_types_filter PASSED [ 22%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_combined_syn_type_and_layer PASSED [ 23%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_empty_result_when_no_match PASSED [ 23%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_duplicate_values_deduplicated PASSED [ 24%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_valid_count_limits_scope PASSED [ 25%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreBasics::test_ensure_gid_storage_creates_entry PASSED [ 25%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreBasics::test_ensure_gid_storage_idempotent PASSED [ 26%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreBasics::test_ensure_mech_storage_creates_has_mech_array PASSED [ 27%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreBasics::test_ensure_param_array_fills_with_nan PASSED [ 27%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreBasics::test_ensure_param_array_idempotent PASSED [ 28%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreBasics::test_has_mechanism_false_before_set PASSED [ 28%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreBasics::test_has_mechanism_true_after_set PASSED [ 29%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreSetGet::test_set_and_get_numeric_value PASSED [ 30%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreSetGet::test_set_and_get_complex_value PASSED [ 30%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreSetGet::test_unknown_mechanism_returns_false PASSED [ 31%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreSetGet::test_unknown_param_returns_false PASSED [ 32%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreSetGet::test_resize_triggered_on_out_of_bounds_index PASSED [ 32%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreSetGet::test_resize_preserves_existing_values PASSED [ 33%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_global_default_none_selector PASSED [ 33%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_list_selector_applies_only_to_listed_ids PASSED [ 34%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_callable_selector PASSED [ 35%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_most_recent_default_takes_precedence PASSED [ 35%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_has_default_params_true_when_matching PASSED [ 36%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_has_default_params_false_when_none_match PASSED [ 37%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_get_default_params_returns_correct_set PASSED [ 37%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_hierarchy_specific_overrides_default PASSED [ 38%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_hierarchy_fallback_to_default PASSED [ 38%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_hierarchy_no_value_returns_none PASSED [ 39%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_set_default_unknown_mech_returns_false PASSED [ 40%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_complex_value_stored_and_retrieved PASSED [ 40%]
+tests/test_synapses.py::TestResizeArrays::test_resize_extends_has_mech_array PASSED [ 41%]
+tests/test_synapses.py::TestResizeArrays::test_resize_extends_param_arrays_with_nan PASSED [ 42%]
+tests/test_synapses.py::TestResizeArrays::test_resize_preserves_existing_bool_flags PASSED [ 42%]
+tests/test_synapses.py::TestResizeArrays::test_resize_noop_when_new_size_smaller PASSED [ 43%]
+tests/test_synapses.py::TestResizeArrays::test_gid_not_present_is_noop PASSED [ 44%]
+tests/test_synapses.py::TestCreateSelector::test_none_selector_matches_all PASSED [ 44%]
+tests/test_synapses.py::TestCreateSelector::test_list_selector_matches_only_listed_ids PASSED [ 45%]
+tests/test_synapses.py::TestCreateSelector::test_ndarray_selector PASSED [ 45%]
+tests/test_synapses.py::TestCreateSelector::test_callable_selector_delegates PASSED [ 46%]
+tests/test_synapses.py::TestSynapseStore::test_add_synapses_from_arrays_stores_core_fields PASSED [ 47%]
+tests/test_synapses.py::TestSynapseStore::test_add_synapses_initializes_source_defaults PASSED [ 47%]
+tests/test_synapses.py::TestSynapseStore::test_get_synapse_returns_none_for_unknown_gid PASSED [ 48%]
+tests/test_synapses.py::TestSynapseStore::test_get_synapse_returns_none_for_unknown_syn_id PASSED [ 49%]
+tests/test_synapses.py::TestSynapseStore::test_get_synapse_view_fields_match_stored PASSED [ 49%]
+tests/test_synapses.py::TestSynapseStore::test_get_synapses_by_filter_single_field PASSED [ 50%]
+tests/test_synapses.py::TestSynapseStore::test_get_synapses_by_filter_multiple_values PASSED [ 50%]
+tests/test_synapses.py::TestSynapseStore::test_get_synapses_by_filter_empty_result PASSED [ 51%]
+tests/test_synapses.py::TestSynapseStore::test_keys_yields_all_syn_ids PASSED [ 52%]
+tests/test_synapses.py::TestSynapseStore::test_items_yields_all_synapse_views PASSED [ 52%]
+tests/test_synapses.py::TestSynapseStore::test_keys_empty_for_unknown_gid PASSED [ 53%]
+tests/test_synapses.py::TestSynapseStore::test_ensure_capacity_grows_on_overflow PASSED [ 54%]
+tests/test_synapses.py::TestSynapseView::test_property_reads_correct_values PASSED [ 54%]
+tests/test_synapses.py::TestSynapseView::test_property_setter_mutates_backing_array PASSED [ 55%]
+tests/test_synapses.py::TestSynapseView::test_source_view_reads_gid_population_delay PASSED [ 55%]
+tests/test_synapses.py::TestSynapseView::test_source_view_setter_persists PASSED [ 56%]
+tests/test_synapses.py::TestGetSynFilterDict::test_valid_syn_types_no_convert PASSED [ 57%]
+tests/test_synapses.py::TestGetSynFilterDict::test_valid_syn_types_with_convert PASSED [ 57%]
+tests/test_synapses.py::TestGetSynFilterDict::test_unknown_syn_type_raises PASSED [ 58%]
+tests/test_synapses.py::TestGetSynFilterDict::test_valid_swc_type_with_convert PASSED [ 59%]
+tests/test_synapses.py::TestGetSynFilterDict::test_unknown_swc_type_raises PASSED [ 59%]
+tests/test_synapses.py::TestGetSynFilterDict::test_valid_layer_with_convert PASSED [ 60%]
+tests/test_synapses.py::TestGetSynFilterDict::test_unknown_layer_raises PASSED [ 61%]
+tests/test_synapses.py::TestGetSynFilterDict::test_valid_source_with_convert PASSED [ 61%]
+tests/test_synapses.py::TestGetSynFilterDict::test_unknown_source_raises PASSED [ 62%]
+tests/test_synapses.py::TestGetSynFilterDict::test_unrecognized_filter_name_raises_by_default PASSED [ 62%]
+tests/test_synapses.py::TestGetSynFilterDict::test_unrecognized_filter_name_allowed_when_check_false PASSED [ 63%]
+tests/test_synapses.py::TestGetSynFilterDict::test_input_deep_copied PASSED [ 64%]
+tests/test_synapses.py::TestGetSynFilterDict::test_empty_rules_returns_empty_dict PASSED [ 64%]
+tests/test_synapses.py::TestValidateSynMechParam::test_valid_mech_param_returns_true PASSED [ 65%]
+tests/test_synapses.py::TestValidateSynMechParam::test_valid_netcon_param_returns_true PASSED [ 66%]
+tests/test_synapses.py::TestValidateSynMechParam::test_unknown_syn_name_returns_false PASSED [ 66%]
+tests/test_synapses.py::TestValidateSynMechParam::test_unknown_param_name_returns_false PASSED [ 67%]
+tests/test_synapses.py::TestSynapseManagerInitSynIdAttrs::test_init_stores_all_synapses PASSED [ 67%]
+tests/test_synapses.py::TestSynapseManagerInitSynIdAttrs::test_duplicate_gid_raises PASSED [ 68%]
+tests/test_synapses.py::TestSynapseManagerInitSynIdAttrs::test_empty_syn_ids_is_noop PASSED [ 69%]
+tests/test_synapses.py::TestSynapseManagerInitSynIdAttrs::test_init_from_iter_dict_mode PASSED [ 69%]
+tests/test_synapses.py::TestSynapseManagerInitEdgeAttrs::test_sets_source_population PASSED [ 70%]
+tests/test_synapses.py::TestSynapseManagerInitEdgeAttrs::test_sets_explicit_delays PASSED [ 71%]
+tests/test_synapses.py::TestSynapseManagerInitEdgeAttrs::test_uninitialized_gid_raises PASSED [ 71%]
+tests/test_synapses.py::TestSynapseManagerInitEdgeAttrs::test_unknown_syn_id_raises PASSED [ 72%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_by_syn_type PASSED [ 72%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_by_layer PASSED [ 73%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_by_sources PASSED [ 74%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_by_swc_type PASSED [ 74%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_combined_criteria PASSED [ 75%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_empty_gid_returns_empty PASSED [ 76%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_no_filters_returns_all PASSED [ 76%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_synapse_ids_dtype PASSED [ 77%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_synapse_ids_no_filters_returns_all PASSED [ 77%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_cache_returns_same_result PASSED [ 78%]
+tests/test_synapses.py::TestSynapseManagerPartitionBySource::test_all_populations_present_in_result PASSED [ 79%]
+tests/test_synapses.py::TestSynapseManagerPartitionBySource::test_gc_yields_correct_syn_ids PASSED [ 79%]
+tests/test_synapses.py::TestSynapseManagerPartitionBySource::test_mc_yields_correct_syn_ids PASSED [ 80%]
+tests/test_synapses.py::TestSynapseManagerPartitionBySource::test_partition_with_explicit_syn_ids PASSED [ 81%]
+tests/test_synapses.py::TestSynapseManagerPartitionBySource::test_unknown_gid_returns_empty_iterators PASSED [ 81%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_add_and_has_point_process PASSED [ 82%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_get_point_process PASSED [ 83%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_duplicate_point_process_raises PASSED [ 83%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_get_missing_throw_false_returns_none PASSED [ 84%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_add_has_get_netcon PASSED [ 84%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_del_netcon_removes_entry PASSED [ 85%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_del_netcon_throw_false_when_absent PASSED [ 86%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_add_has_get_vecstim PASSED [ 86%]
+tests/test_synapses.py::TestAddDefaultMechanismParameters::test_default_params_readable_via_get_effective PASSED [ 87%]
+tests/test_synapses.py::TestAddDefaultMechanismParameters::test_default_applies_to_all_synapses PASSED [ 88%]
+tests/test_synapses.py::TestAddDefaultMechanismParameters::test_gaba_label_resolves_to_exp2syn PASSED [ 88%]
+tests/test_synapses.py::TestAddMechanismParametersFromIter::test_sets_parameter_via_iter PASSED [ 89%]
+tests/test_synapses.py::TestAddMechanismParametersFromIter::test_duplicate_raises_in_error_mode PASSED [ 89%]
+tests/test_synapses.py::TestAddMechanismParametersFromIter::test_duplicate_skipped_in_skip_mode PASSED [ 90%]
+tests/test_synapses.py::TestAddMechanismParametersFromIter::test_duplicate_overwritten_in_overwrite_mode PASSED [ 91%]
+tests/test_synapses.py::TestAddMechanismParametersFromIter::test_unknown_gid_raises PASSED [ 91%]
+tests/test_synapses.py::TestGetMechanismParameters::test_returns_set_value PASSED [ 92%]
+tests/test_synapses.py::TestGetMechanismParameters::test_returns_none_for_unknown_syn_id PASSED [ 93%]
+tests/test_synapses.py::TestGetMechanismParameters::test_raises_for_unknown_syn_id PASSED [ 93%]
+tests/test_synapses.py::TestGetMechanismParameters::test_returns_none_when_no_params_set PASSED [ 94%]
+tests/test_synapses.py::TestModifySynParam::test_raises_when_sec_type_not_in_cell PASSED [ 94%]
+tests/test_synapses.py::TestModifySynParam::test_raises_when_param_name_is_none PASSED [ 95%]
+tests/test_synapses.py::TestModifySynParam::test_raises_when_value_is_none PASSED [ 96%]
+tests/test_synapses.py::TestModifySynParam::test_raises_when_param_not_recognized PASSED [ 96%]
+tests/test_synapses.py::TestModifySynParam::test_populates_mech_dict_on_first_call PASSED [ 97%]
+tests/test_synapses.py::TestModifySynParam::test_second_call_overwrites_mech_dict_value PASSED [ 98%]
+tests/test_synapses.py::TestModifySynParam::test_tau_stored_for_all_syn_ids PASSED [ 98%]
+tests/test_synapses.py::TestModifySynParam::test_netcon_weight_stored_for_all_syn_ids PASSED [ 99%]
+tests/test_synapses.py::TestModifySynParam::test_second_call_overwrites_param_store_value PASSED [100%]
+
+=================================== FAILURES ===================================
+______________________ test_explicit_params_label_is_used ______________________
+tests/test_eval_network.py:246: in test_explicit_params_label_is_used
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+______________________ test_default_label_picks_first_key ______________________
+tests/test_eval_network.py:282: in test_default_label_picks_first_key
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+_________________________ test_all_param_names_mapped __________________________
+tests/test_eval_network.py:323: in test_all_param_names_mapped
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+__________________________ test_nested_path_fallback ___________________________
+tests/test_eval_network.py:372: in test_nested_path_fallback
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+_____________________ test_tuple_sec_type_flat_key_lookup ______________________
+tests/test_eval_network.py:425: in test_tuple_sec_type_flat_key_lookup
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+___________________ test_tuple_sec_type_nested_path_fallback ___________________
+tests/test_eval_network.py:477: in test_tuple_sec_type_nested_path_fallback
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+__________________ test_network_run_called_with_output_false ___________________
+tests/test_eval_network.py:543: in test_network_run_called_with_output_false
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+_______________ test_output_json_written_with_correct_structure ________________
+tests/test_eval_network.py:581: in test_output_json_written_with_correct_structure
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+_____________ test_output_json_objectives_match_compute_objectives _____________
+tests/test_eval_network.py:618: in test_output_json_objectives_match_compute_objectives
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+_______________ test_output_json_constraints_keyed_by_population _______________
+tests/test_eval_network.py:651: in test_output_json_constraints_keyed_by_population
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+_________________ test_no_output_file_when_output_path_is_none _________________
+tests/test_eval_network.py:682: in test_no_output_file_when_output_path_is_none
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+________ test_kwargs_from_operational_config_forwarded_to_init_network _________
+tests/test_eval_network.py:726: in test_kwargs_from_operational_config_forwarded_to_init_network
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+__________ test_explicit_network_kwargs_not_overwritten_by_op_config ___________
+tests/test_eval_network.py:777: in test_explicit_network_kwargs_not_overwritten_by_op_config
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+_________________________ test_network_shutdown_called _________________________
+tests/test_eval_network.py:831: in test_network_shutdown_called
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+____________________ test_cleanup_true_raises_runtime_error ____________________
+tests/test_eval_network.py:885: in test_cleanup_true_raises_runtime_error
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+__________________ test_io_utils_mkout_spikeout_lfpout_called __________________
+tests/test_eval_network.py:919: in test_io_utils_mkout_spikeout_lfpout_called
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+___________ test_io_utils_recsout_called_when_recording_profile_set ____________
+tests/test_eval_network.py:953: in test_io_utils_recsout_called_when_recording_profile_set
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+=========================== short test summary info ============================
+FAILED tests/test_eval_network.py::test_explicit_params_label_is_used - Attri...
+FAILED tests/test_eval_network.py::test_default_label_picks_first_key - Attri...
+FAILED tests/test_eval_network.py::test_all_param_names_mapped - AttributeErr...
+FAILED tests/test_eval_network.py::test_nested_path_fallback - AttributeError...
+FAILED tests/test_eval_network.py::test_tuple_sec_type_flat_key_lookup - Attr...
+FAILED tests/test_eval_network.py::test_tuple_sec_type_nested_path_fallback
+FAILED tests/test_eval_network.py::test_network_run_called_with_output_false
+FAILED tests/test_eval_network.py::test_output_json_written_with_correct_structure
+FAILED tests/test_eval_network.py::test_output_json_objectives_match_compute_objectives
+FAILED tests/test_eval_network.py::test_output_json_constraints_keyed_by_population
+FAILED tests/test_eval_network.py::test_no_output_file_when_output_path_is_none
+FAILED tests/test_eval_network.py::test_kwargs_from_operational_config_forwarded_to_init_network
+FAILED tests/test_eval_network.py::test_explicit_network_kwargs_not_overwritten_by_op_config
+FAILED tests/test_eval_network.py::test_network_shutdown_called - AttributeEr...
+FAILED tests/test_eval_network.py::test_cleanup_true_raises_runtime_error - A...
+FAILED tests/test_eval_network.py::test_io_utils_mkout_spikeout_lfpout_called
+FAILED tests/test_eval_network.py::test_io_utils_recsout_called_when_recording_profile_set
+======================== 17 failed, 142 passed in 3.08s ========================
+numprocs=1
+
+=== [5] CoreNEURON GPU backend probe ===
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+  NEURON import OK
+  CoreNEURON: <neuron.coreneuron.coreneuron object at 0x14c197f6c450>
+  GPU attr present: True
+  GPU mode set: True
+
+=== [6] MiV CLI tools ===
+numprocs=1
+---
+numprocs=1
+
+=== [7] Generating wiki summary ===
+  Wiki saved: /home/hyoklee/NeuroFAIR/wiki/miv_polaris_build_test.md
+
+==== Done ====
+Date: Wed Apr 22 11:54:10 PM UTC 2026
+Results: /lus/grand/projects/gpu_hack/iowarp/miv_polaris/results/
+Wiki:    /home/hyoklee/NeuroFAIR/wiki/miv_polaris_build_test.md
+==== miv-simulator + neuroh5 test on Polaris ====
+Date:      Wed Apr 22 11:58:35 PM UTC 2026
+Job:       7097208.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov
+Nodes:     1  (x3109c0s13b0n0.hsn.cm.polaris.alcf.anl.gov )
+Python:    /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/bin/python3  Python 3.11.7
+VENV:      /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv
+
+=== [1] GPU check ===
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+
+=== [2] Import checks ===
+  OK  mpi4py: 3.1.4
+  OK  h5py: 3.16.0
+  OK  numpy: 2.4.4
+  OK  neuroh5: ok
+  OK  neuroh5.io: ['NeuroH5CellAttrGen', 'NeuroH5CellAttrIter', 'NeuroH5EdgeIter']
+  OK  miv_simulator: ok
+  OK  neuron: 9.0.1
+numprocs=1
+
+=== [3] Parallel neuroh5 I/O tests (4 ranks) ===
+
+============================================================
+  Test 1: scatter_read_trees
+============================================================
+process_vm_readv: Bad address
+Assertion failed in file ../src/mpid/ch4/shm/cray_common/cray_common_memops.c at line 446: 0
+process_vm_readv: Bad address
+Assertion failed in file ../src/mpid/ch4/shm/cray_common/cray_common_memops.c at line 446: 0
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x72ccfa) [0x1487fa59dcfa]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x5a3c04) [0x1487fa414c04]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x43a89) [0x1487f9eb4a89]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x6e656b) [0x1487fa55756b]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x612679) [0x1487fa483679]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x558edc) [0x1487fa3c9edc]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x55eb06) [0x1487fa3cfb06]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x56595c) [0x1487fa3d695c]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x567044) [0x1487fa3d8044]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x569e94) [0x1487fa3dae94]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x569fca) [0x1487fa3dafca]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x56a1bd) [0x1487fa3db1bd]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(PMPI_Wait+0x29e) [0x1487fa09356e]
+/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuroh5/io.so(_ZN7neuroh53mpi16alltoallv_vectorIcEEiiiRKSt6vectorImSaImEES6_RKS2_IT_SaIS7_EERS4_SC_RS9_+0x52c) [0x1487f0c6a90c]
+/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuroh5/io.so(_ZN7neuroh54cell18scatter_read_treesEiRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEiRKSt6vectorIS6_SaIS6_EERKSt3mapIjSt3setIjSt4lessIjESaIjEESH_SaISt4pairIKjSJ_EEES8_jRSE_IjSt5tupleIJjSt5dequeItSaItEESU_SU_SS_IfSaIfEESW_SW_SW_SS_IaSaIaEESS_IiSaIiEESY_EESH_SaISK_ISL_S11_EEERSE_IS/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x72ccfa) [0x1537b42fbcfa]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x5a3c04) [0x1537b4172c04]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x43a89) [0x1537b3c12a89]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x6e656b) [0x1537b42b556b]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x612679) [0x1537b41e1679]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x558edc) [0x1537b4127edc]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x55eb06) [0x1537b412db06]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x56595c) [0x1537b413495c]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x567044) [0x1537b4136044]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x569e94) [0x1537b4138e94]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x569fca) [0x1537b4138fca]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x56a1bd) [0x1537b41391bd]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(PMPI_Wait+0x29e) [0x1537b3df156e]
+/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuroh5/io.so(_ZN7neuroh53mpi16alltoallv_vectorIcEEiiiRKSt6vectorImSaImEES6_RKS2_IT_SaIS7_EERS4_SC_RS9_+0x52c) [0x1537aaa6a90c]
+/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuroh5/io.so(_ZN7neuroh54cell18scatter_read_treesEiRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEiRKSt6vectorIS6_SaIS6_EERKSt3mapIjSt3setIjSt4lessIjESaIjEESH_SaISt4pairIKjSJ_EEES8_jRSE_IjSt5tupleIJjSt5dequeItSaItEESU_SU_SS_IfSaIfEESW_SW_SW_SS_IaSaIaEESS_IiSaIiEESY_EESH_SaISK_ISL_S11_EEERSE_IS6_NS_4data12NamedAttrMapESG_IS6_ESaISK_IS7_S17_EEEmm+0x923) [0x1537aaade0f3]
+/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuroh5/io.so(+0x8d212) [0x1537aa9e9212]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(+0x20ccfd) [0x1537b57a6cfd]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(_PyObject_MakeTpCall+0x10f) [0x1537b57805df]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(_PyEval_EvalFrameDefault+0x67d) [0x1537b57de58d]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(+0x2431eb) [0x1537b57dd1eb]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(PyEval_EvalCode+0x9a) [0x1537b585a9ba]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(+0x2d5123) [0x1537b586f123]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(+0x2d50aa) [0x1537b586f0aa]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(+0x2d56d2) [0x1537b586f6d2]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(_PyRun_SimpleFileObject+0x19e) [0x1537b586f3de]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(_PyRun_AnyFileObject+0x44) [0x1537b586f224]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(Py_RunMain+0x350) [0x1537b5877040]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(Py_BytesMain+0x27) [0x1537b5876bd7]
+/lib64/libc.so.6(+0x40e6c) [0x1537b52bde6c]
+/lib64/libc.so.6(__libc_start_main+0x87) [0x1537b52bdf35]
+/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/bin/python3(_start+0x2c) [0x40066a]
+MPICH ERROR [Rank 2] [job id d9b9bbd8-1047-42d9-9883-0417098fe0f7] [Thu Apr 23 00:01:57 2026] [x3109c0s13b0n0] - Abort(1): Internal error
+
+6_NS_4data12NamedAttrMapESG_IS6_ESaISK_IS7_S17_EEEmm+0x923) [0x1487f0cde0f3]
+/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuroh5/io.so(+0x8d212) [0x1487f0be9212]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(+0x20ccfd) [0x1487fba48cfd]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(_PyObject_MakeTpCall+0x10f) [0x1487fba225df]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(_PyEval_EvalFrameDefault+0x67d) [0x1487fba8058d]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(+0x2431eb) [0x1487fba7f1eb]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(PyEval_EvalCode+0x9a) [0x1487fbafc9ba]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(+0x2d5123) [0x1487fbb11123]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(+0x2d50aa) [0x1487fbb110aa]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(+0x2d56d2) [0x1487fbb116d2]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(_PyRun_SimpleFileObject+0x19e) [0x1487fbb113de]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(_PyRun_AnyFileObject+0x44) [0x1487fbb11224]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(Py_RunMain+0x350) [0x1487fbb19040]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(Py_BytesMain+0x27) [0x1487fbb18bd7]
+/lib64/libc.so.6(+0x40e6c) [0x1487fb55fe6c]
+/lib64/libc.so.6(__libc_start_main+0x87) [0x1487fb55ff35]
+/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/bin/python3(_start+0x2c) [0x40066a]
+MPICH ERROR [Rank 3] [job id d9b9bbd8-1047-42d9-9883-0417098fe0f7] [Thu Apr 23 00:01:57 2026] [x3109c0s13b0n0] - Abort(1): Internal error
+
+x3109c0s13b0n0.hsn.cm.polaris.alcf.anl.gov: rank 2 exited with code 1
+x3109c0s13b0n0.hsn.cm.polaris.alcf.anl.gov: rank 0 died from signal 15
+
+=== [4a] miv-simulator pure Python tests ===
+============================= test session starts ==============================
+collecting ... collected 63 items
+
+tests/test_connections.py::TestChooseSynapseProjection::test_exact_match_returns_population_name PASSED [  1%]
+tests/test_connections.py::TestChooseSynapseProjection::test_inhibitory_match_returns_population_name PASSED [  3%]
+tests/test_connections.py::TestChooseSynapseProjection::test_wrong_swc_type_returns_none PASSED [  4%]
+tests/test_connections.py::TestChooseSynapseProjection::test_wrong_layer_returns_none PASSED [  6%]
+tests/test_connections.py::TestChooseSynapseProjection::test_multiple_candidates_selects_one PASSED [  7%]
+tests/test_connections.py::TestPartitionSynapsesToProjections::test_all_synapses_assigned PASSED [  9%]
+tests/test_connections.py::TestPartitionSynapsesToProjections::test_excitatory_synapses_go_to_PopExc PASSED [ 11%]
+tests/test_connections.py::TestPartitionSynapsesToProjections::test_inhibitory_synapses_go_to_PopInh PASSED [ 12%]
+tests/test_connections.py::TestPartitionSynapsesToProjections::test_cdist_dict_populated_for_all_synapses PASSED [ 14%]
+tests/test_connections.py::TestPartitionSynapsesToProjections::test_assertion_fails_when_projection_is_empty PASSED [ 15%]
+tests/test_connections.py::TestSelectLayerSourceVertices::test_empty_source_gids_returns_empty_arrays PASSED [ 17%]
+tests/test_connections.py::TestSelectLayerSourceVertices::test_output_length_matches_syn_ids PASSED [ 19%]
+tests/test_connections.py::TestSelectLayerSourceVertices::test_source_vertices_are_valid_gids PASSED [ 20%]
+tests/test_connections.py::TestSelectLayerSourceVertices::test_syn_ids_ordered_by_cable_distance PASSED [ 22%]
+tests/test_connections.py::TestSelectLayerSourceVertices::test_distances_are_sum_of_u_and_v PASSED [ 23%]
+tests/test_connections.py::TestSelectLayerSourceVertices::test_contacts_greater_than_1_multiplies_counts PASSED [ 25%]
+tests/test_connections.py::TestConsolidateProjectionConnections::test_empty_lists_raise_assertion PASSED [ 26%]
+tests/test_connections.py::TestConsolidateProjectionConnections::test_single_layer_writes_gid_dict_entry PASSED [ 28%]
+tests/test_connections.py::TestConsolidateProjectionConnections::test_returns_correct_count PASSED [ 30%]
+tests/test_connections.py::TestConsolidateProjectionConnections::test_multi_layer_concatenates_arrays PASSED [ 31%]
+tests/test_connections.py::TestConsolidateProjectionConnections::test_syn_id_dtype_is_uint32 PASSED [ 33%]
+tests/test_connections.py::TestConnectionProbability::test_width_stored_correctly PASSED [ 34%]
+tests/test_connections.py::TestConnectionProbability::test_scale_factor_is_width_over_3 PASSED [ 36%]
+tests/test_connections.py::TestConnectionProbability::test_filter_by_distance_excludes_distant_sources PASSED [ 38%]
+tests/test_connections.py::TestConnectionProbability::test_filter_by_distance_includes_nearby_sources PASSED [ 39%]
+tests/test_connections.py::TestConnectionProbability::test_get_probability_probs_sum_to_one PASSED [ 41%]
+tests/test_connections.py::TestConnectionProbability::test_get_probability_probs_are_non_negative PASSED [ 42%]
+tests/test_connections.py::TestConnectionProbability::test_missing_layer_config_raises_runtime_error PASSED [ 44%]
+tests/test_connections.py::TestGenerateSynapticConnections::test_connection_dict_contains_both_projections PASSED [ 46%]
+tests/test_connections.py::TestGenerateSynapticConnections::test_total_count_matches_number_of_synapses PASSED [ 47%]
+tests/test_connections.py::TestGenerateSynapticConnections::test_gid_dict_structure_is_correct PASSED [ 49%]
+tests/test_connections.py::TestGenerateSynapticConnections::test_exc_connections_sourced_from_exc_gids PASSED [ 50%]
+tests/test_connections.py::TestGenerateSynapticConnections::test_deterministic_with_fixed_seeds PASSED [ 52%]
+tests/test_input_features.py::test_temporal_feature_population PASSED    [ 53%]
+tests/test_input_features.py::test_visual_feature_encoding FAILED        [ 55%]
+tests/test_distribute_synapses.py::TestUpdateSynapseStatistics::test_excitatory_counts_accumulate PASSED [ 57%]
+tests/test_distribute_synapses.py::TestUpdateSynapseStatistics::test_mixed_types_accumulate_separately PASSED [ 58%]
+tests/test_distribute_synapses.py::TestUpdateSynapseStatistics::test_unknown_syn_type_raises PASSED [ 60%]
+tests/test_distribute_synapses.py::TestCheckSynapses::test_no_warning_when_layers_populated PASSED [ 61%]
+tests/test_distribute_synapses.py::TestCheckSynapses::test_warning_when_layer_missing PASSED [ 63%]
+tests/test_distribute_synapses.py::TestLocalSynSummary::test_output_contains_layer_and_swc_type_counts PASSED [ 65%]
+tests/test_distribute_synapses.py::TestGetNodeAttribute::test_returns_none_when_name_absent PASSED [ 66%]
+tests/test_distribute_synapses.py::TestGetNodeAttribute::test_returns_value_when_x_is_none PASSED [ 68%]
+tests/test_distribute_synapses.py::TestGetNodeAttribute::test_returns_first_element_when_no_3d_points PASSED [ 69%]
+tests/test_distribute_synapses.py::TestGetNodeAttribute::test_interpolates_at_position PASSED [ 71%]
+tests/test_distribute_synapses.py::TestSynapseSegDensity::test_returns_positive_density_for_nonzero_mean PASSED [ 73%]
+tests/test_distribute_synapses.py::TestSynapseSegDensity::test_layers_dict_has_correct_structure PASSED [ 74%]
+tests/test_distribute_synapses.py::TestSynapseSegCounts::test_returns_positive_count_for_nonzero_mean PASSED [ 76%]
+tests/test_distribute_synapses.py::TestSynapseSegCounts::test_zero_count_for_zero_mean PASSED [ 77%]
+tests/test_distribute_synapses.py::TestDistributeUniformSynapses::test_returns_all_required_keys PASSED [ 79%]
+tests/test_distribute_synapses.py::TestDistributeUniformSynapses::test_syn_ids_are_contiguous_from_zero PASSED [ 80%]
+tests/test_distribute_synapses.py::TestDistributeUniformSynapses::test_syn_locs_in_unit_interval PASSED [ 82%]
+tests/test_distribute_synapses.py::TestDistributeUniformSynapses::test_swc_type_matches_section PASSED [ 84%]
+tests/test_distribute_synapses.py::TestDistributeUniformSynapses::test_syn_types_match_excitatory PASSED [ 85%]
+tests/test_distribute_synapses.py::TestDistributePoissonSynapses::test_returns_all_required_keys PASSED [ 87%]
+tests/test_distribute_synapses.py::TestDistributePoissonSynapses::test_syn_locs_in_unit_interval PASSED [ 88%]
+tests/test_distribute_synapses.py::TestDistributePoissonSynapses::test_swc_type_matches_section PASSED [ 90%]
+tests/test_distribute_synapses.py::TestDistributePoissonSynapses::test_reproducibility_with_same_seed PASSED [ 92%]
+tests/test_distribute_synapses.py::TestDistributePoissonSynapses::test_different_seeds_give_different_results PASSED [ 93%]
+tests/test_distribute_synapses.py::TestSynapseSegDensityGuard::test_raises_after_max_retries_when_density_nonpositive PASSED [ 95%]
+tests/test_distribute_synapses.py::TestSynapseSegDensityGuard::test_error_message_contains_retry_count PASSED [ 96%]
+tests/test_distribute_synapses.py::TestDistributePoissonSynapsesGuard::test_raises_after_max_placement_retries_when_segment_unreachable PASSED [ 98%]
+tests/test_distribute_synapses.py::TestDistributePoissonSynapsesGuard::test_error_message_contains_retry_count PASSED [100%]
+
+=================================== FAILURES ===================================
+_________________________ test_visual_feature_encoding _________________________
+tests/test_input_features.py:586: in test_visual_feature_encoding
+    feature_space = FeatureSpace(name="sensory_space", dimensions=4)
+E   TypeError: FeatureSpace.__init__() got an unexpected keyword argument 'dimensions'
+=============================== warnings summary ===============================
+tests/test_distribute_synapses.py::TestUpdateSynapseStatistics::test_excitatory_counts_accumulate
+  /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/rbf/linalg.py:11: DeprecationWarning: Please import `LinAlgWarning` from the `scipy.linalg` namespace; the `scipy.linalg.misc` namespace is deprecated and will be removed in SciPy 2.0.0.
+    from scipy.linalg.misc import LinAlgWarning
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_input_features.py::test_visual_feature_encoding - TypeError...
+=================== 1 failed, 62 passed, 1 warning in 4.05s ====================
+numprocs=1
+
+=== [4b] miv-simulator eval_network + synapses tests ===
+============================= test session starts ==============================
+collecting ... collected 159 items
+
+tests/test_eval_network.py::test_explicit_params_label_is_used FAILED    [  0%]
+tests/test_eval_network.py::test_default_label_picks_first_key FAILED    [  1%]
+tests/test_eval_network.py::test_all_param_names_mapped FAILED           [  1%]
+tests/test_eval_network.py::test_nested_path_fallback FAILED             [  2%]
+tests/test_eval_network.py::test_tuple_sec_type_flat_key_lookup FAILED   [  3%]
+tests/test_eval_network.py::test_tuple_sec_type_nested_path_fallback FAILED [  3%]
+tests/test_eval_network.py::test_tuple_sec_type_propagated_to_modify_syn_param PASSED [  4%]
+tests/test_eval_network.py::test_network_run_called_with_output_false FAILED [  5%]
+tests/test_eval_network.py::test_output_json_written_with_correct_structure FAILED [  5%]
+tests/test_eval_network.py::test_output_json_objectives_match_compute_objectives FAILED [  6%]
+tests/test_eval_network.py::test_output_json_constraints_keyed_by_population FAILED [  6%]
+tests/test_eval_network.py::test_no_output_file_when_output_path_is_none FAILED [  7%]
+tests/test_eval_network.py::test_kwargs_from_operational_config_forwarded_to_init_network FAILED [  8%]
+tests/test_eval_network.py::test_explicit_network_kwargs_not_overwritten_by_op_config FAILED [  8%]
+tests/test_eval_network.py::test_network_shutdown_called FAILED          [  9%]
+tests/test_eval_network.py::test_cleanup_true_raises_runtime_error FAILED [ 10%]
+tests/test_eval_network.py::test_io_utils_mkout_spikeout_lfpout_called FAILED [ 10%]
+tests/test_eval_network.py::test_io_utils_recsout_called_when_recording_profile_set FAILED [ 11%]
+tests/test_synapses.py::TestSynParamFromDict::test_all_fields_populated PASSED [ 11%]
+tests/test_synapses.py::TestSynParamFromDict::test_missing_key_raises PASSED [ 12%]
+tests/test_synapses.py::TestSynParamFromDict::test_extra_keys_ignored PASSED [ 13%]
+tests/test_synapses.py::TestGetMechRulesDict::test_value_only PASSED     [ 13%]
+tests/test_synapses.py::TestGetMechRulesDict::test_origin_valid_section PASSED [ 14%]
+tests/test_synapses.py::TestGetMechRulesDict::test_origin_empty_section_raises PASSED [ 15%]
+tests/test_synapses.py::TestGetMechRulesDict::test_origin_parent_always_valid PASSED [ 15%]
+tests/test_synapses.py::TestGetMechRulesDict::test_origin_branch_origin_always_valid PASSED [ 16%]
+tests/test_synapses.py::TestGetMechRulesDict::test_origin_invalid_raises PASSED [ 16%]
+tests/test_synapses.py::TestGetMechRulesDict::test_none_values_excluded PASSED [ 17%]
+tests/test_synapses.py::TestGetMechRulesDict::test_both_value_and_origin PASSED [ 18%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_no_filters_selects_all PASSED [ 18%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_syn_sections_filter PASSED [ 19%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_syn_indexes_filter PASSED [ 20%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_syn_types_excitatory_only PASSED [ 20%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_layers_filter PASSED [ 21%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_sources_filter PASSED [ 22%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_swc_types_filter PASSED [ 22%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_combined_syn_type_and_layer PASSED [ 23%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_empty_result_when_no_match PASSED [ 23%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_duplicate_values_deduplicated PASSED [ 24%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_valid_count_limits_scope PASSED [ 25%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreBasics::test_ensure_gid_storage_creates_entry PASSED [ 25%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreBasics::test_ensure_gid_storage_idempotent PASSED [ 26%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreBasics::test_ensure_mech_storage_creates_has_mech_array PASSED [ 27%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreBasics::test_ensure_param_array_fills_with_nan PASSED [ 27%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreBasics::test_ensure_param_array_idempotent PASSED [ 28%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreBasics::test_has_mechanism_false_before_set PASSED [ 28%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreBasics::test_has_mechanism_true_after_set PASSED [ 29%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreSetGet::test_set_and_get_numeric_value PASSED [ 30%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreSetGet::test_set_and_get_complex_value PASSED [ 30%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreSetGet::test_unknown_mechanism_returns_false PASSED [ 31%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreSetGet::test_unknown_param_returns_false PASSED [ 32%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreSetGet::test_resize_triggered_on_out_of_bounds_index PASSED [ 32%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreSetGet::test_resize_preserves_existing_values PASSED [ 33%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_global_default_none_selector PASSED [ 33%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_list_selector_applies_only_to_listed_ids PASSED [ 34%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_callable_selector PASSED [ 35%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_most_recent_default_takes_precedence PASSED [ 35%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_has_default_params_true_when_matching PASSED [ 36%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_has_default_params_false_when_none_match PASSED [ 37%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_get_default_params_returns_correct_set PASSED [ 37%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_hierarchy_specific_overrides_default PASSED [ 38%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_hierarchy_fallback_to_default PASSED [ 38%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_hierarchy_no_value_returns_none PASSED [ 39%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_set_default_unknown_mech_returns_false PASSED [ 40%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_complex_value_stored_and_retrieved PASSED [ 40%]
+tests/test_synapses.py::TestResizeArrays::test_resize_extends_has_mech_array PASSED [ 41%]
+tests/test_synapses.py::TestResizeArrays::test_resize_extends_param_arrays_with_nan PASSED [ 42%]
+tests/test_synapses.py::TestResizeArrays::test_resize_preserves_existing_bool_flags PASSED [ 42%]
+tests/test_synapses.py::TestResizeArrays::test_resize_noop_when_new_size_smaller PASSED [ 43%]
+tests/test_synapses.py::TestResizeArrays::test_gid_not_present_is_noop PASSED [ 44%]
+tests/test_synapses.py::TestCreateSelector::test_none_selector_matches_all PASSED [ 44%]
+tests/test_synapses.py::TestCreateSelector::test_list_selector_matches_only_listed_ids PASSED [ 45%]
+tests/test_synapses.py::TestCreateSelector::test_ndarray_selector PASSED [ 45%]
+tests/test_synapses.py::TestCreateSelector::test_callable_selector_delegates PASSED [ 46%]
+tests/test_synapses.py::TestSynapseStore::test_add_synapses_from_arrays_stores_core_fields PASSED [ 47%]
+tests/test_synapses.py::TestSynapseStore::test_add_synapses_initializes_source_defaults PASSED [ 47%]
+tests/test_synapses.py::TestSynapseStore::test_get_synapse_returns_none_for_unknown_gid PASSED [ 48%]
+tests/test_synapses.py::TestSynapseStore::test_get_synapse_returns_none_for_unknown_syn_id PASSED [ 49%]
+tests/test_synapses.py::TestSynapseStore::test_get_synapse_view_fields_match_stored PASSED [ 49%]
+tests/test_synapses.py::TestSynapseStore::test_get_synapses_by_filter_single_field PASSED [ 50%]
+tests/test_synapses.py::TestSynapseStore::test_get_synapses_by_filter_multiple_values PASSED [ 50%]
+tests/test_synapses.py::TestSynapseStore::test_get_synapses_by_filter_empty_result PASSED [ 51%]
+tests/test_synapses.py::TestSynapseStore::test_keys_yields_all_syn_ids PASSED [ 52%]
+tests/test_synapses.py::TestSynapseStore::test_items_yields_all_synapse_views PASSED [ 52%]
+tests/test_synapses.py::TestSynapseStore::test_keys_empty_for_unknown_gid PASSED [ 53%]
+tests/test_synapses.py::TestSynapseStore::test_ensure_capacity_grows_on_overflow PASSED [ 54%]
+tests/test_synapses.py::TestSynapseView::test_property_reads_correct_values PASSED [ 54%]
+tests/test_synapses.py::TestSynapseView::test_property_setter_mutates_backing_array PASSED [ 55%]
+tests/test_synapses.py::TestSynapseView::test_source_view_reads_gid_population_delay PASSED [ 55%]
+tests/test_synapses.py::TestSynapseView::test_source_view_setter_persists PASSED [ 56%]
+tests/test_synapses.py::TestGetSynFilterDict::test_valid_syn_types_no_convert PASSED [ 57%]
+tests/test_synapses.py::TestGetSynFilterDict::test_valid_syn_types_with_convert PASSED [ 57%]
+tests/test_synapses.py::TestGetSynFilterDict::test_unknown_syn_type_raises PASSED [ 58%]
+tests/test_synapses.py::TestGetSynFilterDict::test_valid_swc_type_with_convert PASSED [ 59%]
+tests/test_synapses.py::TestGetSynFilterDict::test_unknown_swc_type_raises PASSED [ 59%]
+tests/test_synapses.py::TestGetSynFilterDict::test_valid_layer_with_convert PASSED [ 60%]
+tests/test_synapses.py::TestGetSynFilterDict::test_unknown_layer_raises PASSED [ 61%]
+tests/test_synapses.py::TestGetSynFilterDict::test_valid_source_with_convert PASSED [ 61%]
+tests/test_synapses.py::TestGetSynFilterDict::test_unknown_source_raises PASSED [ 62%]
+tests/test_synapses.py::TestGetSynFilterDict::test_unrecognized_filter_name_raises_by_default PASSED [ 62%]
+tests/test_synapses.py::TestGetSynFilterDict::test_unrecognized_filter_name_allowed_when_check_false PASSED [ 63%]
+tests/test_synapses.py::TestGetSynFilterDict::test_input_deep_copied PASSED [ 64%]
+tests/test_synapses.py::TestGetSynFilterDict::test_empty_rules_returns_empty_dict PASSED [ 64%]
+tests/test_synapses.py::TestValidateSynMechParam::test_valid_mech_param_returns_true PASSED [ 65%]
+tests/test_synapses.py::TestValidateSynMechParam::test_valid_netcon_param_returns_true PASSED [ 66%]
+tests/test_synapses.py::TestValidateSynMechParam::test_unknown_syn_name_returns_false PASSED [ 66%]
+tests/test_synapses.py::TestValidateSynMechParam::test_unknown_param_name_returns_false PASSED [ 67%]
+tests/test_synapses.py::TestSynapseManagerInitSynIdAttrs::test_init_stores_all_synapses PASSED [ 67%]
+tests/test_synapses.py::TestSynapseManagerInitSynIdAttrs::test_duplicate_gid_raises PASSED [ 68%]
+tests/test_synapses.py::TestSynapseManagerInitSynIdAttrs::test_empty_syn_ids_is_noop PASSED [ 69%]
+tests/test_synapses.py::TestSynapseManagerInitSynIdAttrs::test_init_from_iter_dict_mode PASSED [ 69%]
+tests/test_synapses.py::TestSynapseManagerInitEdgeAttrs::test_sets_source_population PASSED [ 70%]
+tests/test_synapses.py::TestSynapseManagerInitEdgeAttrs::test_sets_explicit_delays PASSED [ 71%]
+tests/test_synapses.py::TestSynapseManagerInitEdgeAttrs::test_uninitialized_gid_raises PASSED [ 71%]
+tests/test_synapses.py::TestSynapseManagerInitEdgeAttrs::test_unknown_syn_id_raises PASSED [ 72%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_by_syn_type PASSED [ 72%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_by_layer PASSED [ 73%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_by_sources PASSED [ 74%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_by_swc_type PASSED [ 74%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_combined_criteria PASSED [ 75%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_empty_gid_returns_empty PASSED [ 76%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_no_filters_returns_all PASSED [ 76%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_synapse_ids_dtype PASSED [ 77%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_synapse_ids_no_filters_returns_all PASSED [ 77%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_cache_returns_same_result PASSED [ 78%]
+tests/test_synapses.py::TestSynapseManagerPartitionBySource::test_all_populations_present_in_result PASSED [ 79%]
+tests/test_synapses.py::TestSynapseManagerPartitionBySource::test_gc_yields_correct_syn_ids PASSED [ 79%]
+tests/test_synapses.py::TestSynapseManagerPartitionBySource::test_mc_yields_correct_syn_ids PASSED [ 80%]
+tests/test_synapses.py::TestSynapseManagerPartitionBySource::test_partition_with_explicit_syn_ids PASSED [ 81%]
+tests/test_synapses.py::TestSynapseManagerPartitionBySource::test_unknown_gid_returns_empty_iterators PASSED [ 81%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_add_and_has_point_process PASSED [ 82%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_get_point_process PASSED [ 83%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_duplicate_point_process_raises PASSED [ 83%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_get_missing_throw_false_returns_none PASSED [ 84%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_add_has_get_netcon PASSED [ 84%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_del_netcon_removes_entry PASSED [ 85%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_del_netcon_throw_false_when_absent PASSED [ 86%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_add_has_get_vecstim PASSED [ 86%]
+tests/test_synapses.py::TestAddDefaultMechanismParameters::test_default_params_readable_via_get_effective PASSED [ 87%]
+tests/test_synapses.py::TestAddDefaultMechanismParameters::test_default_applies_to_all_synapses PASSED [ 88%]
+tests/test_synapses.py::TestAddDefaultMechanismParameters::test_gaba_label_resolves_to_exp2syn PASSED [ 88%]
+tests/test_synapses.py::TestAddMechanismParametersFromIter::test_sets_parameter_via_iter PASSED [ 89%]
+tests/test_synapses.py::TestAddMechanismParametersFromIter::test_duplicate_raises_in_error_mode PASSED [ 89%]
+tests/test_synapses.py::TestAddMechanismParametersFromIter::test_duplicate_skipped_in_skip_mode PASSED [ 90%]
+tests/test_synapses.py::TestAddMechanismParametersFromIter::test_duplicate_overwritten_in_overwrite_mode PASSED [ 91%]
+tests/test_synapses.py::TestAddMechanismParametersFromIter::test_unknown_gid_raises PASSED [ 91%]
+tests/test_synapses.py::TestGetMechanismParameters::test_returns_set_value PASSED [ 92%]
+tests/test_synapses.py::TestGetMechanismParameters::test_returns_none_for_unknown_syn_id PASSED [ 93%]
+tests/test_synapses.py::TestGetMechanismParameters::test_raises_for_unknown_syn_id PASSED [ 93%]
+tests/test_synapses.py::TestGetMechanismParameters::test_returns_none_when_no_params_set PASSED [ 94%]
+tests/test_synapses.py::TestModifySynParam::test_raises_when_sec_type_not_in_cell PASSED [ 94%]
+tests/test_synapses.py::TestModifySynParam::test_raises_when_param_name_is_none PASSED [ 95%]
+tests/test_synapses.py::TestModifySynParam::test_raises_when_value_is_none PASSED [ 96%]
+tests/test_synapses.py::TestModifySynParam::test_raises_when_param_not_recognized PASSED [ 96%]
+tests/test_synapses.py::TestModifySynParam::test_populates_mech_dict_on_first_call PASSED [ 97%]
+tests/test_synapses.py::TestModifySynParam::test_second_call_overwrites_mech_dict_value PASSED [ 98%]
+tests/test_synapses.py::TestModifySynParam::test_tau_stored_for_all_syn_ids PASSED [ 98%]
+tests/test_synapses.py::TestModifySynParam::test_netcon_weight_stored_for_all_syn_ids PASSED [ 99%]
+tests/test_synapses.py::TestModifySynParam::test_second_call_overwrites_param_store_value PASSED [100%]
+
+=================================== FAILURES ===================================
+______________________ test_explicit_params_label_is_used ______________________
+tests/test_eval_network.py:246: in test_explicit_params_label_is_used
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+______________________ test_default_label_picks_first_key ______________________
+tests/test_eval_network.py:282: in test_default_label_picks_first_key
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+_________________________ test_all_param_names_mapped __________________________
+tests/test_eval_network.py:323: in test_all_param_names_mapped
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+__________________________ test_nested_path_fallback ___________________________
+tests/test_eval_network.py:372: in test_nested_path_fallback
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+_____________________ test_tuple_sec_type_flat_key_lookup ______________________
+tests/test_eval_network.py:425: in test_tuple_sec_type_flat_key_lookup
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+___________________ test_tuple_sec_type_nested_path_fallback ___________________
+tests/test_eval_network.py:477: in test_tuple_sec_type_nested_path_fallback
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+__________________ test_network_run_called_with_output_false ___________________
+tests/test_eval_network.py:543: in test_network_run_called_with_output_false
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+_______________ test_output_json_written_with_correct_structure ________________
+tests/test_eval_network.py:581: in test_output_json_written_with_correct_structure
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+_____________ test_output_json_objectives_match_compute_objectives _____________
+tests/test_eval_network.py:618: in test_output_json_objectives_match_compute_objectives
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+_______________ test_output_json_constraints_keyed_by_population _______________
+tests/test_eval_network.py:651: in test_output_json_constraints_keyed_by_population
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+_________________ test_no_output_file_when_output_path_is_none _________________
+tests/test_eval_network.py:682: in test_no_output_file_when_output_path_is_none
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+________ test_kwargs_from_operational_config_forwarded_to_init_network _________
+tests/test_eval_network.py:726: in test_kwargs_from_operational_config_forwarded_to_init_network
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+__________ test_explicit_network_kwargs_not_overwritten_by_op_config ___________
+tests/test_eval_network.py:777: in test_explicit_network_kwargs_not_overwritten_by_op_config
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+_________________________ test_network_shutdown_called _________________________
+tests/test_eval_network.py:831: in test_network_shutdown_called
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+____________________ test_cleanup_true_raises_runtime_error ____________________
+tests/test_eval_network.py:885: in test_cleanup_true_raises_runtime_error
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+__________________ test_io_utils_mkout_spikeout_lfpout_called __________________
+tests/test_eval_network.py:919: in test_io_utils_mkout_spikeout_lfpout_called
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+___________ test_io_utils_recsout_called_when_recording_profile_set ____________
+tests/test_eval_network.py:953: in test_io_utils_recsout_called_when_recording_profile_set
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+=========================== short test summary info ============================
+FAILED tests/test_eval_network.py::test_explicit_params_label_is_used - Attri...
+FAILED tests/test_eval_network.py::test_default_label_picks_first_key - Attri...
+FAILED tests/test_eval_network.py::test_all_param_names_mapped - AttributeErr...
+FAILED tests/test_eval_network.py::test_nested_path_fallback - AttributeError...
+FAILED tests/test_eval_network.py::test_tuple_sec_type_flat_key_lookup - Attr...
+FAILED tests/test_eval_network.py::test_tuple_sec_type_nested_path_fallback
+FAILED tests/test_eval_network.py::test_network_run_called_with_output_false
+FAILED tests/test_eval_network.py::test_output_json_written_with_correct_structure
+FAILED tests/test_eval_network.py::test_output_json_objectives_match_compute_objectives
+FAILED tests/test_eval_network.py::test_output_json_constraints_keyed_by_population
+FAILED tests/test_eval_network.py::test_no_output_file_when_output_path_is_none
+FAILED tests/test_eval_network.py::test_kwargs_from_operational_config_forwarded_to_init_network
+FAILED tests/test_eval_network.py::test_explicit_network_kwargs_not_overwritten_by_op_config
+FAILED tests/test_eval_network.py::test_network_shutdown_called - AttributeEr...
+FAILED tests/test_eval_network.py::test_cleanup_true_raises_runtime_error - A...
+FAILED tests/test_eval_network.py::test_io_utils_mkout_spikeout_lfpout_called
+FAILED tests/test_eval_network.py::test_io_utils_recsout_called_when_recording_profile_set
+======================== 17 failed, 142 passed in 3.06s ========================
+numprocs=1
+
+=== [5] CoreNEURON GPU backend probe ===
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+  NEURON import OK
+  CoreNEURON: <neuron.coreneuron.coreneuron object at 0x14ee6a778210>
+  GPU attr present: True
+  GPU mode set: True
+
+=== [6] MiV CLI tools ===
+Name       Start    Count   
+====       =====    =====   
+STIM       0        1000    
+PYR        1000     80000   
+PVBC       81000    1474    
+OLM        82474    438     
+numprocs=1
+---
+Usage: query-cell-attrs [OPTIONS]
+Try 'query-cell-attrs --help' for help.
+
+numprocs=2
+Error: No such option: --namespace
+Usage: query-cell-attrs [OPTIONS]
+Try 'query-cell-attrs --help' for help.
+
+Error: No such option: --namespace
+x3109c0s13b0n0.hsn.cm.polaris.alcf.anl.gov: rank 1 exited with code 2
+
+=== [7] Generating wiki summary ===
+  Wiki saved: /home/hyoklee/NeuroFAIR/wiki/miv_polaris_build_test.md
+
+==== Done ====
+Date: Thu Apr 23 12:02:11 AM UTC 2026
+Results: /lus/grand/projects/gpu_hack/iowarp/miv_polaris/results/
+Wiki:    /home/hyoklee/NeuroFAIR/wiki/miv_polaris_build_test.md
+==== miv-simulator + neuroh5 test on Polaris ====
+Date:      Thu Apr 23 12:06:14 AM UTC 2026
+Job:       7097215.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov
+Nodes:     1  (x3109c0s13b0n0.hsn.cm.polaris.alcf.anl.gov )
+Python:    /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/bin/python3  Python 3.11.7
+VENV:      /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv
+
+=== [1] GPU check ===
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+
+=== [2] Import checks ===
+  OK  mpi4py: 3.1.4
+  OK  h5py: 3.16.0
+  OK  numpy: 2.4.4
+  OK  neuroh5: ok
+  OK  neuroh5.io: ['NeuroH5CellAttrGen', 'NeuroH5CellAttrIter', 'NeuroH5EdgeIter']
+  OK  miv_simulator: ok
+  OK  neuron: 9.0.1
+numprocs=1
+
+=== [3] Parallel neuroh5 I/O tests (4 ranks) ===
+
+============================================================
+  Test 1: scatter_read_trees
+============================================================
+process_vm_readv: Bad address
+Assertion failed in file ../src/mpid/ch4/shm/cray_common/cray_common_memops.c at line 446: 0
+process_vm_readv: Bad address
+Assertion failed in file ../src/mpid/ch4/shm/cray_common/cray_common_memops.c at line 446: 0
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x72ccfa) [0x14cfcbe22cfa]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x5a3c04) [0x14cfcbc99c04]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x43a89) [0x14cfcb739a89]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x6e656b) [0x14cfcbddc56b]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x612679) [0x14cfcbd08679]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x558edc) [0x14cfcbc4eedc]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x55eb06) [0x14cfcbc54b06]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x56595c) [0x14cfcbc5b95c]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x567044) [0x14cfcbc5d044]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x569e94) [0x14cfcbc5fe94]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x569fca) [0x14cfcbc5ffca]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x56a1bd) [0x14cfcbc601bd]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(PMPI_Wait+0x29e) [0x14cfcb91856e]
+/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuroh5/io.so(_ZN7neuroh53mpi16alltoallv_vectorIcEEiiiRKSt6vectorImSaImEES6_RKS2_IT_SaIS7_EERS4_SC_RS9_+0x52c) [0x14cfc256a90c]
+/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuroh5/io.so(_ZN7neuroh54cell18scatter_read_treesEiRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEiRKSt6vectorIS6_SaIS6_EERKSt3mapIjSt3setIjSt4lessIjESaIjEESH_SaISt4pairIKjSJ_EEES8_jRSE_IjSt5tupleIJjSt5dequeItSaItEESU_SU_SS_IfSaIfEESW_SW_SW_SS_IaSaIaEESS_IiSaIiEESY_EESH_SaISK_ISL_S11_EEERSE_IS6_NS_4data12NamedAttrMapESG_IS6_ESaISK_IS7_S17_EEEmm+0x923) [0x14cfc25de0f3]
+/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuroh5/io.so(+0x8d212) [0x14cfc24e9212]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(+0x20ccfd) [0x14cfcd2cdcfd]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(_PyObject_MakeTpCall+0x10f) [0x14cfcd2a75df]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(_PyEval_EvalFrameDefault+0x67d) [0x14cfcd30558d]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(+0x2431eb) [0x14cfcd3041eb]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(PyEval_EvalCode+0x9a) [0x14cfcd3819ba]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(+0x2d5123) [0x14cfcd396123]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(+0x2d50aa) [0x14cfcd3960aa]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(+0x2d56d2) [0x14cfcd3966d2]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(_PyRun_SimpleFileObject+0x19e) [0x14cfcd3963de]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(_PyRun_AnyFileObject+0x44) [0x14cfcd396224]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(Py_RunMain+0x350) [0x14cfcd39e040]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(Py_BytesMain+0x27) [0x14cfcd39dbd7]
+/lib64/libc.so.6(+0x40e6c) [0x14cfccde4e6c]
+/lib64/libc.so.6(__libc_start_main+0x87) [0x14cfccde4f35]
+/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/bin/python3(_start+0x2c) [0x40066a]
+MPICH ERROR [Rank 3] [job id 64d68c71-5dbe-45e3-9e75-e98e56bf1f04] [Thu Apr 23 00:09:32 2026] [x3109c0s13b0n0] - Abort(1): Internal error
+
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x72ccfa) [0x15013c635cfa]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x5a3c04) [0x15013c4acc04]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x43a89) [0x15013bf4ca89]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x6e656b) [0x15013c5ef56b]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x612679) [0x15013c51b679]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x558edc) [0x15013c461edc]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x55eb06) [0x15013c467b06]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x56595c) [0x15013c46e95c]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x567044) [0x15013c470044]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x569e94) [0x15013c472e94]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x569fca) [0x15013c472fca]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(+0x56a1bd) [0x15013c4731bd]
+/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/lib/libmpi_gnu_123.so.12(PMPI_Wait+0x29e) [0x15013c12b56e]
+/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuroh5/io.so(_ZN7neuroh53mpi16alltoallv_vectorIcEEiiiRKSt6vectorImSaImEES6_RKS2_IT_SaIS7_EERS4_SC_RS9_+0x52c) [0x150132d6a90c]
+/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuroh5/io.so(_ZN7neuroh54cell18scatter_read_treesEiRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEiRKSt6vectorIS6_SaIS6_EERKSt3mapIjSt3setIjSt4lessIjESaIjEESH_SaISt4pairIKjSJ_EEES8_jRSE_IjSt5tupleIJjSt5dequeItSaItEESU_SU_SS_IfSaIfEESW_SW_SW_SS_IaSaIaEESS_IiSaIiEESY_EESH_SaISK_ISL_S11_EEERSE_IS6_NS_4data12NamedAttrMapESG_IS6_ESaISK_IS7_S17_EEEmm+0x923) [0x150132dde0f3]
+/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuroh5/io.so(+0x8d212) [0x150132ce9212]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(+0x20ccfd) [0x15013dae0cfd]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(_PyObject_MakeTpCall+0x10f) [0x15013daba5df]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(_PyEval_EvalFrameDefault+0x67d) [0x15013db1858d]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(+0x2431eb) [0x15013db171eb]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(PyEval_EvalCode+0x9a) [0x15013db949ba]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(+0x2d5123) [0x15013dba9123]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(+0x2d50aa) [0x15013dba90aa]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(+0x2d56d2) [0x15013dba96d2]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(_PyRun_SimpleFileObject+0x19e) [0x15013dba93de]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(_PyRun_AnyFileObject+0x44) [0x15013dba9224]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(Py_RunMain+0x350) [0x15013dbb1040]
+/opt/cray/pe/python/3.11.7/lib/libpython3.11.so.1.0(Py_BytesMain+0x27) [0x15013dbb0bd7]
+/lib64/libc.so.6(+0x40e6c) [0x15013d5f7e6c]
+/lib64/libc.so.6(__libc_start_main+0x87) [0x15013d5f7f35]
+/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/bin/python3(_start+0x2c) [0x40066a]
+MPICH ERROR [Rank 2] [job id 64d68c71-5dbe-45e3-9e75-e98e56bf1f04] [Thu Apr 23 00:09:32 2026] [x3109c0s13b0n0] - Abort(1): Internal error
+
+x3109c0s13b0n0.hsn.cm.polaris.alcf.anl.gov: rank 2 exited with code 1
+x3109c0s13b0n0.hsn.cm.polaris.alcf.anl.gov: rank 1 died from signal 15
+
+=== [4a] miv-simulator pure Python tests ===
+============================= test session starts ==============================
+collecting ... collected 63 items
+
+tests/test_connections.py::TestChooseSynapseProjection::test_exact_match_returns_population_name PASSED [  1%]
+tests/test_connections.py::TestChooseSynapseProjection::test_inhibitory_match_returns_population_name PASSED [  3%]
+tests/test_connections.py::TestChooseSynapseProjection::test_wrong_swc_type_returns_none PASSED [  4%]
+tests/test_connections.py::TestChooseSynapseProjection::test_wrong_layer_returns_none PASSED [  6%]
+tests/test_connections.py::TestChooseSynapseProjection::test_multiple_candidates_selects_one PASSED [  7%]
+tests/test_connections.py::TestPartitionSynapsesToProjections::test_all_synapses_assigned PASSED [  9%]
+tests/test_connections.py::TestPartitionSynapsesToProjections::test_excitatory_synapses_go_to_PopExc PASSED [ 11%]
+tests/test_connections.py::TestPartitionSynapsesToProjections::test_inhibitory_synapses_go_to_PopInh PASSED [ 12%]
+tests/test_connections.py::TestPartitionSynapsesToProjections::test_cdist_dict_populated_for_all_synapses PASSED [ 14%]
+tests/test_connections.py::TestPartitionSynapsesToProjections::test_assertion_fails_when_projection_is_empty PASSED [ 15%]
+tests/test_connections.py::TestSelectLayerSourceVertices::test_empty_source_gids_returns_empty_arrays PASSED [ 17%]
+tests/test_connections.py::TestSelectLayerSourceVertices::test_output_length_matches_syn_ids PASSED [ 19%]
+tests/test_connections.py::TestSelectLayerSourceVertices::test_source_vertices_are_valid_gids PASSED [ 20%]
+tests/test_connections.py::TestSelectLayerSourceVertices::test_syn_ids_ordered_by_cable_distance PASSED [ 22%]
+tests/test_connections.py::TestSelectLayerSourceVertices::test_distances_are_sum_of_u_and_v PASSED [ 23%]
+tests/test_connections.py::TestSelectLayerSourceVertices::test_contacts_greater_than_1_multiplies_counts PASSED [ 25%]
+tests/test_connections.py::TestConsolidateProjectionConnections::test_empty_lists_raise_assertion PASSED [ 26%]
+tests/test_connections.py::TestConsolidateProjectionConnections::test_single_layer_writes_gid_dict_entry PASSED [ 28%]
+tests/test_connections.py::TestConsolidateProjectionConnections::test_returns_correct_count PASSED [ 30%]
+tests/test_connections.py::TestConsolidateProjectionConnections::test_multi_layer_concatenates_arrays PASSED [ 31%]
+tests/test_connections.py::TestConsolidateProjectionConnections::test_syn_id_dtype_is_uint32 PASSED [ 33%]
+tests/test_connections.py::TestConnectionProbability::test_width_stored_correctly PASSED [ 34%]
+tests/test_connections.py::TestConnectionProbability::test_scale_factor_is_width_over_3 PASSED [ 36%]
+tests/test_connections.py::TestConnectionProbability::test_filter_by_distance_excludes_distant_sources PASSED [ 38%]
+tests/test_connections.py::TestConnectionProbability::test_filter_by_distance_includes_nearby_sources PASSED [ 39%]
+tests/test_connections.py::TestConnectionProbability::test_get_probability_probs_sum_to_one PASSED [ 41%]
+tests/test_connections.py::TestConnectionProbability::test_get_probability_probs_are_non_negative PASSED [ 42%]
+tests/test_connections.py::TestConnectionProbability::test_missing_layer_config_raises_runtime_error PASSED [ 44%]
+tests/test_connections.py::TestGenerateSynapticConnections::test_connection_dict_contains_both_projections PASSED [ 46%]
+tests/test_connections.py::TestGenerateSynapticConnections::test_total_count_matches_number_of_synapses PASSED [ 47%]
+tests/test_connections.py::TestGenerateSynapticConnections::test_gid_dict_structure_is_correct PASSED [ 49%]
+tests/test_connections.py::TestGenerateSynapticConnections::test_exc_connections_sourced_from_exc_gids PASSED [ 50%]
+tests/test_connections.py::TestGenerateSynapticConnections::test_deterministic_with_fixed_seeds PASSED [ 52%]
+tests/test_input_features.py::test_temporal_feature_population PASSED    [ 53%]
+tests/test_input_features.py::test_visual_feature_encoding FAILED        [ 55%]
+tests/test_distribute_synapses.py::TestUpdateSynapseStatistics::test_excitatory_counts_accumulate PASSED [ 57%]
+tests/test_distribute_synapses.py::TestUpdateSynapseStatistics::test_mixed_types_accumulate_separately PASSED [ 58%]
+tests/test_distribute_synapses.py::TestUpdateSynapseStatistics::test_unknown_syn_type_raises PASSED [ 60%]
+tests/test_distribute_synapses.py::TestCheckSynapses::test_no_warning_when_layers_populated PASSED [ 61%]
+tests/test_distribute_synapses.py::TestCheckSynapses::test_warning_when_layer_missing PASSED [ 63%]
+tests/test_distribute_synapses.py::TestLocalSynSummary::test_output_contains_layer_and_swc_type_counts PASSED [ 65%]
+tests/test_distribute_synapses.py::TestGetNodeAttribute::test_returns_none_when_name_absent PASSED [ 66%]
+tests/test_distribute_synapses.py::TestGetNodeAttribute::test_returns_value_when_x_is_none PASSED [ 68%]
+tests/test_distribute_synapses.py::TestGetNodeAttribute::test_returns_first_element_when_no_3d_points PASSED [ 69%]
+tests/test_distribute_synapses.py::TestGetNodeAttribute::test_interpolates_at_position PASSED [ 71%]
+tests/test_distribute_synapses.py::TestSynapseSegDensity::test_returns_positive_density_for_nonzero_mean PASSED [ 73%]
+tests/test_distribute_synapses.py::TestSynapseSegDensity::test_layers_dict_has_correct_structure PASSED [ 74%]
+tests/test_distribute_synapses.py::TestSynapseSegCounts::test_returns_positive_count_for_nonzero_mean PASSED [ 76%]
+tests/test_distribute_synapses.py::TestSynapseSegCounts::test_zero_count_for_zero_mean PASSED [ 77%]
+tests/test_distribute_synapses.py::TestDistributeUniformSynapses::test_returns_all_required_keys PASSED [ 79%]
+tests/test_distribute_synapses.py::TestDistributeUniformSynapses::test_syn_ids_are_contiguous_from_zero PASSED [ 80%]
+tests/test_distribute_synapses.py::TestDistributeUniformSynapses::test_syn_locs_in_unit_interval PASSED [ 82%]
+tests/test_distribute_synapses.py::TestDistributeUniformSynapses::test_swc_type_matches_section PASSED [ 84%]
+tests/test_distribute_synapses.py::TestDistributeUniformSynapses::test_syn_types_match_excitatory PASSED [ 85%]
+tests/test_distribute_synapses.py::TestDistributePoissonSynapses::test_returns_all_required_keys PASSED [ 87%]
+tests/test_distribute_synapses.py::TestDistributePoissonSynapses::test_syn_locs_in_unit_interval PASSED [ 88%]
+tests/test_distribute_synapses.py::TestDistributePoissonSynapses::test_swc_type_matches_section PASSED [ 90%]
+tests/test_distribute_synapses.py::TestDistributePoissonSynapses::test_reproducibility_with_same_seed PASSED [ 92%]
+tests/test_distribute_synapses.py::TestDistributePoissonSynapses::test_different_seeds_give_different_results PASSED [ 93%]
+tests/test_distribute_synapses.py::TestSynapseSegDensityGuard::test_raises_after_max_retries_when_density_nonpositive PASSED [ 95%]
+tests/test_distribute_synapses.py::TestSynapseSegDensityGuard::test_error_message_contains_retry_count PASSED [ 96%]
+tests/test_distribute_synapses.py::TestDistributePoissonSynapsesGuard::test_raises_after_max_placement_retries_when_segment_unreachable PASSED [ 98%]
+tests/test_distribute_synapses.py::TestDistributePoissonSynapsesGuard::test_error_message_contains_retry_count PASSED [100%]
+
+=================================== FAILURES ===================================
+_________________________ test_visual_feature_encoding _________________________
+tests/test_input_features.py:586: in test_visual_feature_encoding
+    feature_space = FeatureSpace(name="sensory_space", dimensions=4)
+E   TypeError: FeatureSpace.__init__() got an unexpected keyword argument 'dimensions'
+=============================== warnings summary ===============================
+tests/test_distribute_synapses.py::TestUpdateSynapseStatistics::test_excitatory_counts_accumulate
+  /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/rbf/linalg.py:11: DeprecationWarning: Please import `LinAlgWarning` from the `scipy.linalg` namespace; the `scipy.linalg.misc` namespace is deprecated and will be removed in SciPy 2.0.0.
+    from scipy.linalg.misc import LinAlgWarning
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_input_features.py::test_visual_feature_encoding - TypeError...
+=================== 1 failed, 62 passed, 1 warning in 3.86s ====================
+numprocs=1
+
+=== [4b] miv-simulator eval_network + synapses tests ===
+============================= test session starts ==============================
+collecting ... collected 159 items
+
+tests/test_eval_network.py::test_explicit_params_label_is_used FAILED    [  0%]
+tests/test_eval_network.py::test_default_label_picks_first_key FAILED    [  1%]
+tests/test_eval_network.py::test_all_param_names_mapped FAILED           [  1%]
+tests/test_eval_network.py::test_nested_path_fallback FAILED             [  2%]
+tests/test_eval_network.py::test_tuple_sec_type_flat_key_lookup FAILED   [  3%]
+tests/test_eval_network.py::test_tuple_sec_type_nested_path_fallback FAILED [  3%]
+tests/test_eval_network.py::test_tuple_sec_type_propagated_to_modify_syn_param PASSED [  4%]
+tests/test_eval_network.py::test_network_run_called_with_output_false FAILED [  5%]
+tests/test_eval_network.py::test_output_json_written_with_correct_structure FAILED [  5%]
+tests/test_eval_network.py::test_output_json_objectives_match_compute_objectives FAILED [  6%]
+tests/test_eval_network.py::test_output_json_constraints_keyed_by_population FAILED [  6%]
+tests/test_eval_network.py::test_no_output_file_when_output_path_is_none FAILED [  7%]
+tests/test_eval_network.py::test_kwargs_from_operational_config_forwarded_to_init_network FAILED [  8%]
+tests/test_eval_network.py::test_explicit_network_kwargs_not_overwritten_by_op_config FAILED [  8%]
+tests/test_eval_network.py::test_network_shutdown_called FAILED          [  9%]
+tests/test_eval_network.py::test_cleanup_true_raises_runtime_error FAILED [ 10%]
+tests/test_eval_network.py::test_io_utils_mkout_spikeout_lfpout_called FAILED [ 10%]
+tests/test_eval_network.py::test_io_utils_recsout_called_when_recording_profile_set FAILED [ 11%]
+tests/test_synapses.py::TestSynParamFromDict::test_all_fields_populated PASSED [ 11%]
+tests/test_synapses.py::TestSynParamFromDict::test_missing_key_raises PASSED [ 12%]
+tests/test_synapses.py::TestSynParamFromDict::test_extra_keys_ignored PASSED [ 13%]
+tests/test_synapses.py::TestGetMechRulesDict::test_value_only PASSED     [ 13%]
+tests/test_synapses.py::TestGetMechRulesDict::test_origin_valid_section PASSED [ 14%]
+tests/test_synapses.py::TestGetMechRulesDict::test_origin_empty_section_raises PASSED [ 15%]
+tests/test_synapses.py::TestGetMechRulesDict::test_origin_parent_always_valid PASSED [ 15%]
+tests/test_synapses.py::TestGetMechRulesDict::test_origin_branch_origin_always_valid PASSED [ 16%]
+tests/test_synapses.py::TestGetMechRulesDict::test_origin_invalid_raises PASSED [ 16%]
+tests/test_synapses.py::TestGetMechRulesDict::test_none_values_excluded PASSED [ 17%]
+tests/test_synapses.py::TestGetMechRulesDict::test_both_value_and_origin PASSED [ 18%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_no_filters_selects_all PASSED [ 18%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_syn_sections_filter PASSED [ 19%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_syn_indexes_filter PASSED [ 20%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_syn_types_excitatory_only PASSED [ 20%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_layers_filter PASSED [ 21%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_sources_filter PASSED [ 22%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_swc_types_filter PASSED [ 22%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_combined_syn_type_and_layer PASSED [ 23%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_empty_result_when_no_match PASSED [ 23%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_duplicate_values_deduplicated PASSED [ 24%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_valid_count_limits_scope PASSED [ 25%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreBasics::test_ensure_gid_storage_creates_entry PASSED [ 25%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreBasics::test_ensure_gid_storage_idempotent PASSED [ 26%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreBasics::test_ensure_mech_storage_creates_has_mech_array PASSED [ 27%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreBasics::test_ensure_param_array_fills_with_nan PASSED [ 27%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreBasics::test_ensure_param_array_idempotent PASSED [ 28%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreBasics::test_has_mechanism_false_before_set PASSED [ 28%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreBasics::test_has_mechanism_true_after_set PASSED [ 29%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreSetGet::test_set_and_get_numeric_value PASSED [ 30%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreSetGet::test_set_and_get_complex_value PASSED [ 30%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreSetGet::test_unknown_mechanism_returns_false PASSED [ 31%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreSetGet::test_unknown_param_returns_false PASSED [ 32%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreSetGet::test_resize_triggered_on_out_of_bounds_index PASSED [ 32%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreSetGet::test_resize_preserves_existing_values PASSED [ 33%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_global_default_none_selector PASSED [ 33%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_list_selector_applies_only_to_listed_ids PASSED [ 34%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_callable_selector PASSED [ 35%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_most_recent_default_takes_precedence PASSED [ 35%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_has_default_params_true_when_matching PASSED [ 36%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_has_default_params_false_when_none_match PASSED [ 37%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_get_default_params_returns_correct_set PASSED [ 37%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_hierarchy_specific_overrides_default PASSED [ 38%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_hierarchy_fallback_to_default PASSED [ 38%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_hierarchy_no_value_returns_none PASSED [ 39%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_set_default_unknown_mech_returns_false PASSED [ 40%]
+tests/test_synapses.py::TestSynapseMechanismParameterStoreDefaults::test_complex_value_stored_and_retrieved PASSED [ 40%]
+tests/test_synapses.py::TestResizeArrays::test_resize_extends_has_mech_array PASSED [ 41%]
+tests/test_synapses.py::TestResizeArrays::test_resize_extends_param_arrays_with_nan PASSED [ 42%]
+tests/test_synapses.py::TestResizeArrays::test_resize_preserves_existing_bool_flags PASSED [ 42%]
+tests/test_synapses.py::TestResizeArrays::test_resize_noop_when_new_size_smaller PASSED [ 43%]
+tests/test_synapses.py::TestResizeArrays::test_gid_not_present_is_noop PASSED [ 44%]
+tests/test_synapses.py::TestCreateSelector::test_none_selector_matches_all PASSED [ 44%]
+tests/test_synapses.py::TestCreateSelector::test_list_selector_matches_only_listed_ids PASSED [ 45%]
+tests/test_synapses.py::TestCreateSelector::test_ndarray_selector PASSED [ 45%]
+tests/test_synapses.py::TestCreateSelector::test_callable_selector_delegates PASSED [ 46%]
+tests/test_synapses.py::TestSynapseStore::test_add_synapses_from_arrays_stores_core_fields PASSED [ 47%]
+tests/test_synapses.py::TestSynapseStore::test_add_synapses_initializes_source_defaults PASSED [ 47%]
+tests/test_synapses.py::TestSynapseStore::test_get_synapse_returns_none_for_unknown_gid PASSED [ 48%]
+tests/test_synapses.py::TestSynapseStore::test_get_synapse_returns_none_for_unknown_syn_id PASSED [ 49%]
+tests/test_synapses.py::TestSynapseStore::test_get_synapse_view_fields_match_stored PASSED [ 49%]
+tests/test_synapses.py::TestSynapseStore::test_get_synapses_by_filter_single_field PASSED [ 50%]
+tests/test_synapses.py::TestSynapseStore::test_get_synapses_by_filter_multiple_values PASSED [ 50%]
+tests/test_synapses.py::TestSynapseStore::test_get_synapses_by_filter_empty_result PASSED [ 51%]
+tests/test_synapses.py::TestSynapseStore::test_keys_yields_all_syn_ids PASSED [ 52%]
+tests/test_synapses.py::TestSynapseStore::test_items_yields_all_synapse_views PASSED [ 52%]
+tests/test_synapses.py::TestSynapseStore::test_keys_empty_for_unknown_gid PASSED [ 53%]
+tests/test_synapses.py::TestSynapseStore::test_ensure_capacity_grows_on_overflow PASSED [ 54%]
+tests/test_synapses.py::TestSynapseView::test_property_reads_correct_values PASSED [ 54%]
+tests/test_synapses.py::TestSynapseView::test_property_setter_mutates_backing_array PASSED [ 55%]
+tests/test_synapses.py::TestSynapseView::test_source_view_reads_gid_population_delay PASSED [ 55%]
+tests/test_synapses.py::TestSynapseView::test_source_view_setter_persists PASSED [ 56%]
+tests/test_synapses.py::TestGetSynFilterDict::test_valid_syn_types_no_convert PASSED [ 57%]
+tests/test_synapses.py::TestGetSynFilterDict::test_valid_syn_types_with_convert PASSED [ 57%]
+tests/test_synapses.py::TestGetSynFilterDict::test_unknown_syn_type_raises PASSED [ 58%]
+tests/test_synapses.py::TestGetSynFilterDict::test_valid_swc_type_with_convert PASSED [ 59%]
+tests/test_synapses.py::TestGetSynFilterDict::test_unknown_swc_type_raises PASSED [ 59%]
+tests/test_synapses.py::TestGetSynFilterDict::test_valid_layer_with_convert PASSED [ 60%]
+tests/test_synapses.py::TestGetSynFilterDict::test_unknown_layer_raises PASSED [ 61%]
+tests/test_synapses.py::TestGetSynFilterDict::test_valid_source_with_convert PASSED [ 61%]
+tests/test_synapses.py::TestGetSynFilterDict::test_unknown_source_raises PASSED [ 62%]
+tests/test_synapses.py::TestGetSynFilterDict::test_unrecognized_filter_name_raises_by_default PASSED [ 62%]
+tests/test_synapses.py::TestGetSynFilterDict::test_unrecognized_filter_name_allowed_when_check_false PASSED [ 63%]
+tests/test_synapses.py::TestGetSynFilterDict::test_input_deep_copied PASSED [ 64%]
+tests/test_synapses.py::TestGetSynFilterDict::test_empty_rules_returns_empty_dict PASSED [ 64%]
+tests/test_synapses.py::TestValidateSynMechParam::test_valid_mech_param_returns_true PASSED [ 65%]
+tests/test_synapses.py::TestValidateSynMechParam::test_valid_netcon_param_returns_true PASSED [ 66%]
+tests/test_synapses.py::TestValidateSynMechParam::test_unknown_syn_name_returns_false PASSED [ 66%]
+tests/test_synapses.py::TestValidateSynMechParam::test_unknown_param_name_returns_false PASSED [ 67%]
+tests/test_synapses.py::TestSynapseManagerInitSynIdAttrs::test_init_stores_all_synapses PASSED [ 67%]
+tests/test_synapses.py::TestSynapseManagerInitSynIdAttrs::test_duplicate_gid_raises PASSED [ 68%]
+tests/test_synapses.py::TestSynapseManagerInitSynIdAttrs::test_empty_syn_ids_is_noop PASSED [ 69%]
+tests/test_synapses.py::TestSynapseManagerInitSynIdAttrs::test_init_from_iter_dict_mode PASSED [ 69%]
+tests/test_synapses.py::TestSynapseManagerInitEdgeAttrs::test_sets_source_population PASSED [ 70%]
+tests/test_synapses.py::TestSynapseManagerInitEdgeAttrs::test_sets_explicit_delays PASSED [ 71%]
+tests/test_synapses.py::TestSynapseManagerInitEdgeAttrs::test_uninitialized_gid_raises PASSED [ 71%]
+tests/test_synapses.py::TestSynapseManagerInitEdgeAttrs::test_unknown_syn_id_raises PASSED [ 72%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_by_syn_type PASSED [ 72%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_by_layer PASSED [ 73%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_by_sources PASSED [ 74%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_by_swc_type PASSED [ 74%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_combined_criteria PASSED [ 75%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_empty_gid_returns_empty PASSED [ 76%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_no_filters_returns_all PASSED [ 76%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_synapse_ids_dtype PASSED [ 77%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_filter_synapse_ids_no_filters_returns_all PASSED [ 77%]
+tests/test_synapses.py::TestSynapseManagerFilterSynapses::test_cache_returns_same_result PASSED [ 78%]
+tests/test_synapses.py::TestSynapseManagerPartitionBySource::test_all_populations_present_in_result PASSED [ 79%]
+tests/test_synapses.py::TestSynapseManagerPartitionBySource::test_gc_yields_correct_syn_ids PASSED [ 79%]
+tests/test_synapses.py::TestSynapseManagerPartitionBySource::test_mc_yields_correct_syn_ids PASSED [ 80%]
+tests/test_synapses.py::TestSynapseManagerPartitionBySource::test_partition_with_explicit_syn_ids PASSED [ 81%]
+tests/test_synapses.py::TestSynapseManagerPartitionBySource::test_unknown_gid_returns_empty_iterators PASSED [ 81%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_add_and_has_point_process PASSED [ 82%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_get_point_process PASSED [ 83%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_duplicate_point_process_raises PASSED [ 83%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_get_missing_throw_false_returns_none PASSED [ 84%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_add_has_get_netcon PASSED [ 84%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_del_netcon_removes_entry PASSED [ 85%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_del_netcon_throw_false_when_absent PASSED [ 86%]
+tests/test_synapses.py::TestSynapseManagerPointProcessStorage::test_add_has_get_vecstim PASSED [ 86%]
+tests/test_synapses.py::TestAddDefaultMechanismParameters::test_default_params_readable_via_get_effective PASSED [ 87%]
+tests/test_synapses.py::TestAddDefaultMechanismParameters::test_default_applies_to_all_synapses PASSED [ 88%]
+tests/test_synapses.py::TestAddDefaultMechanismParameters::test_gaba_label_resolves_to_exp2syn PASSED [ 88%]
+tests/test_synapses.py::TestAddMechanismParametersFromIter::test_sets_parameter_via_iter PASSED [ 89%]
+tests/test_synapses.py::TestAddMechanismParametersFromIter::test_duplicate_raises_in_error_mode PASSED [ 89%]
+tests/test_synapses.py::TestAddMechanismParametersFromIter::test_duplicate_skipped_in_skip_mode PASSED [ 90%]
+tests/test_synapses.py::TestAddMechanismParametersFromIter::test_duplicate_overwritten_in_overwrite_mode PASSED [ 91%]
+tests/test_synapses.py::TestAddMechanismParametersFromIter::test_unknown_gid_raises PASSED [ 91%]
+tests/test_synapses.py::TestGetMechanismParameters::test_returns_set_value PASSED [ 92%]
+tests/test_synapses.py::TestGetMechanismParameters::test_returns_none_for_unknown_syn_id PASSED [ 93%]
+tests/test_synapses.py::TestGetMechanismParameters::test_raises_for_unknown_syn_id PASSED [ 93%]
+tests/test_synapses.py::TestGetMechanismParameters::test_returns_none_when_no_params_set PASSED [ 94%]
+tests/test_synapses.py::TestModifySynParam::test_raises_when_sec_type_not_in_cell PASSED [ 94%]
+tests/test_synapses.py::TestModifySynParam::test_raises_when_param_name_is_none PASSED [ 95%]
+tests/test_synapses.py::TestModifySynParam::test_raises_when_value_is_none PASSED [ 96%]
+tests/test_synapses.py::TestModifySynParam::test_raises_when_param_not_recognized PASSED [ 96%]
+tests/test_synapses.py::TestModifySynParam::test_populates_mech_dict_on_first_call PASSED [ 97%]
+tests/test_synapses.py::TestModifySynParam::test_second_call_overwrites_mech_dict_value PASSED [ 98%]
+tests/test_synapses.py::TestModifySynParam::test_tau_stored_for_all_syn_ids PASSED [ 98%]
+tests/test_synapses.py::TestModifySynParam::test_netcon_weight_stored_for_all_syn_ids PASSED [ 99%]
+tests/test_synapses.py::TestModifySynParam::test_second_call_overwrites_param_store_value PASSED [100%]
+
+=================================== FAILURES ===================================
+______________________ test_explicit_params_label_is_used ______________________
+tests/test_eval_network.py:246: in test_explicit_params_label_is_used
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+______________________ test_default_label_picks_first_key ______________________
+tests/test_eval_network.py:282: in test_default_label_picks_first_key
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+_________________________ test_all_param_names_mapped __________________________
+tests/test_eval_network.py:323: in test_all_param_names_mapped
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+__________________________ test_nested_path_fallback ___________________________
+tests/test_eval_network.py:372: in test_nested_path_fallback
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+_____________________ test_tuple_sec_type_flat_key_lookup ______________________
+tests/test_eval_network.py:425: in test_tuple_sec_type_flat_key_lookup
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+___________________ test_tuple_sec_type_nested_path_fallback ___________________
+tests/test_eval_network.py:477: in test_tuple_sec_type_nested_path_fallback
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+__________________ test_network_run_called_with_output_false ___________________
+tests/test_eval_network.py:543: in test_network_run_called_with_output_false
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+_______________ test_output_json_written_with_correct_structure ________________
+tests/test_eval_network.py:581: in test_output_json_written_with_correct_structure
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+_____________ test_output_json_objectives_match_compute_objectives _____________
+tests/test_eval_network.py:618: in test_output_json_objectives_match_compute_objectives
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+_______________ test_output_json_constraints_keyed_by_population _______________
+tests/test_eval_network.py:651: in test_output_json_constraints_keyed_by_population
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+_________________ test_no_output_file_when_output_path_is_none _________________
+tests/test_eval_network.py:682: in test_no_output_file_when_output_path_is_none
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+________ test_kwargs_from_operational_config_forwarded_to_init_network _________
+tests/test_eval_network.py:726: in test_kwargs_from_operational_config_forwarded_to_init_network
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+__________ test_explicit_network_kwargs_not_overwritten_by_op_config ___________
+tests/test_eval_network.py:777: in test_explicit_network_kwargs_not_overwritten_by_op_config
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+_________________________ test_network_shutdown_called _________________________
+tests/test_eval_network.py:831: in test_network_shutdown_called
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+____________________ test_cleanup_true_raises_runtime_error ____________________
+tests/test_eval_network.py:885: in test_cleanup_true_raises_runtime_error
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+__________________ test_io_utils_mkout_spikeout_lfpout_called __________________
+tests/test_eval_network.py:919: in test_io_utils_mkout_spikeout_lfpout_called
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+___________ test_io_utils_recsout_called_when_recording_profile_set ____________
+tests/test_eval_network.py:953: in test_io_utils_recsout_called_when_recording_profile_set
+    with (
+/opt/cray/pe/python/3.11.7/lib/python3.11/unittest/mock.py:1427: in __enter__
+    self.target = self.getter()
+/opt/cray/pe/python/3.11.7/lib/python3.11/pkgutil.py:715: in resolve_name
+    result = getattr(result, p)
+E   AttributeError: module 'miv_simulator' has no attribute 'eval_network'
+=========================== short test summary info ============================
+FAILED tests/test_eval_network.py::test_explicit_params_label_is_used - Attri...
+FAILED tests/test_eval_network.py::test_default_label_picks_first_key - Attri...
+FAILED tests/test_eval_network.py::test_all_param_names_mapped - AttributeErr...
+FAILED tests/test_eval_network.py::test_nested_path_fallback - AttributeError...
+FAILED tests/test_eval_network.py::test_tuple_sec_type_flat_key_lookup - Attr...
+FAILED tests/test_eval_network.py::test_tuple_sec_type_nested_path_fallback
+FAILED tests/test_eval_network.py::test_network_run_called_with_output_false
+FAILED tests/test_eval_network.py::test_output_json_written_with_correct_structure
+FAILED tests/test_eval_network.py::test_output_json_objectives_match_compute_objectives
+FAILED tests/test_eval_network.py::test_output_json_constraints_keyed_by_population
+FAILED tests/test_eval_network.py::test_no_output_file_when_output_path_is_none
+FAILED tests/test_eval_network.py::test_kwargs_from_operational_config_forwarded_to_init_network
+FAILED tests/test_eval_network.py::test_explicit_network_kwargs_not_overwritten_by_op_config
+FAILED tests/test_eval_network.py::test_network_shutdown_called - AttributeEr...
+FAILED tests/test_eval_network.py::test_cleanup_true_raises_runtime_error - A...
+FAILED tests/test_eval_network.py::test_io_utils_mkout_spikeout_lfpout_called
+FAILED tests/test_eval_network.py::test_io_utils_recsout_called_when_recording_profile_set
+======================== 17 failed, 142 passed in 2.84s ========================
+numprocs=1
+
+=== [5] CoreNEURON GPU backend probe ===
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+  NEURON import OK
+  CoreNEURON: <neuron.coreneuron.coreneuron object at 0x1519c876c450>
+  GPU attr present: True
+  GPU mode set: True
+
+=== [6] MiV CLI tools ===
+Name       Start    Count   
+====       =====    =====   
+STIM       0        1000    
+PYR        1000     80000   
+PVBC       81000    1474    
+OLM        82474    438     
+numprocs=1
+---
+py_read_cell_attribute_info: barrier error: Assertion 'MPI_Barrier(comm) == MPI_SUCCESS' failed in file '/home/hyoklee/neuroh5/python/neuroh5/iomodule.cc' line 3846
+terminate called after throwing an instance of 'AssertionFailureException'
+  what():  py_read_cell_attribute_info: barrier error: Assertion 'MPI_Barrier(comm) == MPI_SUCCESS' failed in file '/home/hyoklee/neuroh5/python/neuroh5/iomodule.cc' line 3846
+x3109c0s13b0n0.hsn.cm.polaris.alcf.anl.gov: rank 1 died from signal 6 and dumped core
+x3109c0s13b0n0.hsn.cm.polaris.alcf.anl.gov: rank 0 died from signal 15
+
+=== [7] Generating wiki summary ===
+  Wiki saved: /home/hyoklee/NeuroFAIR/wiki/miv_polaris_build_test.md
+
+==== Done ====
+Date: Thu Apr 23 12:09:46 AM UTC 2026
+Results: /lus/grand/projects/gpu_hack/iowarp/miv_polaris/results/
+Wiki:    /home/hyoklee/NeuroFAIR/wiki/miv_polaris_build_test.md

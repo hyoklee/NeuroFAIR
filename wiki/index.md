@@ -56,6 +56,7 @@
 ## Build and Test Reports
 
 - [MiV-Simulator build and test on Aurora](source-MiV_Simulator_build_test.md) — PBS job results: neuroh5 cmake build, 208 tests (170+38 pass), CoreNEURON GPU, known issues
+- [MiV-Simulator build and test on Polaris](miv_polaris_build_test.md) — PBS jobs 7097199–7097215: neuroh5 cmake (gcc/GNU MPICH), 204/223 tests pass, CoreNEURON A100 GPU confirmed; GNU Cray MPICH SHM transport blocks multi-rank neuroh5 I/O
 
 ## Schema
 

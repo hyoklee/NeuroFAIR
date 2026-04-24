@@ -125,12 +125,48 @@ Abort(1) on node 7 (rank 7 in comm 0): application called MPI_Abort(MPI_COMM_WOR
 
 ---
 
-## Run 4 — PBS job 8450374 (2026-04-24, debug-scaling) — PENDING
+## Run 4 — PBS job 8450374 (2026-04-24 22:30, debug-scaling)
+
+**Result: FAILED — make_cells: unknown cell configuration type for cell type STIM**
 
 **Changes from Run 3**:
 - Added `export PYTHONPATH=${OPT_DIR}:${PYTHONPATH:-}`
 
-Job is queued in `debug-scaling`. Expected outcome: `templates.PyramidalCellBilash.PyramidalCell` loads on all ranks and the NSGA-II optimization loop runs for 3 generations × 5 individuals = 15 evaluations.
+**What succeeded**:
+- PYTHONPATH fix confirmed: `templates.PyramidalCellBilash.PyramidalCell` and `templates.PRN_neuron.PRN` imported on all ranks — no `ModuleNotFoundError`
+- Second dmosopt output file created: `results/network/dmosopt.optimize_network_20260424_2230.h5` (65 KB)
+
+**Error**: `RuntimeError: make_cells: unknown cell configuration type for cell type STIM` on all 9 ranks
+
+```
+File "network.py", line 987, in make_cells
+    raise RuntimeError(
+RuntimeError: make_cells: unknown cell configuration type for cell type STIM
+Abort(1) on node 0 (rank 0 in comm 0): application called MPI_Abort(MPI_COMM_WORLD, 1)
+...
+Abort(1) on node 7 (rank 7 in comm 0): application called MPI_Abort(MPI_COMM_WORLD, 1)
+```
+
+**Root cause**: `make_cells` iterates over all `env.celltypes` keys (OLM, PVBC, PYR, STIM). For each population it expects either `Trees` (biophysical morphology) or the `coordinates_ns` namespace (`Generated Coordinates`). STIM has neither — it has only `Coordinates` and `Input Spikes A Diag` namespaces. STIM is a VecStim spike-input population configured with `template: VecStim` and `spike train:` in the YAML; it is intended to be created by `init_input_cells`, not `make_cells`.
+
+**Fix**: Patched `make_cells` in the installed `network.py` to skip populations that have `"spike train"` in their `celltypes` config (i.e., VecStim input populations):
+
+```python
+# Spike-input populations (VecStim) are created by init_input_cells, not make_cells
+if "spike train" in env.celltypes.get(pop_name, {}):
+    continue
+```
+
+File patched: `/home/hyoklee/miniconda3/envs/miv/lib/python3.12/site-packages/miv_simulator/network.py` (after `env.pc.barrier()`, before the logging/template loading block).
+
+---
+
+## Run 5 — PBS job 8450380 (2026-04-24, debug-scaling) — PENDING
+
+**Changes from Run 4**:
+- Patched `network.py:make_cells` to skip VecStim (spike train) populations
+
+Expected outcome: STIM skipped in `make_cells`, handled by `init_input_cells`; OLM/PVBC/PYR cells created from morphology; optimization loop runs 3 generations × 5 individuals = 15 evaluations.
 
 ---
 
@@ -142,13 +178,15 @@ Job is queued in `debug-scaling`. Expected outcome: `templates.PyramidalCellBila
 
 3. **templates namespace not in MPI worker sys.path**: Cray PALS mpiexec worker ranks don't inherit cwd in `sys.path`. Fix: `export PYTHONPATH=/path/to/7-optimization:${PYTHONPATH:-}`.
 
-4. **h5py import order** (same as build-test): `utils/__init__.py` has `import h5py` as first line. Fix is already applied in conda `miv` env.
+4. **make_cells STIM RuntimeError**: `make_cells` tries to create all `celltypes` populations but STIM (VecStim) has neither `Trees` nor `Generated Coordinates`. Fix: patch `make_cells` in `network.py` to skip populations with `"spike train"` in their `celltypes` config — those are created by `init_input_cells`.
 
-5. **MIV_SKIP_MPI_CHECK=1**: Required to bypass PR 103's startup h5py parallel check.
+5. **h5py import order** (same as build-test): `utils/__init__.py` has `import h5py` as first line. Fix is already applied in conda `miv` env.
 
-6. **NRNHOME**: Must be set to `${MIV_PREFIX}/lib/python3.12/site-packages/neuron/.data` so NEURON 9.x pip wheel finds its binaries.
+6. **MIV_SKIP_MPI_CHECK=1**: Required to bypass PR 103's startup h5py parallel check.
 
-7. **Aurora debug queue zombie jobs**: PBS does not enforce the 1hr walltime on some jobs. Use `debug-scaling` queue instead of `debug`.
+7. **NRNHOME**: Must be set to `${MIV_PREFIX}/lib/python3.12/site-packages/neuron/.data` so NEURON 9.x pip wheel finds its binaries.
+
+8. **Aurora debug queue zombie jobs**: PBS does not enforce the 1hr walltime on some jobs. Use `debug-scaling` queue instead of `debug`.
 
 ---
 

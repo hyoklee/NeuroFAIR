@@ -2,7 +2,7 @@
 
 **Date**: 2026-04-24
 **Platform**: Aurora (Intel GPU, Aurora MPICH 5.0, SYCL/oneAPI)
-**Job**: PBS debug queue, `gpu_hack` allocation
+**Job**: PBS debug-scaling queue, `gpu_hack` allocation
 **Source**: GazzolaLab/MiV-Simulator-Cases, `7-optimization/` directory
 **MiV-Simulator**: `~/MiV-Simulator` (v0.3.0 + PR 103, conda env `miv`)
 **PBS script**: `/home/hyoklee/wrp/run/miv_optimize_test.pbs`
@@ -36,7 +36,7 @@ Three mechanism directories compiled via `miv_simulator.mechanisms.compile_and_l
 - `mechanisms/synaptic/` — 3 .mod files (lin_exp2syn, lin_exp2synNMDA, NMDA_CA1_pyr_SC)
 - `mechanisms/vecevent.mod` — VecStim point process for spike injection
 
-Compilation is automatic via `miv_simulator.mechanisms.compile_and_load(directory='mechanisms')` when `optimize-network` initializes the Env.
+Compilation is automatic via `miv_simulator.mechanisms.compile_and_load(directory='mechanisms')` when `optimize-network` initializes the Env. Compiled artifacts go to `mechanisms/compiled/<hash>/x86_64/`.
 
 ---
 
@@ -60,24 +60,137 @@ slots that were requested by the application:
 
 ## Run 2 — PBS job 8449551 (2026-04-24 ~12:27)
 
-**Status**: PENDING (debug queue; zombie jobs blocking queue)
+**Result: FAILED**
 
 **Changes from Run 1**:
 - Replaced bare `mpiexec` with `/opt/cray/pals/1.8/bin/mpiexec`
 
-**Queue context**: Aurora debug queue has persistent zombie jobs running 4–70 hours past the 1hr walltime limit; PBS is not enforcing walltime kill. Job is 6th in queue behind 3 long-stale queued jobs (8293387, 8293399, 8385721) and behind 2 zombie running jobs (8449426, 8449495).
+**Error**: `libnl_3_5` symbol not found in system libnl
+
+```
+ImportError: /usr/lib64/libnl-3.so.200: version 'libnl_3_5' not found
+(required by /home/hyoklee/miniconda3/envs/miv/lib/libmpi.so.40)
+```
+
+**Root cause**: Cray `libfabric.so.1` is in `LD_LIBRARY_PATH` and links to `/usr/lib64/libnl-3.so.200` (system v25.0). Because `libfabric` is loaded early in the dynamic linker, it pulls the system `libnl-3.so.200` into the linker cache. When h5py's OpenMPI (`libmpi.so.40`) then loads, it needs `libnl-route-3.so.200` → `libnl-3.so.200` and gets the cached v25.0 instead of conda's v26.0 (which exports `libnl_3_5`).
+
+Confirmed via:
+```
+ldd /opt/cray/libfabric/1.22.0/lib64/libfabric.so.1 | grep libnl
+# → /usr/lib64/libnl-3.so.200
+```
+
+**Fix**: `export LD_PRELOAD=${MIV_PREFIX}/lib/libnl-3.so.200` forces conda v26.0 into the linker cache before `libfabric` can inject the system v25.0.
+
+**Queue context**: Aurora debug queue had persistent zombie jobs running 4–70 hours past walltime limit. Switched to `debug-scaling` queue for subsequent runs.
+
+---
+
+## Run 3 — PBS job 8449571 (2026-04-24 ~18:29, debug-scaling)
+
+**Result: PARTIAL — mechanisms compiled, optimizer started, templates import failed**
+
+**Changes from Run 2**:
+- Added `LD_PRELOAD=${MIV_PREFIX}/lib/libnl-3.so.200`
+- Changed queue to `debug-scaling`
+
+**What succeeded**:
+- h5py 3.16.0 (MPI=True) imported cleanly — LD_PRELOAD fix confirmed working
+- Cray PALS mpiexec launched 9 ranks successfully
+- distwq initialized 8 collective worker ranks (ranks 1–7) + 1 broker
+- MiV-Simulator Env initialized with correct paths:
+  - `dataset_prefix = /lus/flare/projects/gpu_hack/iowarp/neuroh5`
+  - `data_file_path = .../Microcircuit_Small/MiV_Cells_Microcircuit_Small_20220410.h5`
+  - `connectivity_file_path = .../Microcircuit_Small/MiV_Connections_Microcircuit_Small_20220410.h5`
+  - `spike_input_path = .../MiV_input_spikes.h5`
+  - Population ranges: STIM(0–10), PYR(10–80), PVBC(90–53), OLM(143–44)
+  - Projections: OLM→{PVBC, PYR}, PVBC→{OLM, PVBC, PYR, STIM}, PYR→{OLM, PVBC, PYR, STIM}
+- All 34 .mod files compiled successfully (`nrnivmodl`, 9 vecevent deprecation warnings, non-fatal)
+- `libnrnmech.so` and `special` linked in `mechanisms/compiled/<hash>/x86_64/`
+- `Creating cells...` reached — optimizer began network initialization
+- dmosopt output file created: `results/network/dmosopt.optimize_network_20260424_1829.h5` (65 KB)
+
+**Error**: `ModuleNotFoundError: No module named 'templates'` on all 9 MPI ranks
+
+```
+ModuleNotFoundError: No module named 'templates'
+Abort(1) on node 0 (rank 0 in comm 0): application called MPI_Abort(MPI_COMM_WORLD, 1)
+...
+Abort(1) on node 7 (rank 7 in comm 0): application called MPI_Abort(MPI_COMM_WORLD, 1)
+```
+
+**Root cause**: MiV-Simulator's `import_object_by_path("templates.PyramidalCellBilash.PyramidalCell")` and `"templates.PRN_neuron.PRN"` need the `7-optimization/templates/` namespace package in Python's import path. Worker processes launched by Cray PALS `mpiexec` do not inherit the current working directory in `sys.path`, so `templates` is not findable even though it exists at `7-optimization/templates/`.
+
+**Fix**: `export PYTHONPATH=${OPT_DIR}:${PYTHONPATH:-}` prepended before the mpiexec call, so all ranks inherit the path to `7-optimization/`.
+
+---
+
+## Run 4 — PBS job 8450374 (2026-04-24, debug-scaling) — PENDING
+
+**Changes from Run 3**:
+- Added `export PYTHONPATH=${OPT_DIR}:${PYTHONPATH:-}`
+
+Job is queued in `debug-scaling`. Expected outcome: `templates.PyramidalCellBilash.PyramidalCell` loads on all ranks and the NSGA-II optimization loop runs for 3 generations × 5 individuals = 15 evaluations.
 
 ---
 
 ## Known issues and workarounds
 
-1. **OpenMPI PRRTE slot count mismatch**: Do not use bare `mpiexec` (OpenMPI) for multi-rank MPI jobs on Aurora. Use `/opt/cray/pals/1.8/bin/mpiexec` for PBS-integrated slot allocation.
+1. **OpenMPI PRRTE slot count mismatch**: Do not use bare `mpiexec` (OpenMPI) for multi-rank jobs on Aurora. Use `/opt/cray/pals/1.8/bin/mpiexec` for PBS-integrated slot allocation.
 
-2. **h5py import order** (same as build-test): `utils/__init__.py` has `import h5py` as first line — fix is already in place in the conda `miv` env.
+2. **Cray libfabric libnl version conflict**: `libfabric.so.1` loads `/usr/lib64/libnl-3.so.200` (v25.0, missing `libnl_3_5`) before conda's OpenMPI can load its own v26.0. Fix: `export LD_PRELOAD=${MIV_PREFIX}/lib/libnl-3.so.200`.
 
-3. **MIV_SKIP_MPI_CHECK=1**: Required to bypass PR 103's startup h5py parallel check.
+3. **templates namespace not in MPI worker sys.path**: Cray PALS mpiexec worker ranks don't inherit cwd in `sys.path`. Fix: `export PYTHONPATH=/path/to/7-optimization:${PYTHONPATH:-}`.
 
-4. **Aurora debug queue zombie jobs**: PBS does not enforce the 1hr walltime on some jobs. Queue can be blocked for hours/days by jobs that exceed their walltime.
+4. **h5py import order** (same as build-test): `utils/__init__.py` has `import h5py` as first line. Fix is already applied in conda `miv` env.
+
+5. **MIV_SKIP_MPI_CHECK=1**: Required to bypass PR 103's startup h5py parallel check.
+
+6. **NRNHOME**: Must be set to `${MIV_PREFIX}/lib/python3.12/site-packages/neuron/.data` so NEURON 9.x pip wheel finds its binaries.
+
+7. **Aurora debug queue zombie jobs**: PBS does not enforce the 1hr walltime on some jobs. Use `debug-scaling` queue instead of `debug`.
+
+---
+
+## PBS script (Run 4 / current)
+
+Key environment variables:
+```bash
+AURORA_MPICH=/opt/aurora/26.26.0/spack/unified/1.1.1/install/linux-x86_64/mpich-5.0.0.aurora_test.3c70a61-hlkigtk
+MIV_PREFIX=/home/hyoklee/miniconda3/envs/miv
+OPT_DIR=/home/hyoklee/MiV-Simulator-Cases/7-optimization
+NEUROH5_DIR=/lus/flare/projects/gpu_hack/iowarp/neuroh5
+
+export LD_LIBRARY_PATH=${AURORA_MPICH}/lib:${MIV_PREFIX}/lib:${LD_LIBRARY_PATH:-}
+export LD_PRELOAD=${MIV_PREFIX}/lib/libnl-3.so.200
+export NRNHOME=${MIV_PREFIX}/lib/python3.12/site-packages/neuron/.data
+export PATH=${NRNHOME}/bin:${PATH}
+export MIV_SKIP_MPI_CHECK=1
+export PYTHONPATH=${OPT_DIR}:${PYTHONPATH:-}
+```
+
+Launch command:
+```bash
+/opt/cray/pals/1.8/bin/mpiexec -n 9 \
+    ${MIV_PREFIX}/bin/optimize-network \
+    --config-path=./config/optimize_network.yaml \
+    --optimize-file-dir=results/network \
+    --verbose \
+    --nprocs-per-worker=8 \
+    --n-epochs=1 \
+    --population-size=5 \
+    --num-generations=3 \
+    "--dataset_prefix=${NEUROH5_DIR}" \
+    "--config_prefix=${OPT_DIR}/config" \
+    "--spike_input_path=${NEUROH5_DIR}/MiV_input_spikes.h5" \
+    "--spike_input_namespaces=Input Spikes A Diag" \
+    "--spike_input_attr=Spike Train" \
+    "--arena_id=A" \
+    "--stimulus_id=Diag" \
+    "--coordinates_namespace=Generated Coordinates" \
+    "--io_size=1" \
+    "--results_path=${OPT_DIR}/results/network"
+```
 
 ---
 
@@ -87,7 +200,7 @@ slots that were requested by the application:
 - Run log: `/home/hyoklee/wrp/run/miv_optimize_test_run.log`
 - 7-optimization source: `/home/hyoklee/MiV-Simulator-Cases/7-optimization/`
 - Optimization config: `/home/hyoklee/MiV-Simulator-Cases/7-optimization/config/optimize_network.yaml`
-- Results dir (when run completes): `/home/hyoklee/MiV-Simulator-Cases/7-optimization/results/network/`
+- Results dir: `/home/hyoklee/MiV-Simulator-Cases/7-optimization/results/network/`
 - [MiV-Simulator build+test](source-MiV_Simulator_build_test.md) — build environment and test results
 - [MiV_Cells_Microcircuit_Small_20220410.h5](source-MiV_Cells_Microcircuit_Small_20220410_h5.md) — cell data used
 - [MiV_Connections_Microcircuit_Small_20220410.h5](source-MiV_Connections_Microcircuit_Small_20220410_h5.md) — connectivity data used

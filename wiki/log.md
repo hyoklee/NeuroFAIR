@@ -1,8 +1,8 @@
 # Wiki Log
 
-## [2026-04-24] optimize | MiV-Simulator-Cases 7-optimization on Aurora (PBS jobs 8448630, 8449551)
+## [2026-04-24] optimize | MiV-Simulator-Cases 7-optimization on Aurora (PBS jobs 8448630–8450374)
 
-Cloned GazzolaLab/MiV-Simulator-Cases to `~/MiV-Simulator-Cases`. Configured and submitted the 7-optimization experiment (dmosopt NSGA-II synaptic weight optimization for CA1 PYR/PVBC/OLM populations) as a small test run (pop-size=5, 3 generations, 1 epoch, 9 MPI ranks). Run 1 (job 8448630): FAILED — bare `mpiexec -n 9` resolved to OpenMPI/PRRTE which reported "not enough slots" because PBS did not expose CPU count to PRRTE. Fix: use `/opt/cray/pals/1.8/bin/mpiexec` (Cray PALS, integrates with PBS allocation). Run 2 (job 8449551): submitted with Cray PALS fix; debug queue blocked by zombie jobs running 4–70 hours past 1hr walltime limit (PBS not enforcing walltime). Created `source-MiV_Optimizer_test.md`. Updated `index.md`.
+Ran the 7-optimization experiment (dmosopt NSGA-II synaptic weight optimization for CA1 PYR/PVBC/OLM populations; pop-size=5, 3 generations, 1 epoch, 9 MPI ranks). Four runs, each fixing one blocker: Run 1 (8448630) FAILED — bare `mpiexec` hit OpenMPI PRRTE "not enough slots"; fixed by switching to `/opt/cray/pals/1.8/bin/mpiexec` (Cray PALS). Run 2 (8449551) FAILED — `libnl_3_5` symbol not found: Cray `libfabric.so.1` loaded system `libnl-3.so.200` (v25.0) into the linker cache before conda's v26.0; fixed by `LD_PRELOAD=${MIV_PREFIX}/lib/libnl-3.so.200`. Switched from `debug` to `debug-scaling` queue (debug queue blocked by zombie jobs ignoring walltime). Run 3 (8449571) PARTIAL — LD_PRELOAD fix worked; 34 .mod files compiled via nrnivmodl; dmosopt file created (65 KB); all 9 ranks failed `ModuleNotFoundError: No module named 'templates'` (Cray PALS worker processes don't inherit cwd in sys.path); fixed by `export PYTHONPATH=${OPT_DIR}:${PYTHONPATH:-}`. Run 4 (8450374) PENDING in debug-scaling. Updated `source-MiV_Optimizer_test.md` with all four runs.
 
 ## [2026-04-24] build-test | MiV-Simulator + PR 103 on Aurora (PBS job 8448029)
 

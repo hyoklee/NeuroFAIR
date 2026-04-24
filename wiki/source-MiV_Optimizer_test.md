@@ -161,12 +161,50 @@ File patched: `/home/hyoklee/miniconda3/envs/miv/lib/python3.12/site-packages/mi
 
 ---
 
-## Run 5 — PBS job 8450380 (2026-04-24, debug-scaling) — PENDING
+## Run 5 — PBS job 8450380 (2026-04-24 22:41, debug-scaling)
+
+**Result: PARTIAL — cells created, connections loaded, spike init crashed in neuroh5**
 
 **Changes from Run 4**:
 - Patched `network.py:make_cells` to skip VecStim (spike train) populations
 
-Expected outcome: STIM skipped in `make_cells`, handled by `init_input_cells`; OLM/PVBC/PYR cells created from morphology; optimization loop runs 3 generations × 5 individuals = 15 evaluations.
+**What succeeded**:
+- STIM skip confirmed: OLM (6 cells/rank), PVBC (6–7 cells/rank), PYR (10 cells/rank) all created from morphology/coordinates
+- Connections loaded: ~400K connections per rank across all 7 projections (OLM→{PVBC,PYR}, PVBC→{OLM,PVBC,PYR,STIM}, PYR→{OLM,PVBC,PYR,STIM})
+- Third dmosopt output file created: `dmosopt.optimize_network_20260424_2240.h5` (65 KB)
+
+**Error**: neuroh5 assertion failure in `append_rank_attr_map` during STIM spike input initialization
+
+```
+append_rank_attr_map: index not found in node rank map:
+Assertion 'it != node_rank_map.end()' failed in
+file '/home/hyoklee/neuroh5/src/data/append_rank_attr_map.cc' line 53
+terminate called after throwing an instance of 'AssertionFailureException'
+x4311c6s7b0n0.hsn.cm.aurora.alcf.anl.gov: rank 0 died from signal 6
+```
+
+**Root cause**: `init_input_cells` calls `scatter_read_cell_attributes` to read STIM spike trains from `MiV_input_spikes.h5`. That file's H5Types registry records STIM with Count=1000 (full microcircuit). The `ldbal_cell_attr` function builds a `node_rank_map` covering 1000 GIDs, but the neuroh5 `append_rank_attr_map` assertion fails because a GID read from the float attribute data is not found in the rank map — a size mismatch between the spike file (1000 STIM GIDs) and the small circuit cell file (10 STIM GIDs, range 0–9).
+
+**Fix**: Patched `init_input_cells` in `network.py` to use `scatter_read_cell_attribute_selection` with only the 10 GIDs from the cells-file population range (`env.celltypes[pop_name]["start"]` = 0, `["num"]` = 10) instead of `scatter_read_cell_attributes` which reads all GIDs from the spike file:
+
+```python
+# Use the cells-file population range so only this circuit's GIDs are read
+pop_start = env.celltypes[pop_name].get("start", 0)
+pop_num = env.celltypes[pop_name].get("num", 0)
+pop_gid_selection = list(range(pop_start, pop_start + pop_num))
+vecstim_iter, vecstim_attr_info = scatter_read_cell_attribute_selection(
+    input_path, pop_name, pop_gid_selection, namespace=input_ns, ...
+)
+```
+
+---
+
+## Run 6 — PBS job 8450410 (2026-04-24, debug-scaling) — PENDING
+
+**Changes from Run 5**:
+- Patched `init_input_cells` to use `scatter_read_cell_attribute_selection` with cells-file GID range for VecStim populations
+
+Expected outcome: STIM spike trains loaded for GIDs 0–9 only; VecStim cells initialized; NSGA-II optimization loop runs 3 generations × 5 individuals = 15 evaluations.
 
 ---
 
@@ -179,6 +217,8 @@ Expected outcome: STIM skipped in `make_cells`, handled by `init_input_cells`; O
 3. **templates namespace not in MPI worker sys.path**: Cray PALS mpiexec worker ranks don't inherit cwd in `sys.path`. Fix: `export PYTHONPATH=/path/to/7-optimization:${PYTHONPATH:-}`.
 
 4. **make_cells STIM RuntimeError**: `make_cells` tries to create all `celltypes` populations but STIM (VecStim) has neither `Trees` nor `Generated Coordinates`. Fix: patch `make_cells` in `network.py` to skip populations with `"spike train"` in their `celltypes` config — those are created by `init_input_cells`.
+
+5. **neuroh5 append_rank_attr_map assertion**: `init_input_cells` calls `scatter_read_cell_attributes` on the spike input file, which has 1000 STIM GIDs (full circuit). The `node_rank_map` built from this file causes an assertion failure because the small circuit's actual GIDs (0–9) don't match. Fix: patch `init_input_cells` to use `scatter_read_cell_attribute_selection` with only the 10 GIDs from `env.celltypes[pop_name]["start"]` / `["num"]`.
 
 5. **h5py import order** (same as build-test): `utils/__init__.py` has `import h5py` as first line. Fix is already applied in conda `miv` env.
 

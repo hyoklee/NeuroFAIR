@@ -199,12 +199,44 @@ vecstim_iter, vecstim_attr_info = scatter_read_cell_attribute_selection(
 
 ---
 
-## Run 6 — PBS job 8450410 (2026-04-24, debug-scaling) — PENDING
+## Run 6 — PBS job 8450410 (2026-04-24 23:01, debug-scaling)
+
+**Result: PARTIAL — 28 evaluations completed but all returned zero spikes; killed by walltime at 00:01**
 
 **Changes from Run 5**:
 - Patched `init_input_cells` to use `scatter_read_cell_attribute_selection` with cells-file GID range for VecStim populations
 
-Expected outcome: STIM spike trains loaded for GIDs 0–9 only; VecStim cells initialized; NSGA-II optimization loop runs 3 generations × 5 individuals = 15 evaluations.
+**What succeeded**:
+- All previous fixes confirmed working: LD_PRELOAD (libnl), PYTHONPATH (templates), make_cells STIM skip, scatter_read_cell_attribute_selection GID selection — no crashes
+- Optimization loop launched: dmosopt NSGA-II started, distwq distributed tasks across 8 worker ranks
+- 28 evaluations completed (tasks 0–27); task 28 killed in progress by PBS walltime
+- dmosopt checkpoint: `results/network/dmosopt.optimize_network_20260424_2301.h5` grew to **127 KB** (vs 65 KB baseline for prior failed runs)
+- PBS `.out` file: 4.2 MB of log output
+
+**Critical issue 1 — All evaluations returned zero cell activity**:
+- All 28 evaluations: `n_active = 0` for PYR (80 cells), PVBC (53 cells), OLM (44 cells)
+- All 10 objectives: `feature: 0.0` (no spikes measured)
+- The 1250ms NEURON simulation ran to completion (task 0: ~887 wall-clock seconds) but produced no action potentials
+- Hypothesis: `scatter_read_cell_attribute_selection` for STIM GIDs 0–9 may return empty spike trains if GIDs 0–9 are not present in `MiV_input_spikes.h5` with spike data, or if the small circuit STIM GID range (0–9) does not match the spike file's indexed GIDs. The VecStim objects would then have no spike times and drive no input current into PYR/PVBC/OLM cells.
+
+**Critical issue 2 — simtime truncated 27 of 28 evaluations to ~10ms**:
+- `miv_simulator.utils.simtime` reported `allocated wall time is 0.50 hours` — only half the actual PBS walltime of 1:00:00
+- `max wall time is 1774.06 s` (setup excluded 25.94 s from 1800 s)
+- Task 0 ran correctly to t=1250ms (887 wall-clock seconds), consuming ~887 s of simtime budget
+- For all subsequent tasks, simtime detected near-zero remaining budget and truncated simulations at t=10ms with warning: `not enough time to complete 10.02 ms simulation, simulation will likely stop around -249.00 ms`
+- Tasks 1–27 each ran in ~5–10 wall-clock seconds (vs 887 s for task 0)
+- Root cause: simtime reads PBS walltime via some mechanism that returns 0.50 hours instead of 1.00 hours under Cray PALS mpiexec — possibly reading process CPU time limit rather than job walltime, or misinterpreting a PBS resource variable
+- Even with simtime fixed, tasks 1–27 would still return zero spikes (same underlying zero-spike issue)
+
+**dmosopt results** (scientific outcome):
+- 28 evaluations, all with zero fitness; NSGA-II operated on a degenerate landscape
+- No meaningful Pareto front generated
+- Checkpoint file preserved for inspection
+
+**Fixes needed for Run 7**:
+1. **Zero-spike fix** (primary): Verify STIM GIDs in `MiV_input_spikes.h5` — run `h5ls -r MiV_input_spikes.h5` to check GID range of `Input Spikes A Diag/Spike Train`; adjust GID selection if offset differs from 0–9
+2. **simtime fix** (secondary): Either disable simtime monitoring (`maxwall=None` or env var) or set `PBS_WALLTIME=3600` before mpiexec so simtime reads the correct walltime
+3. **Walltime**: With simtime fixed and 887s/eval, a 4-hour job (`debug` or `regular` queue) is needed for 15 evaluations (pop=5, gen=3)
 
 ---
 
@@ -220,13 +252,17 @@ Expected outcome: STIM spike trains loaded for GIDs 0–9 only; VecStim cells in
 
 5. **neuroh5 append_rank_attr_map assertion**: `init_input_cells` calls `scatter_read_cell_attributes` on the spike input file, which has 1000 STIM GIDs (full circuit). The `node_rank_map` built from this file causes an assertion failure because the small circuit's actual GIDs (0–9) don't match. Fix: patch `init_input_cells` to use `scatter_read_cell_attribute_selection` with only the 10 GIDs from `env.celltypes[pop_name]["start"]` / `["num"]`.
 
-5. **h5py import order** (same as build-test): `utils/__init__.py` has `import h5py` as first line. Fix is already applied in conda `miv` env.
+6. **h5py import order** (same as build-test): `utils/__init__.py` has `import h5py` as first line. Fix is already applied in conda `miv` env.
 
-6. **MIV_SKIP_MPI_CHECK=1**: Required to bypass PR 103's startup h5py parallel check.
+7. **MIV_SKIP_MPI_CHECK=1**: Required to bypass PR 103's startup h5py parallel check.
 
-7. **NRNHOME**: Must be set to `${MIV_PREFIX}/lib/python3.12/site-packages/neuron/.data` so NEURON 9.x pip wheel finds its binaries.
+8. **NRNHOME**: Must be set to `${MIV_PREFIX}/lib/python3.12/site-packages/neuron/.data` so NEURON 9.x pip wheel finds its binaries.
 
-8. **Aurora debug queue zombie jobs**: PBS does not enforce the 1hr walltime on some jobs. Use `debug-scaling` queue instead of `debug`.
+9. **Aurora debug queue zombie jobs**: PBS does not enforce the 1hr walltime on some jobs. Use `debug-scaling` queue instead of `debug`.
+
+10. **Zero cell activity / silent network** (Run 6, OPEN): All 28 evaluations returned n_active=0 for all populations. The STIM VecStim initialization patch (issue 5 fix) was accepted without crashing, but cells produce no spikes. Likely cause: STIM GIDs 0–9 in `MiV_input_spikes.h5` have no spike data in the `Input Spikes A Diag/Spike Train` namespace, so VecStim objects drive no current. Needs investigation: check what GIDs are indexed in `MiV_input_spikes.h5` and verify spike train data exists for the small circuit's GID range.
+
+11. **simtime walltime misdetection** (Run 6, OPEN): `miv_simulator.utils.simtime` reads `allocated wall time = 0.50 hours` for a 1:00:00 PBS job. After the first 887-second evaluation consumed this budget, simtime truncated all subsequent simulations to ~10ms. Likely cause: simtime reads CPU time limit or a PBS variable that reports half the wall time under Cray PALS. Fix candidates: set `export PBS_WALLTIME=3600` before mpiexec, or disable simtime via its configuration, or use a 2-hour walltime job to work around the factor-of-2 error.
 
 ---
 

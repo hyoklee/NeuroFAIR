@@ -233,10 +233,25 @@ vecstim_iter, vecstim_attr_info = scatter_read_cell_attribute_selection(
 - No meaningful Pareto front generated
 - Checkpoint file preserved for inspection
 
-**Fixes needed for Run 7**:
-1. **Zero-spike fix** (primary): Verify STIM GIDs in `MiV_input_spikes.h5` — run `h5ls -r MiV_input_spikes.h5` to check GID range of `Input Spikes A Diag/Spike Train`; adjust GID selection if offset differs from 0–9
-2. **simtime fix** (secondary): Either disable simtime monitoring (`maxwall=None` or env var) or set `PBS_WALLTIME=3600` before mpiexec so simtime reads the correct walltime
-3. **Walltime**: With simtime fixed and 887s/eval, a 4-hour job (`debug` or `regular` queue) is needed for 15 evaluations (pop=5, gen=3)
+**Root cause of simtime truncation (clarified)**:
+- Synapse initialization calls `h.finitialize()` many times before the first actual `h.run()`; each call adds the inter-call elapsed wall time to `tcsum` as "init time"
+- This inflates `tcsum` to ~1789s before any simulation runs, exceeding the 1774s budget (0.5 hours × 3600 - 26s setup)
+- All 28 evaluations were truncated to ~10ms; 10ms simulations produce no spikes
+
+**Fixes applied for Run 7**:
+1. **simtime fix**: Added `max_walltime_hours: 5.5` to `config/optimize_network.yaml` `kwargs` section — passes directly to `Env(max_walltime_hours=5.5)`, giving 5.5 × 3600 = 19800s budget (vs 1800s default); enough for ~20 evaluations even with synapse setup overhead
+2. **Queue/walltime**: Changed PBS queue from `debug-scaling` (1hr max) to `gpu_hack` with `walltime=06:00:00` (6-hour job); `small`/`backfill-small` queues returned "access denied"; `gpu_hack` queue (no walltime limit) accepted
+3. **GID verification**: STIM GIDs 0,1,4,6,7,8,9 confirmed present in `MiV_input_spikes.h5` with 21–33 spikes each in [0,1250ms]; GIDs 2,3,5 absent but `scatter_read_cell_attribute_selection` handles them gracefully; spike loading is correct
+
+---
+
+## Run 7 — PBS job 8450905 (2026-04-25, gpu_hack 6hr) — PENDING
+
+**Changes from Run 6**:
+- `config/optimize_network.yaml`: added `max_walltime_hours: 5.5`
+- PBS queue changed from `debug-scaling` to `gpu_hack`, walltime `01:00:00` → `06:00:00`
+
+Expected outcome: simtime budget 19800s >> synapse setup overhead (~1789s) + 15 evals × 887s (~13305s) = ~15094s total; all 15 evaluations (pop=5, gen=3) should complete within 6 hours; cells should produce spikes in full 1250ms simulations; dmosopt NSGA-II Pareto front expected.
 
 ---
 

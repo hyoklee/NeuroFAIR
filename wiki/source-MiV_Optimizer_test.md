@@ -245,11 +245,13 @@ vecstim_iter, vecstim_attr_info = scatter_read_cell_attribute_selection(
 
 ---
 
-## Run 7 — PBS job 8450905 (2026-04-25, gpu_hack 6hr) — PENDING
+## Run 7 — PBS job 8450989 (2026-04-25, capacity 6hr) — PENDING
 
 **Changes from Run 6**:
 - `config/optimize_network.yaml`: added `max_walltime_hours: 5.5`
-- PBS queue changed from `debug-scaling` to `gpu_hack`, walltime `01:00:00` → `06:00:00`
+- PBS queue changed from `debug-scaling` to `capacity`, walltime `01:00:00` → `06:00:00`
+
+**Queue note**: Initially submitted to `gpu_hack` queue (job 8450905) but that routed to reservation `R8428985` (owned by mluczkow, scheduled to start Tue Apr 28 13:00 — 3-day wait). Cancelled and resubmitted to `capacity` queue (168-hr max, 1 node, 6-hr walltime). `small` and `backfill-small` returned "access denied" for gpu_hack allocation.
 
 Expected outcome: simtime budget 19800s >> synapse setup overhead (~1789s) + 15 evals × 887s (~13305s) = ~15094s total; all 15 evaluations (pop=5, gen=3) should complete within 6 hours; cells should produce spikes in full 1250ms simulations; dmosopt NSGA-II Pareto front expected.
 

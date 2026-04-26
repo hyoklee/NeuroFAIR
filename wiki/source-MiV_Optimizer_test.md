@@ -245,15 +245,59 @@ vecstim_iter, vecstim_attr_info = scatter_read_cell_attribute_selection(
 
 ---
 
-## Run 7 — PBS job 8450989 (2026-04-25, capacity 6hr) — PENDING
+## Run 7 — PBS job 8450989 (2026-04-25, capacity 6hr)
+
+**Result: PARTIAL — 178 evaluations completed; all returned zero spikes; killed by PBS 6hr walltime**
 
 **Changes from Run 6**:
 - `config/optimize_network.yaml`: added `max_walltime_hours: 5.5`
 - PBS queue changed from `debug-scaling` to `capacity`, walltime `01:00:00` → `06:00:00`
 
-**Queue note**: Initially submitted to `gpu_hack` queue (job 8450905) but that routed to reservation `R8428985` (owned by mluczkow, scheduled to start Tue Apr 28 13:00 — 3-day wait). Cancelled and resubmitted to `capacity` queue (168-hr max, 1 node, 6-hr walltime). `small` and `backfill-small` returned "access denied" for gpu_hack allocation.
+**Queue note**: Initially submitted to `gpu_hack` queue (job 8450905) but that routed to reservation `R8428985` (owned by mluczkow, scheduled to start Tue Apr 28 13:00 — 3-day wait). Cancelled and resubmitted to `capacity` queue (168-hr max, 1 node, 6-hr walltime).
 
-Expected outcome: simtime budget 19800s >> synapse setup overhead (~1789s) + 15 evals × 887s (~13305s) = ~15094s total; all 15 evaluations (pop=5, gen=3) should complete within 6 hours; cells should produce spikes in full 1250ms simulations; dmosopt NSGA-II Pareto front expected.
+**What succeeded**:
+- `max_walltime_hours: 5.5` fix confirmed: `*** allocated wall time is 5.50 hours`; `max wall time is 19773.89 s`
+- simtime truncation resolved: simulations run to full t=1250.00 ms (`*** Running simulation up to 1250.00 ms` / `*** Simulation completed`)
+- 178+ evaluations completed (tasks 0–177); each took ~100–120 wall-clock seconds
+- PBS .out file grew to **34 MB** (372K lines); dmosopt checkpoint: `results/network/dmosopt.optimize_network_20260425_1549.h5` grew to **134 KB** (vs 127 KB at end of Run 6)
+- PBS `.err`: `job killed: walltime 21667 exceeded limit 21600` (ran full 6 hours)
+
+**Critical issue — All 178 evaluations returned zero cell activity**:
+- Every evaluation: `population PYR: n_active = 0 n_total = 80 mean rate = 0.0` (same for PVBC, OLM)
+- Simulations run full 1250ms but produce no action potentials in any population under any parameter set
+- STIM→PVBC and STIM→PYR connections confirmed loaded (414796+ connections/rank)
+
+**Root cause identified — VecStim cells never registered as spike sources**:
+- My Run 4 patch to fix make_cells STIM RuntimeError used `continue` to skip STIM entirely
+- Comment claimed "VecStim cells created by init_input_cells" — this was **incorrect**
+- `init_input_cells` (line 1407): `if not (env.pc.gid_exists(gid)): continue` — if STIM GIDs have no `pc.cell()` registration, all STIM GIDs are silently skipped; `cell.play()` is never called
+- `connect_cells` / `config_cell_syns` creates STIM→PYR/PVBC NetCon via `pc.gid_connect(stim_gid, ...)` — but without `pc.cell()` registration for STIM GIDs, those connections are dead (no spike source)
+- Result: VecStim cells exist structurally but fire nothing; PYR/PVBC/OLM receive no excitatory input; network stays at rest
+
+**Fix for Run 8** — corrected `make_cells` patch:
+```python
+if "spike train" in env.celltypes.get(pop_name, {}):
+    pop_index = int(env.Populations[pop_name])
+    input_source_dict = {pop_index: {"spiketrains": {}}}
+    nhosts = int(env.pc.nhost())
+    pop_start = env.celltypes[pop_name].get("start", 0)
+    pop_num = env.celltypes[pop_name].get("num", 0)
+    for i, gid in enumerate(range(pop_start, pop_start + pop_num)):
+        if i % nhosts == rank:
+            input_cell = cells.make_input_cell(env, gid, pop_index, input_source_dict)
+            cells.register_cell(env, pop_name, gid, input_cell)
+    continue
+```
+This creates empty VecStim cells for STIM GIDs 0–9, registers them via `pc.cell()`, then `init_input_cells` can call `cell.play(spike_train)` for the GIDs local to each rank.
+
+---
+
+## Run 8 — PBS job 8451394 (2026-04-26, capacity 6hr) — RUNNING
+
+**Changes from Run 7**:
+- Fixed `make_cells` patch in `network.py`: now creates and registers VecStim cells for STIM GIDs 0–9 before `continue` (so `pc.cell()` is called and `init_input_cells` can assign spike trains)
+
+Expected outcome: VecStim cells fire at their recorded spike times; STIM→PYR/PVBC NetCons deliver spikes; cells should show activity for at least some parameter sets; dmosopt produces non-degenerate objectives.
 
 ---
 
@@ -265,7 +309,7 @@ Expected outcome: simtime budget 19800s >> synapse setup overhead (~1789s) + 15 
 
 3. **templates namespace not in MPI worker sys.path**: Cray PALS mpiexec worker ranks don't inherit cwd in `sys.path`. Fix: `export PYTHONPATH=/path/to/7-optimization:${PYTHONPATH:-}`.
 
-4. **make_cells STIM RuntimeError**: `make_cells` tries to create all `celltypes` populations but STIM (VecStim) has neither `Trees` nor `Generated Coordinates`. Fix: patch `make_cells` in `network.py` to skip populations with `"spike train"` in their `celltypes` config — those are created by `init_input_cells`.
+4. **make_cells STIM RuntimeError + VecStim not registered**: `make_cells` tries to create biophysical cells for all `celltypes` but STIM has neither `Trees` nor `Generated Coordinates` → RuntimeError. First fix (Run 4): `continue` to skip STIM — but this was incomplete: VecStim cells were never created, STIM GIDs were never registered with `pc.cell()`, and all STIM→PYR/PVBC connections were dead. Correct fix (Run 8): for populations with `"spike train"` config, create empty VecStim cells via `cells.make_input_cell(env, gid, pop_index, {pop_index: {"spiketrains": {}}})` and register with `cells.register_cell(env, pop_name, gid, ...)` before `continue`.
 
 5. **neuroh5 append_rank_attr_map assertion**: `init_input_cells` calls `scatter_read_cell_attributes` on the spike input file, which has 1000 STIM GIDs (full circuit). The `node_rank_map` built from this file causes an assertion failure because the small circuit's actual GIDs (0–9) don't match. Fix: patch `init_input_cells` to use `scatter_read_cell_attribute_selection` with only the 10 GIDs from `env.celltypes[pop_name]["start"]` / `["num"]`.
 
@@ -277,7 +321,7 @@ Expected outcome: simtime budget 19800s >> synapse setup overhead (~1789s) + 15 
 
 9. **Aurora debug queue zombie jobs**: PBS does not enforce the 1hr walltime on some jobs. Use `debug-scaling` queue instead of `debug`.
 
-10. **Zero cell activity / silent network** (Run 6, OPEN): All 28 evaluations returned n_active=0 for all populations. The STIM VecStim initialization patch (issue 5 fix) was accepted without crashing, but cells produce no spikes. Likely cause: STIM GIDs 0–9 in `MiV_input_spikes.h5` have no spike data in the `Input Spikes A Diag/Spike Train` namespace, so VecStim objects drive no current. Needs investigation: check what GIDs are indexed in `MiV_input_spikes.h5` and verify spike train data exists for the small circuit's GID range.
+10. **Zero cell activity / silent network** (Runs 6–7, FIXED in Run 8): All 207 evaluations (Runs 6–7) returned n_active=0. Root cause: `make_cells` patch used bare `continue` for STIM, so VecStim cells were never created and STIM GIDs were never registered via `pc.cell()`. `init_input_cells` line 1407 silently skips `gid` when `env.pc.gid_exists(gid)` is False, so `cell.play()` was never called. STIM→PYR/PVBC connections were dead. Fix applied in Run 8: create and register empty VecStim cells in `make_cells`.
 
 11. **simtime walltime misdetection** (Run 6, OPEN): `miv_simulator.utils.simtime` reads `allocated wall time = 0.50 hours` for a 1:00:00 PBS job. After the first 887-second evaluation consumed this budget, simtime truncated all subsequent simulations to ~10ms. Likely cause: simtime reads CPU time limit or a PBS variable that reports half the wall time under Cray PALS. Fix candidates: set `export PBS_WALLTIME=3600` before mpiexec, or disable simtime via its configuration, or use a 2-hour walltime job to work around the factor-of-2 error.
 

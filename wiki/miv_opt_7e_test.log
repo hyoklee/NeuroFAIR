@@ -1,0 +1,23 @@
+==== MiV-Simulator 7-optimization on Polaris ====
+Date:    Sat Apr 25 09:11:19 PM UTC 2026
+Job:     7100388.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov
+Node:    x3209c0s19b1n0.hsn.cm.polaris.alcf.anl.gov 
+Python:  Python 3.11.7
+Case:    /lus/grand/projects/gpu_hack/iowarp/miv_opt_case
+
+=== [1] GPU check ===
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+
+=== [2] Mechanism pre-check ===
+ca1_Bilash
+compiled
+PinskyRinzel
+synaptic
+vecevent.mod
+mechanisms directory ready (compile_and_load will build on first run)
+
+=== [3] Import / setup check ===
+=>> PBS: job killed: walltime 10850 exceeded limit 10800

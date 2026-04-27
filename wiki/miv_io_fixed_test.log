@@ -1,0 +1,223 @@
+==== miv-simulator + neuroh5 test on Polaris ====
+Date:      Thu Apr 23 05:08:03 PM UTC 2026
+Job:       7097644.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov
+Nodes:     1  (x3001c0s13b0n0.hsn.cm.polaris.alcf.anl.gov )
+Python:    /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/bin/python3  Python 3.11.7
+VENV:      /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv
+
+=== [1] GPU check ===
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+
+=== [2] Import checks ===
+  OK  mpi4py: 3.1.4
+  OK  h5py: 3.16.0
+  OK  numpy: 2.4.4
+  OK  neuroh5: ok
+  OK  neuroh5.io: ['NeuroH5CellAttrGen', 'NeuroH5CellAttrIter', 'NeuroH5EdgeIter']
+  OK  miv_simulator: ok
+  OK  neuron: 9.0.1
+numprocs=1
+
+=== [3] Parallel neuroh5 I/O tests (4 ranks) ===
+
+============================================================
+  Test 1: scatter_read_trees
+============================================================
+  [OK] scatter_read_trees OLM_forest.h5 (0.12s) → OLM: 438 cells, 541368 section entries
+  [OK] scatter_read_trees PVBC_forest.h5 (0.65s) → PVBC: 1474 cells, 21255080 section entries
+  [OK] scatter_read_trees PYR_forest_compressed.h5 (303.84s) → PYR: 80000 cells, 94895680000 section entries
+
+============================================================
+  Test 2: scatter_read_cell_attributes (Microcircuit_Small coordinates)
+============================================================
+  [OK] scatter_read_cell_attributes PYR (0.01s) → PYR: 4 cells
+  [OK] scatter_read_cell_attributes OLM (0.01s) → OLM: 4 cells
+  [OK] scatter_read_cell_attributes PVBC (0.01s) → PVBC: 4 cells
+  [OK] scatter_read_cell_attributes STIM (0.00s) → STIM: 4 cells
+
+============================================================
+  Test 3: scatter_read_graph (MiV_Connections_Microcircuit_Small_20220410.h5)
+============================================================
+  [OK] scatter_read_graph connections (0.08s) → 0 edges  [OLM:2, PVBC:4, PYR:4]
+
+============================================================
+  Test 4: population metadata
+============================================================
+  [OK] pop names MiV_Cells_Small (0.00s) → cells: ['OLM', 'PVBC', 'PYR', 'STIM'], total=187
+  [OK] pop names MiV_Connections_Small (0.00s) → conns: [], total=187
+
+============================================================
+  Test 5: scatter_read_cell_attributes (Synapse Attributes)
+============================================================
+  [OK] scatter_read_cell_attrs OLM_forest_syns (0.22s) → OLM: 4 cells with synapse attrs
+  [OK] scatter_read_cell_attrs PVBC_forest_syns (1.78s) → PVBC: 4 cells with synapse attrs
+
+============================================================
+  Summary
+============================================================
+
+  12/12 tests passed
+
+  PASS  [0.12s]  scatter_read_trees OLM_forest.h5
+         → OLM: 438 cells, 541368 section entries
+  PASS  [0.65s]  scatter_read_trees PVBC_forest.h5
+         → PVBC: 1474 cells, 21255080 section entries
+  PASS  [303.84s]  scatter_read_trees PYR_forest_compressed.h5
+         → PYR: 80000 cells, 94895680000 section entries
+  PASS  [0.01s]  scatter_read_cell_attributes PYR
+         → PYR: 4 cells
+  PASS  [0.01s]  scatter_read_cell_attributes OLM
+         → OLM: 4 cells
+  PASS  [0.01s]  scatter_read_cell_attributes PVBC
+         → PVBC: 4 cells
+  PASS  [0.00s]  scatter_read_cell_attributes STIM
+         → STIM: 4 cells
+  PASS  [0.08s]  scatter_read_graph connections
+         → 0 edges  [OLM:2, PVBC:4, PYR:4]
+  PASS  [0.00s]  pop names MiV_Cells_Small
+         → cells: ['OLM', 'PVBC', 'PYR', 'STIM'], total=187
+  PASS  [0.00s]  pop names MiV_Connections_Small
+         → conns: [], total=187
+  PASS  [0.22s]  scatter_read_cell_attrs OLM_forest_syns
+         → OLM: 4 cells with synapse attrs
+  PASS  [1.78s]  scatter_read_cell_attrs PVBC_forest_syns
+         → PVBC: 4 cells with synapse attrs
+
+
+=== [4a] miv-simulator pure Python tests ===
+============================= test session starts ==============================
+collecting ... collected 66 items
+
+tests/test_coding.py::test_coding_spike_times_vs_binary_sparse_spike_train PASSED [  1%]
+tests/test_coding.py::test_coding_adjust_temporal_resolution PASSED      [  3%]
+tests/test_coding.py::test_coding_typing_cast PASSED                     [  4%]
+tests/test_connections.py::TestChooseSynapseProjection::test_exact_match_returns_population_name PASSED [  6%]
+tests/test_connections.py::TestChooseSynapseProjection::test_inhibitory_match_returns_population_name PASSED [  7%]
+tests/test_connections.py::TestChooseSynapseProjection::test_wrong_swc_type_returns_none PASSED [  9%]
+tests/test_connections.py::TestChooseSynapseProjection::test_wrong_layer_returns_none PASSED [ 10%]
+tests/test_connections.py::TestChooseSynapseProjection::test_multiple_candidates_selects_one PASSED [ 12%]
+tests/test_connections.py::TestPartitionSynapsesToProjections::test_all_synapses_assigned PASSED [ 13%]
+tests/test_connections.py::TestPartitionSynapsesToProjections::test_excitatory_synapses_go_to_PopExc PASSED [ 15%]
+tests/test_connections.py::TestPartitionSynapsesToProjections::test_inhibitory_synapses_go_to_PopInh PASSED [ 16%]
+tests/test_connections.py::TestPartitionSynapsesToProjections::test_cdist_dict_populated_for_all_synapses PASSED [ 18%]
+tests/test_connections.py::TestPartitionSynapsesToProjections::test_assertion_fails_when_projection_is_empty PASSED [ 19%]
+tests/test_connections.py::TestSelectLayerSourceVertices::test_empty_source_gids_returns_empty_arrays PASSED [ 21%]
+tests/test_connections.py::TestSelectLayerSourceVertices::test_output_length_matches_syn_ids PASSED [ 22%]
+tests/test_connections.py::TestSelectLayerSourceVertices::test_source_vertices_are_valid_gids PASSED [ 24%]
+tests/test_connections.py::TestSelectLayerSourceVertices::test_syn_ids_ordered_by_cable_distance PASSED [ 25%]
+tests/test_connections.py::TestSelectLayerSourceVertices::test_distances_are_sum_of_u_and_v PASSED [ 27%]
+tests/test_connections.py::TestSelectLayerSourceVertices::test_contacts_greater_than_1_multiplies_counts PASSED [ 28%]
+tests/test_connections.py::TestConsolidateProjectionConnections::test_empty_lists_raise_assertion PASSED [ 30%]
+tests/test_connections.py::TestConsolidateProjectionConnections::test_single_layer_writes_gid_dict_entry PASSED [ 31%]
+tests/test_connections.py::TestConsolidateProjectionConnections::test_returns_correct_count PASSED [ 33%]
+tests/test_connections.py::TestConsolidateProjectionConnections::test_multi_layer_concatenates_arrays PASSED [ 34%]
+tests/test_connections.py::TestConsolidateProjectionConnections::test_syn_id_dtype_is_uint32 PASSED [ 36%]
+tests/test_connections.py::TestConnectionProbability::test_width_stored_correctly PASSED [ 37%]
+tests/test_connections.py::TestConnectionProbability::test_scale_factor_is_width_over_3 PASSED [ 39%]
+tests/test_connections.py::TestConnectionProbability::test_filter_by_distance_excludes_distant_sources PASSED [ 40%]
+tests/test_connections.py::TestConnectionProbability::test_filter_by_distance_includes_nearby_sources PASSED [ 42%]
+tests/test_connections.py::TestConnectionProbability::test_get_probability_probs_sum_to_one PASSED [ 43%]
+tests/test_connections.py::TestConnectionProbability::test_get_probability_probs_are_non_negative PASSED [ 45%]
+tests/test_connections.py::TestConnectionProbability::test_missing_layer_config_raises_runtime_error PASSED [ 46%]
+tests/test_connections.py::TestGenerateSynapticConnections::test_connection_dict_contains_both_projections PASSED [ 48%]
+tests/test_connections.py::TestGenerateSynapticConnections::test_total_count_matches_number_of_synapses PASSED [ 50%]
+tests/test_connections.py::TestGenerateSynapticConnections::test_gid_dict_structure_is_correct PASSED [ 51%]
+tests/test_connections.py::TestGenerateSynapticConnections::test_exc_connections_sourced_from_exc_gids PASSED [ 53%]
+tests/test_connections.py::TestGenerateSynapticConnections::test_deterministic_with_fixed_seeds PASSED [ 54%]
+tests/test_input_features.py::test_temporal_feature_population PASSED    [ 56%]
+tests/test_input_features.py::test_visual_feature_encoding FAILED        [ 57%]
+tests/test_distribute_synapses.py::TestUpdateSynapseStatistics::test_excitatory_counts_accumulate PASSED [ 59%]
+tests/test_distribute_synapses.py::TestUpdateSynapseStatistics::test_mixed_types_accumulate_separately PASSED [ 60%]
+tests/test_distribute_synapses.py::TestUpdateSynapseStatistics::test_unknown_syn_type_raises PASSED [ 62%]
+tests/test_distribute_synapses.py::TestCheckSynapses::test_no_warning_when_layers_populated PASSED [ 63%]
+tests/test_distribute_synapses.py::TestCheckSynapses::test_warning_when_layer_missing PASSED [ 65%]
+tests/test_distribute_synapses.py::TestLocalSynSummary::test_output_contains_layer_and_swc_type_counts PASSED [ 66%]
+tests/test_distribute_synapses.py::TestGetNodeAttribute::test_returns_none_when_name_absent PASSED [ 68%]
+tests/test_distribute_synapses.py::TestGetNodeAttribute::test_returns_value_when_x_is_none PASSED [ 69%]
+tests/test_distribute_synapses.py::TestGetNodeAttribute::test_returns_first_element_when_no_3d_points PASSED [ 71%]
+tests/test_distribute_synapses.py::TestGetNodeAttribute::test_interpolates_at_position PASSED [ 72%]
+tests/test_distribute_synapses.py::TestSynapseSegDensity::test_returns_positive_density_for_nonzero_mean PASSED [ 74%]
+tests/test_distribute_synapses.py::TestSynapseSegDensity::test_layers_dict_has_correct_structure PASSED [ 75%]
+tests/test_distribute_synapses.py::TestSynapseSegCounts::test_returns_positive_count_for_nonzero_mean PASSED [ 77%]
+tests/test_distribute_synapses.py::TestSynapseSegCounts::test_zero_count_for_zero_mean PASSED [ 78%]
+tests/test_distribute_synapses.py::TestDistributeUniformSynapses::test_returns_all_required_keys PASSED [ 80%]
+tests/test_distribute_synapses.py::TestDistributeUniformSynapses::test_syn_ids_are_contiguous_from_zero PASSED [ 81%]
+tests/test_distribute_synapses.py::TestDistributeUniformSynapses::test_syn_locs_in_unit_interval PASSED [ 83%]
+tests/test_distribute_synapses.py::TestDistributeUniformSynapses::test_swc_type_matches_section PASSED [ 84%]
+tests/test_distribute_synapses.py::TestDistributeUniformSynapses::test_syn_types_match_excitatory PASSED [ 86%]
+tests/test_distribute_synapses.py::TestDistributePoissonSynapses::test_returns_all_required_keys PASSED [ 87%]
+tests/test_distribute_synapses.py::TestDistributePoissonSynapses::test_syn_locs_in_unit_interval PASSED [ 89%]
+tests/test_distribute_synapses.py::TestDistributePoissonSynapses::test_swc_type_matches_section PASSED [ 90%]
+tests/test_distribute_synapses.py::TestDistributePoissonSynapses::test_reproducibility_with_same_seed PASSED [ 92%]
+tests/test_distribute_synapses.py::TestDistributePoissonSynapses::test_different_seeds_give_different_results PASSED [ 93%]
+tests/test_distribute_synapses.py::TestSynapseSegDensityGuard::test_raises_after_max_retries_when_density_nonpositive PASSED [ 95%]
+tests/test_distribute_synapses.py::TestSynapseSegDensityGuard::test_error_message_contains_retry_count PASSED [ 96%]
+tests/test_distribute_synapses.py::TestDistributePoissonSynapsesGuard::test_raises_after_max_placement_retries_when_segment_unreachable PASSED [ 98%]
+tests/test_distribute_synapses.py::TestDistributePoissonSynapsesGuard::test_error_message_contains_retry_count PASSED [100%]
+
+=================================== FAILURES ===================================
+_________________________ test_visual_feature_encoding _________________________
+tests/test_input_features.py:586: in test_visual_feature_encoding
+    feature_space = FeatureSpace(name="sensory_space", dimensions=4)
+E   TypeError: FeatureSpace.__init__() got an unexpected keyword argument 'dimensions'
+=============================== warnings summary ===============================
+tests/test_distribute_synapses.py::TestUpdateSynapseStatistics::test_excitatory_counts_accumulate
+  /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/rbf/linalg.py:11: DeprecationWarning: Please import `LinAlgWarning` from the `scipy.linalg` namespace; the `scipy.linalg.misc` namespace is deprecated and will be removed in SciPy 2.0.0.
+    from scipy.linalg.misc import LinAlgWarning
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_input_features.py::test_visual_feature_encoding - TypeError...
+=================== 1 failed, 65 passed, 1 warning in 3.22s ====================
+numprocs=1
+
+=== [4b] miv-simulator eval_network + synapses tests ===
+============================= test session starts ==============================
+collecting ... collected 159 items
+
+tests/test_eval_network.py::test_explicit_params_label_is_used FAILED    [  0%]
+tests/test_eval_network.py::test_default_label_picks_first_key FAILED    [  1%]
+tests/test_eval_network.py::test_all_param_names_mapped FAILED           [  1%]
+tests/test_eval_network.py::test_nested_path_fallback FAILED             [  2%]
+tests/test_eval_network.py::test_tuple_sec_type_flat_key_lookup FAILED   [  3%]
+tests/test_eval_network.py::test_tuple_sec_type_nested_path_fallback FAILED [  3%]
+tests/test_eval_network.py::test_tuple_sec_type_propagated_to_modify_syn_param PASSED [  4%]
+tests/test_eval_network.py::test_network_run_called_with_output_false FAILED [  5%]
+tests/test_eval_network.py::test_output_json_written_with_correct_structure FAILED [  5%]
+tests/test_eval_network.py::test_output_json_objectives_match_compute_objectives FAILED [  6%]
+tests/test_eval_network.py::test_output_json_constraints_keyed_by_population FAILED [  6%]
+tests/test_eval_network.py::test_no_output_file_when_output_path_is_none FAILED [  7%]
+tests/test_eval_network.py::test_kwargs_from_operational_config_forwarded_to_init_network FAILED [  8%]
+tests/test_eval_network.py::test_explicit_network_kwargs_not_overwritten_by_op_config FAILED [  8%]
+tests/test_eval_network.py::test_network_shutdown_called FAILED          [  9%]
+tests/test_eval_network.py::test_cleanup_true_raises_runtime_error FAILED [ 10%]
+tests/test_eval_network.py::test_io_utils_mkout_spikeout_lfpout_called FAILED [ 10%]
+tests/test_eval_network.py::test_io_utils_recsout_called_when_recording_profile_set FAILED [ 11%]
+tests/test_synapses.py::TestSynParamFromDict::test_all_fields_populated PASSED [ 11%]
+tests/test_synapses.py::TestSynParamFromDict::test_missing_key_raises PASSED [ 12%]
+tests/test_synapses.py::TestSynParamFromDict::test_extra_keys_ignored PASSED [ 13%]
+tests/test_synapses.py::TestGetMechRulesDict::test_value_only PASSED     [ 13%]
+tests/test_synapses.py::TestGetMechRulesDict::test_origin_valid_section PASSED [ 14%]
+tests/test_synapses.py::TestGetMechRulesDict::test_origin_empty_section_raises PASSED [ 15%]
+tests/test_synapses.py::TestGetMechRulesDict::test_origin_parent_always_valid PASSED [ 15%]
+tests/test_synapses.py::TestGetMechRulesDict::test_origin_branch_origin_always_valid PASSED [ 16%]
+tests/test_synapses.py::TestGetMechRulesDict::test_origin_invalid_raises PASSED [ 16%]
+tests/test_synapses.py::TestGetMechRulesDict::test_none_values_excluded PASSED [ 17%]
+tests/test_synapses.py::TestGetMechRulesDict::test_both_value_and_origin PASSED [ 18%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_no_filters_selects_all PASSED [ 18%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_syn_sections_filter PASSED [ 19%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_syn_indexes_filter PASSED [ 20%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_syn_types_excitatory_only PASSED [ 20%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_layers_filter PASSED [ 21%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_sources_filter PASSED [ 22%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_swc_types_filter PASSED [ 22%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_combined_syn_type_and_layer PASSED [ 23%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_empty_result_when_no_match PASSED [ 23%]
+tests/test_synapses.py::TestBuildSynapseFilterMask::test_duplicate_values_deduplicated PASSED [ 24%]tee: 'standard output': Disk quota exceeded
+
+
+grep: write error
+---

@@ -1,0 +1,474 @@
+==== MiV-Simulator 7-optimization on Polaris ====
+Date:    Fri Apr 24 01:56:18 AM UTC 2026
+Job:     7098443.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov
+Node:    x3205c0s7b1n0.hsn.cm.polaris.alcf.anl.gov 
+Python:  Python 3.11.7
+Case:    /lus/grand/projects/gpu_hack/iowarp/miv_opt_case
+
+=== [1] GPU check ===
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+
+=== [2] Compile NEURON mechanisms ===
+                                ^
+In file included from /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/nrncvode.h:2:0,
+                 from /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/mech_api.h:14,
+                 from /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/x86_64/vecevent.cpp:7:
+/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/oc_ansi.h:127:62: note: declared here
+ [[deprecated("non-void* overloads are preferred")]] Object** vector_pobj(void*);
+                                                              ^~~~~~~~~~~
+ => [32mLINKING[0m shared library "/lus/grand/projects/gpu_hack/iowarp/miv_opt_case/x86_64/./libnrnmech.so"
+ => [32mLINKING[0m executable "/lus/grand/projects/gpu_hack/iowarp/miv_opt_case/x86_64/./special" LDFLAGS are:     
+Successfully created x86_64/special
+Mechanism build exit: 0
+-rwxr-xr-x 1 hyoklee gpu_hack 5017 Apr 24 01:56 x86_64/special
+nrnivmodl OK
+
+=== [3] Import / setup check ===
+  OK  mpi4py: 3.1.4
+  OK  neuroh5: ok
+  OK  neuron: 9.0.1
+  OK  dmosopt: ok
+  OK  machinable: ok
+  OK  miv_simulator: ok
+
+=== [4] optimize-network (1 iter, 1 gen, test run) ===
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+numprocs=2
+Traceback (most recent call last):
+  File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/bin/optimize-network", line 3, in <module>
+    from miv_simulator.scripts.optimization.optimize_network import main_cli
+  File "/home/hyoklee/MiV-Simulator/src/miv_simulator/scripts/optimization/optimize_network.py", line 2, in <module>
+    from miv_simulator.optimize_network import optimize_network
+  File "/home/hyoklee/MiV-Simulator/src/miv_simulator/optimize_network.py", line 35, in <module>
+    from dmosopt import dmosopt
+  File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/dmosopt/dmosopt.py", line 14, in <module>
+    import dmosopt.MOASMO as opt
+  File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/dmosopt/MOASMO.py", line 9, in <module>
+    from dmosopt import MOEA, model
+  File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/dmosopt/model.py", line 4, in <module>
+Traceback (most recent call last):
+  File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/bin/optimize-network", line 3, in <module>
+    from miv_simulator.scripts.optimization.optimize_network import main_cli
+  File "/home/hyoklee/MiV-Simulator/src/miv_simulator/scripts/optimization/optimize_network.py", line 2, in <module>
+    from miv_simulator.optimize_network import optimize_network
+  File "/home/hyoklee/MiV-Simulator/src/miv_simulator/optimize_network.py", line 35, in <module>
+    from dmosopt import dmosopt
+  File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/dmosopt/dmosopt.py", line 14, in <module>
+    import dmosopt.MOASMO as opt
+  File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/dmosopt/MOASMO.py", line 9, in <module>
+    from dmosopt import MOEA, model
+  File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/dmosopt/model.py", line 4, in <module>
+    from sklearn.gaussian_process import GaussianProcessRegressor
+  File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/sklearn/__init__.py", line 70, in <module>
+    from sklearn.gaussian_process import GaussianProcessRegressor
+  File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/sklearn/__init__.py", line 70, in <module>
+    from sklearn.base import clone  # noqa: E402
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/sklearn/base.py", line 19, in <module>
+    from sklearn.base import clone  # noqa: E402
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/sklearn/base.py", line 19, in <module>
+    from sklearn.utils._metadata_requests import _MetadataRequester, _routing_enabled
+  File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/sklearn/utils/__init__.py", line 9, in <module>
+    from sklearn.utils._metadata_requests import _MetadataRequester, _routing_enabled
+  File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/sklearn/utils/__init__.py", line 9, in <module>
+    from sklearn.utils._chunking import gen_batches, gen_even_slices
+  File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/sklearn/utils/_chunking.py", line 11, in <module>
+    from sklearn.utils._chunking import gen_batches, gen_even_slices
+  File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/sklearn/utils/_chunking.py", line 11, in <module>
+    from sklearn.utils._param_validation import Interval, validate_params
+  File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/sklearn/utils/_param_validation.py", line 17, in <module>
+    from sklearn.utils._param_validation import Interval, validate_params
+  File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/sklearn/utils/_param_validation.py", line 17, in <module>
+    from sklearn.utils.validation import _is_arraylike_not_scalar
+  File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/sklearn/utils/validation.py", line 24, in <module>
+    from sklearn.utils.validation import _is_arraylike_not_scalar
+  File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/sklearn/utils/validation.py", line 24, in <module>
+    from sklearn.utils._array_api import (
+  File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/sklearn/utils/_array_api.py", line 20, in <module>
+    from sklearn.utils._array_api import (
+  File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/sklearn/utils/_array_api.py", line 20, in <module>
+    from sklearn.utils.fixes import parse_version
+  File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/sklearn/utils/fixes.py", line 19, in <module>
+    from sklearn.utils.fixes import parse_version
+  File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/sklearn/utils/fixes.py", line 19, in <module>
+    import pandas as pd
+  File "/opt/cray/pe/python/3.11.7/lib/python3.11/site-packages/pandas/__init__.py", line 22, in <module>
+    import pandas as pd
+  File "/opt/cray/pe/python/3.11.7/lib/python3.11/site-packages/pandas/__init__.py", line 22, in <module>
+    from pandas.compat import is_numpy_dev as _is_numpy_dev  # pyright: ignore # noqa:F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    from pandas.compat import is_numpy_dev as _is_numpy_dev  # pyright: ignore # noqa:F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/cray/pe/python/3.11.7/lib/python3.11/site-packages/pandas/compat/__init__.py", line 18, in <module>
+  File "/opt/cray/pe/python/3.11.7/lib/python3.11/site-packages/pandas/compat/__init__.py", line 18, in <module>
+    from pandas.compat.numpy import (
+  File "/opt/cray/pe/python/3.11.7/lib/python3.11/site-packages/pandas/compat/numpy/__init__.py", line 4, in <module>
+    from pandas.compat.numpy import (
+  File "/opt/cray/pe/python/3.11.7/lib/python3.11/site-packages/pandas/compat/numpy/__init__.py", line 4, in <module>
+    from pandas.util.version import Version
+  File "/opt/cray/pe/python/3.11.7/lib/python3.11/site-packages/pandas/util/__init__.py", line 2, in <module>
+    from pandas.util.version import Version
+  File "/opt/cray/pe/python/3.11.7/lib/python3.11/site-packages/pandas/util/__init__.py", line 2, in <module>
+    from pandas.util._decorators import (  # noqa:F401
+  File "/opt/cray/pe/python/3.11.7/lib/python3.11/site-packages/pandas/util/_decorators.py", line 14, in <module>
+    from pandas.util._decorators import (  # noqa:F401
+  File "/opt/cray/pe/python/3.11.7/lib/python3.11/site-packages/pandas/util/_decorators.py", line 14, in <module>
+    from pandas._libs.properties import cache_readonly
+  File "/opt/cray/pe/python/3.11.7/lib/python3.11/site-packages/pandas/_libs/__init__.py", line 13, in <module>
+    from pandas._libs.properties import cache_readonly
+  File "/opt/cray/pe/python/3.11.7/lib/python3.11/site-packages/pandas/_libs/__init__.py", line 13, in <module>
+    from pandas._libs.interval import Interval
+  File "pandas/_libs/interval.pyx", line 1, in init pandas._libs.interval
+    from pandas._libs.interval import Interval
+  File "pandas/_libs/interval.pyx", line 1, in init pandas._libs.interval
+ValueError: numpy.dtype size changed, may indicate binary incompatibility. Expected 96 from C header, got 88 from PyObject
+ValueError: numpy.dtype size changed, may indicate binary incompatibility. Expected 96 from C header, got 88 from PyObject
+MPICH ERROR [Rank 1] [job id 9ddb0fe5-7c45-435c-b809-ea429282e129] [Fri Apr 24 01:56:40 2026] [x3205c0s7b1n0] - Abort(1) (rank 1 in comm 0): application called MPI_Abort(MPI_COMM_WORLD, 1) - process 1
+
+aborting job:
+application called MPI_Abort(MPI_COMM_WORLD, 1) - process 1
+MPICH ERROR [Rank 0] [job id 9ddb0fe5-7c45-435c-b809-ea429282e129] [Fri Apr 24 01:56:40 2026] [x3205c0s7b1n0] - Abort(1) (rank 0 in comm 0): application called MPI_Abort(MPI_COMM_WORLD, 1) - process 0
+
+aborting job:
+application called MPI_Abort(MPI_COMM_WORLD, 1) - process 0
+x3205c0s7b1n0.hsn.cm.polaris.alcf.anl.gov: rank 1 exited with code 255
+optimize-network exit: 255
+
+=== [5] Results ===
+total 8
+drwxr-sr-x 2 hyoklee gpu_hack 4096 Apr 24 01:53 .
+drwxr-sr-x 3 hyoklee gpu_hack 4096 Apr 24 01:56 ..
+
+==== Done ====
+Date: Fri Apr 24 01:56:40 AM UTC 2026
+Log:  /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/results/optimize_run.log
+==== MiV-Simulator 7-optimization on Polaris ====
+Date:    Fri Apr 24 12:28:26 PM UTC 2026
+Job:     7099435.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov
+Node:    x3005c0s31b0n0.hsn.cm.polaris.alcf.anl.gov 
+Python:  Python 3.11.7
+Case:    /lus/grand/projects/gpu_hack/iowarp/miv_opt_case
+
+=== [1] GPU check ===
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+
+=== [2] Compile NEURON mechanisms ===
+                                ^
+In file included from /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/nrncvode.h:2:0,
+                 from /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/mech_api.h:14,
+                 from /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/x86_64/vecevent.cpp:7:
+/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/oc_ansi.h:127:62: note: declared here
+ [[deprecated("non-void* overloads are preferred")]] Object** vector_pobj(void*);
+                                                              ^~~~~~~~~~~
+ => [32mLINKING[0m shared library "/lus/grand/projects/gpu_hack/iowarp/miv_opt_case/x86_64/./libnrnmech.so"
+ => [32mLINKING[0m executable "/lus/grand/projects/gpu_hack/iowarp/miv_opt_case/x86_64/./special" LDFLAGS are:     
+Successfully created x86_64/special
+Mechanism build exit: 0
+-rwxr-xr-x 1 hyoklee gpu_hack 5017 Apr 24 12:28 x86_64/special
+nrnivmodl OK
+
+=== [3] Import / setup check ===
+  OK  mpi4py: 3.1.4
+  OK  neuroh5: ok
+  OK  neuron: 9.0.1
+  OK  dmosopt: ok
+  OK  machinable: ok
+  OK  miv_simulator: ok
+
+=== [4] optimize-network (1 iter, 1 gen, test run) ===
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+INFO:distwq:MPI broker 1 : before split
+INFO:distwq:MPI broker 1 : after split
+INFO:distwq:MPI collective broker 1 starting
+INFO:distwq:MPI collective broker 1: initialized.
+INFO:miv_simulator.optimize_network:Initializing optimization controller...
+INFO:miv_simulator:env.dataset_prefix = /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/datasets
+INFO:miv_simulator:env.cell_selection_path = None
+INFO:miv_simulator:env.spike_input_path = /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/datasets/Microcircuit_Small/Microcircuit_Small_input_spikes.h5
+INFO:miv_simulator:env.spike_input_attribute_info = {'STIM': {'Input Spikes A Diag': ['Spike Train', 'Trial Duration', 'Trial Index']}}
+INFO:miv_simulator:env.data_file_path = /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/datasets/Microcircuit_Small/MiV_Cells_Microcircuit_Small_20220410.h5
+INFO:miv_simulator:population_names = ['OLM', 'PVBC', 'PYR', 'STIM']
+INFO:miv_simulator:population_ranges = {'STIM': (0, 10), 'PYR': (10, 80), 'PVBC': (90, 53), 'OLM': (143, 44)}
+INFO:miv_simulator:attribute info: {'OLM': {'Arc Distances': ['U Distance', 'V Distance'], 'Generated Coordinates': ['L Coordinate', 'U Coordinate', 'V Coordinate', 'X Coordinate', 'Y Coordinate', 'Z Coordinate'], 'Synapse Attributes': ['swc_types', 'syn_cdists', 'syn_ids', 'syn_layers', 'syn_locs', 'syn_secs', 'syn_types'], 'Trees': ['Destination Section', 'Parent Point', 'Point Layer', 'Radius', 'SWC Type', 'Section', 'Source Section', 'X Coordinate', 'Y Coordinate', 'Z Coordinate']}, 'PVBC': {'Arc Distances': ['U Distance', 'V Distance'], 'Generated Coordinates': ['L Coordinate', 'U Coordinate', 'V Coordinate', 'X Coordinate', 'Y Coordinate', 'Z Coordinate'], 'Synapse Attributes': ['swc_types', 'syn_cdists', 'syn_ids', 'syn_layers', 'syn_locs', 'syn_secs', 'syn_types'], 'Trees': ['Destination Section', 'Parent Point', 'Point Layer', 'Radius', 'SWC Type', 'Section', 'Source Section', 'X Coordinate', 'Y Coordinate', 'Z Coordinate']}, 'PYR': {'Arc Distances': ['U Distance', 'V Distance'], 'Generated Coordinates': ['L Coordinate', 'U Coordinate', 'V Coordinate', 'X Coordinate', 'Y Coordinate', 'Z Coordinate'], 'Synapse Attributes': ['swc_types', 'syn_cdists', 'syn_ids', 'syn_layers', 'syn_locs', 'syn_secs', 'syn_types'], 'Trees': ['Destination Section', 'Parent Point', 'Point Layer', 'Radius', 'SWC Type', 'Section', 'Source Section', 'X Coordinate', 'Y Coordinate', 'Z Coordinate']}, 'STIM': {'Arc Distances': ['U Distance', 'V Distance'], 'Coordinates': ['L Coordinate', 'U Coordinate', 'V Coordinate', 'X Coordinate', 'Y Coordinate', 'Z Coordinate'], 'Input Spikes A Diag': ['Spike Train', 'Trial Duration', 'Trial Index']}}
+INFO:miv_simulator:env.data_file_path = /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/datasets/Microcircuit_Small/MiV_Cells_Microcircuit_Small_20220410.h5
+INFO:miv_simulator:env.connectivity_file_path = /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/datasets/Microcircuit_Small/MiV_Connections_Microcircuit_Small_20220410.h5
+INFO:miv_simulator:projection_dict = {'OLM': ['PVBC', 'PYR'], 'PVBC': ['OLM', 'PVBC', 'PYR', 'STIM'], 'PYR': ['OLM', 'PVBC', 'PYR', 'STIM']}
+INFO:miv_simulator:env.microcircuit_inputs = False
+env.microcircuit_input_sources = {'PYR': set(), 'OLM': set(), 'PVBC': set(), 'STIM': set()}
+/lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4
+cfiles =
+Mod files: "CaconcPR.mod" "cad.mod" "cadPR.mod" "caldend.mod" "cal.mod" "car.mod" "carsoma.mod" "cat.mod" "constant.mod" "hcn.mod" "hha2.mod" "hhadend.mod" "h_mech.mod" "kad.mod" "kahpPR.mod" "ka.mod" "kaprox.mod" "kca.mod" "kcaPR.mod" "K_conc.mod" "K_concPR.mod" "kd.mod" "K_GK.mod" "km.mod" "ksPR.mod" "lin_exp2syn.mod" "lin_exp2synNMDA.mod" "mAHP.mod" "Na_conc.mod" "Na_GK.mod" "nasPR.mod" "NMDA_CA1_pyr_SC.mod" "sAHP.mod" "vecevent.mod"
+
+Creating 'x86_64' directory for .o files.
+
+MODOBJS= ./CaconcPR.o ./cad.o ./cadPR.o ./caldend.o ./cal.o ./car.o ./carsoma.o ./cat.o ./constant.o ./hcn.o ./hha2.o ./hhadend.o ./h_mech.o ./kad.o ./kahpPR.o ./ka.o ./kaprox.o ./kca.o ./kcaPR.o ./K_conc.o ./K_concPR.o ./kd.o ./K_GK.o ./km.o ./ksPR.o ./lin_exp2syn.o ./lin_exp2synNMDA.o ./mAHP.o ./Na_conc.o ./Na_GK.o ./nasPR.o ./NMDA_CA1_pyr_SC.o ./sAHP.o ./vecevent.o
+ -> [32mCompiling[0m mod_func.cpp
+ -> [32mNMODL[0m ../CaconcPR.mod
+ -> [32mNMODL[0m ../cad.mod
+ -> [32mNMODL[0m ../cadPR.mod
+Translating CaconcPR.mod into /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/CaconcPR.cpp
+Thread Safe
+ -> [32mNMODL[0m ../caldend.mod
+Translating cad.mod into /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/cad.cpp
+Thread Safe
+ -> [32mNMODL[0m ../cal.mod
+Translating cadPR.mod into /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/cadPR.cpp
+Thread Safe
+ -> [32mNMODL[0m ../car.mod
+Translating caldend.mod into /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/caldend.cpp
+Thread Safe
+ -> [32mNMODL[0m ../carsoma.mod
+Translating cal.mod into /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/cal.cpp
+Thread Safe
+ -> [32mNMODL[0m ../cat.mod
+Translating car.mod into /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/car.cpp
+Thread Safe
+ -> [32mNMODL[0m ../constant.mod
+Translating carsoma.mod into /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/carsoma.cpp
+Thread Safe
+ -> [32mNMODL[0m ../hcn.mod
+Translating cat.mod into /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/cat.cpp
+Thread Safe
+ -> [32mNMODL[0m ../hha2.mod
+Translating constant.mod into /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/constant.cpp
+Thread Safe
+ -> [32mNMODL[0m ../hhadend.mod
+Translating hcn.mod into /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/hcn.cpp
+Thread Safe
+ -> [32mNMODL[0m ../h_mech.mod
+Translating hha2.mod into /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/hha2.cpp
+Thread Safe
+ -> [32mNMODL[0m ../kad.mod
+Translating hhadend.mod into /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/hhadend.cpp
+Thread Safe
+ -> [32mNMODL[0m ../kahpPR.mod
+Translating h_mech.mod into /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/h_mech.cpp
+Thread Safe
+ -> [32mNMODL[0m ../ka.mod
+Translating kad.mod into /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/kad.cpp
+Thread Safe
+ -> [32mNMODL[0m ../kaprox.mod
+Translating kahpPR.mod into /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/kahpPR.cpp
+Thread Safe
+ -> [32mNMODL[0m ../kca.mod
+Translating ka.mod into /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/ka.cpp
+Thread Safe
+ -> [32mNMODL[0m ../kcaPR.mod
+Translating kaprox.mod into /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/kaprox.cpp
+Thread Safe
+ -> [32mNMODL[0m ../K_conc.mod
+Translating kca.mod into /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/kca.cpp
+Thread Safe
+ -> [32mNMODL[0m ../K_concPR.mod
+Translating kcaPR.mod into /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/kcaPR.cpp
+Thread Safe
+ -> [32mNMODL[0m ../kd.mod
+Translating K_conc.mod into /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/K_conc.cpp
+Thread Safe
+ -> [32mNMODL[0m ../K_GK.mod
+Translating K_concPR.mod into /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/K_concPR.cpp
+Thread Safe
+ -> [32mNMODL[0m ../km.mod
+Translating kd.mod into /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/kd.cpp
+Thread Safe
+ -> [32mNMODL[0m ../ksPR.mod
+ -> [32mNMODL[0m ../lin_exp2syn.mod
+Translating K_GK.mod into /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/K_GK.cpp
+NEURON's CVode method ignores conservation
+Thread Safe
+ -> [32mNMODL[0m ../lin_exp2synNMDA.mod
+Translating km.mod into /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/km.cpp
+Thread Safe
+ -> [32mNMODL[0m ../mAHP.mod
+Translating ksPR.mod into /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/ksPR.cpp
+Thread Safe
+Translating lin_exp2syn.mod into /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/lin_exp2syn.cpp
+ -> [32mNMODL[0m ../Na_conc.mod
+Translating lin_exp2synNMDA.mod into /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/lin_exp2synNMDA.cpp
+Thread Safe
+Thread Safe
+ -> [32mNMODL[0m ../Na_GK.mod
+Translating mAHP.mod into /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/mAHP.cpp
+ -> [32mNMODL[0m ../nasPR.mod
+Thread Safe
+Translating Na_conc.mod into /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/Na_conc.cpp
+Thread Safe
+ -> [32mNMODL[0m ../NMDA_CA1_pyr_SC.mod
+ -> [32mNMODL[0m ../sAHP.mod
+Translating Na_GK.mod into /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/Na_GK.cpp
+Thread Safe
+Translating nasPR.mod into /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/nasPR.cpp
+Thread Safe
+ -> [32mNMODL[0m ../vecevent.mod
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/CaconcPR.cpp
+Translating NMDA_CA1_pyr_SC.mod into /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/NMDA_CA1_pyr_SC.cpp
+Thread Safe
+Translating sAHP.mod into /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/sAHP.cpp
+Thread Safe
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/cad.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/cadPR.cpp
+Translating vecevent.mod into /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/vecevent.cpp
+Thread Safe
+Notice: ARTIFICIAL_CELL is a synonym for POINT_PROCESS which hints that it
+only affects and is affected by discrete events. As such it is not
+located in a section and is not associated with an integrator
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/caldend.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/cal.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/car.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/carsoma.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/cat.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/constant.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/hcn.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/hha2.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/hhadend.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/h_mech.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/kad.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/kahpPR.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/ka.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/kaprox.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/kca.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/kcaPR.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/K_conc.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/K_concPR.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/kd.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/K_GK.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/km.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/ksPR.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/lin_exp2syn.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/lin_exp2synNMDA.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/mAHP.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/Na_conc.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/Na_GK.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/nasPR.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/NMDA_CA1_pyr_SC.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/sAHP.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/vecevent.cpp
+/lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/vecevent.cpp: In function ‘int element__VecStim({anonymous}::_nrn_mechanism_cache_range*, size_t, Datum*, Datum*, double*, NrnThread*)’:
+/lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/vecevent.cpp:370:29: warning: ‘int vector_capacity(void*)’ is deprecated: non-void* overloads are preferred [-Wdeprecated-declarations]
+    size = vector_capacity(vv);
+                             ^
+In file included from /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/nrncvode.h:2:0,
+                 from /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/mech_api.h:14,
+                 from /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/vecevent.cpp:7:
+/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/oc_ansi.h:126:57: note: declared here
+ [[deprecated("non-void* overloads are preferred")]] int vector_capacity(void*);
+                                                         ^~~~~~~~~~~~~~~
+/lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/vecevent.cpp:371:22: warning: ‘double* vector_vec(void*)’ is deprecated: non-void* overloads are preferred [-Wdeprecated-declarations]
+    px = vector_vec(vv);
+                      ^
+In file included from /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/nrncvode.h:2:0,
+                 from /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/mech_api.h:14,
+                 from /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/vecevent.cpp:7:
+/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/oc_ansi.h:129:61: note: declared here
+ [[deprecated("non-void* overloads are preferred")]] double* vector_vec(void*);
+                                                             ^~~~~~~~~~
+/lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/vecevent.cpp: In function ‘int play__VecStim({anonymous}::_nrn_mechanism_cache_range*, size_t, Datum*, Datum*, double*, NrnThread*)’:
+/lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/vecevent.cpp:415:32: warning: ‘Object** vector_pobj(void*)’ is deprecated: non-void* overloads are preferred [-Wdeprecated-declarations]
+   hoc_obj_ref(*vector_pobj(ptmp));
+                                ^
+In file included from /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/nrncvode.h:2:0,
+                 from /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/mech_api.h:14,
+                 from /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/vecevent.cpp:7:
+/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/oc_ansi.h:127:62: note: declared here
+ [[deprecated("non-void* overloads are preferred")]] Object** vector_pobj(void*);
+                                                              ^~~~~~~~~~~
+/lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/vecevent.cpp:419:33: warning: ‘Object** vector_pobj(void*)’ is deprecated: non-void* overloads are preferred [-Wdeprecated-declarations]
+   hoc_obj_unref(*vector_pobj(*pv));
+                                 ^
+In file included from /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/nrncvode.h:2:0,
+                 from /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/mech_api.h:14,
+                 from /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/vecevent.cpp:7:
+/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/oc_ansi.h:127:62: note: declared here
+ [[deprecated("non-void* overloads are preferred")]] Object** vector_pobj(void*);
+                                                              ^~~~~~~~~~~
+/lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/vecevent.cpp: In function ‘void bbcore_write(double*, int*, int*, int*, Memb_list*, size_t, Datum*, Datum*, double*, NrnThread*)’:
+/lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/vecevent.cpp:453:35: warning: ‘int vector_capacity(void*)’ is deprecated: non-void* overloads are preferred [-Wdeprecated-declarations]
+     dsize = vector_capacity(_p_ptr);
+                                   ^
+In file included from /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/nrncvode.h:2:0,
+                 from /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/mech_api.h:14,
+                 from /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/vecevent.cpp:7:
+/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/oc_ansi.h:126:57: note: declared here
+ [[deprecated("non-void* overloads are preferred")]] int vector_capacity(void*);
+                                                         ^~~~~~~~~~~~~~~
+/lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/vecevent.cpp:461:26: warning: ‘double* vector_vec(void*)’ is deprecated: non-void* overloads are preferred [-Wdeprecated-declarations]
+       dv = vector_vec(vec);
+                          ^
+In file included from /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/nrncvode.h:2:0,
+                 from /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/mech_api.h:14,
+                 from /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/vecevent.cpp:7:
+/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/oc_ansi.h:129:61: note: declared here
+ [[deprecated("non-void* overloads are preferred")]] double* vector_vec(void*);
+                                                             ^~~~~~~~~~
+In file included from /usr/include/c++/7/cassert:44:0,
+                 from /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/sparse_thread.hpp:11,
+                 from /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/scoplib.h:19,
+                 from /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/mech_api.h:19,
+                 from /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/vecevent.cpp:7:
+/lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/vecevent.cpp: In function ‘void bbcore_read(double*, int*, int*, int*, Memb_list*, size_t, Datum*, Datum*, double*, NrnThread*)’:
+/lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/vecevent.cpp:481:41: warning: ‘int vector_capacity(void*)’ is deprecated: non-void* overloads are preferred [-Wdeprecated-declarations]
+   assert(dsize == vector_capacity(_p_ptr));
+                                         ^
+In file included from /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/nrncvode.h:2:0,
+                 from /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/mech_api.h:14,
+                 from /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/vecevent.cpp:7:
+/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/oc_ansi.h:126:57: note: declared here
+ [[deprecated("non-void* overloads are preferred")]] int vector_capacity(void*);
+                                                         ^~~~~~~~~~~~~~~
+/lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/vecevent.cpp:482:25: warning: ‘double* vector_vec(void*)’ is deprecated: non-void* overloads are preferred [-Wdeprecated-declarations]
+   dv = vector_vec(_p_ptr);
+                         ^
+In file included from /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/nrncvode.h:2:0,
+                 from /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/mech_api.h:14,
+                 from /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/vecevent.cpp:7:
+/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/oc_ansi.h:129:61: note: declared here
+ [[deprecated("non-void* overloads are preferred")]] double* vector_vec(void*);
+                                                             ^~~~~~~~~~
+/lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/vecevent.cpp: In function ‘void _destructor(Prop*)’:
+/lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/vecevent.cpp:503:32: warning: ‘Object** vector_pobj(void*)’ is deprecated: non-void* overloads are preferred [-Wdeprecated-declarations]
+   hoc_obj_unref(*vector_pobj(vv));
+                                ^
+In file included from /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/nrncvode.h:2:0,
+                 from /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/mech_api.h:14,
+                 from /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/vecevent.cpp:7:
+/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/oc_ansi.h:127:62: note: declared here
+ [[deprecated("non-void* overloads are preferred")]] Object** vector_pobj(void*);
+                                                              ^~~~~~~~~~~
+ => [32mLINKING[0m shared library "/lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/./libnrnmech.so"
+ => [32mLINKING[0m executable "/lus/grand/projects/gpu_hack/iowarp/miv_opt_case/mechanisms/compiled/8250e9c551bee765f27798e75a83cff822f4eca63b2e187a5636a81a8581e6b4/x86_64/./special" LDFLAGS are:     
+Successfully created x86_64/special
+0 NEURON: The user defined name already exists: VecStim
+numprocs=2
+0  near line 0
+0  objref hoc_obj_[2]
+                   ^
+        0 nrn_load_dll("/lus/grand...")
+MPICH ERROR [Rank 0] [job id 7be9bdf2-e604-41cc-ae39-65037d15f3d5] [Fri Apr 24 12:29:38 2026] [x3005c0s31b0n0] - Abort(-1) (rank 0 in comm 0): application called MPI_Abort(MPI_COMM_WORLD, -1) - process 0
+
+aborting job:
+application called MPI_Abort(MPI_COMM_WORLD, -1) - process 0
+x3005c0s31b0n0.hsn.cm.polaris.alcf.anl.gov: rank 0 exited with code 255
+x3005c0s31b0n0.hsn.cm.polaris.alcf.anl.gov: rank 1 died from signal 15
+optimize-network exit: 255
+
+=== [5] Results ===
+total 8
+drwxr-sr-x 2 hyoklee gpu_hack 4096 Apr 24 01:53 .
+drwxr-sr-x 3 hyoklee gpu_hack 4096 Apr 24 01:56 ..
+
+==== Done ====
+Date: Fri Apr 24 12:29:38 PM UTC 2026
+Log:  /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/results/optimize_run.log

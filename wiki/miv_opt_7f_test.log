@@ -1,0 +1,7 @@
+==== MiV-Simulator 7-optimization (debug, tstop=500ms) ====
+Date: Sat Apr 25 01:38:58 PM UTC 2026  Job: 7100390.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov  Node: x3001c0s13b1n0.hsn.cm.polaris.alcf.anl.gov
+=== [1] GPU ===
+NVIDIA A100-SXM4-40GB, 40960 MiB
+NVIDIA A100-SXM4-40GB, 40960 MiB
+=== [2] optimize-network ===
+=>> PBS: job killed: walltime 3625 exceeded limit 3600

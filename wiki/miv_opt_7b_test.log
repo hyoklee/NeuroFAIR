@@ -1,0 +1,214 @@
+==== MiV-Simulator 7-optimization on Polaris ====
+Date:    Fri Apr 24 12:32:17 PM UTC 2026
+Job:     7099441.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov
+Node:    x3005c0s31b0n0.hsn.cm.polaris.alcf.anl.gov 
+Python:  Python 3.11.7
+Case:    /lus/grand/projects/gpu_hack/iowarp/miv_opt_case
+
+=== [1] GPU check ===
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+
+=== [2] Mechanism pre-check ===
+ca1_Bilash
+compiled
+PinskyRinzel
+synaptic
+vecevent.mod
+mechanisms directory ready (compile_and_load will build on first run)
+
+=== [3] Import / setup check ===
+  OK  mpi4py: 3.1.4
+  OK  neuroh5: ok
+  OK  neuron: 9.0.1
+  OK  dmosopt: ok
+  OK  machinable: ok
+  OK  miv_simulator: ok
+
+=== [4] optimize-network (1 iter, 1 gen, test run) ===
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+INFO:distwq:MPI broker 1 : before split
+INFO:distwq:MPI broker 1 : after split
+INFO:distwq:MPI collective broker 1 starting
+INFO:distwq:MPI collective broker 1: initialized.
+INFO:miv_simulator.optimize_network:Initializing optimization controller...
+INFO:miv_simulator:env.dataset_prefix = /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/datasets
+INFO:miv_simulator:env.cell_selection_path = None
+INFO:miv_simulator:env.spike_input_path = /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/datasets/Microcircuit_Small/Microcircuit_Small_input_spikes.h5
+INFO:miv_simulator:env.spike_input_attribute_info = {'STIM': {'Input Spikes A Diag': ['Spike Train', 'Trial Duration', 'Trial Index']}}
+INFO:miv_simulator:env.data_file_path = /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/datasets/Microcircuit_Small/MiV_Cells_Microcircuit_Small_20220410.h5
+INFO:miv_simulator:population_names = ['OLM', 'PVBC', 'PYR', 'STIM']
+INFO:miv_simulator:population_ranges = {'STIM': (0, 10), 'PYR': (10, 80), 'PVBC': (90, 53), 'OLM': (143, 44)}
+INFO:miv_simulator:attribute info: {'OLM': {'Arc Distances': ['U Distance', 'V Distance'], 'Generated Coordinates': ['L Coordinate', 'U Coordinate', 'V Coordinate', 'X Coordinate', 'Y Coordinate', 'Z Coordinate'], 'Synapse Attributes': ['swc_types', 'syn_cdists', 'syn_ids', 'syn_layers', 'syn_locs', 'syn_secs', 'syn_types'], 'Trees': ['Destination Section', 'Parent Point', 'Point Layer', 'Radius', 'SWC Type', 'Section', 'Source Section', 'X Coordinate', 'Y Coordinate', 'Z Coordinate']}, 'PVBC': {'Arc Distances': ['U Distance', 'V Distance'], 'Generated Coordinates': ['L Coordinate', 'U Coordinate', 'V Coordinate', 'X Coordinate', 'Y Coordinate', 'Z Coordinate'], 'Synapse Attributes': ['swc_types', 'syn_cdists', 'syn_ids', 'syn_layers', 'syn_locs', 'syn_secs', 'syn_types'], 'Trees': ['Destination Section', 'Parent Point', 'Point Layer', 'Radius', 'SWC Type', 'Section', 'Source Section', 'X Coordinate', 'Y Coordinate', 'Z Coordinate']}, 'PYR': {'Arc Distances': ['U Distance', 'V Distance'], 'Generated Coordinates': ['L Coordinate', 'U Coordinate', 'V Coordinate', 'X Coordinate', 'Y Coordinate', 'Z Coordinate'], 'Synapse Attributes': ['swc_types', 'syn_cdists', 'syn_ids', 'syn_layers', 'syn_locs', 'syn_secs', 'syn_types'], 'Trees': ['Destination Section', 'Parent Point', 'Point Layer', 'Radius', 'SWC Type', 'Section', 'Source Section', 'X Coordinate', 'Y Coordinate', 'Z Coordinate']}, 'STIM': {'Arc Distances': ['U Distance', 'V Distance'], 'Coordinates': ['L Coordinate', 'U Coordinate', 'V Coordinate', 'X Coordinate', 'Y Coordinate', 'Z Coordinate'], 'Input Spikes A Diag': ['Spike Train', 'Trial Duration', 'Trial Index']}}
+INFO:miv_simulator:env.data_file_path = /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/datasets/Microcircuit_Small/MiV_Cells_Microcircuit_Small_20220410.h5
+INFO:miv_simulator:env.connectivity_file_path = /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/datasets/Microcircuit_Small/MiV_Connections_Microcircuit_Small_20220410.h5
+INFO:miv_simulator:projection_dict = {'OLM': ['PVBC', 'PYR'], 'PVBC': ['OLM', 'PVBC', 'PYR', 'STIM'], 'PYR': ['OLM', 'PVBC', 'PYR', 'STIM']}
+INFO:miv_simulator:env.microcircuit_inputs = False
+env.microcircuit_input_sources = {'PYR': set(), 'OLM': set(), 'PVBC': set(), 'STIM': set()}
+numprocs=2
+INFO:miv_simulator.network:*** Creating cells...
+INFO:miv_simulator.network:Population attributes: {'OLM': {'Arc Distances': ['U Distance', 'V Distance'],
+         'Generated Coordinates': ['L Coordinate',
+                                   'U Coordinate',
+                                   'V Coordinate',
+                                   'X Coordinate',
+                                   'Y Coordinate',
+                                   'Z Coordinate'],
+         'Synapse Attributes': ['swc_types',
+                                'syn_cdists',
+                                'syn_ids',
+                                'syn_layers',
+                                'syn_locs',
+                                'syn_secs',
+                                'syn_types'],
+         'Trees': ['Destination Section',
+                   'Parent Point',
+                   'Point Layer',
+                   'Radius',
+                   'SWC Type',
+                   'Section',
+                   'Source Section',
+                   'X Coordinate',
+                   'Y Coordinate',
+                   'Z Coordinate']},
+ 'PVBC': {'Arc Distances': ['U Distance', 'V Distance'],
+          'Generated Coordinates': ['L Coordinate',
+                                    'U Coordinate',
+                                    'V Coordinate',
+                                    'X Coordinate',
+                                    'Y Coordinate',
+                                    'Z Coordinate'],
+          'Synapse Attributes': ['swc_types',
+                                 'syn_cdists',
+                                 'syn_ids',
+                                 'syn_layers',
+                                 'syn_locs',
+                                 'syn_secs',
+                                 'syn_types'],
+          'Trees': ['Destination Section',
+                    'Parent Point',
+                    'Point Layer',
+                    'Radius',
+                    'SWC Type',
+                    'Section',
+                    'Source Section',
+                    'X Coordinate',
+                    'Y Coordinate',
+                    'Z Coordinate']},
+ 'PYR': {'Arc Distances': ['U Distance', 'V Distance'],
+         'Generated Coordinates': ['L Coordinate',
+                                   'U Coordinate',
+                                   'V Coordinate',
+                                   'X Coordinate',
+                                   'Y Coordinate',
+                                   'Z Coordinate'],
+         'Synapse Attributes': ['swc_types',
+                                'syn_cdists',
+                                'syn_ids',
+                                'syn_layers',
+                                'syn_locs',
+                                'syn_secs',
+                                'syn_types'],
+         'Trees': ['Destination Section',
+                   'Parent Point',
+                   'Point Layer',
+                   'Radius',
+                   'SWC Type',
+                   'Section',
+                   'Source Section',
+                   'X Coordinate',
+                   'Y Coordinate',
+                   'Z Coordinate']},
+ 'STIM': {'Arc Distances': ['U Distance', 'V Distance'],
+          'Coordinates': ['L Coordinate',
+                          'U Coordinate',
+                          'V Coordinate',
+                          'X Coordinate',
+                          'Y Coordinate',
+                          'Z Coordinate'],
+          'Input Spikes A Diag': ['Spike Train',
+                                  'Trial Duration',
+                                  'Trial Index']}}
+INFO:miv_simulator.network:*** Creating population OLM
+INFO:miv_simulator.network:Coordinates namespace is Coordinates
+population attributes are {'Arc Distances': ['U Distance', 'V Distance'], 'Generated Coordinates': ['L Coordinate', 'U Coordinate', 'V Coordinate', 'X Coordinate', 'Y Coordinate', 'Z Coordinate'], 'Synapse Attributes': ['swc_types', 'syn_cdists', 'syn_ids', 'syn_layers', 'syn_locs', 'syn_secs', 'syn_types'], 'Trees': ['Destination Section', 'Parent Point', 'Point Layer', 'Radius', 'SWC Type', 'Section', 'Source Section', 'X Coordinate', 'Y Coordinate', 'Z Coordinate']}
+Traceback (most recent call last):
+  File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/bin/optimize-network", line 6, in <module>
+    sys.exit(main_cli())
+             ^^^^^^^^^^
+  File "/opt/cray/pe/python/3.11.7/lib/python3.11/site-packages/click/core.py", line 1157, in __call__
+    return self.main(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/cray/pe/python/3.11.7/lib/python3.11/site-packages/click/core.py", line 1078, in main
+    rv = self.invoke(ctx)
+         ^^^^^^^^^^^^^^^^
+  File "/opt/cray/pe/python/3.11.7/lib/python3.11/site-packages/click/core.py", line 1434, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/cray/pe/python/3.11.7/lib/python3.11/site-packages/click/core.py", line 783, in invoke
+    return __callback(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hyoklee/MiV-Simulator/src/miv_simulator/scripts/optimization/optimize_network.py", line 64, in main_cli
+    optimize_network(
+  File "/home/hyoklee/MiV-Simulator/src/miv_simulator/optimize_network.py", line 262, in optimize_network
+    best = dmosopt.run(
+           ^^^^^^^^^^^^
+  File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/dmosopt/dmosopt.py", line 2550, in run
+    distwq.run(
+  File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/distwq.py", line 2147, in run
+    run_split_group(
+  File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/distwq.py", line 1976, in run_split_group
+    fun(broker, *args)
+  File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/dmosopt/dmosopt.py", line 2494, in dopt_work
+    dopt_init(dopt_params, worker=worker, verbose=verbose, initialize_strategy=False)
+  File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/dmosopt/dmosopt.py", line 2434, in dopt_init
+    objfun = objfun_init(**objfun_init_args, worker=worker)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hyoklee/MiV-Simulator/src/miv_simulator/optimize_network.py", line 311, in init_network_objfun
+    env = init_network(
+          ^^^^^^^^^^^^^
+  File "/home/hyoklee/MiV-Simulator/src/miv_simulator/optimize_network.py", line 351, in init_network
+    network.init(env, subworld_size=subworld_size)
+  File "/home/hyoklee/MiV-Simulator/src/miv_simulator/network.py", line 1607, in init
+    make_cells(env)
+  File "/home/hyoklee/MiV-Simulator/src/miv_simulator/network.py", line 864, in make_cells
+    neuron_utils.load_cell_template(env, pop_name, bcast_template=True)
+  File "/home/hyoklee/MiV-Simulator/src/miv_simulator/utils/neuron.py", line 322, in load_cell_template
+    template_class = import_object_by_path(
+                     ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hyoklee/MiV-Simulator/src/miv_simulator/utils/utils.py", line 441, in import_object_by_path
+    module = importlib.import_module(module_path)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/cray/pe/python/3.11.7/lib/python3.11/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1126, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1140, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'templates'
+MPICH ERROR [Rank 0] [job id 6d2072d8-35e2-484d-a050-012f192f8662] [Fri Apr 24 12:32:20 2026] [x3005c0s31b0n0] - Abort(1) (rank 0 in comm 0): application called MPI_Abort(MPI_COMM_WORLD, 1) - process 0
+
+aborting job:
+application called MPI_Abort(MPI_COMM_WORLD, 1) - process 0
+x3005c0s31b0n0.hsn.cm.polaris.alcf.anl.gov: rank 0 exited with code 255
+x3005c0s31b0n0.hsn.cm.polaris.alcf.anl.gov: rank 1 died from signal 15
+optimize-network exit: 255
+
+=== [5] Results ===
+total 9
+drwxr-sr-x 2 hyoklee gpu_hack 4096 Apr 24 12:32 .
+drwxr-sr-x 3 hyoklee gpu_hack 4096 Apr 24 01:56 ..
+-rw-r--r-- 1 hyoklee gpu_hack   96 Apr 24 12:32 dmosopt.optimize_network_20260424_1232.h5
+
+==== Done ====
+Date: Fri Apr 24 12:32:20 PM UTC 2026
+Log:  /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/results/optimize_run.log

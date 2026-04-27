@@ -1,0 +1,1322 @@
+==== MiV-Simulator + IOWarp CTE Benchmark ====
+Date:    Sun Apr 26 12:15:19 AM UTC 2026
+Job:     7100495.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov
+Node:    x3210c0s31b1n0.hsn.cm.polaris.alcf.anl.gov 
+Python:  Python 3.11.7
+
+=== [1] GPU check ===
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+RAM: 503 GB total
+
+=== [2] IOWarp Core build ===
+  Building IOWarp Core from /home/hyoklee/core.iowarp ...
+-- The C compiler identification is NVHPC 25.5.0
+-- The CXX compiler identification is NVHPC 25.5.0
+-- Cray Programming Environment 2.7.35 C
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /opt/cray/pe/craype/2.7.35/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Cray Programming Environment 2.7.35 CXX
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /opt/cray/pe/craype/2.7.35/bin/CC - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Conda environment support disabled (use -DWRP_CORE_ENABLE_CONDA=ON to enable)
+-- Build system configuration:
+--   Conda build:        FALSE
+--   Install prefix:     /lus/grand/projects/gpu_hack/iowarp/iowarp-install
+-- Test/Benchmark Configuration:
+--   WRP_CORE_ENABLE_TESTS: OFF
+--   WRP_CORE_ENABLE_BENCHMARKS: OFF
+-- Loading IowarpCoreCommon.cmake
+-- IowarpCoreCommon.cmake loaded successfully
+-- Found PkgConfig: /home/hyoklee/miniconda3/bin/pkg-config (found version "0.29.2")
+-- found pkg-config
+-- found yaml-cpp at /home/hyoklee/miniconda3/lib/cmake/yaml-cpp
+-- Using yaml-cpp target: yaml-cpp::yaml-cpp
+-- found cereal at /home/hyoklee/miniconda3/lib/cmake/cereal
+-- found msgpack-c at /home/hyoklee/miniconda3/lib/cmake/msgpack-c
+--   using shared msgpack-c (static not available)
+-- Found MPI_C: /opt/cray/pe/mpich/9.0.1/ofi/nvidia/23.3/lib/libmpi_nvidia.so (found version "4.0")
+-- Found MPI_CXX: /opt/cray/pe/mpich/9.0.1/ofi/nvidia/23.3/lib/libmpi_nvidia.so (found version "4.0")
+-- Found MPI: TRUE (found version "4.0") found components: C CXX
+-- found mpi.h at /opt/cray/pe/mpich/9.0.1/ofi/nvidia/23.3/include
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- found HDF5 at /opt/cray/pe/hdf5-parallel/1.14.3.7/nvidia/23.3/include
+-- Gray-Scott example disabled
+-- Python bindings disabled
+-- NVHPC detected - using ucontext_t fiber fallback for C++20 coroutines
+-- ccache not found — install ccache for faster rebuilds
+-- RPATH: Using relative paths ($ORIGIN/../lib)
+--   INSTALL_RPATH: $ORIGIN;$ORIGIN/../lib
+--   BUILD_RPATH:   /home/hyoklee/core.iowarp/build-polaris/bin
+-- yaml-cpp already found by IowarpCoreCommon
+-- Building context-transport-primitives component
+-- Detected UNIX OS
+IN RELEASE MODE
+-- Building runtime component
+-- using hermes_shm as subdirectory (target: cxx)
+-- Chimaera namespace: chimaera
+-- Building Chimaera modules (ChiMods)...
+-- Runtime chimaera_MOD_NAME_runtime linking to client chimaera_MOD_NAME_client
+-- Created module package: chimaera_MOD_NAME
+--   Targets: chimaera_MOD_NAME_runtime;chimaera_MOD_NAME_client
+--   Aliases: chimaera::MOD_NAME_client, chimaera::MOD_NAME_runtime
+-- Deferred linking: Runtime chimaera_MOD_NAME_runtime linked to client chimaera_MOD_NAME_client
+-- Runtime chimaera_admin_runtime linking to client chimaera_admin_client
+-- Created module package: chimaera_admin
+--   Targets: chimaera_admin_runtime;chimaera_admin_client
+--   Aliases: chimaera::admin_client, chimaera::admin_runtime
+-- Deferred linking: Runtime chimaera_admin_runtime linked to client chimaera_admin_client
+-- Runtime chimaera_bdev_runtime linking to client chimaera_bdev_client
+-- Created module package: chimaera_bdev
+--   Targets: chimaera_bdev_runtime;chimaera_bdev_client
+--   Aliases: chimaera::bdev_client, chimaera::bdev_runtime
+-- Deferred linking: Runtime chimaera_bdev_runtime linked to client chimaera_bdev_client
+-- Created core package: chimaera
+--   Export set: chimaera_coreTargets
+--   Config location: lib/cmake/chimaera
+-- Building context-transfer-engine component
+-- Found Chimaera framework - building full ChiMod implementation
+-- Created module package: wrp_cte_core
+--   Targets: wrp_cte_core_runtime
+--   Aliases: wrp_cte::core_client, wrp_cte::core_runtime
+-- Deferred linking: Runtime wrp_cte_core_runtime linked to client wrp_cte_core_client
+-- CTE: Compression disabled - skipping compressor chimod (use -DWRP_CTE_ENABLE_COMPRESS=ON to enable)
+-- CTE Adapters: DISABLED (ELF support not enabled)
+--   To enable adapters, configure with -DWRP_CORE_ENABLE_ELF=ON
+-- CTE UVM: Skipping (WRP_CORE_ENABLE_CUDA is OFF)
+-- CTE Python bindings disabled: WRP_CORE_ENABLE_PYTHON is OFF
+-- CTE Core and Bdev ChiMods configured for compilation
+-- Context-assimilation-engine component disabled
+-- Context-exploration-engine component disabled
+-- Context-visualizer component disabled (requires WRP_CORE_ENABLE_PYTHON)
+-- Gray-Scott example disabled
+-- iowarp-llm disabled (set WRP_CORE_ENABLE_LLAMA=ON to enable)
+-- 
+-- IOWarp Core unified package configuration:
+--   Package name: iowarp-core
+--   Install destination: lib/cmake/iowarp-core
+--   Components included:
+--     - HermesShm (context-transport-primitives)
+--     - Chimaera (runtime)
+--     - Core ChiMods: admin, bdev
+--     - CTE ChiMod: wrp_cte_core
+-- 
+-- IOWarp Core Configuration Summary:
+--   Build Shared Libraries:       ON
+--   
+--   Component Modules:
+--     Runtime:                    ON
+--     Context Transfer Engine:    ON
+--     Context Assimilation:       OFF
+--     Context Exploration:        OFF
+--   
+--   External Examples:
+--     Gray-Scott (ADIOS2):        OFF
+--   
+--   Global Options:
+--     Enable Tests:               OFF
+--     Python Bindings:            OFF
+--     AddressSanitizer (ASan):    OFF
+--     UndefinedBehaviorSan (UBSan): OFF
+--     MemorySanitizer (MSan):     OFF
+--     Code Coverage:              OFF
+-- 
+CMake Warning (dev) at CMakeLists.txt:1153 (install):
+  Target chimaera_cxx has PUBLIC_HEADER files but no PUBLIC_HEADER
+  DESTINATION.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Configuring done (10.2s)
+-- Generating done (0.6s)
+-- Build files have been written to: /home/hyoklee/core.iowarp/build-polaris
+[  3%] Building CXX object context-transport-primitives/src/CMakeFiles/hermes_shm_host.dir/malloc_allocator.cc.o
+[  5%] Building CXX object context-transport-primitives/src/CMakeFiles/hermes_shm_host.dir/system_info.cc.o
+[  5%] Building CXX object context-transport-primitives/src/CMakeFiles/hermes_shm_host.dir/socket_posix.cc.o
+"/home/hyoklee/core.iowarp/context-transport-primitives/include/hermes_shm/util/error.h", line 93: warning: the "throw()" specification is not part of C++20 and later [empty_throw_specification_not_cpp20]
+    const char* what() const throw() override { return msg_.c_str(); }
+                             ^
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+"/home/hyoklee/core.iowarp/context-transport-primitives/include/hermes_shm/memory/backend/array_backend.h", line 103: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-transport-primitives/src/system_info.cc", line 710: warning: statement is unreachable [code_is_unreachable]
+    std::cout << "undefined" << std::endl;
+    ^
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+"/home/hyoklee/core.iowarp/context-transport-primitives/include/hermes_shm/memory/allocator/malloc_allocator.h", line 146: warning: variable "old_size" was declared but never referenced [declared_but_not_referenced]
+      size_t old_size = old_page->page_size_ - sizeof(MallocPage);
+             ^
+
+[  7%] Linking CXX shared library ../../bin/libhermes_shm_host.so
+[  7%] Built target hermes_shm_host
+[ 10%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/admin.cc.o
+[ 12%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/chimaera.cc.o
+[ 14%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/chimaera_manager.cc.o
+[ 16%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/config_manager.cc.o
+[ 23%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/ipc_manager.cc.o
+[ 32%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/types.cc.o
+[ 32%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/scheduler/scheduler_factory.cc.o
+[ 32%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/task_archive.cc.o
+[ 32%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/scheduler/local_sched.cc.o
+[ 32%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/scheduler/default_sched.cc.o
+[ 32%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/pool_query.cc.o
+[ 35%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/work_orchestrator.cc.o
+[ 35%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/module_manager.cc.o
+[ 35%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/pool_manager.cc.o
+[ 35%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/task.cc.o
+[ 35%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/worker.cc.o
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/util/error.h", line 93: warning: the "throw()" specification is not part of C++20 and later [empty_throw_specification_not_cpp20]
+    const char* what() const throw() override { return msg_.c_str(); }
+                             ^
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/array_backend.h", line 103: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/util/error.h", line 93: warning: the "throw()" specification is not part of C++20 and later [empty_throw_specification_not_cpp20]
+    const char* what() const throw() override { return msg_.c_str(); }
+                             ^
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/util/error.h", line 93: warning: the "throw()" specification is not part of C++20 and later [empty_throw_specification_not_cpp20]
+    const char* what() const throw() override { return msg_.c_str(); }
+                             ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/util/error.h", line 93: warning: the "throw()" specification is not part of C++20 and later [empty_throw_specification_not_cpp20]
+    const char* what() const throw() override { return msg_.c_str(); }
+                             ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/util/error.h", line 93: warning: the "throw()" specification is not part of C++20 and later [empty_throw_specification_not_cpp20]
+    const char* what() const throw() override { return msg_.c_str(); }
+                             ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/util/error.h", line 93: warning: the "throw()" specification is not part of C++20 and later [empty_throw_specification_not_cpp20]
+    const char* what() const throw() override { return msg_.c_str(); }
+                             ^
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/util/error.h", line 93: warning: the "throw()" specification is not part of C++20 and later [empty_throw_specification_not_cpp20]
+    const char* what() const throw() override { return msg_.c_str(); }
+                             ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/util/error.h", line 93: warning: the "throw()" specification is not part of C++20 and later [empty_throw_specification_not_cpp20]
+    const char* what() const throw() override { return msg_.c_str(); }
+                             ^
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/util/error.h", line 93: warning: the "throw()" specification is not part of C++20 and later [empty_throw_specification_not_cpp20]
+    const char* what() const throw() override { return msg_.c_str(); }
+                             ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/util/error.h", line 93: warning: the "throw()" specification is not part of C++20 and later [empty_throw_specification_not_cpp20]
+    const char* what() const throw() override { return msg_.c_str(); }
+                             ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/util/error.h", line 93: warning: the "throw()" specification is not part of C++20 and later [empty_throw_specification_not_cpp20]
+    const char* what() const throw() override { return msg_.c_str(); }
+                             ^
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/util/error.h", line 93: warning: the "throw()" specification is not part of C++20 and later [empty_throw_specification_not_cpp20]
+    const char* what() const throw() override { return msg_.c_str(); }
+                             ^
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/util/error.h", line 93: warning: the "throw()" specification is not part of C++20 and later [empty_throw_specification_not_cpp20]
+    const char* what() const throw() override { return msg_.c_str(); }
+                             ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/util/error.h", line 93: warning: the "throw()" specification is not part of C++20 and later [empty_throw_specification_not_cpp20]
+    const char* what() const throw() override { return msg_.c_str(); }
+                             ^
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/util/error.h", line 93: warning: the "throw()" specification is not part of C++20 and later [empty_throw_specification_not_cpp20]
+    const char* what() const throw() override { return msg_.c_str(); }
+                             ^
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/array_backend.h", line 103: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/array_backend.h", line 103: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/array_backend.h", line 103: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/array_backend.h", line 103: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/array_backend.h", line 103: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/array_backend.h", line 103: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/array_backend.h", line 103: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/array_backend.h", line 103: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/array_backend.h", line 103: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/array_backend.h", line 103: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/array_backend.h", line 103: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/array_backend.h", line 103: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/array_backend.h", line 103: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/array_backend.h", line 103: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/util/error.h", line 93: warning: the "throw()" specification is not part of C++20 and later [empty_throw_specification_not_cpp20]
+    const char* what() const throw() override { return msg_.c_str(); }
+                             ^
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/allocator/mp_allocator.h", line 560: warning: statement is unreachable [code_is_unreachable]
+      return OffsetPtr<>();
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/allocator/mp_allocator.h", line 560: warning: statement is unreachable [code_is_unreachable]
+      return OffsetPtr<>();
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/allocator/mp_allocator.h", line 560: warning: statement is unreachable [code_is_unreachable]
+      return OffsetPtr<>();
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/allocator/mp_allocator.h", line 560: warning: statement is unreachable [code_is_unreachable]
+      return OffsetPtr<>();
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/allocator/mp_allocator.h", line 560: warning: statement is unreachable [code_is_unreachable]
+      return OffsetPtr<>();
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/allocator/mp_allocator.h", line 560: warning: statement is unreachable [code_is_unreachable]
+      return OffsetPtr<>();
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/allocator/mp_allocator.h", line 560: warning: statement is unreachable [code_is_unreachable]
+      return OffsetPtr<>();
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/allocator/mp_allocator.h", line 560: warning: statement is unreachable [code_is_unreachable]
+      return OffsetPtr<>();
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/allocator/mp_allocator.h", line 560: warning: statement is unreachable [code_is_unreachable]
+      return OffsetPtr<>();
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/allocator/mp_allocator.h", line 560: warning: statement is unreachable [code_is_unreachable]
+      return OffsetPtr<>();
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/allocator/mp_allocator.h", line 560: warning: statement is unreachable [code_is_unreachable]
+      return OffsetPtr<>();
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/allocator/mp_allocator.h", line 560: warning: statement is unreachable [code_is_unreachable]
+      return OffsetPtr<>();
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/allocator/mp_allocator.h", line 560: warning: statement is unreachable [code_is_unreachable]
+      return OffsetPtr<>();
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/allocator/mp_allocator.h", line 560: warning: statement is unreachable [code_is_unreachable]
+      return OffsetPtr<>();
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/malloc_backend.h", line 102: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/malloc_backend.h", line 102: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/malloc_backend.h", line 102: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/malloc_backend.h", line 102: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/malloc_backend.h", line 102: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/malloc_backend.h", line 102: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/malloc_backend.h", line 102: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/malloc_backend.h", line 102: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/malloc_backend.h", line 102: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/malloc_backend.h", line 102: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/malloc_backend.h", line 102: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/malloc_backend.h", line 102: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/malloc_backend.h", line 102: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/malloc_backend.h", line 102: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/posix_mmap.h", line 116: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/posix_mmap.h", line 116: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/posix_mmap.h", line 116: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/posix_mmap.h", line 116: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/posix_mmap.h", line 116: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/posix_mmap.h", line 116: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/posix_mmap.h", line 116: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/posix_mmap.h", line 116: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/posix_mmap.h", line 116: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/posix_mmap.h", line 116: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/posix_mmap.h", line 116: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/posix_mmap.h", line 116: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/posix_mmap.h", line 116: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/posix_mmap.h", line 116: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/array_backend.h", line 103: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/allocator/mp_allocator.h", line 560: warning: statement is unreachable [code_is_unreachable]
+      return OffsetPtr<>();
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/malloc_backend.h", line 102: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/allocator/mp_allocator.h", line 560: warning: statement is unreachable [code_is_unreachable]
+      return OffsetPtr<>();
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/posix_mmap.h", line 116: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/malloc_backend.h", line 102: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/posix_mmap.h", line 116: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/module_manager.cc", line 47: catastrophic error: cannot open source file "filesystem"
+  #include <filesystem>
+                       ^
+
+1 catastrophic error detected in the compilation of "/home/hyoklee/core.iowarp/context-runtime/src/module_manager.cc".
+Compilation terminated.
+make[2]: *** [context-runtime/src/CMakeFiles/chimaera_cxx.dir/build.make:161: context-runtime/src/CMakeFiles/chimaera_cxx.dir/module_manager.cc.o] Error 2
+make[2]: *** Waiting for unfinished jobs....
+"/home/hyoklee/core.iowarp/context-runtime/src/config_manager.cc", line 42: catastrophic error: cannot open source file "filesystem"
+  #include <filesystem>
+                       ^
+
+1 catastrophic error detected in the compilation of "/home/hyoklee/core.iowarp/context-runtime/src/config_manager.cc".
+Compilation terminated.
+make[2]: *** [context-runtime/src/CMakeFiles/chimaera_cxx.dir/build.make:129: context-runtime/src/CMakeFiles/chimaera_cxx.dir/config_manager.cc.o] Error 2
+"/home/hyoklee/core.iowarp/context-runtime/src/pool_manager.cc", line 46: catastrophic error: cannot open source file "filesystem"
+  #include <filesystem>
+                       ^
+
+1 catastrophic error detected in the compilation of "/home/hyoklee/core.iowarp/context-runtime/src/pool_manager.cc".
+Compilation terminated.
+make[2]: *** [context-runtime/src/CMakeFiles/chimaera_cxx.dir/build.make:177: context-runtime/src/CMakeFiles/chimaera_cxx.dir/pool_manager.cc.o] Error 2
+"/home/hyoklee/core.iowarp/context-runtime/src/worker.cc", line 964: warning: statement is unreachable [code_is_unreachable]
+      AddToBlockedQueue(run_ctx);
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/worker.cc", line 1011: warning: variable "container" was declared but never referenced [declared_but_not_referenced]
+        Container *container = run_ctx->container_;
+                   ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/ipc/vector.h", line 1218: warning: variable "alloc_size" was declared but never referenced [declared_but_not_referenced]
+    size_t alloc_size = capacity_ * sizeof(T);
+           ^
+          detected during:
+            instantiation of "hshm::ipc::vector<T, AllocT>::~vector() [with T=hshm::ipc::RingBufferEntry<chi::Future<chi::Task, hshm::ipc::BaseAllocator<hshm::ipc::_ArenaAllocator<false>>>>, AllocT=hshm::ipc::BaseAllocator<hshm::ipc::_ArenaAllocator<false>>]" at line 229 of "/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/ipc/ring_buffer.h"
+            instantiation of "hshm::ipc::ring_buffer<T, AllocT, FLAGS>::ring_buffer(AllocT *, hshm::size_t) [with T=chi::Future<chi::Task, hshm::ipc::BaseAllocator<hshm::ipc::_ArenaAllocator<false>>>, AllocT=hshm::ipc::BaseAllocator<hshm::ipc::_ArenaAllocator<false>>, FLAGS=38U]" at line 1047
+            instantiation of "hshm::ipc::vector<T, AllocT>::vector(AllocT *, hshm::size_t, Args &&...) [with T=hshm::ipc::ring_buffer<chi::Future<chi::Task, hshm::ipc::BaseAllocator<hshm::ipc::_ArenaAllocator<false>>>, hshm::ipc::BaseAllocator<hshm::ipc::_ArenaAllocator<false>>, 38U>, AllocT=hshm::ipc::BaseAllocator<hshm::ipc::_ArenaAllocator<false>>, Args=<hshm::size_t &>]" at line 126 of "/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/ipc/multi_ring_buffer.h"
+            instantiation of "hshm::ipc::multi_ring_buffer<T, AllocT, FLAGS>::multi_ring_buffer(AllocT *, hshm::size_t, hshm::size_t, hshm::size_t) [with T=chi::Future<chi::Task, hshm::ipc::BaseAllocator<hshm::ipc::_ArenaAllocator<false>>>, AllocT=hshm::ipc::BaseAllocator<hshm::ipc::_ArenaAllocator<false>>, FLAGS=38U]" at line 572 of "/home/hyoklee/core.iowarp/context-runtime/src/ipc_manager.cc"
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/ipc/vector.h", line 1218: warning: variable "alloc_size" was declared but never referenced [declared_but_not_referenced]
+    size_t alloc_size = capacity_ * sizeof(T);
+           ^
+          detected during:
+            instantiation of "hshm::ipc::vector<T, AllocT>::~vector() [with T=hshm::ipc::RingBufferEntry<chi::Future<chi::Task, hshm::ipc::BaseAllocator<hshm::ipc::_ArenaAllocator<false>>>>, AllocT=hshm::ipc::MallocAllocator]" at line 229 of "/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/ipc/ring_buffer.h"
+            instantiation of "hshm::ipc::ring_buffer<T, AllocT, FLAGS>::ring_buffer(AllocT *, hshm::size_t) [with T=chi::Future<chi::Task, hshm::ipc::BaseAllocator<hshm::ipc::_ArenaAllocator<false>>>, AllocT=hshm::ipc::MallocAllocator, FLAGS=38U]" at line 329 of "/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/allocator/allocator.h"
+            instantiation of "void hshm::ipc::Allocator::ConstructObj(T &, Args &&...) [with T=hshm::ipc::ring_buffer<chi::Future<chi::Task, hshm::ipc::BaseAllocator<hshm::ipc::_ArenaAllocator<false>>>, hshm::ipc::MallocAllocator, 38U>, Args=<hshm::ipc::MallocAllocator *, const uint32_t &>]" at line 316 of "/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/allocator/allocator.h"
+            instantiation of "void hshm::ipc::Allocator::ConstructObjs(T *, hshm::size_t, hshm::size_t, Args &&...) [with T=hshm::ipc::ring_buffer<chi::Future<chi::Task, hshm::ipc::BaseAllocator<hshm::ipc::_ArenaAllocator<false>>>, hshm::ipc::MallocAllocator, 38U>, Args=<hshm::ipc::MallocAllocator *, const uint32_t &>]" at line 1328 of "/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/allocator/allocator.h"
+            instantiation of "void hshm::ipc::BaseAllocator<CoreAllocT>::ConstructObjs(T *, hshm::size_t, hshm::size_t, Args &&...) [with CoreAllocT=hshm::ipc::_MallocAllocator<false>, T=hshm::ipc::ring_buffer<chi::Future<chi::Task, hshm::ipc::BaseAllocator<hshm::ipc::_ArenaAllocator<false>>>, hshm::ipc::MallocAllocator, 38U>, Args=<hshm::ipc::MallocAllocator *, const uint32_t &>]" at line 1256 of "/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/allocator/allocator.h"
+            instantiation of "hshm::ipc::FullPtr<T, false> hshm::ipc::BaseAllocator<CoreAllocT>::NewObjs<T,Args...>(hshm::size_t, Args &&...) [with CoreAllocT=hshm::ipc::_MallocAllocator<false>, T=hshm::ipc::ring_buffer<chi::Future<chi::Task, hshm::ipc::BaseAllocator<hshm::ipc::_ArenaAllocator<false>>>, hshm::ipc::MallocAllocator, 38U>, Args=<hshm::ipc::MallocAllocator *, const uint32_t &>]" at line 1263 of "/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/allocator/allocator.h"
+            instantiation of "hshm::ipc::FullPtr<T, false> hshm::ipc::BaseAllocator<CoreAllocT>::NewObj<T,Args...>(Args &&...) [with CoreAllocT=hshm::ipc::_MallocAllocator<false>, T=hshm::ipc::ring_buffer<chi::Future<chi::Task, hshm::ipc::BaseAllocator<hshm::ipc::_ArenaAllocator<false>>>, hshm::ipc::MallocAllocator, 38U>, Args=<hshm::ipc::MallocAllocator *, const chi::u32 &>]" at line 114 of "/home/hyoklee/core.iowarp/context-runtime/src/worker.cc"
+
+make[1]: *** [CMakeFiles/Makefile2:571: context-runtime/src/CMakeFiles/chimaera_cxx.dir/all] Error 2
+make: *** [Makefile:136: all] Error 2
+  Build complete: 
+  chimaera: version flag not supported
+  libhermes_posix: NOT FOUND
+
+=== [3] CTE configuration ===
+  CTE config written to /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/config/cte_config.yaml
+
+=== [4] BASELINE: scatter_read_trees (Lustre) ===
+GCC13_ROOT: NOT FOUND
+==== MiV-Simulator + IOWarp CTE Benchmark ====
+Date:    Sun Apr 26 02:47:10 AM UTC 2026
+Job:     7100538.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov
+Node:    x3211c0s13b0n0.hsn.cm.polaris.alcf.anl.gov 
+Python:  Python 3.11.7
+
+=== [1] GPU check ===
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+RAM: 503 GB total
+
+=== [2] IOWarp Core build ===
+  Building IOWarp Core from /home/hyoklee/core.iowarp ...
+-- Cray Programming Environment 2.7.35 C
+-- Cray Programming Environment 2.7.35 CXX
+-- Conda environment support disabled (use -DWRP_CORE_ENABLE_CONDA=ON to enable)
+-- Build system configuration:
+--   Conda build:        FALSE
+--   Install prefix:     /lus/grand/projects/gpu_hack/iowarp/iowarp-install
+-- Test/Benchmark Configuration:
+--   WRP_CORE_ENABLE_TESTS: OFF
+--   WRP_CORE_ENABLE_BENCHMARKS: OFF
+-- Loading IowarpCoreCommon.cmake
+-- IowarpCoreCommon.cmake loaded successfully
+-- found pkg-config
+-- found yaml-cpp at /home/hyoklee/miniconda3/lib/cmake/yaml-cpp
+-- Using yaml-cpp target: yaml-cpp::yaml-cpp
+-- found cereal at /home/hyoklee/miniconda3/lib/cmake/cereal
+-- found msgpack-c at /home/hyoklee/miniconda3/lib/cmake/msgpack-c
+--   using shared msgpack-c (static not available)
+-- found mpi.h at /opt/cray/pe/mpich/9.0.1/ofi/nvidia/23.3/include
+CMake Warning at /home/hyoklee/miniconda3/share/cmake-4.2/Modules/FindHDF5.cmake:929 (message):
+  HDF5 found for language C is not parallel but previously found language is
+  parallel.
+Call Stack (most recent call first):
+  CMakeLists.txt:556 (find_package)
+
+
+-- found HDF5 at /opt/cray/pe/hdf5-parallel/1.14.3.7/nvidia/23.3/include
+-- Gray-Scott example disabled
+-- Python bindings disabled
+-- NVHPC detected - using ucontext_t fiber fallback for C++20 coroutines
+CMake Warning at CMakeLists.txt:697 (message):
+  NVHPC: GCC-13 toolchain not found; <filesystem> may fail.  Pass
+  -DNVHPC_GCC_TOOLCHAIN=<path> or load gcc/13 module.
+
+
+-- ccache not found — install ccache for faster rebuilds
+-- RPATH: Using relative paths ($ORIGIN/../lib)
+--   INSTALL_RPATH: $ORIGIN;$ORIGIN/../lib
+--   BUILD_RPATH:   /home/hyoklee/core.iowarp/build-polaris/bin
+-- yaml-cpp already found by IowarpCoreCommon
+-- Building context-transport-primitives component
+-- Detected UNIX OS
+IN RELEASE MODE
+-- Building runtime component
+-- using hermes_shm as subdirectory (target: cxx)
+-- Chimaera namespace: chimaera
+-- Building Chimaera modules (ChiMods)...
+-- Runtime chimaera_MOD_NAME_runtime linking to client chimaera_MOD_NAME_client
+-- Created module package: chimaera_MOD_NAME
+--   Targets: chimaera_MOD_NAME_runtime;chimaera_MOD_NAME_client
+--   Aliases: chimaera::MOD_NAME_client, chimaera::MOD_NAME_runtime
+-- Deferred linking: Runtime chimaera_MOD_NAME_runtime linked to client chimaera_MOD_NAME_client
+-- Runtime chimaera_admin_runtime linking to client chimaera_admin_client
+-- Created module package: chimaera_admin
+--   Targets: chimaera_admin_runtime;chimaera_admin_client
+--   Aliases: chimaera::admin_client, chimaera::admin_runtime
+-- Deferred linking: Runtime chimaera_admin_runtime linked to client chimaera_admin_client
+-- Runtime chimaera_bdev_runtime linking to client chimaera_bdev_client
+-- Created module package: chimaera_bdev
+--   Targets: chimaera_bdev_runtime;chimaera_bdev_client
+--   Aliases: chimaera::bdev_client, chimaera::bdev_runtime
+-- Deferred linking: Runtime chimaera_bdev_runtime linked to client chimaera_bdev_client
+-- Created core package: chimaera
+--   Export set: chimaera_coreTargets
+--   Config location: lib/cmake/chimaera
+-- Building context-transfer-engine component
+-- Found Chimaera framework - building full ChiMod implementation
+-- Created module package: wrp_cte_core
+--   Targets: wrp_cte_core_runtime
+--   Aliases: wrp_cte::core_client, wrp_cte::core_runtime
+-- Deferred linking: Runtime wrp_cte_core_runtime linked to client wrp_cte_core_client
+-- CTE: Compression disabled - skipping compressor chimod (use -DWRP_CTE_ENABLE_COMPRESS=ON to enable)
+-- CTE Adapters: DISABLED (ELF support not enabled)
+--   To enable adapters, configure with -DWRP_CORE_ENABLE_ELF=ON
+-- CTE UVM: Skipping (WRP_CORE_ENABLE_CUDA is OFF)
+-- CTE Python bindings disabled: WRP_CORE_ENABLE_PYTHON is OFF
+-- CTE Core and Bdev ChiMods configured for compilation
+-- Context-assimilation-engine component disabled
+-- Context-exploration-engine component disabled
+-- Context-visualizer component disabled (requires WRP_CORE_ENABLE_PYTHON)
+-- Gray-Scott example disabled
+-- iowarp-llm disabled (set WRP_CORE_ENABLE_LLAMA=ON to enable)
+-- 
+-- IOWarp Core unified package configuration:
+--   Package name: iowarp-core
+--   Install destination: lib/cmake/iowarp-core
+--   Components included:
+--     - HermesShm (context-transport-primitives)
+--     - Chimaera (runtime)
+--     - Core ChiMods: admin, bdev
+--     - CTE ChiMod: wrp_cte_core
+-- 
+-- IOWarp Core Configuration Summary:
+--   Build Shared Libraries:       ON
+--   
+--   Component Modules:
+--     Runtime:                    ON
+--     Context Transfer Engine:    ON
+--     Context Assimilation:       OFF
+--     Context Exploration:        OFF
+--   
+--   External Examples:
+--     Gray-Scott (ADIOS2):        OFF
+--   
+--   Global Options:
+--     Enable Tests:               OFF
+--     Python Bindings:            OFF
+--     AddressSanitizer (ASan):    OFF
+--     UndefinedBehaviorSan (UBSan): OFF
+--     MemorySanitizer (MSan):     OFF
+--     Code Coverage:              OFF
+-- 
+CMake Warning (dev) at CMakeLists.txt:1189 (install):
+  Target chimaera_cxx has PUBLIC_HEADER files but no PUBLIC_HEADER
+  DESTINATION.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Configuring done (4.4s)
+You have changed variables that require your cache to be deleted.
+Configure will be re-run and you may have to reset some variables.
+The following variables have changed:
+CMAKE_C_COMPILER= /opt/nvidia/hpc_sdk/Linux_x86_64/25.5/compilers/bin/nvc
+CMAKE_CXX_COMPILER= /opt/nvidia/hpc_sdk/Linux_x86_64/25.5/compilers/bin/nvc++
+CMAKE_C_COMPILER= /opt/nvidia/hpc_sdk/Linux_x86_64/25.5/compilers/bin/nvc
+CMAKE_CXX_COMPILER= /opt/nvidia/hpc_sdk/Linux_x86_64/25.5/compilers/bin/nvc++
+CMAKE_C_COMPILER= /opt/nvidia/hpc_sdk/Linux_x86_64/25.5/compilers/bin/nvc
+CMAKE_CXX_COMPILER= /opt/nvidia/hpc_sdk/Linux_x86_64/25.5/compilers/bin/nvc++
+CMAKE_C_COMPILER= /opt/nvidia/hpc_sdk/Linux_x86_64/25.5/compilers/bin/nvc
+CMAKE_CXX_COMPILER= /opt/nvidia/hpc_sdk/Linux_x86_64/25.5/compilers/bin/nvc++
+CMAKE_C_COMPILER= /opt/nvidia/hpc_sdk/Linux_x86_64/25.5/compilers/bin/nvc
+CMAKE_CXX_COMPILER= /opt/nvidia/hpc_sdk/Linux_x86_64/25.5/compilers/bin/nvc++
+
+-- The C compiler identification is NVHPC 25.5.0
+-- The CXX compiler identification is NVHPC 25.5.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /opt/nvidia/hpc_sdk/Linux_x86_64/25.5/compilers/bin/nvc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /opt/nvidia/hpc_sdk/Linux_x86_64/25.5/compilers/bin/nvc++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Conda environment support disabled (use -DWRP_CORE_ENABLE_CONDA=ON to enable)
+-- Build system configuration:
+--   Conda build:        FALSE
+--   Install prefix:     /usr/local
+-- Test/Benchmark Configuration:
+--   WRP_CORE_ENABLE_TESTS: OFF
+--   WRP_CORE_ENABLE_BENCHMARKS: ON
+-- Loading IowarpCoreCommon.cmake
+-- IowarpCoreCommon.cmake loaded successfully
+-- Found PkgConfig: /home/hyoklee/miniconda3/bin/pkg-config (found version "0.29.2")
+-- found pkg-config
+-- found yaml-cpp at /home/hyoklee/miniconda3/lib/cmake/yaml-cpp
+-- Using yaml-cpp target: yaml-cpp::yaml-cpp
+-- found cereal at /home/hyoklee/miniconda3/lib/cmake/cereal
+-- found msgpack-c at /home/hyoklee/miniconda3/lib/cmake/msgpack-c
+--   using shared msgpack-c (static not available)
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- found zmq.h at /home/hyoklee/miniconda3/include
+-- found HDF5 at /home/hyoklee/miniconda3/include
+-- Gray-Scott example disabled
+-- Python bindings disabled
+-- NVHPC detected - using ucontext_t fiber fallback for C++20 coroutines
+CMake Warning at CMakeLists.txt:697 (message):
+  NVHPC: GCC-13 toolchain not found; <filesystem> may fail.  Pass
+  -DNVHPC_GCC_TOOLCHAIN=<path> or load gcc/13 module.
+
+
+-- ccache not found — install ccache for faster rebuilds
+-- RPATH: Using relative paths ($ORIGIN/../lib)
+--   INSTALL_RPATH: $ORIGIN;$ORIGIN/../lib
+--   BUILD_RPATH:   /home/hyoklee/core.iowarp/build-polaris/bin
+-- yaml-cpp already found by IowarpCoreCommon
+-- Building context-transport-primitives component
+-- Detected UNIX OS
+IN RELEASE MODE
+Building HSHM benchmarks
+-- Building runtime component
+-- using hermes_shm as subdirectory (target: cxx)
+-- Chimaera namespace: chimaera
+-- Building Chimaera modules (ChiMods)...
+-- Runtime chimaera_MOD_NAME_runtime linking to client chimaera_MOD_NAME_client
+-- Created module package: chimaera_MOD_NAME
+--   Targets: chimaera_MOD_NAME_runtime;chimaera_MOD_NAME_client
+--   Aliases: chimaera::MOD_NAME_client, chimaera::MOD_NAME_runtime
+-- Deferred linking: Runtime chimaera_MOD_NAME_runtime linked to client chimaera_MOD_NAME_client
+-- Runtime chimaera_admin_runtime linking to client chimaera_admin_client
+-- Created module package: chimaera_admin
+--   Targets: chimaera_admin_runtime;chimaera_admin_client
+--   Aliases: chimaera::admin_client, chimaera::admin_runtime
+-- Deferred linking: Runtime chimaera_admin_runtime linked to client chimaera_admin_client
+-- Runtime chimaera_bdev_runtime linking to client chimaera_bdev_client
+-- Created module package: chimaera_bdev
+--   Targets: chimaera_bdev_runtime;chimaera_bdev_client
+--   Aliases: chimaera::bdev_client, chimaera::bdev_runtime
+-- Deferred linking: Runtime chimaera_bdev_runtime linked to client chimaera_bdev_client
+-- Benchmarks enabled - added benchmark subdirectory
+-- Created core package: chimaera
+--   Export set: chimaera_coreTargets
+--   Config location: lib/cmake/chimaera
+-- Building context-transfer-engine component
+-- Found Chimaera framework - building full ChiMod implementation
+-- Created module package: wrp_cte_core
+--   Targets: wrp_cte_core_runtime
+--   Aliases: wrp_cte::core_client, wrp_cte::core_runtime
+-- Deferred linking: Runtime wrp_cte_core_runtime linked to client wrp_cte_core_client
+-- CTE: Compression disabled - skipping compressor chimod (use -DWRP_CTE_ENABLE_COMPRESS=ON to enable)
+-- CTE Adapters: DISABLED (ELF support not enabled)
+--   To enable adapters, configure with -DWRP_CORE_ENABLE_ELF=ON
+-- CTE UVM: Skipping (WRP_CORE_ENABLE_CUDA is OFF)
+-- CTE Python bindings disabled: WRP_CORE_ENABLE_PYTHON is OFF
+-- Skipping wrp_cte_score_bench - MPI not enabled (set WRP_CORE_ENABLE_MPI=ON)
+-- CTE benchmarks enabled - added benchmark subdirectory
+-- CTE Core and Bdev ChiMods configured for compilation
+-- Building context-assimilation-engine component
+IN RELEASE MODE
+-- CAE HDF5 support: ENABLED
+-- CAE Globus support: DISABLED
+-- Runtime wrp_cae_core_runtime linking to client wrp_cae_core_client
+-- Created module package: wrp_cae_core
+--   Targets: wrp_cae_core_runtime;wrp_cae_core_client
+--   Aliases: wrp_cae::core_client, wrp_cae::core_runtime
+-- Deferred linking: Runtime wrp_cae_core_runtime linked to client wrp_cae_core_client
+-- Building context-exploration-engine component
+-- Context Exploration Engine: Building API components
+-- Python bindings disabled - set WRP_CORE_ENABLE_PYTHON=ON to enable
+--   hdf-compass and mcp-hdf-demo are standalone components
+--   To build them, navigate to their respective directories
+-- Context-visualizer component disabled (requires WRP_CORE_ENABLE_PYTHON)
+-- Gray-Scott example disabled
+-- iowarp-llm disabled (set WRP_CORE_ENABLE_LLAMA=ON to enable)
+-- 
+-- IOWarp Core unified package configuration:
+--   Package name: iowarp-core
+--   Install destination: lib/cmake/iowarp-core
+--   Components included:
+--     - HermesShm (context-transport-primitives)
+--     - Chimaera (runtime)
+--     - Core ChiMods: admin, bdev
+--     - CTE ChiMod: wrp_cte_core
+--     - CAE ChiMod: wrp_cae_core
+-- 
+-- IOWarp Core Configuration Summary:
+--   Build Shared Libraries:       ON
+--   
+--   Component Modules:
+--     Runtime:                    ON
+--     Context Transfer Engine:    ON
+--     Context Assimilation:       ON
+--     Context Exploration:        ON
+--   
+--   External Examples:
+--     Gray-Scott (ADIOS2):        OFF
+--   
+--   Global Options:
+--     Enable Tests:               OFF
+--     Python Bindings:            OFF
+--     AddressSanitizer (ASan):    OFF
+--     UndefinedBehaviorSan (UBSan): OFF
+--     MemorySanitizer (MSan):     OFF
+--     Code Coverage:              OFF
+-- 
+CMake Warning (dev) at CMakeLists.txt:1189 (install):
+  Target chimaera_cxx has PUBLIC_HEADER files but no PUBLIC_HEADER
+  DESTINATION.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Configuring done (6.0s)
+-- Generating done (1.0s)
+-- Build files have been written to: /home/hyoklee/core.iowarp/build-polaris
+[  2%] Building CXX object context-transport-primitives/src/CMakeFiles/hermes_shm_host.dir/socket_posix.cc.o
+[  2%] Building CXX object context-transport-primitives/src/CMakeFiles/hermes_shm_host.dir/malloc_allocator.cc.o
+[  3%] Building CXX object context-transport-primitives/src/CMakeFiles/hermes_shm_host.dir/system_info.cc.o
+"/home/hyoklee/core.iowarp/context-transport-primitives/include/hermes_shm/util/error.h", line 93: warning: the "throw()" specification is not part of C++20 and later [empty_throw_specification_not_cpp20]
+    const char* what() const throw() override { return msg_.c_str(); }
+                             ^
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+"/home/hyoklee/core.iowarp/context-transport-primitives/include/hermes_shm/memory/backend/array_backend.h", line 103: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-transport-primitives/src/system_info.cc", line 710: warning: statement is unreachable [code_is_unreachable]
+    std::cout << "undefined" << std::endl;
+    ^
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+"/home/hyoklee/core.iowarp/context-transport-primitives/include/hermes_shm/memory/allocator/malloc_allocator.h", line 146: warning: variable "old_size" was declared but never referenced [declared_but_not_referenced]
+      size_t old_size = old_page->page_size_ - sizeof(MallocPage);
+             ^
+
+[  5%] Linking CXX shared library ../../bin/libhermes_shm_host.so
+[  5%] Built target hermes_shm_host
+[  6%] Building CXX object context-transport-primitives/benchmark/CMakeFiles/allocator_benchmark.dir/allocator_benchmark.cc.o
+[  7%] Building CXX object context-transport-primitives/benchmark/CMakeFiles/zmq_ipc_latency_benchmark.dir/zmq_ipc_latency_benchmark.cc.o
+[ 10%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/chimaera.cc.o
+[ 11%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/config_manager.cc.o
+[ 15%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/ipc_manager.cc.o
+[ 15%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/chimaera_manager.cc.o
+[ 15%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/admin.cc.o
+[ 18%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/module_manager.cc.o
+[ 19%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/pool_query.cc.o
+[ 19%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/pool_manager.cc.o
+[ 23%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/scheduler/scheduler_factory.cc.o
+[ 23%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/scheduler/local_sched.cc.o
+[ 23%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/scheduler/default_sched.cc.o
+[ 23%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/task.cc.o
+[ 26%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/task_archive.cc.o
+[ 26%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/types.cc.o
+"/home/hyoklee/core.iowarp/context-transport-primitives/include/hermes_shm/util/error.h", line 93: warning: the "throw()" specification is not part of C++20 and later [empty_throw_specification_not_cpp20]
+    const char* what() const throw() override { return msg_.c_str(); }
+                             ^
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+"/home/hyoklee/core.iowarp/context-transport-primitives/include/hermes_shm/memory/backend/array_backend.h", line 103: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-transport-primitives/include/hermes_shm/memory/allocator/mp_allocator.h", line 560: warning: statement is unreachable [code_is_unreachable]
+      return OffsetPtr<>();
+      ^
+
+"/home/hyoklee/core.iowarp/context-transport-primitives/include/hermes_shm/memory/backend/malloc_backend.h", line 102: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/util/error.h", line 93: warning: the "throw()" specification is not part of C++20 and later [empty_throw_specification_not_cpp20]
+    const char* what() const throw() override { return msg_.c_str(); }
+                             ^
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/array_backend.h", line 103: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/util/error.h", line 93: warning: the "throw()" specification is not part of C++20 and later [empty_throw_specification_not_cpp20]
+    const char* what() const throw() override { return msg_.c_str(); }
+                             ^
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/util/error.h", line 93: warning: the "throw()" specification is not part of C++20 and later [empty_throw_specification_not_cpp20]
+    const char* what() const throw() override { return msg_.c_str(); }
+                             ^
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/util/error.h", line 93: warning: the "throw()" specification is not part of C++20 and later [empty_throw_specification_not_cpp20]
+    const char* what() const throw() override { return msg_.c_str(); }
+                             ^
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/util/error.h", line 93: warning: the "throw()" specification is not part of C++20 and later [empty_throw_specification_not_cpp20]
+    const char* what() const throw() override { return msg_.c_str(); }
+                             ^
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/util/error.h", line 93: warning: the "throw()" specification is not part of C++20 and later [empty_throw_specification_not_cpp20]
+    const char* what() const throw() override { return msg_.c_str(); }
+                             ^
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/util/error.h", line 93: warning: the "throw()" specification is not part of C++20 and later [empty_throw_specification_not_cpp20]
+    const char* what() const throw() override { return msg_.c_str(); }
+                             ^
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/util/error.h", line 93: warning: the "throw()" specification is not part of C++20 and later [empty_throw_specification_not_cpp20]
+    const char* what() const throw() override { return msg_.c_str(); }
+                             ^
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/util/error.h", line 93: warning: the "throw()" specification is not part of C++20 and later [empty_throw_specification_not_cpp20]
+    const char* what() const throw() override { return msg_.c_str(); }
+                             ^
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/util/error.h", line 93: warning: the "throw()" specification is not part of C++20 and later [empty_throw_specification_not_cpp20]
+    const char* what() const throw() override { return msg_.c_str(); }
+                             ^
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/util/error.h", line 93: warning: the "throw()" specification is not part of C++20 and later [empty_throw_specification_not_cpp20]
+    const char* what() const throw() override { return msg_.c_str(); }
+                             ^
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/util/error.h", line 93: warning: the "throw()" specification is not part of C++20 and later [empty_throw_specification_not_cpp20]
+    const char* what() const throw() override { return msg_.c_str(); }
+                             ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/util/error.h", line 93: warning: the "throw()" specification is not part of C++20 and later [empty_throw_specification_not_cpp20]
+    const char* what() const throw() override { return msg_.c_str(); }
+                             ^
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/util/error.h", line 93: warning: the "throw()" specification is not part of C++20 and later [empty_throw_specification_not_cpp20]
+    const char* what() const throw() override { return msg_.c_str(); }
+                             ^
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+[ 27%] Linking CXX executable ../../bin/zmq_ipc_latency_benchmark
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/array_backend.h", line 103: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/array_backend.h", line 103: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/array_backend.h", line 103: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/array_backend.h", line 103: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/array_backend.h", line 103: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/array_backend.h", line 103: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/array_backend.h", line 103: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/array_backend.h", line 103: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/array_backend.h", line 103: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/array_backend.h", line 103: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/array_backend.h", line 103: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/array_backend.h", line 103: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/array_backend.h", line 103: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/allocator/mp_allocator.h", line 560: warning: statement is unreachable [code_is_unreachable]
+      return OffsetPtr<>();
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/allocator/mp_allocator.h", line 560: warning: statement is unreachable [code_is_unreachable]
+      return OffsetPtr<>();
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/allocator/mp_allocator.h", line 560: warning: statement is unreachable [code_is_unreachable]
+      return OffsetPtr<>();
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/allocator/mp_allocator.h", line 560: warning: statement is unreachable [code_is_unreachable]
+      return OffsetPtr<>();
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/allocator/mp_allocator.h", line 560: warning: statement is unreachable [code_is_unreachable]
+      return OffsetPtr<>();
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/allocator/mp_allocator.h", line 560: warning: statement is unreachable [code_is_unreachable]
+      return OffsetPtr<>();
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/allocator/mp_allocator.h", line 560: warning: statement is unreachable [code_is_unreachable]
+      return OffsetPtr<>();
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/allocator/mp_allocator.h", line 560: warning: statement is unreachable [code_is_unreachable]
+      return OffsetPtr<>();
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/allocator/mp_allocator.h", line 560: warning: statement is unreachable [code_is_unreachable]
+      return OffsetPtr<>();
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/allocator/mp_allocator.h", line 560: warning: statement is unreachable [code_is_unreachable]
+      return OffsetPtr<>();
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/malloc_backend.h", line 102: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/malloc_backend.h", line 102: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/malloc_backend.h", line 102: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/malloc_backend.h", line 102: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/allocator/mp_allocator.h", line 560: warning: statement is unreachable [code_is_unreachable]
+      return OffsetPtr<>();
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/malloc_backend.h", line 102: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/malloc_backend.h", line 102: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/malloc_backend.h", line 102: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/malloc_backend.h", line 102: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/malloc_backend.h", line 102: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/malloc_backend.h", line 102: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/allocator/mp_allocator.h", line 560: warning: statement is unreachable [code_is_unreachable]
+      return OffsetPtr<>();
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/allocator/mp_allocator.h", line 560: warning: statement is unreachable [code_is_unreachable]
+      return OffsetPtr<>();
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/malloc_backend.h", line 102: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/malloc_backend.h", line 102: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/malloc_backend.h", line 102: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/posix_mmap.h", line 116: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/posix_mmap.h", line 116: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/posix_mmap.h", line 116: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/posix_mmap.h", line 116: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/posix_mmap.h", line 116: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/posix_mmap.h", line 116: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/posix_mmap.h", line 116: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/posix_mmap.h", line 116: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/posix_mmap.h", line 116: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/posix_mmap.h", line 116: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/posix_mmap.h", line 116: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/posix_mmap.h", line 116: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/posix_mmap.h", line 116: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+[ 27%] Built target zmq_ipc_latency_benchmark
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/allocator/mp_allocator.h", line 560: warning: statement is unreachable [code_is_unreachable]
+      return OffsetPtr<>();
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/malloc_backend.h", line 102: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+[ 28%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/work_orchestrator.cc.o
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/posix_mmap.h", line 116: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/module_manager.cc", line 47: catastrophic error: cannot open source file "filesystem"
+  #include <filesystem>
+                       ^
+
+1 catastrophic error detected in the compilation of "/home/hyoklee/core.iowarp/context-runtime/src/module_manager.cc".
+Compilation terminated.
+make[2]: *** [context-runtime/src/CMakeFiles/chimaera_cxx.dir/build.make:161: context-runtime/src/CMakeFiles/chimaera_cxx.dir/module_manager.cc.o] Error 2
+make[2]: *** Waiting for unfinished jobs....
+"/home/hyoklee/core.iowarp/context-runtime/src/config_manager.cc", line 42: catastrophic error: cannot open source file "filesystem"
+  #include <filesystem>
+                       ^
+
+1 catastrophic error detected in the compilation of "/home/hyoklee/core.iowarp/context-runtime/src/config_manager.cc".
+Compilation terminated.
+make[2]: *** [context-runtime/src/CMakeFiles/chimaera_cxx.dir/build.make:129: context-runtime/src/CMakeFiles/chimaera_cxx.dir/config_manager.cc.o] Error 2
+"/home/hyoklee/core.iowarp/context-runtime/src/pool_manager.cc", line 46: catastrophic error: cannot open source file "filesystem"
+  #include <filesystem>
+                       ^
+
+1 catastrophic error detected in the compilation of "/home/hyoklee/core.iowarp/context-runtime/src/pool_manager.cc".
+Compilation terminated.
+make[2]: *** [context-runtime/src/CMakeFiles/chimaera_cxx.dir/build.make:177: context-runtime/src/CMakeFiles/chimaera_cxx.dir/pool_manager.cc.o] Error 2
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/util/error.h", line 93: warning: the "throw()" specification is not part of C++20 and later [empty_throw_specification_not_cpp20]
+    const char* what() const throw() override { return msg_.c_str(); }
+                             ^
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/array_backend.h", line 103: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/allocator/mp_allocator.h", line 560: warning: statement is unreachable [code_is_unreachable]
+      return OffsetPtr<>();
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/malloc_backend.h", line 102: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/memory/backend/posix_mmap.h", line 116: warning: statement is unreachable [code_is_unreachable]
+      return false;
+      ^
+
+"/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/ipc/vector.h", line 1218: warning: variable "alloc_size" was declared but never referenced [declared_but_not_referenced]
+    size_t alloc_size = capacity_ * sizeof(T);
+           ^
+          detected during:
+            instantiation of "hshm::ipc::vector<T, AllocT>::~vector() [with T=hshm::ipc::RingBufferEntry<chi::Future<chi::Task, hshm::ipc::BaseAllocator<hshm::ipc::_ArenaAllocator<false>>>>, AllocT=hshm::ipc::BaseAllocator<hshm::ipc::_ArenaAllocator<false>>]" at line 229 of "/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/ipc/ring_buffer.h"
+            instantiation of "hshm::ipc::ring_buffer<T, AllocT, FLAGS>::ring_buffer(AllocT *, hshm::size_t) [with T=chi::Future<chi::Task, hshm::ipc::BaseAllocator<hshm::ipc::_ArenaAllocator<false>>>, AllocT=hshm::ipc::BaseAllocator<hshm::ipc::_ArenaAllocator<false>>, FLAGS=38U]" at line 1047
+            instantiation of "hshm::ipc::vector<T, AllocT>::vector(AllocT *, hshm::size_t, Args &&...) [with T=hshm::ipc::ring_buffer<chi::Future<chi::Task, hshm::ipc::BaseAllocator<hshm::ipc::_ArenaAllocator<false>>>, hshm::ipc::BaseAllocator<hshm::ipc::_ArenaAllocator<false>>, 38U>, AllocT=hshm::ipc::BaseAllocator<hshm::ipc::_ArenaAllocator<false>>, Args=<hshm::size_t &>]" at line 126 of "/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/ipc/multi_ring_buffer.h"
+            instantiation of "hshm::ipc::multi_ring_buffer<T, AllocT, FLAGS>::multi_ring_buffer(AllocT *, hshm::size_t, hshm::size_t, hshm::size_t) [with T=chi::Future<chi::Task, hshm::ipc::BaseAllocator<hshm::ipc::_ArenaAllocator<false>>>, AllocT=hshm::ipc::BaseAllocator<hshm::ipc::_ArenaAllocator<false>>, FLAGS=38U]" at line 572 of "/home/hyoklee/core.iowarp/context-runtime/src/ipc_manager.cc"
+
+[ 30%] Linking CXX executable ../../bin/allocator_benchmark
+[ 30%] Built target allocator_benchmark
+make[1]: *** [CMakeFiles/Makefile2:797: context-runtime/src/CMakeFiles/chimaera_cxx.dir/all] Error 2
+make: *** [Makefile:136: all] Error 2
+  Build complete: 
+  chimaera: version flag not supported
+  libhermes_posix: NOT FOUND
+
+=== [3] CTE configuration ===
+  CTE config written to /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/config/cte_config.yaml
+
+=== [4] BASELINE: scatter_read_trees (Lustre) ===
+=>> PBS: job killed: walltime 21686 exceeded limit 21600
+=>> PBS: job killed: walltime 21679 exceeded limit 21600

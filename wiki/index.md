@@ -67,6 +67,8 @@
 - [MiV-Simulator build and test on Polaris](miv_polaris_build_test.md) — PBS jobs 7097199–7097215: neuroh5 cmake (gcc/GNU MPICH), 204/223 tests pass, CoreNEURON A100 GPU confirmed; GNU Cray MPICH SHM transport blocks multi-rank neuroh5 I/O
 - [MiV-Simulator PR #103 on Polaris](miv_pr103_polaris_test.md) — PBS job 7097324: patch fixes np.float_ (test_coding.py 3/3 pass), mpi_env check requires MIV_SKIP_MPI_CHECK=1; 207/226 pass
 - [neuroh5 shared-memory crash fix](neuroh5_shm_crash_fix.md) — int overflow in alltoallv sdispls for >2 GB datasets; P2P Isend/Irecv fix; **12/12 I/O tests pass** (job 7097644); PR: iraikov/neuroh5#19
+- [MiV-Simulator 7-optimization on Polaris](miv_opt_7_polaris.md) — Case 7-optimization; dmosopt MOASMO; epoch 0 completed; tstop tuning + preemptable queue for 3h runs
+- [MiV-Simulator + IOWarp CTE Benchmark](miv_iowarp_bench.md) — IOWarp Context Transfer Engine RAM-tier buffering; scatter_read_trees + optimize-network comparison; PBS job pending
 
 ## Schema
 

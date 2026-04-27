@@ -1,5 +1,9 @@
 # Wiki Log
 
+## [2026-04-27] sync | git pull NeuroFAIR — 20 new files from Polaris
+
+Pulled 20 new files from GitHub: Polaris IOWarp CTE benchmark page (`miv_iowarp_bench.md`), Polaris 7-optimization symlink (`miv_opt_7_polaris.md`), and 18 test log files (miv_opt_7a–f, miv_io_*, miv_p2p_*, miv_iowarp_bench_test.log). Key findings: (1) Polaris IOWarp build (PBS 7100495) FAILED — NVHPC 25.5 cannot open `<filesystem>` header, `libhermes_posix.so` not built, no perf numbers. (2) Polaris optimization (miv_opt_7d_test.log, 1hr job) confirmed same zero-spike issue as Aurora Runs 6–7 — VecStim fix not applied on Polaris. Polaris full-circuit timing: `connected cells=224s`, `sim=1073s` per eval (~21 min/eval). Updated `miv_iowarp_bench.md` with Polaris build failure status and Aurora proxy results; added cross-platform comparison table to `perf-clio-core.md`.
+
 ## [2026-04-27] perf | clio-core CTE buffering benchmark results (PBS 8452676)
 
 I/O benchmark (PBS 8452676, debug queue, h5py serial rank-0 reads) completed: Lustre=75 MB/s vs /dev/shm (CTE RAM tier)=1178 MB/s — **15.7× speedup**. Connectivity file (DBS sparse format) shows largest gain: 30 MB/s Lustre → 1632 MB/s /dev/shm (54×) due to elimination of random-access penalty. Pre-staging 130 MB from Lustre→/dev/shm takes 0.096 s at 1354 MB/s. For the full CA1 circuit (~26 GB), CTE buffering reduces startup I/O from ~8 min to ~20 s per PBS run. Updated `wiki/perf-clio-core.md` with measured results and full-circuit projections. Note: parallel neuroh5 scatter-read benchmarks segfaulted due to mpi4py/Aurora-MPICH binary incompatibility in isolated benchmark context (does not affect the optimizer which uses miv_simulator import ordering). clio-core optimizer (PBS 8452563) still running.

@@ -176,9 +176,19 @@ PBS scripts: `/home/hyoklee/wrp/run/miv_io_bench.pbs`, `/home/hyoklee/wrp/run/mi
 
 ---
 
+## Cross-platform comparison
+
+| Platform | System | Method | Files | BW (Lustre) | BW (CTE/RAM) | Speedup |
+|---|---|---|---|---|---|---|
+| Aurora (this study) | Intel GPU, Flare Lustre | /dev/shm proxy | 130 MB (small circuit) | 75 MB/s | 1178 MB/s | **15.7×** |
+| Polaris | NVIDIA A100, Grand Lustre | LD_PRELOAD (pending) | ~26 GB (full circuit) | ~100 MB/s (est.) | ~10 GB/s (est.) | **~35×** (est.) |
+
+Polaris `miv_iowarp_bench.pbs` failed at build (NVHPC `<filesystem>` issue); no Polaris numbers yet. See [MiV-Simulator + IOWarp CTE Benchmark](miv_iowarp_bench.md).
+
 ## Next steps
 
-1. Fill results tables once PBS 8452562 and 8452563 complete
-2. Build `libhdf5_hermes_vfd.so` (requires `-DCTE_ENABLE_HDF5_VFD=ON` in cmake) to enable transparent interception
-3. Test VFD-based approach: `HDF5_DRIVER=hermes LD_PRELOAD=libhdf5_hermes_vfd.so mpiexec ...`
-4. Extend benchmark to full CA1 circuit files for large-scale validation
+1. ~~Fill I/O benchmark table~~ — done (PBS 8452676)
+2. Fill optimizer comparison table once PBS 8452563 completes
+3. Build `libhdf5_hermes_vfd.so` on Aurora (requires `-DCTE_ENABLE_HDF5_VFD=ON` in cmake) to enable transparent interception without /dev/shm staging
+4. Fix Polaris IOWarp build (NVHPC GCC-13 toolchain fix) and rerun `miv_iowarp_bench.pbs`
+5. Apply Aurora VecStim fix to Polaris miv_simulator install before Polaris optimization benchmark

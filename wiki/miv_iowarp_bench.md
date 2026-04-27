@@ -137,25 +137,55 @@ the `connected cells` HDF5-read portion (~5–10 s out of 224 s total).
 
 ## Results
 
-> Results pending — submit `~/bin/miv_iowarp_bench.pbs` on Polaris.
+### Polaris — IOWarp build status (PBS 7100495, 2026-04-26)
 
-### A — I/O benchmark (`scatter_read_trees`)
+**FAILED — `libhermes_posix.so` not built.** NVHPC 25.5 could not compile `<filesystem>` headers (error: `cannot open source file "filesystem"` in `module_manager.cc`, `config_manager.cc`, `pool_manager.cc`). The GCC-13 toolchain fix documented above was applied during the PBS job but the job was killed by 6hr walltime before the baseline benchmark ran. See `miv_iowarp_bench_test.log`.
+
+**Impact**: No Polaris IOWarp performance numbers available. The POSIX interceptor (`libhermes_posix.so`) must be built for the transparent `LD_PRELOAD` approach to work.
+
+**Next step**: Apply the CMakeLists.txt fix, rebuild outside of PBS, verify `libhermes_posix.so` exists, then resubmit benchmark.
+
+---
+
+### Aurora — `/dev/shm` proxy benchmark (PBS 8452676, 2026-04-27)
+
+The Aurora benchmark used `/dev/shm` as a CTE RAM-tier proxy (serial h5py on rank 0, 130 MB total). Results for the **small circuit** files:
+
+| Condition | Cells 85.6 MB | Conn 39.3 MB | Spikes 3.1 MB | Total 128 MB | **BW** |
+|---|---|---|---|---|---|
+| Lustre (baseline) | 0.340 s | 1.305 s | 0.062 s | 1.707 s | **75 MB/s** |
+| /dev/shm 1st read | 0.081 s | 0.024 s | 0.004 s | 0.109 s | **1178 MB/s** |
+| /dev/shm 2nd read | 0.078 s | 0.025 s | 0.004 s | 0.107 s | **1197 MB/s** |
+| **Speedup** | **4.2×** | **54.4×** | **17.3×** | — | **15.7×** |
+
+Pre-staging (Lustre → /dev/shm): 0.096 s at 1354 MB/s for 130 MB.  
+Connectivity file (DBS sparse): 54× gain — random-access penalty on Lustre eliminated.
+
+See `perf-clio-core.md` for full Aurora analysis.
+
+---
+
+### Benchmark A — I/O benchmark (`scatter_read_trees`): **Polaris pending**
 
 | Metric | Baseline (Lustre) | IOWarp cold | IOWarp warm | Speedup |
 |---|---|---|---|---|
-| OLM_forest.h5 | — s | — s | — s | — |
-| PVBC_forest.h5 | — s | — s | — s | — |
-| PYR_forest_compressed.h5 | — s | — s | — s | — |
-| **Total** | **— s** | **— s** | **— s** | **—×** |
+| OLM_forest.h5 | — | — | — | — |
+| PVBC_forest.h5 | — | — | — | — |
+| PYR_forest_compressed.h5 (~304 s est.) | — | — | — | — |
+| **Total** | **—** | **—** | **—** | **—** |
 
-### B — Optimization benchmark (tstop=500ms, 2 evaluations)
+### Benchmark B — Optimization wall time: **Polaris baseline measured**
 
-| Metric | Baseline | IOWarp | Speedup |
+From `miv_opt_7d_test.log` (PBS job, 1hr walltime, full circuit, tstop=1250ms, zero-spike issue present — VecStim fix not yet applied on Polaris):
+
+| Metric | Baseline (Lustre) | IOWarp | Speedup |
 |---|---|---|---|
-| `create cells` | — s | — s | — |
-| `connected cells` | — s | — s | — |
-| `ran simulation` | — s | — s | — |
-| **Total elapsed** | **— s** | **— s** | **—×** |
+| `connected cells` | **224 s** | — | — |
+| `ran simulation` (tstop=1250ms) | **1073 s** | — | — |
+| Per-evaluation total | **~21 min** | — | — |
+| **Completed evals (1hr job)** | **2 evals** | — | — |
+
+*Note: n_active=0 for all populations on Polaris (VecStim not registered — same root cause as Aurora Runs 6–7). Fix: apply the `make_cells` VecStim patch from Aurora Run 8 to the Polaris miv_simulator installation.*
 
 ---
 

@@ -4,9 +4,9 @@
 
 Analyzed performance improvement opportunities for the MiV optimization using the clio-core distributed buffering system (`~/clio-core`, IOWarp Core, Chimaera + CTE + CAE). Baseline measured from Run 8 logs: `make_cells=0.39s`, `connect_cells=25.08s` (of which ~4s is HDF5 I/O, ~21s is in-memory synapse setup), `init_input_cells=0.31s`, total setup 25.84s per PBS run. clio-core's CTE provides a RAM-tier buffer that eliminates Lustre re-reads on subsequent PBS runs. Since the HDF5 Hermes VFD is not yet built, the benchmark uses `/dev/shm` pre-staging as the CTE RAM-tier proxy. Submitted two PBS jobs: 8452562 (debug, I/O-only benchmark: neuroh5 scatter-read from Lustre vs /dev/shm) and 8452563 (capacity, full optimizer with pre-staged files). Created `wiki/perf-clio-core.md` with architecture, baseline numbers, and pending results tables. Scripts: `miv_io_bench.py`, `miv_io_bench.pbs`, `miv_optimize_clio.pbs`.
 
-## [2026-04-27] optimize | MiV-Simulator-Cases 7-optimization — Run 9 (PBS 8452512)
+## [2026-04-27] optimize | MiV-Simulator-Cases 7-optimization — Run 9 in progress (PBS 8452512)
 
-Run 8 (PBS 8451394, capacity 6hr) confirmed VecStim fix: all 135 evaluations were feasible (n_active = 80/80 PYR, 53/53 PVBC, 44/44 OLM for every eval). Rates are variable (PYR: 7–41 Hz, PVBC: 7–212 Hz, OLM: 83–236 Hz) — NSGA-II is exploring the weight space. Optimizer has not converged; submitting Run 9 (PBS 8452512) to continue from Run 8 checkpoint.
+Run 9 (PBS 8452512, capacity 6hr) checked at 1h14m elapsed: 27 evaluations completed, all with n_active = 80/80 PYR. VecStim fix confirmed stable. dmosopt starts a fresh optimization each PBS run (new checkpoint file, task numbering from 0); does not resume from prior run. PYR rates 26–41 Hz, PVBC 24–134 Hz, OLM 126–222 Hz — similar to Run 8. 4h45m remaining; Run 10 to be submitted after Run 9 completes.
 
 ## [2026-04-26] optimize | MiV-Simulator-Cases 7-optimization — Run 8 (PBS 8451394)
 

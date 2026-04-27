@@ -323,11 +323,22 @@ This creates empty VecStim cells for STIM GIDs 0–9, registers them via `pc.cel
 
 ---
 
-## Run 9 — PBS job 8452512 (2026-04-27, capacity 6hr) — RUNNING
+## Run 9 — PBS job 8452512 (2026-04-27, capacity 6hr) — IN PROGRESS (checked at 1h14m elapsed)
 
-**Changes from Run 8**: none — continuing optimization from Run 8 checkpoint
+**Changes from Run 8**: none
 
-Expected outcome: GP surrogate guides NSGA-II toward lower-rate regions; mean PYR rate should decrease toward physiological targets; more of the Pareto front explored.
+**Observation (mid-run, 27 evaluations completed)**:
+- dmosopt started a fresh optimization (new checkpoint `dmosopt.optimize_network_20260427_1419.h5`, 127 KB, task numbering restarted at 0) — does not resume from Run 8's checkpoint; each PBS run creates an independent optimization trajectory
+- All 27 evaluations so far: n_active = 80/80 PYR, 53/53 PVBC, 44/44 OLM (VecStim fix confirmed stable across runs)
+- Rate distribution (25 evals in checkpoint):
+  - PYR: min=26.51 Hz, max=41.32 Hz, mean=39.46 Hz
+  - PVBC: min=24.52 Hz, max=134.23 Hz, mean=74.37 Hz
+  - OLM: min=126.17 Hz, max=222.47 Hz, mean=184.48 Hz
+- Best objectives so far: PYR=600.60, PVBC=0.23, OLM=13495 (worse than Run 8's best of PYR=27.54 after 135 evals — expected, Run 9 is early in its independent trajectory)
+- No convergence trend visible yet in first 25 evals; NSGA-II still in exploration phase
+- 4h45m remaining; expected ~138 total evaluations by end of job
+
+**Scientific note**: PYR rates consistently cluster at ~38–41 Hz and OLM rates at 126–222 Hz across all runs. This suggests the STIM input drive is strong relative to the inhibitory weight budget the optimizer explores, keeping the network in a hyperactive regime. The optimizer is finding rare parameter combinations with lower rates (PYR dip to 7.25 Hz in Run 8, 26.51 Hz in Run 9) but these are not yet the majority of the Pareto front.
 
 ---
 

@@ -327,18 +327,18 @@ This creates empty VecStim cells for STIM GIDs 0–9, registers them via `pc.cel
 
 **Changes from Run 8**: none
 
-**Observation (mid-run, 27 evaluations completed)**:
-- dmosopt started a fresh optimization (new checkpoint `dmosopt.optimize_network_20260427_1419.h5`, 127 KB, task numbering restarted at 0) — does not resume from Run 8's checkpoint; each PBS run creates an independent optimization trajectory
-- All 27 evaluations so far: n_active = 80/80 PYR, 53/53 PVBC, 44/44 OLM (VecStim fix confirmed stable across runs)
-- Rate distribution (25 evals in checkpoint):
-  - PYR: min=26.51 Hz, max=41.32 Hz, mean=39.46 Hz
-  - PVBC: min=24.52 Hz, max=134.23 Hz, mean=74.37 Hz
-  - OLM: min=126.17 Hz, max=222.47 Hz, mean=184.48 Hz
-- Best objectives so far: PYR=600.60, PVBC=0.23, OLM=13495 (worse than Run 8's best of PYR=27.54 after 135 evals — expected, Run 9 is early in its independent trajectory)
-- No convergence trend visible yet in first 25 evals; NSGA-II still in exploration phase
-- 4h45m remaining; expected ~138 total evaluations by end of job
+**Observation (mid-run at 2h26m elapsed, 60 evaluations in checkpoint)**:
+- dmosopt started a fresh optimization (new checkpoint `dmosopt.optimize_network_20260427_1419.h5`, task numbering restarted at 0) — does not resume from Run 8's checkpoint; each PBS run creates an independent optimization trajectory
+- All 55 evaluations so far: n_active = 80/80 PYR, 53/53 PVBC, 44/44 OLM (zero n_active=0)
+- Rate distribution (60 evals in checkpoint):
+  - PYR:  min=20.94 Hz, max=41.37 Hz, mean=39.47 Hz
+  - PVBC: min=7.43 Hz,  max=211.61 Hz, mean=81.89 Hz
+  - OLM:  min=123.05 Hz, max=232.23 Hz, mean=194.26 Hz
+- PYR min improved: 26.51 Hz (at 25 evals) → 20.94 Hz (at 60 evals) — GP surrogate converging
+- Best objectives so far: PYR=358.61, PVBC=0.23, OLM=12780
+- 3h34m remaining; expected ~138 total evaluations by end of job
 
-**Scientific note**: PYR rates consistently cluster at ~38–41 Hz and OLM rates at 126–222 Hz across all runs. This suggests the STIM input drive is strong relative to the inhibitory weight budget the optimizer explores, keeping the network in a hyperactive regime. The optimizer is finding rare parameter combinations with lower rates (PYR dip to 7.25 Hz in Run 8, 26.51 Hz in Run 9) but these are not yet the majority of the Pareto front.
+**Scientific note**: PYR rates consistently cluster at ~38–41 Hz and OLM rates at 123–232 Hz across all runs. The STIM drive is strong relative to the inhibitory weight range explored, keeping the network hyperactive. The optimizer finds rarer lower-rate configurations (PYR dipping to 20–27 Hz) that the GP surrogate will prioritize in later generations.
 
 ---
 

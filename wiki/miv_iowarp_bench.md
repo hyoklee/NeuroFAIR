@@ -1,9 +1,9 @@
 # MiV-Simulator + IOWarp CTE Performance Benchmark
 
-**Date**: 2026-04-26  
+**Date**: 2026-04-27 (updated; Lustre /lus service restored and stable)  
 **Platform**: Polaris (NVIDIA A100, Cray MPICH 9.0.1)  
 **IOWarp**: `~/core.iowarp` (Context Transfer Engine — Hermes RAM-tier buffering)  
-**PBS script**: `~/bin/miv_iowarp_bench.pbs`  
+**PBS scripts**: `~/bin/miv_iowarp_build.pbs` → `~/bin/miv_iowarp_bench.pbs`  
 
 ---
 
@@ -50,61 +50,33 @@ miv_simulator source code required.
 - Storage tier: `ram::cte_miv_storage`, 64 GB, score=1.0
 - Network port: 9413 (ZMQ disabled for HPC; local shared-memory IPC only)
 
-**Build** (once, saved to `/lus/grand/projects/gpu_hack/iowarp/iowarp-install/`):
+**Build** (once via dedicated PBS job; installs to `/lus/grand/projects/gpu_hack/iowarp/iowarp-install/`):
 ```bash
-cmake ~/core.iowarp -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_C_COMPILER=nvc -DCMAKE_CXX_COMPILER=nvc++ \
-    -DWRP_CORE_ENABLE_RUNTIME=ON -DWRP_CORE_ENABLE_CTE=ON \
-    -DWRP_CORE_ENABLE_MPI=ON    -DWRP_CORE_ENABLE_HDF5=ON \
-    -DWRP_CORE_ENABLE_ZMQ=OFF   -DWRP_CORE_ENABLE_IO_URING=ON \
-    -DMPI_C_COMPILER=<nvidia_mpich>/bin/mpicc \
-    -DHDF5_ROOT=<nvidia_hdf5> \
-    -DNVHPC_GCC_TOOLCHAIN=/opt/cray/pe/gcc/13.x.x/snos
+qsub ~/bin/miv_iowarp_build.pbs   # step 1: build (~1-2h, preemptable)
+qsub ~/bin/miv_iowarp_bench.pbs   # step 2: benchmark (~2h, preemptable)
 ```
+
+Uses **GCC** (`g++`) instead of NVHPC to build CTE/chimaera. The CTE layer is
+CPU-only buffering code; NVHPC is not needed and caused `<filesystem>` link
+failures (job 7100495) because the GCC-13 toolchain path could not be
+auto-detected on compute nodes.
 
 ---
 
-## NVHPC + GCC-13 Build Fix
+## Build Approach: GCC instead of NVHPC
 
-**Problem**: NVHPC 25.5 could not resolve `<filesystem>` in the CTE adapter headers
-(`filesystem.h:44`, `filesystem_io_client.h:39`) because its default GCC toolchain
-predates C++17 `std::filesystem`.
+**Root cause of previous failure (job 7100495)**: NVHPC 25.5 requires an
+explicit `--gcc-toolchain=<path>` to resolve C++17 `<filesystem>`.
+The auto-probe paths (`/opt/cray/pe/gcc/13.{1,2,3}.0/snos`) do not exist on
+Polaris compute nodes, so the toolchain was never found and all three
+`context-runtime` TUs failed with `catastrophic error: cannot open source file "filesystem"`.
 
-**Files changed**: `~/core.iowarp/CMakeLists.txt`
-
-### Fix 1 — GCC-13 toolchain detection (line ~665, NVHPC coroutines block)
-
-When `CMAKE_CXX_COMPILER_ID` is `NVHPC`, CMake now:
-
-1. Checks `-DNVHPC_GCC_TOOLCHAIN=<path>` cache variable
-2. Falls back to `$GCC_PATH` env var (set by `module load gcc/13.x`)
-3. Auto-probes Polaris Cray PE paths:
-   - `/opt/cray/pe/gcc/13.3.0/snos`
-   - `/opt/cray/pe/gcc/13.2.0/snos`
-   - `/opt/cray/pe/gcc/13.1.0/snos`
-   - `/usr/lib/gcc/x86_64-linux-gnu/13`
-4. Passes `--gcc-toolchain=<path>` to every compile unit via `add_compile_options`
-5. Adds rpath for `<path>/lib64` so the runtime linker finds `libstdc++.so.6`
-
-### Fix 2 — NVHPC linker flags (line ~771, Compiler Flags block)
-
-```cmake
-else()  # NVHPC
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -noswitcherror")
-    set(CMAKE_EXE_LINKER_FLAGS    "${CMAKE_EXE_LINKER_FLAGS} -lstdc++ -lm")
-    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -lstdc++ -lm")
-endif()
-```
-
-- `-noswitcherror`: suppresses NVHPC aborting on unrecognised compiler switches
-- `-lstdc++ -lm`: ensures `std::filesystem` symbols (e.g. `path`, `file_size`,
-  `absolute`) link from GCC-13's libstdc++ rather than NVHPC's stub
-
-### PBS script update (`~/bin/miv_iowarp_bench.pbs`)
-
-- Probes Cray PE gcc-13 paths at job start; exports `GCC13_ROOT`
-- Passes `-DCMAKE_C_COMPILER=nvc -DCMAKE_CXX_COMPILER=nvc++` explicitly
-- Passes `-DNVHPC_GCC_TOOLCHAIN=${GCC13_ROOT}` to cmake when found
+**Fix**: Build with GCC (`-DCMAKE_CXX_COMPILER=g++`).  
+- GCC has native `<filesystem>` since GCC 8 — no toolchain flag needed  
+- GCC 11+ supports `-fcoroutines` (used by chimaera's fiber scheduler)  
+- The CTE/Hermes layer is entirely CPU-side; NVHPC provides no benefit here  
+- Dedicated build job `miv_iowarp_build.pbs` (3h preemptable) separates the
+  ~1-2h build from the benchmark phases, avoiding the 6h total timeout
 
 ---
 
@@ -138,6 +110,10 @@ the `connected cells` HDF5-read portion (~5–10 s out of 224 s total).
 ## Results
 
 ### Polaris — IOWarp build status (PBS 7100495, 2026-04-26)
+
+> Next steps (Lustre stable 2026-04-27):  
+> Step 1: `qsub ~/bin/miv_iowarp_build.pbs` (log → `miv_iowarp_build_test.log`)  
+> Step 2: `qsub ~/bin/miv_iowarp_bench.pbs`  (log → `miv_iowarp_bench2_test.log`)
 
 **FAILED — `libhermes_posix.so` not built.** NVHPC 25.5 could not compile `<filesystem>` headers (error: `cannot open source file "filesystem"` in `module_manager.cc`, `config_manager.cc`, `pool_manager.cc`). The GCC-13 toolchain fix documented above was applied during the PBS job but the job was killed by 6hr walltime before the baseline benchmark ran. See `miv_iowarp_bench_test.log`.
 

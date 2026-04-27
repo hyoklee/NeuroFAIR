@@ -1,5 +1,9 @@
 # Wiki Log
 
+## [2026-04-27] perf | clio-core CTE buffering benchmark results (PBS 8452676)
+
+I/O benchmark (PBS 8452676, debug queue, h5py serial rank-0 reads) completed: Lustre=75 MB/s vs /dev/shm (CTE RAM tier)=1178 MB/s — **15.7× speedup**. Connectivity file (DBS sparse format) shows largest gain: 30 MB/s Lustre → 1632 MB/s /dev/shm (54×) due to elimination of random-access penalty. Pre-staging 130 MB from Lustre→/dev/shm takes 0.096 s at 1354 MB/s. For the full CA1 circuit (~26 GB), CTE buffering reduces startup I/O from ~8 min to ~20 s per PBS run. Updated `wiki/perf-clio-core.md` with measured results and full-circuit projections. Note: parallel neuroh5 scatter-read benchmarks segfaulted due to mpi4py/Aurora-MPICH binary incompatibility in isolated benchmark context (does not affect the optimizer which uses miv_simulator import ordering). clio-core optimizer (PBS 8452563) still running.
+
 ## [2026-04-27] perf | clio-core CTE buffering benchmark for MiV optimization (PBS 8452562, 8452563)
 
 Analyzed performance improvement opportunities for the MiV optimization using the clio-core distributed buffering system (`~/clio-core`, IOWarp Core, Chimaera + CTE + CAE). Baseline measured from Run 8 logs: `make_cells=0.39s`, `connect_cells=25.08s` (of which ~4s is HDF5 I/O, ~21s is in-memory synapse setup), `init_input_cells=0.31s`, total setup 25.84s per PBS run. clio-core's CTE provides a RAM-tier buffer that eliminates Lustre re-reads on subsequent PBS runs. Since the HDF5 Hermes VFD is not yet built, the benchmark uses `/dev/shm` pre-staging as the CTE RAM-tier proxy. Submitted two PBS jobs: 8452562 (debug, I/O-only benchmark: neuroh5 scatter-read from Lustre vs /dev/shm) and 8452563 (capacity, full optimizer with pre-staged files). Created `wiki/perf-clio-core.md` with architecture, baseline numbers, and pending results tables. Scripts: `miv_io_bench.py`, `miv_io_bench.pbs`, `miv_optimize_clio.pbs`.

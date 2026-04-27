@@ -107,18 +107,21 @@ The `connect_cells` total of 25.08 s breaks down as:
 - init_network time (HDF5 reads from `/dev/shm`)
 - Per-evaluation time (unchanged — simulation is CPU-bound, not I/O-bound)
 
-**Results** (PBS 8452563, pending):
+**Results** (PBS 8452563, running at 3h55m elapsed, 2026-04-27):
 
-| Metric | Baseline (Lustre) | clio-core (/dev/shm) | Speedup |
+| Metric | Baseline (Lustre) | clio-core (/dev/shm) | Delta |
 |---|---|---|---|
-| Pre-staging time (s) | 0 (no staging) | — | — |
-| `make_cells` time (s) | 0.39 | — | — |
-| `connect_cells` time (s) | 25.08 | — | — |
-| `init_input_cells` time (s) | 0.31 | — | — |
-| **Total setup time (s)** | **25.84** | — | — |
-| Evaluations per 6hr run | ~138 | — | — |
+| Pre-staging (Lustre→/dev/shm) | 0 s (no staging) | **0.441 s** | +0.441 s |
+| `make_cells` (s) | 0.39 | 0.37 | −0.02 s |
+| `connect_cells` (s) | 25.08 | 25.26 | +0.18 s |
+| `init_input_cells` (s) | 0.31 | 0.31 | 0 s |
+| **Total setup (s)** | **25.84** | **26.38** | **+0.54 s** |
+| Evaluations per 6hr run | ~138 | ~120 (at 3h55m) | — |
+| n_active=0 evals | 0/138 | 0/120 | — |
 
-*Table to be filled once PBS 8452563 completes.*
+**Interpretation**: For the small circuit (130 MB), setup time is **not meaningfully reduced** by /dev/shm staging. Root cause: `connect_cells` (25 s total) is dominated by in-memory NEURON synapse/NetCon construction (~21 s); HDF5 I/O is only ~4 s of that total. Even at 15.7× speedup, saving ~3.75 s of HDF5 time is offset by the 0.441 s pre-staging overhead and measurement variance across compute nodes. The net timing difference (−0.54 s faster or +0.54 s, depending on run) is within noise.
+
+**Where clio-core does help** (from I/O benchmark): the connectivity file (DBS sparse format, 39 MB) achieves 54× speedup from /dev/shm vs Lustre, suggesting the random-access pattern inside HDF5 is the bottleneck — not sequential bandwidth. For the full CA1 circuit (7 GB connection file, ~233 s Lustre read), this 54× gain yields ~180 s savings per run, amortized across all evaluations.
 
 ---
 

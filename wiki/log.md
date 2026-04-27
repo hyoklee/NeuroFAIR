@@ -1,5 +1,9 @@
 # Wiki Log
 
+## [2026-04-27] optimize | MiV-Simulator-Cases 7-optimization — Run 9 (PBS 8452512)
+
+Run 8 (PBS 8451394, capacity 6hr) confirmed VecStim fix: all 135 evaluations were feasible (n_active = 80/80 PYR, 53/53 PVBC, 44/44 OLM for every eval). Rates are variable (PYR: 7–41 Hz, PVBC: 7–212 Hz, OLM: 83–236 Hz) — NSGA-II is exploring the weight space. Optimizer has not converged; submitting Run 9 (PBS 8452512) to continue from Run 8 checkpoint.
+
 ## [2026-04-26] optimize | MiV-Simulator-Cases 7-optimization — Run 8 (PBS 8451394)
 
 Run 7 (PBS 8450989, capacity queue, 6hr) confirmed simtime fix (5.50 hours budget) and ran 178 evaluations to completion, but all returned n_active=0 for every population. Root cause identified: `make_cells` patch used bare `continue` for STIM, so VecStim cells were never created and STIM GIDs were never registered with `pc.cell()`. In `init_input_cells`, `env.pc.gid_exists(gid)` returned False for all STIM GIDs, causing silent skip of `cell.play()`. All STIM→PYR/PVBC NetCon connections were dead (no spike source). Fix: in `make_cells`, for "spike train" populations, create empty VecStim cells via `cells.make_input_cell` and register via `cells.register_cell` before `continue`, so GIDs are registered as spike sources and `init_input_cells` can assign spike trains. Run 8 submitted as PBS 8451394 (capacity queue, 6hr walltime) with corrected `network.py` patch.

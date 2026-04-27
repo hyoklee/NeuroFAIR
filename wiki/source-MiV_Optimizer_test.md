@@ -292,12 +292,42 @@ This creates empty VecStim cells for STIM GIDs 0–9, registers them via `pc.cel
 
 ---
 
-## Run 8 — PBS job 8451394 (2026-04-26, capacity 6hr) — RUNNING
+## Run 8 — PBS job 8451394 (2026-04-26, capacity 6hr)
+
+**Result: SUCCESS — VecStim fix confirmed; 135 evaluations completed, all with non-zero cell activity; killed by PBS 6hr walltime**
 
 **Changes from Run 7**:
-- Fixed `make_cells` patch in `network.py`: now creates and registers VecStim cells for STIM GIDs 0–9 before `continue` (so `pc.cell()` is called and `init_input_cells` can assign spike trains)
+- Fixed `make_cells` patch in `network.py`: creates and registers empty VecStim cells for STIM GIDs 0–9 before `continue`, so `pc.cell()` is called and `init_input_cells` can assign spike trains
 
-Expected outcome: VecStim cells fire at their recorded spike times; STIM→PYR/PVBC NetCons deliver spikes; cells should show activity for at least some parameter sets; dmosopt produces non-degenerate objectives.
+**What succeeded**:
+- All 135 evaluations are feasible: every population has positive rates (n_active = 80/80 PYR, 53/53 PVBC, 44/44 OLM for all 135 evals)
+- Zero evaluations have n_active=0 (zero-spike issue fully resolved)
+- dmosopt checkpoint: `results/network/dmosopt.optimize_network_20260426_0217.h5` (134 KB), 135 evaluations stored with full objective/parameter/constraint data
+
+**Rate distribution** (actual firing rates from constraints dataset):
+- PYR: min=7.25 Hz, max=41.37 Hz, mean=39.14 Hz, std=5.09 Hz
+- PVBC: min=7.43 Hz, max=211.61 Hz, mean=81.02 Hz, std=37.13 Hz
+- OLM: min=83.12 Hz, max=236.28 Hz, mean=191.39 Hz, std=34.64 Hz
+
+**Objective values** (quantities NSGA-II minimizes — ~rate^2 × scale factors):
+- PYR firing rate objective: min=27.54, max=1549.81, mean=1405.31
+- PVBC firing rate objective: min=0.23, max=34823.07, mean=4516.38
+- OLM firing rate objective: min=5347.07, max=51202.24, mean=34101.91
+
+**Optimization status**:
+- Rates are high (mean PYR ~39 Hz) because NSGA-II starts from random weight samples spanning the full search space; expected behavior for initial optimization
+- Some evaluations reached lower rates (PYR min 7.25 Hz, PVBC min 7.43 Hz) — GP surrogate will favor those regions in future iterations
+- PBS killed at task 137 (138 completed); optimization has not converged; needs more runs
+
+**Run 9** submitted to continue: PBS 8452512, capacity queue, 6hr walltime.
+
+---
+
+## Run 9 — PBS job 8452512 (2026-04-27, capacity 6hr) — RUNNING
+
+**Changes from Run 8**: none — continuing optimization from Run 8 checkpoint
+
+Expected outcome: GP surrogate guides NSGA-II toward lower-rate regions; mean PYR rate should decrease toward physiological targets; more of the Pareto front explored.
 
 ---
 
@@ -321,7 +351,7 @@ Expected outcome: VecStim cells fire at their recorded spike times; STIM→PYR/P
 
 9. **Aurora debug queue zombie jobs**: PBS does not enforce the 1hr walltime on some jobs. Use `debug-scaling` queue instead of `debug`.
 
-10. **Zero cell activity / silent network** (Runs 6–7, FIXED in Run 8): All 207 evaluations (Runs 6–7) returned n_active=0. Root cause: `make_cells` patch used bare `continue` for STIM, so VecStim cells were never created and STIM GIDs were never registered via `pc.cell()`. `init_input_cells` line 1407 silently skips `gid` when `env.pc.gid_exists(gid)` is False, so `cell.play()` was never called. STIM→PYR/PVBC connections were dead. Fix applied in Run 8: create and register empty VecStim cells in `make_cells`.
+10. **Zero cell activity / silent network** (Runs 6–7, **FIXED** in Run 8): All 207 evaluations (Runs 6–7) returned n_active=0. Root cause: `make_cells` patch used bare `continue` for STIM, so VecStim cells were never created and STIM GIDs were never registered via `pc.cell()`. `init_input_cells` line 1407 silently skips `gid` when `env.pc.gid_exists(gid)` is False, so `cell.play()` was never called. STIM→PYR/PVBC connections were dead. Fix confirmed in Run 8: 135/135 evaluations have positive rates for all populations.
 
 11. **simtime walltime misdetection** (Run 6, OPEN): `miv_simulator.utils.simtime` reads `allocated wall time = 0.50 hours` for a 1:00:00 PBS job. After the first 887-second evaluation consumed this budget, simtime truncated all subsequent simulations to ~10ms. Likely cause: simtime reads CPU time limit or a PBS variable that reports half the wall time under Cray PALS. Fix candidates: set `export PBS_WALLTIME=3600` before mpiexec, or disable simtime via its configuration, or use a 2-hour walltime job to work around the factor-of-2 error.
 

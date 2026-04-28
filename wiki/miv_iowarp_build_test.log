@@ -1,0 +1,8 @@
+==== IOWarp Core Build on Polaris ====
+Date: Tue Apr 28 05:05:34 AM UTC 2026
+Job:  7101536.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov
+Node: x3209c0s1b0n0.hsn.cm.polaris.alcf.anl.gov 
+
+=== [1] Compiler check ===
+  g++: g++ (SUSE Linux) 7.5.0 (major: 7)
+ERROR: GCC >= 8 required for <filesystem>; found major 7

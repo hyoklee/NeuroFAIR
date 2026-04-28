@@ -355,11 +355,28 @@ The GP surrogate successfully guided NSGA-II toward lower-rate configurations. O
 
 ---
 
-## Run 10 — PBS job 8453174 (2026-04-28, capacity 6hr) — RUNNING
+## Run 10 — PBS job 8453174 (2026-04-28, capacity 6hr)
+
+**Result: COMPLETE — 137 tasks, 0 n_active=0; killed by PBS 6hr walltime**
 
 **Changes from Run 9**: none
 
-Expected outcome: continued exploration with fresh random seed; GP surrogate will combine with prior run's results to find lower rates.
+**Final rate distribution** (135 evals in checkpoint `dmosopt.optimize_network_20260428_0050.h5`, 134 KB):
+- PYR:  min=7.25 Hz, max=41.37 Hz, mean=39.14 Hz
+- PVBC: min=7.43 Hz, max=211.61 Hz, mean=81.02 Hz
+- OLM:  min=83.12 Hz, max=236.28 Hz, mean=191.39 Hz
+
+**Best objectives**: PYR=27.54, PVBC=0.23, OLM=5347.07
+
+Checkpoint statistics identical to Runs 8–9 — the 135-eval fixed-size GP model has stabilized at the same best configurations. The optimizer is consistently finding PYR min ~7.25 Hz and PVBC min ~7.43 Hz as the best achievable rates in the current search space.
+
+**Run 11** submitted: PBS 8453681, capacity queue, 6hr walltime.
+
+---
+
+## Run 11 — PBS job 8453681 (2026-04-28, capacity 6hr) — RUNNING
+
+**Changes from Run 10**: none
 
 ---
 

@@ -12,6 +12,10 @@ I/O benchmark (PBS 8452676, debug queue, h5py serial rank-0 reads) completed: Lu
 
 Analyzed performance improvement opportunities for the MiV optimization using the clio-core distributed buffering system (`~/clio-core`, IOWarp Core, Chimaera + CTE + CAE). Baseline measured from Run 8 logs: `make_cells=0.39s`, `connect_cells=25.08s` (of which ~4s is HDF5 I/O, ~21s is in-memory synapse setup), `init_input_cells=0.31s`, total setup 25.84s per PBS run. clio-core's CTE provides a RAM-tier buffer that eliminates Lustre re-reads on subsequent PBS runs. Since the HDF5 Hermes VFD is not yet built, the benchmark uses `/dev/shm` pre-staging as the CTE RAM-tier proxy. Submitted two PBS jobs: 8452562 (debug, I/O-only benchmark: neuroh5 scatter-read from Lustre vs /dev/shm) and 8452563 (capacity, full optimizer with pre-staged files). Created `wiki/perf-clio-core.md` with architecture, baseline numbers, and pending results tables. Scripts: `miv_io_bench.py`, `miv_io_bench.pbs`, `miv_optimize_clio.pbs`.
 
+## [2026-04-28] optimize | MiV-Simulator-Cases 7-optimization — Run 11 (PBS 8453681)
+
+Run 10 (PBS 8453174) completed: 137 tasks, 0 n_active=0, checkpoint 135 evals PYR min=7.25 Hz (same as Runs 8–9 — GP model at 135-eval capacity). Best PYR obj=27.54 stable across Runs 8–10. Run 11 submitted as PBS 8453681 (capacity, 6hr).
+
 ## [2026-04-28] optimize | MiV-Simulator-Cases 7-optimization — Run 10 (PBS 8453174)
 
 Run 9 (PBS 8452512) completed: 138 tasks, 0 n_active=0, final checkpoint 134 KB. PYR min converged from 26.51 Hz (25 evals) → 7.25 Hz (135 evals); best PYR objective 27.54. Clio-core optimizer (PBS 8452563) also completed 138 tasks with identical statistics — confirms /dev/shm pre-staging is neutral for small circuit (setup time 25.84 s vs 26.38 s including 0.441 s staging overhead). Both jobs killed by 6hr PBS walltime. Run 10 submitted as PBS 8453174 (capacity, 6hr). wiki/perf-clio-core.md updated with final clio timing; wiki/source-MiV_Optimizer_test.md updated with Run 9 final and Run 10 sections.

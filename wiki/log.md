@@ -12,6 +12,10 @@ I/O benchmark (PBS 8452676, debug queue, h5py serial rank-0 reads) completed: Lu
 
 Analyzed performance improvement opportunities for the MiV optimization using the clio-core distributed buffering system (`~/clio-core`, IOWarp Core, Chimaera + CTE + CAE). Baseline measured from Run 8 logs: `make_cells=0.39s`, `connect_cells=25.08s` (of which ~4s is HDF5 I/O, ~21s is in-memory synapse setup), `init_input_cells=0.31s`, total setup 25.84s per PBS run. clio-core's CTE provides a RAM-tier buffer that eliminates Lustre re-reads on subsequent PBS runs. Since the HDF5 Hermes VFD is not yet built, the benchmark uses `/dev/shm` pre-staging as the CTE RAM-tier proxy. Submitted two PBS jobs: 8452562 (debug, I/O-only benchmark: neuroh5 scatter-read from Lustre vs /dev/shm) and 8452563 (capacity, full optimizer with pre-staged files). Created `wiki/perf-clio-core.md` with architecture, baseline numbers, and pending results tables. Scripts: `miv_io_bench.py`, `miv_io_bench.pbs`, `miv_optimize_clio.pbs`.
 
+## [2026-04-28] optimize | MiV-Simulator-Cases 7-optimization — Runs 11+12 (PBS 8453681, 8453684)
+
+Submitted paired performance comparison: Run 11 (PBS 8453681, `miv_optimize_test.pbs`, Lustre baseline) and Run 12 (PBS 8453684, `miv_optimize_clio.pbs`, clio-core /dev/shm pre-staging). Both in capacity queue, 6hr walltime. Raw I/O speedup already measured at 15.7× (75→1178 MB/s); Run 12 will confirm whether that translates to measurable init_network time reduction for the small circuit.
+
 ## [2026-04-28] optimize | MiV-Simulator-Cases 7-optimization — Run 11 (PBS 8453681)
 
 Run 10 (PBS 8453174) completed: 137 tasks, 0 n_active=0, checkpoint 135 evals PYR min=7.25 Hz (same as Runs 8–9 — GP model at 135-eval capacity). Best PYR obj=27.54 stable across Runs 8–10. Run 11 submitted as PBS 8453681 (capacity, 6hr).

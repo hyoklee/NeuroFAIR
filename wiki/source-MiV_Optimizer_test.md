@@ -376,7 +376,23 @@ Checkpoint statistics identical to Runs 8–9 — the 135-eval fixed-size GP mod
 
 ## Run 11 — PBS job 8453681 (2026-04-28, capacity 6hr) — RUNNING
 
-**Changes from Run 10**: none
+**Changes from Run 10**: none — **BASELINE** for Run 12 clio-core comparison (reads from Lustre)
+
+**Paired with**: Run 12 (PBS 8453684) — same parameters, files pre-staged to `/dev/shm` via clio-core CTE
+
+---
+
+## Run 12 — PBS job 8453684 (2026-04-28, capacity 6hr) — RUNNING
+
+**Script**: `miv_optimize_clio.pbs` — clio-core CTE comparison paired with Run 11
+
+**What changes**: HDF5 input files pre-staged from Lustre to `/dev/shm/miv_opt/` before `mpiexec`; `dataset_prefix` points to `/dev/shm/miv_opt/` instead of `/lus/flare/...`. Results written to `results/network_clio/`.
+
+**What to measure**:
+- Pre-staging time (Lustre → `/dev/shm`)
+- `make_cells`, `connect_cells`, `init_input_cells` times vs Run 11
+- Per-evaluation time (expected same — simulation is CPU-bound)
+- Raw HDF5 I/O speedup already measured: **15.7×** (75 MB/s Lustre → 1178 MB/s `/dev/shm`); 54× on connectivity file
 
 ---
 

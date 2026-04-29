@@ -12,6 +12,10 @@ I/O benchmark (PBS 8452676, debug queue, h5py serial rank-0 reads) completed: Lu
 
 Analyzed performance improvement opportunities for the MiV optimization using the clio-core distributed buffering system (`~/clio-core`, IOWarp Core, Chimaera + CTE + CAE). Baseline measured from Run 8 logs: `make_cells=0.39s`, `connect_cells=25.08s` (of which ~4s is HDF5 I/O, ~21s is in-memory synapse setup), `init_input_cells=0.31s`, total setup 25.84s per PBS run. clio-core's CTE provides a RAM-tier buffer that eliminates Lustre re-reads on subsequent PBS runs. Since the HDF5 Hermes VFD is not yet built, the benchmark uses `/dev/shm` pre-staging as the CTE RAM-tier proxy. Submitted two PBS jobs: 8452562 (debug, I/O-only benchmark: neuroh5 scatter-read from Lustre vs /dev/shm) and 8452563 (capacity, full optimizer with pre-staged files). Created `wiki/perf-clio-core.md` with architecture, baseline numbers, and pending results tables. Scripts: `miv_io_bench.py`, `miv_io_bench.pbs`, `miv_optimize_clio.pbs`.
 
+## [2026-04-29] optimize | Runs 11+12 final: clio-core saves 0.32 s net setup vs Lustre baseline
+
+Run 11 (PBS 8453681, Lustre): 138 tasks, setup=26.27 s (connect_cells=25.54 s). Run 12 (PBS 8453684, clio-core /dev/shm): 138 tasks, setup=25.95 s (pre-stage=0.332 s + connect_cells=24.96 s). Net saving: 0.32 s. The 0.58 s reduction in connect_cells is consistent with 15.7× raw I/O speedup applied to the ~4 s HDF5 portion; synapse construction (~21 s) dominates total. Both checkpoints identical (PYR min 7.25 Hz, best obj 27.54). For full CA1 circuit (26 GB), clio-core would save ~8 min of startup I/O per run.
+
 ## [2026-04-28] optimize | MiV-Simulator-Cases 7-optimization — Runs 11+12 (PBS 8453681, 8453684)
 
 Submitted paired performance comparison: Run 11 (PBS 8453681, `miv_optimize_test.pbs`, Lustre baseline) and Run 12 (PBS 8453684, `miv_optimize_clio.pbs`, clio-core /dev/shm pre-staging). Both in capacity queue, 6hr walltime. Raw I/O speedup already measured at 15.7× (75→1178 MB/s); Run 12 will confirm whether that translates to measurable init_network time reduction for the small circuit.

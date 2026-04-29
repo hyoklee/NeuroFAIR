@@ -60,6 +60,7 @@
 ## Performance Studies
 
 - [clio-core CTE buffering for MiV optimization](perf-clio-core.md) — PBS jobs 8452562/8452563: Lustre vs /dev/shm (CTE RAM tier) I/O benchmark; baseline setup=25.84 s; full VFD integration path documented
+- [clio-core CTE: GPU memory vs CPU DRAM for MiV](concept-clio-core-gpu-memory.md) — why GPU HBM2e does not help current workload (no CoreNEURON, no GPU CTE backend); path to full GPU benefit documented
 
 ## Build and Test Reports
 

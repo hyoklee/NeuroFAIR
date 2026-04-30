@@ -426,6 +426,48 @@ Checkpoint statistics identical to Runs 8–9 — the 135-eval fixed-size GP mod
 
 ---
 
+## GPU comparison — PBS jobs 8456677–8460371 (2026-04-29/30, gpu_hack_large queue)
+
+**Objective**: Compare MiV optimization performance with `use_coreneuron: True` (GPU-enabled path) vs CPU baseline (Runs 11–12). Paired: GPU baseline (`miv_optimize_gpu.pbs`) and clio-core staging (`miv_optimize_gpu_clio.pbs`).
+
+### Obstacles resolved
+
+| # | Problem | Fix |
+|---|---|---|
+| 1 | `gpu_hack` queue routes to dead reservation | Use `gpu_hack_large` queue (19 running, real GPU nodes) |
+| 2 | `select=2:ngpus=12` exceeds `at_queue` limit | Use `select=1:ngpus=6` (1 node, 6 GPU tiles) |
+| 3 | `debug-scaling` queue: per-user 1-job Q limit | Switch to `gpu_hack_large` |
+| 4 | New MOASMO dmosopt: `xinit` GLP hangs (n=390, O(n²d) CD2 in pure Python) | `--n-initial=1` → Ninit=13, GLP fast |
+| 5 | `h.pc.psolve(0.05)` warm-up crashes (SIGABRT) on worker sub-communicator | Removed warm-up psolve from `init_network_objfun` |
+| 6 | `nrnivmodl-core`: `nrnunits.lib` hardcoded to pip-wheel temp path | `mkdir -p /tmp/tmpxzg66zp3/wheel/platlib/share/nmodl/; cp nrnunits.lib` |
+| 7 | `nmodl` needs `NMODL_PYLIB` (Python shared library) | `export NMODL_PYLIB=${MIV_PREFIX}/lib/libpython3.12.so` |
+| 8 | `nmodl` needs `NMODLHOME` with `libpywrapper.so` | Staged `libpywrapper.so` to `/tmp/tmpxzg66zp3/wheel/platlib/lib/` |
+| 9 | `pattern.mod` incompatible with CoreNEURON API | Excluded `pattern.mod` from `nrnivmodl-core` compilation |
+| 10 | `find -exec cp -f` leaves `x86_64/corenrn/mod2c/*.mod` in mechanisms dir | Added `rm -rf ${MECHS_DIR}/x86_64` after compilation to prevent hash change |
+| 11 | `compile_and_load` uses different hash when spurious .mod files present | Cleaning up artifacts restores hash to `8250e9c...` where `special-core` exists |
+
+### CoreNEURON compilation result
+
+`special-core` built successfully with `icpx` (Intel DPC++ compiler), 41 .mod files (excluding `pattern.mod`), installed to `mechanisms/compiled/8250e9c.../x86_64/special-core`.
+
+### GPU evaluation result
+
+**All evaluations hung** — no `n_active` values reported. After workers entered the distwq event loop and received the first task, the simulation never logged any output before the 1-hour walltime expired.
+
+**Root cause**: `network.run()` never calls `coreneuron.enable = True`. Even with `use_coreneuron: True` in the yaml, `env.pc.psolve(h.tstop)` runs **standard NEURON**, not CoreNEURON. The simulation takes >33 minutes on `gpu_hack_large` nodes (vs ~75 s on capacity queue nodes), likely because GPU-allocated nodes have slower/fewer CPU cores or different NUMA/MPI topology.
+
+**What DID work**:
+- `special-core` compiled from 41 .mod files via `icpx` ✓
+- Workers initialized, spike trains loaded, distwq event loop entered ✓
+- First task received by workers ✓
+- No signal 6 / SIGABRT crash ✓
+
+**What remains**:
+- Actually enabling CoreNEURON GPU: requires `coreneuron.enable = True` + `coreneuron.gpu = True` before `psolve` in `network.run()`
+- Either patch `miv_simulator/network.py` to set `coreneuron.enable = True` when `env.use_coreneuron=True`, or use `capacity` queue nodes for CPU benchmarking with `use_coreneuron=True`
+
+---
+
 ## Known issues and workarounds
 
 1. **OpenMPI PRRTE slot count mismatch**: Do not use bare `mpiexec` (OpenMPI) for multi-rank jobs on Aurora. Use `/opt/cray/pals/1.8/bin/mpiexec` for PBS-integrated slot allocation.

@@ -462,9 +462,13 @@ Checkpoint statistics identical to Runs 8–9 — the 135-eval fixed-size GP mod
 - First task received by workers ✓
 - No signal 6 / SIGABRT crash ✓
 
-**What remains**:
-- Actually enabling CoreNEURON GPU: requires `coreneuron.enable = True` + `coreneuron.gpu = True` before `psolve` in `network.run()`
-- Either patch `miv_simulator/network.py` to set `coreneuron.enable = True` when `env.use_coreneuron=True`, or use `capacity` queue nodes for CPU benchmarking with `use_coreneuron=True`
+**Follow-up tests (PBS 8461726/8461727 GPU, 8461835/8461836 CPU)**:
+
+Patched `network.run()` to set `coreneuron.enable = True; coreneuron.gpu = True` (then `coreneuron.gpu = False` for CPU test) before each `psolve`. Result: **both GPU and CPU CoreNEURON hang** after the first task is dispatched to workers. Workers print "getting next task from controller" then produce no further output for >14 minutes.
+
+**Root cause — MPI communicator conflict**: distwq splits `MPI_COMM_WORLD` into sub-communicators for worker groups. CoreNEURON (both CPU and GPU modes) requires `MPI_COMM_WORLD` for its own internal MPI communication when `psolve` is called with `coreneuron.enable = True`. The sub-communicator context is incompatible — CoreNEURON blocks indefinitely on MPI operations that never complete.
+
+**Fix path**: Run the optimizer without distwq sub-splitting (1 worker group = all ranks = world comm), OR run CoreNEURON in a standalone mode outside of distwq's MPI scope, OR use NEURON's `nrn_use_coreneuron()` API which supports sub-communicator contexts in newer versions.
 
 ---
 

@@ -1305,3 +1305,1146 @@ In member function ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeseri
 make: *** [Makefile:136: all] Error 2
   Build elapsed: 52 s
 ERROR: build failed (exit 2)
+==== IOWarp Core Build on Polaris ====
+Date: Wed Apr 29 06:44:03 AM UTC 2026
+Job:  7102266.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov
+Node: x3212c0s19b1n0.hsn.cm.polaris.alcf.anl.gov 
+
+=== [1] Compiler check ===
+  g++: g++-12 (SUSE Linux) 12.3.0 -> /usr/bin/g++-12
+  gcc: gcc-12 (SUSE Linux) 12.3.0 -> /usr/bin/gcc-12
+  mpicc:  /usr/bin/ld: /usr/lib64/crt1.o: in function `_start':
+  mpicxx: /usr/bin/ld: /usr/lib64/crt1.o: in function `_start':
+
+=== [2] Prepare build directory ===
+  Build dir: /home/hyoklee/core.iowarp/build-polaris (clean)
+  Install:   /lus/grand/projects/gpu_hack/iowarp/iowarp-install
+
+=== [3] CMake configure ===
+-- The C compiler identification is GNU 12.3.0
+-- The CXX compiler identification is GNU 12.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/gcc-12 - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/g++-12 - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Conda environment support disabled (use -DWRP_CORE_ENABLE_CONDA=ON to enable)
+-- Build system configuration:
+--   Conda build:        FALSE
+--   Install prefix:     /lus/grand/projects/gpu_hack/iowarp/iowarp-install
+-- Test/Benchmark Configuration:
+--   WRP_CORE_ENABLE_TESTS: OFF
+--   WRP_CORE_ENABLE_BENCHMARKS: OFF
+-- Loading IowarpCoreCommon.cmake
+-- IowarpCoreCommon.cmake loaded successfully
+-- Found PkgConfig: /home/hyoklee/miniconda3/bin/pkg-config (found version "0.29.2")
+-- found pkg-config
+-- found yaml-cpp at /home/hyoklee/miniconda3/lib/cmake/yaml-cpp
+-- Using yaml-cpp target: yaml-cpp::yaml-cpp
+-- found cereal at /home/hyoklee/miniconda3/lib/cmake/cereal
+-- found msgpack-c at /home/hyoklee/miniconda3/lib/cmake/msgpack-c
+--   using shared msgpack-c (static not available)
+-- Found MPI_C: /opt/cray/pe/mpich/9.0.1/ofi/nvidia/23.3/lib/libmpi_nvidia.so (found version "4.0")
+-- Found MPI_CXX: /opt/cray/pe/mpich/9.0.1/ofi/nvidia/23.3/lib/libmpi_nvidia.so (found version "4.0")
+-- Found MPI: TRUE (found version "4.0") found components: C CXX
+-- found mpi.h at /opt/cray/pe/mpich/9.0.1/ofi/nvidia/23.3/include
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- found HDF5 at /opt/cray/pe/hdf5-parallel/1.14.3.7/nvidia/23.3/include
+-- Gray-Scott example disabled
+-- Python bindings disabled
+-- GCC detected - enabling coroutines with -fcoroutines
+-- ccache not found — install ccache for faster rebuilds
+-- RPATH: Using relative paths ($ORIGIN/../lib)
+--   INSTALL_RPATH: $ORIGIN;$ORIGIN/../lib
+--   BUILD_RPATH:   /home/hyoklee/core.iowarp/build-polaris/bin
+-- yaml-cpp already found by IowarpCoreCommon
+-- Building context-transport-primitives component
+-- Checking for module 'libelf'
+--   Found libelf, version 0.185
+-- found libelf.h at /home/hyoklee/miniconda3/include;/usr/include
+-- Detected UNIX OS
+IN RELEASE MODE
+-- Building runtime component
+-- using hermes_shm as subdirectory (target: cxx)
+-- Chimaera namespace: chimaera
+-- Building Chimaera modules (ChiMods)...
+-- Runtime chimaera_MOD_NAME_runtime linking to client chimaera_MOD_NAME_client
+-- Created module package: chimaera_MOD_NAME
+--   Targets: chimaera_MOD_NAME_runtime;chimaera_MOD_NAME_client
+--   Aliases: chimaera::MOD_NAME_client, chimaera::MOD_NAME_runtime
+-- Deferred linking: Runtime chimaera_MOD_NAME_runtime linked to client chimaera_MOD_NAME_client
+-- Runtime chimaera_admin_runtime linking to client chimaera_admin_client
+-- Created module package: chimaera_admin
+--   Targets: chimaera_admin_runtime;chimaera_admin_client
+--   Aliases: chimaera::admin_client, chimaera::admin_runtime
+-- Deferred linking: Runtime chimaera_admin_runtime linked to client chimaera_admin_client
+-- Runtime chimaera_bdev_runtime linking to client chimaera_bdev_client
+-- Created module package: chimaera_bdev
+--   Targets: chimaera_bdev_runtime;chimaera_bdev_client
+--   Aliases: chimaera::bdev_client, chimaera::bdev_runtime
+-- Deferred linking: Runtime chimaera_bdev_runtime linked to client chimaera_bdev_client
+-- Created core package: chimaera
+--   Export set: chimaera_coreTargets
+--   Config location: lib/cmake/chimaera
+-- Building context-transfer-engine component
+-- Found Chimaera framework - building full ChiMod implementation
+-- Created module package: wrp_cte_core
+--   Targets: wrp_cte_core_runtime
+--   Aliases: wrp_cte::core_client, wrp_cte::core_runtime
+-- Deferred linking: Runtime wrp_cte_core_runtime linked to client wrp_cte_core_client
+-- CTE: Compression disabled - skipping compressor chimod (use -DWRP_CTE_ENABLE_COMPRESS=ON to enable)
+-- CTE Adapters: ENABLED (ELF support available)
+-- CTE UVM: Skipping (WRP_CORE_ENABLE_CUDA is OFF)
+-- CTE Python bindings disabled: WRP_CORE_ENABLE_PYTHON is OFF
+-- CTE Core and Bdev ChiMods configured for compilation
+-- Context-assimilation-engine component disabled
+-- Context-exploration-engine component disabled
+-- Context-visualizer component disabled (requires WRP_CORE_ENABLE_PYTHON)
+-- Gray-Scott example disabled
+-- iowarp-llm disabled (set WRP_CORE_ENABLE_LLAMA=ON to enable)
+-- 
+-- IOWarp Core unified package configuration:
+--   Package name: iowarp-core
+--   Install destination: lib/cmake/iowarp-core
+--   Components included:
+--     - HermesShm (context-transport-primitives)
+--     - Chimaera (runtime)
+--     - Core ChiMods: admin, bdev
+--     - CTE ChiMod: wrp_cte_core
+-- 
+-- IOWarp Core Configuration Summary:
+--   Build Shared Libraries:       ON
+--   
+--   Component Modules:
+--     Runtime:                    ON
+--     Context Transfer Engine:    ON
+--     Context Assimilation:       OFF
+--     Context Exploration:        OFF
+--   
+--   External Examples:
+--     Gray-Scott (ADIOS2):        OFF
+--   
+--   Global Options:
+--     Enable Tests:               OFF
+--     Python Bindings:            OFF
+--     AddressSanitizer (ASan):    OFF
+--     UndefinedBehaviorSan (UBSan): OFF
+--     MemorySanitizer (MSan):     OFF
+--     Code Coverage:              OFF
+-- 
+CMake Warning (dev) at CMakeLists.txt:1189 (install):
+  Target chimaera_cxx has PUBLIC_HEADER files but no PUBLIC_HEADER
+  DESTINATION.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Configuring done (8.9s)
+-- Generating done (0.9s)
+-- Build files have been written to: /home/hyoklee/core.iowarp/build-polaris
+  CMake configure: OK
+
+=== [4] Build and install (j16) ===
+[  1%] Building CXX object context-transport-primitives/src/CMakeFiles/hermes_shm_host.dir/cmake_pch.hxx.gch
+[  5%] Building CXX object context-transport-primitives/src/CMakeFiles/hermes_shm_host.dir/malloc_allocator.cc.o
+[  5%] Building CXX object context-transport-primitives/src/CMakeFiles/hermes_shm_host.dir/socket_posix.cc.o
+[  5%] Building CXX object context-transport-primitives/src/CMakeFiles/hermes_shm_host.dir/system_info.cc.o
+[  7%] Linking CXX shared library ../../bin/libhermes_shm_host.so
+[  7%] Built target hermes_shm_host
+[  8%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/cmake_pch.hxx.gch
+[ 17%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/chimaera_manager.cc.o
+[ 17%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/chimaera.cc.o
+[ 17%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/config_manager.cc.o
+[ 17%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/module_manager.cc.o
+[ 21%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/pool_manager.cc.o
+[ 21%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/ipc_manager.cc.o
+[ 31%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/scheduler/default_sched.cc.o
+[ 31%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/work_orchestrator.cc.o
+[ 31%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/worker.cc.o
+[ 31%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/admin.cc.o
+[ 31%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/task_archive.cc.o
+[ 31%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/scheduler/scheduler_factory.cc.o
+[ 31%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/task.cc.o
+[ 31%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/pool_query.cc.o
+[ 31%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/scheduler/local_sched.cc.o
+[ 31%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/types.cc.o
+In file included from /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/hermes_shm.h:131,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/types.h:45,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/config_manager.h:40,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/container.h:46,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/worker.h:47,
+                 from /home/hyoklee/core.iowarp/context-runtime/src/worker.cc:41:
+In member function ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::base(T&) [with T = chi::MsgType; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’,
+    inlined from ‘hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:24, auto:25&)> [with auto:24 = hshm::MakeConstexpr<long unsigned int, 1>; auto:25 = chi::MsgType]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:219:37,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 1; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:24, auto:25&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:259:10,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 0; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:24, auto:25&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:260:33,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::Apply(TupleT&&, F&&) [with TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:24, auto:25&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:246:25,
+    inlined from ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::operator()(Args&& ...) [with Args = {std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&}; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:217:39,
+    inlined from ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’ at /home/hyoklee/core.iowarp/context-runtime/include/chimaera/task_archives.h:551:7:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:235:11: warning: ‘value’ may be used uninitialized [-Wmaybe-uninitialized]
+  235 |       obj = static_cast<T>(value);
+      |       ~~~~^~~~~~~~~~~~~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h: In member function ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:233:22: note: ‘value’ was declared here
+  233 |       UnderlyingType value;
+      |                      ^~~~~
+In file included from /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/hermes_shm.h:131,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/types.h:45,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/pool_query.h:37,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/chimaera.h:44,
+                 from /home/hyoklee/core.iowarp/context-runtime/src/../modules/admin/include/chimaera/admin/admin_client.h:37,
+                 from /home/hyoklee/core.iowarp/context-runtime/src/chimaera_manager.cc:42:
+In member function ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::base(T&) [with T = chi::MsgType; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’,
+    inlined from ‘hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:24, auto:25&)> [with auto:24 = hshm::MakeConstexpr<long unsigned int, 1>; auto:25 = chi::MsgType]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:219:37,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 1; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:24, auto:25&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:259:10,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 0; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:24, auto:25&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:260:33,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::Apply(TupleT&&, F&&) [with TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:24, auto:25&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:246:25,
+    inlined from ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::operator()(Args&& ...) [with Args = {std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&}; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:217:39,
+    inlined from ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’ at /home/hyoklee/core.iowarp/context-runtime/include/chimaera/task_archives.h:551:7:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:235:11: warning: ‘value’ may be used uninitialized [-Wmaybe-uninitialized]
+  235 |       obj = static_cast<T>(value);
+      |       ~~~~^~~~~~~~~~~~~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h: In member function ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:233:22: note: ‘value’ was declared here
+  233 |       UnderlyingType value;
+      |                      ^~~~~
+At global scope:
+cc1plus: note: unrecognized command-line option ‘-Wno-self-move’ may have been intended to silence earlier diagnostics
+At global scope:
+cc1plus: note: unrecognized command-line option ‘-Wno-self-move’ may have been intended to silence earlier diagnostics
+In file included from /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/hermes_shm.h:131,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/types.h:45,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/chimaera_manager.h:37,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/ipc_manager.h:48,
+                 from /home/hyoklee/core.iowarp/context-runtime/src/ipc_manager.cc:38:
+In member function ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::base(T&) [with T = chi::MsgType; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’,
+    inlined from ‘hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:24, auto:25&)> [with auto:24 = hshm::MakeConstexpr<long unsigned int, 1>; auto:25 = chi::MsgType]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:219:37,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 1; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:24, auto:25&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:259:10,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 0; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:24, auto:25&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:260:33,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::Apply(TupleT&&, F&&) [with TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:24, auto:25&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:246:25,
+    inlined from ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::operator()(Args&& ...) [with Args = {std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&}; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:217:39,
+    inlined from ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’ at /home/hyoklee/core.iowarp/context-runtime/include/chimaera/task_archives.h:551:7:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:235:11: warning: ‘value’ may be used uninitialized [-Wmaybe-uninitialized]
+  235 |       obj = static_cast<T>(value);
+      |       ~~~~^~~~~~~~~~~~~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h: In member function ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:233:22: note: ‘value’ was declared here
+  233 |       UnderlyingType value;
+      |                      ^~~~~
+At global scope:
+cc1plus: note: unrecognized command-line option ‘-Wno-self-move’ may have been intended to silence earlier diagnostics
+[ 32%] Linking CXX shared library ../../bin/libchimaera_cxx.so
+[ 32%] Built target chimaera_cxx
+[ 34%] Building CXX object context-runtime/modules/admin/CMakeFiles/chimaera_admin_client.dir/cmake_pch.hxx.gch
+[ 35%] Building CXX object context-runtime/modules/MOD_NAME/CMakeFiles/chimaera_MOD_NAME_client.dir/cmake_pch.hxx.gch
+[ 37%] Building CXX object context-runtime/modules/admin/CMakeFiles/chimaera_admin_client.dir/src/admin_client.cc.o
+[ 38%] Building CXX object context-runtime/modules/MOD_NAME/CMakeFiles/chimaera_MOD_NAME_client.dir/src/MOD_NAME_client.cc.o
+[ 40%] Linking CXX shared library ../../../bin/libchimaera_admin_client.so
+[ 41%] Linking CXX shared library ../../../bin/libchimaera_MOD_NAME_client.so
+[ 41%] Built target chimaera_admin_client
+[ 41%] Built target chimaera_MOD_NAME_client
+[ 47%] Building CXX object context-runtime/util/CMakeFiles/chimaera_commands.dir/chimaera_cmd_runtime_stop.cc.o
+[ 47%] Building CXX object context-runtime/util/CMakeFiles/chimaera_commands.dir/chimaera_cmd_runtime_start.cc.o
+[ 47%] Building CXX object context-runtime/modules/admin/CMakeFiles/chimaera_admin_runtime.dir/cmake_pch.hxx.gch
+[ 51%] Building CXX object context-runtime/util/CMakeFiles/chimaera_commands.dir/chimaera_cmd_migrate.cc.o
+[ 51%] Building CXX object context-runtime/modules/bdev/CMakeFiles/chimaera_bdev_client.dir/cmake_pch.hxx.gch
+[ 51%] Building CXX object context-runtime/util/CMakeFiles/chimaera_commands.dir/chimaera_cmd_monitor.cc.o
+[ 52%] Building CXX object context-runtime/util/CMakeFiles/chimaera_commands.dir/chimaera_cmd_compose.cc.o
+[ 52%] Building CXX object context-runtime/util/CMakeFiles/chimaera_commands.dir/chimaera_cmd_refresh_repo.cc.o
+[ 54%] Building CXX object context-runtime/modules/MOD_NAME/CMakeFiles/chimaera_MOD_NAME_runtime.dir/cmake_pch.hxx.gch
+[ 57%] Building CXX object context-runtime/modules/admin/CMakeFiles/chimaera_admin_runtime.dir/src/admin_runtime.cc.o
+[ 57%] Building CXX object context-runtime/modules/admin/CMakeFiles/chimaera_admin_runtime.dir/src/autogen/admin_lib_exec.cc.o
+[ 60%] Building CXX object context-runtime/modules/MOD_NAME/CMakeFiles/chimaera_MOD_NAME_runtime.dir/src/MOD_NAME_runtime.cc.o
+[ 60%] Building CXX object context-runtime/modules/MOD_NAME/CMakeFiles/chimaera_MOD_NAME_runtime.dir/src/autogen/MOD_NAME_lib_exec.cc.o
+[ 61%] Building CXX object context-runtime/modules/bdev/CMakeFiles/chimaera_bdev_client.dir/src/bdev_client.cc.o
+[ 62%] Linking CXX shared library ../../../bin/libchimaera_bdev_client.so
+[ 62%] Built target chimaera_bdev_client
+[ 64%] Building CXX object context-transfer-engine/core/CMakeFiles/wrp_cte_core_client.dir/cmake_pch.hxx.gch
+In file included from /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/hermes_shm.h:131,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/types.h:45,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/pool_query.h:37,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/chimaera.h:44,
+                 from /home/hyoklee/core.iowarp/context-runtime/util/chimaera_cmd_migrate.cc:6:
+In member function ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::base(T&) [with T = chi::MsgType; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’,
+    inlined from ‘hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)> [with auto:23 = hshm::MakeConstexpr<long unsigned int, 1>; auto:24 = chi::MsgType]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:219:37,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 1; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:259:10,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 0; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:260:33,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::Apply(TupleT&&, F&&) [with TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:246:25,
+    inlined from ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::operator()(Args&& ...) [with Args = {std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&}; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:217:39,
+    inlined from ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’ at /home/hyoklee/core.iowarp/context-runtime/include/chimaera/task_archives.h:551:7:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:235:11: warning: ‘value’ may be used uninitialized [-Wmaybe-uninitialized]
+  235 |       obj = static_cast<T>(value);
+      |       ~~~~^~~~~~~~~~~~~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h: In member function ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:233:22: note: ‘value’ was declared here
+  233 |       UnderlyingType value;
+      |                      ^~~~~
+In file included from /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/hermes_shm.h:131,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/types.h:45,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/pool_query.h:37,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/chimaera.h:44,
+                 from /home/hyoklee/core.iowarp/context-runtime/util/chimaera_cmd_runtime_start.cc:8:
+In member function ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::base(T&) [with T = chi::MsgType; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’,
+    inlined from ‘hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)> [with auto:23 = hshm::MakeConstexpr<long unsigned int, 1>; auto:24 = chi::MsgType]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:219:37,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 1; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:259:10,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 0; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:260:33,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::Apply(TupleT&&, F&&) [with TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:246:25,
+    inlined from ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::operator()(Args&& ...) [with Args = {std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&}; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:217:39,
+    inlined from ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’ at /home/hyoklee/core.iowarp/context-runtime/include/chimaera/task_archives.h:551:7:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:235:11: warning: ‘value’ may be used uninitialized [-Wmaybe-uninitialized]
+  235 |       obj = static_cast<T>(value);
+      |       ~~~~^~~~~~~~~~~~~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h: In member function ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:233:22: note: ‘value’ was declared here
+  233 |       UnderlyingType value;
+      |                      ^~~~~
+In file included from /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/hermes_shm.h:131,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/types.h:45,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/pool_query.h:37,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/chimaera.h:44,
+                 from /home/hyoklee/core.iowarp/context-runtime/util/chimaera_cmd_monitor.cc:10:
+In member function ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::base(T&) [with T = chi::MsgType; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’,
+    inlined from ‘hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)> [with auto:23 = hshm::MakeConstexpr<long unsigned int, 1>; auto:24 = chi::MsgType]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:219:37,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 1; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:259:10,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 0; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:260:33,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::Apply(TupleT&&, F&&) [with TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:246:25,
+    inlined from ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::operator()(Args&& ...) [with Args = {std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&}; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:217:39,
+    inlined from ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’ at /home/hyoklee/core.iowarp/context-runtime/include/chimaera/task_archives.h:551:7:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:235:11: warning: ‘value’ may be used uninitialized [-Wmaybe-uninitialized]
+  235 |       obj = static_cast<T>(value);
+      |       ~~~~^~~~~~~~~~~~~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h: In member function ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:233:22: note: ‘value’ was declared here
+  233 |       UnderlyingType value;
+      |                      ^~~~~
+At global scope:
+cc1plus: note: unrecognized command-line option ‘-Wno-self-move’ may have been intended to silence earlier diagnostics
+In file included from /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/hermes_shm.h:131,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/types.h:45,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/pool_query.h:37,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/chimaera.h:44,
+                 from /home/hyoklee/core.iowarp/context-runtime/util/chimaera_cmd_compose.cc:7:
+In member function ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::base(T&) [with T = chi::MsgType; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’,
+    inlined from ‘hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:25, auto:26&)> [with auto:25 = hshm::MakeConstexpr<long unsigned int, 1>; auto:26 = chi::MsgType]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:219:37,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 1; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:25, auto:26&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:259:10,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 0; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:25, auto:26&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:260:33,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::Apply(TupleT&&, F&&) [with TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:25, auto:26&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:246:25,
+    inlined from ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::operator()(Args&& ...) [with Args = {std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&}; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:217:39,
+    inlined from ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’ at /home/hyoklee/core.iowarp/context-runtime/include/chimaera/task_archives.h:551:7:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:235:11: warning: ‘value’ may be used uninitialized [-Wmaybe-uninitialized]
+  235 |       obj = static_cast<T>(value);
+      |       ~~~~^~~~~~~~~~~~~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h: In member function ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:233:22: note: ‘value’ was declared here
+  233 |       UnderlyingType value;
+      |                      ^~~~~
+At global scope:
+cc1plus: note: unrecognized command-line option ‘-Wno-self-move’ may have been intended to silence earlier diagnostics
+At global scope:
+cc1plus: note: unrecognized command-line option ‘-Wno-self-move’ may have been intended to silence earlier diagnostics
+At global scope:
+cc1plus: note: unrecognized command-line option ‘-Wno-self-move’ may have been intended to silence earlier diagnostics
+[ 68%] Building CXX object context-transfer-engine/core/CMakeFiles/wrp_cte_core_client.dir/src/content_transfer_engine.cc.o
+[ 68%] Building CXX object context-transfer-engine/core/CMakeFiles/wrp_cte_core_client.dir/src/core_client.cc.o
+[ 68%] Building CXX object context-transfer-engine/core/CMakeFiles/wrp_cte_core_client.dir/src/tag.cc.o
+[ 70%] Linking CXX static library ../../bin/libchimaera_commands.a
+[ 71%] Linking CXX shared library ../../../bin/libchimaera_MOD_NAME_runtime.so
+[ 71%] Built target chimaera_commands
+[ 72%] Building CXX object context-runtime/util/CMakeFiles/chimaera.dir/chimaera.cc.o
+[ 72%] Built target chimaera_MOD_NAME_runtime
+In file included from /usr/include/c++/12/bits/shared_ptr_atomic.h:33,
+                 from /usr/include/c++/12/memory:77,
+                 from /home/hyoklee/core.iowarp/build-polaris/context-runtime/modules/admin/CMakeFiles/chimaera_admin_runtime.dir/cmake_pch.hxx:7,
+                 from <command-line>:
+In member function ‘void std::__atomic_base<_IntTp>::store(__int_type, std::memory_order) [with _ITp = unsigned int]’,
+    inlined from ‘void hshm::ipc::std_atomic<T>::load(Ar&) [with Ar = hshm::ipc::LocalDeserialize<std::vector<char> >; T = unsigned int]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/atomic.h:625:12:
+/usr/include/c++/12/bits/atomic_base.h:464:25: warning: ‘val’ may be used uninitialized [-Wmaybe-uninitialized]
+  464 |         __atomic_store_n(&_M_i, __i, int(__m));
+      |         ~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+In file included from /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/hermes_shm.h:46,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/types.h:45,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/pool_query.h:37,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/chimaera.h:44,
+                 from /home/hyoklee/core.iowarp/context-runtime/modules/admin/include/chimaera/admin/admin_client.h:37,
+                 from /home/hyoklee/core.iowarp/context-runtime/modules/admin/include/chimaera/admin/admin_runtime.h:37,
+                 from /home/hyoklee/core.iowarp/context-runtime/modules/admin/src/autogen/admin_lib_exec.cc:10:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/atomic.h: In member function ‘void hshm::ipc::std_atomic<T>::load(Ar&) [with Ar = hshm::ipc::LocalDeserialize<std::vector<char> >; T = unsigned int]’:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/atomic.h:623:7: note: ‘val’ was declared here
+  623 |     T val;
+      |       ^~~
+[ 74%] Linking CXX executable ../../bin/chimaera
+At global scope:
+cc1plus: note: unrecognized command-line option ‘-Wno-self-move’ may have been intended to silence earlier diagnostics
+[ 74%] Built target chimaera
+In file included from /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/hermes_shm.h:131,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/types.h:45,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/pool_query.h:37,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/chimaera.h:44,
+                 from /home/hyoklee/core.iowarp/context-runtime/modules/admin/include/chimaera/admin/admin_client.h:37,
+                 from /home/hyoklee/core.iowarp/context-runtime/modules/admin/include/chimaera/admin/admin_runtime.h:37,
+                 from /home/hyoklee/core.iowarp/context-runtime/modules/admin/src/admin_runtime.cc:41:
+In member function ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::base(T&) [with T = chi::MsgType; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’,
+    inlined from ‘hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)> [with auto:23 = hshm::MakeConstexpr<long unsigned int, 1>; auto:24 = chi::MsgType]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:219:37,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 1; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:259:10,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 0; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:260:33,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::Apply(TupleT&&, F&&) [with TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:246:25,
+    inlined from ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::operator()(Args&& ...) [with Args = {std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&}; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:217:39,
+    inlined from ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’ at /home/hyoklee/core.iowarp/context-runtime/include/chimaera/task_archives.h:551:7:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:235:11: warning: ‘value’ may be used uninitialized [-Wmaybe-uninitialized]
+  235 |       obj = static_cast<T>(value);
+      |       ~~~~^~~~~~~~~~~~~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h: In member function ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:233:22: note: ‘value’ was declared here
+  233 |       UnderlyingType value;
+      |                      ^~~~~
+In file included from /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/hermes_shm.h:131,
+                 from /home/hyoklee/core.iowarp/context-runtime/src/../include/chimaera/types.h:45,
+                 from /home/hyoklee/core.iowarp/context-runtime/src/../include/chimaera/pool_query.h:37,
+                 from /home/hyoklee/core.iowarp/context-runtime/src/../include/chimaera/chimaera.h:44,
+                 from /home/hyoklee/core.iowarp/context-transfer-engine/core/src/content_transfer_engine.cc:34:
+In member function ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::base(T&) [with T = chi::MsgType; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’,
+    inlined from ‘hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)> [with auto:23 = hshm::MakeConstexpr<long unsigned int, 1>; auto:24 = chi::MsgType]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:219:37,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 1; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:259:10,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 0; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:260:33,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::Apply(TupleT&&, F&&) [with TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:246:25,
+    inlined from ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::operator()(Args&& ...) [with Args = {std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&}; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:217:39,
+    inlined from ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’ at /home/hyoklee/core.iowarp/context-runtime/src/../include/chimaera/task_archives.h:551:7:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:235:11: warning: ‘value’ may be used uninitialized [-Wmaybe-uninitialized]
+  235 |       obj = static_cast<T>(value);
+      |       ~~~~^~~~~~~~~~~~~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h: In member function ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:233:22: note: ‘value’ was declared here
+  233 |       UnderlyingType value;
+      |                      ^~~~~
+In file included from /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/hermes_shm.h:131,
+                 from /home/hyoklee/core.iowarp/context-runtime/src/../include/chimaera/types.h:45,
+                 from /home/hyoklee/core.iowarp/context-runtime/src/../include/chimaera/pool_query.h:37,
+                 from /home/hyoklee/core.iowarp/context-runtime/src/../include/chimaera/chimaera.h:44,
+                 from /home/hyoklee/core.iowarp/context-transfer-engine/core/include/wrp_cte/core/core_client.h:37,
+                 from /home/hyoklee/core.iowarp/context-transfer-engine/core/src/tag.cc:34:
+In member function ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::base(T&) [with T = chi::MsgType; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’,
+    inlined from ‘hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)> [with auto:23 = hshm::MakeConstexpr<long unsigned int, 1>; auto:24 = chi::MsgType]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:219:37,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 1; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:259:10,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 0; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:260:33,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::Apply(TupleT&&, F&&) [with TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:246:25,
+    inlined from ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::operator()(Args&& ...) [with Args = {std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&}; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:217:39,
+    inlined from ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’ at /home/hyoklee/core.iowarp/context-runtime/src/../include/chimaera/task_archives.h:551:7:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:235:11: warning: ‘value’ may be used uninitialized [-Wmaybe-uninitialized]
+  235 |       obj = static_cast<T>(value);
+      |       ~~~~^~~~~~~~~~~~~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h: In member function ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:233:22: note: ‘value’ was declared here
+  233 |       UnderlyingType value;
+      |                      ^~~~~
+At global scope:
+cc1plus: note: unrecognized command-line option ‘-Wno-self-move’ may have been intended to silence earlier diagnostics
+At global scope:
+cc1plus: note: unrecognized command-line option ‘-Wno-self-move’ may have been intended to silence earlier diagnostics
+[ 75%] Linking CXX shared library ../../bin/libwrp_cte_core_client.so
+[ 75%] Built target wrp_cte_core_client
+[ 77%] Building CXX object context-transfer-engine/adapter/CMakeFiles/wrp_cte_cae_config.dir/cae_config.cc.o
+At global scope:
+cc1plus: note: unrecognized command-line option ‘-Wno-self-move’ may have been intended to silence earlier diagnostics
+[ 78%] Linking CXX shared library ../../../bin/libchimaera_admin_runtime.so
+[ 78%] Built target chimaera_admin_runtime
+[ 80%] Building CXX object context-runtime/modules/bdev/CMakeFiles/chimaera_bdev_runtime.dir/cmake_pch.hxx.gch
+[ 82%] Building CXX object context-runtime/modules/bdev/CMakeFiles/chimaera_bdev_runtime.dir/src/bdev_runtime.cc.o
+[ 82%] Building CXX object context-runtime/modules/bdev/CMakeFiles/chimaera_bdev_runtime.dir/src/autogen/bdev_lib_exec.cc.o
+[ 84%] Linking CXX shared library ../../bin/libwrp_cte_cae_config.so
+[ 84%] Built target wrp_cte_cae_config
+[ 85%] Building CXX object context-transfer-engine/adapter/filesystem/CMakeFiles/wrp_cte_fs_base.dir/filesystem.cc.o
+[ 87%] Linking CXX shared library ../../../bin/libchimaera_bdev_runtime.so
+[ 87%] Built target chimaera_bdev_runtime
+[ 88%] Building CXX object context-transfer-engine/core/CMakeFiles/wrp_cte_core_runtime.dir/cmake_pch.hxx.gch
+In file included from /home/hyoklee/core.iowarp/context-transfer-engine/adapter/adapter_constants.h:42,
+                 from /home/hyoklee/core.iowarp/context-transfer-engine/adapter/posix/posix_api.h:46,
+                 from /home/hyoklee/core.iowarp/context-transfer-engine/adapter/adapter_types.h:37,
+                 from /home/hyoklee/core.iowarp/context-transfer-engine/adapter/filesystem/filesystem_io_client.h:45,
+                 from /home/hyoklee/core.iowarp/context-transfer-engine/adapter/filesystem/filesystem_mdm.h:40,
+                 from /home/hyoklee/core.iowarp/context-transfer-engine/adapter/filesystem/filesystem.cc:34:
+/home/hyoklee/core.iowarp/context-transfer-engine/adapter/mapper/abstract_mapper.h:59:15: error: ‘string’ in namespace ‘chi’ does not name a type
+   59 |   static chi::string CreateBlobName(size_t page) {
+      |               ^~~~~~
+/home/hyoklee/core.iowarp/context-transfer-engine/adapter/mapper/abstract_mapper.h:67:8: error: ‘string’ in namespace ‘chi’ does not name a type
+   67 |   chi::string CreateBlobName() const {
+      |        ^~~~~~
+[ 91%] Building CXX object context-transfer-engine/core/CMakeFiles/wrp_cte_core_runtime.dir/src/core_runtime.cc.o
+[ 94%] Building CXX object context-transfer-engine/core/CMakeFiles/wrp_cte_core_runtime.dir/src/core_config.cc.o
+[ 94%] Building CXX object context-transfer-engine/core/CMakeFiles/wrp_cte_core_runtime.dir/src/core_dpe.cc.o
+[ 94%] Building CXX object context-transfer-engine/core/CMakeFiles/wrp_cte_core_runtime.dir/src/autogen/core_lib_exec.cc.o
+cc1plus: note: unrecognized command-line option ‘-Wno-self-move’ may have been intended to silence earlier diagnostics
+make[2]: *** [context-transfer-engine/adapter/filesystem/CMakeFiles/wrp_cte_fs_base.dir/build.make:79: context-transfer-engine/adapter/filesystem/CMakeFiles/wrp_cte_fs_base.dir/filesystem.cc.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:966: context-transfer-engine/adapter/filesystem/CMakeFiles/wrp_cte_fs_base.dir/all] Error 2
+make[1]: *** Waiting for unfinished jobs....
+In file included from /usr/include/c++/12/bits/shared_ptr_atomic.h:33,
+                 from /usr/include/c++/12/memory:77,
+                 from /home/hyoklee/core.iowarp/build-polaris/context-transfer-engine/core/CMakeFiles/wrp_cte_core_runtime.dir/cmake_pch.hxx:7,
+                 from <command-line>:
+In member function ‘void std::__atomic_base<_IntTp>::store(__int_type, std::memory_order) [with _ITp = unsigned int]’,
+    inlined from ‘void hshm::ipc::std_atomic<T>::load(Ar&) [with Ar = hshm::ipc::LocalDeserialize<std::vector<char> >; T = unsigned int]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/atomic.h:625:12:
+/usr/include/c++/12/bits/atomic_base.h:464:25: warning: ‘val’ may be used uninitialized [-Wmaybe-uninitialized]
+  464 |         __atomic_store_n(&_M_i, __i, int(__m));
+      |         ~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+In file included from /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/hermes_shm.h:46,
+                 from /home/hyoklee/core.iowarp/context-runtime/src/../include/chimaera/types.h:45,
+                 from /home/hyoklee/core.iowarp/context-runtime/src/../include/chimaera/pool_query.h:37,
+                 from /home/hyoklee/core.iowarp/context-runtime/src/../include/chimaera/chimaera.h:44,
+                 from /home/hyoklee/core.iowarp/context-transfer-engine/core/include/wrp_cte/core/core_runtime.h:38,
+                 from /home/hyoklee/core.iowarp/context-transfer-engine/core/src/autogen/core_lib_exec.cc:10:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/atomic.h: In member function ‘void hshm::ipc::std_atomic<T>::load(Ar&) [with Ar = hshm::ipc::LocalDeserialize<std::vector<char> >; T = unsigned int]’:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/atomic.h:623:7: note: ‘val’ was declared here
+  623 |     T val;
+      |       ^~~
+In file included from /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/hermes_shm.h:131:
+In member function ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::base(T&) [with T = wrp_cte::core::CteOp; DataT = std::vector<char>]’,
+    inlined from ‘hshm::ipc::LocalDeserialize<std::vector<char> >::operator()<wrp_cte::core::CteOp&, long unsigned int&, long unsigned int&, chi::UniqueId&, long int&, long int&, long unsigned int&>(wrp_cte::core::CteOp&, long unsigned int&, long unsigned int&, chi::UniqueId&, long int&, long int&, long unsigned int&)::<lambda(auto:23, auto:24&)> [with auto:23 = hshm::MakeConstexpr<long unsigned int, 0>; auto:24 = wrp_cte::core::CteOp]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:219:37,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 0; TupleT = hshm::ArgPack<wrp_cte::core::CteOp&, long unsigned int&, long unsigned int&, chi::UniqueId&, long int&, long int&, long unsigned int&>; F = hshm::ipc::LocalDeserialize<std::vector<char> >::operator()<wrp_cte::core::CteOp&, long unsigned int&, long unsigned int&, chi::UniqueId&, long int&, long int&, long unsigned int&>(wrp_cte::core::CteOp&, long unsigned int&, long unsigned int&, chi::UniqueId&, long int&, long int&, long unsigned int&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:259:10,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::Apply(TupleT&&, F&&) [with TupleT = hshm::ArgPack<wrp_cte::core::CteOp&, long unsigned int&, long unsigned int&, chi::UniqueId&, long int&, long int&, long unsigned int&>; F = hshm::ipc::LocalDeserialize<std::vector<char> >::operator()<wrp_cte::core::CteOp&, long unsigned int&, long unsigned int&, chi::UniqueId&, long int&, long int&, long unsigned int&>(wrp_cte::core::CteOp&, long unsigned int&, long unsigned int&, chi::UniqueId&, long int&, long int&, long unsigned int&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:246:25,
+    inlined from ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::operator()(Args&& ...) [with Args = {wrp_cte::core::CteOp&, long unsigned int&, long unsigned int&, chi::UniqueId&, long int&, long int&, long unsigned int&}; DataT = std::vector<char>]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:217:39,
+    inlined from ‘void wrp_cte::core::CteTelemetry::serialize(Archive&) [with Archive = hshm::ipc::LocalDeserialize<std::vector<char> >]’ at /home/hyoklee/core.iowarp/context-transfer-engine/core/include/wrp_cte/core/core_tasks.h:767:7,
+    inlined from ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::base(T&) [with T = wrp_cte::core::CteTelemetry; DataT = std::vector<char>]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:241:20,
+    inlined from ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::operator>>(T&) [with T = wrp_cte::core::CteTelemetry; DataT = std::vector<char>]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:205:16,
+    inlined from ‘void hshm::ipc::load_vec(Ar&, ContainerT&) [with Ar = LocalDeserialize<std::vector<char> >; ContainerT = hshm::priv::vector<wrp_cte::core::CteTelemetry, BaseAllocator<_MallocAllocator<false> > >; T = wrp_cte::core::CteTelemetry]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/serialize_common.h:185:10:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:235:11: warning: ‘value’ may be used uninitialized [-Wmaybe-uninitialized]
+  235 |       obj = static_cast<T>(value);
+      |       ~~~~^~~~~~~~~~~~~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h: In function ‘void hshm::ipc::load_vec(Ar&, ContainerT&) [with Ar = LocalDeserialize<std::vector<char> >; ContainerT = hshm::priv::vector<wrp_cte::core::CteTelemetry, BaseAllocator<_MallocAllocator<false> > >; T = wrp_cte::core::CteTelemetry]’:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:233:22: note: ‘value’ was declared here
+  233 |       UnderlyingType value;
+      |                      ^~~~~
+At global scope:
+cc1plus: note: unrecognized command-line option ‘-Wno-self-move’ may have been intended to silence earlier diagnostics
+[ 95%] Linking CXX shared library ../../bin/libwrp_cte_core_runtime.so
+[ 95%] Built target wrp_cte_core_runtime
+make: *** [Makefile:136: all] Error 2
+  Build elapsed: 48 s
+ERROR: build failed (exit 2)
+==== IOWarp Core Build on Polaris ====
+Date: Wed Apr 29 04:48:06 PM UTC 2026
+Job:  7105414.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov
+Node: x3209c0s37b0n0.hsn.cm.polaris.alcf.anl.gov 
+
+=== [1] Compiler check ===
+  g++: g++-12 (SUSE Linux) 12.3.0 -> /usr/bin/g++-12
+  gcc: gcc-12 (SUSE Linux) 12.3.0 -> /usr/bin/gcc-12
+  mpicc:  /usr/bin/ld: /usr/lib64/crt1.o: in function `_start':
+  mpicxx: /usr/bin/ld: /usr/lib64/crt1.o: in function `_start':
+
+=== [2] Prepare build directory ===
+  Build dir: /home/hyoklee/core.iowarp/build-polaris (clean)
+  Install:   /lus/grand/projects/gpu_hack/iowarp/iowarp-install
+
+=== [3] CMake configure ===
+-- The C compiler identification is GNU 12.3.0
+-- The CXX compiler identification is GNU 12.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/gcc-12 - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/g++-12 - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Conda environment support disabled (use -DWRP_CORE_ENABLE_CONDA=ON to enable)
+-- Build system configuration:
+--   Conda build:        FALSE
+--   Install prefix:     /lus/grand/projects/gpu_hack/iowarp/iowarp-install
+-- Test/Benchmark Configuration:
+--   WRP_CORE_ENABLE_TESTS: OFF
+--   WRP_CORE_ENABLE_BENCHMARKS: OFF
+-- Loading IowarpCoreCommon.cmake
+-- IowarpCoreCommon.cmake loaded successfully
+-- Found PkgConfig: /home/hyoklee/miniconda3/bin/pkg-config (found version "0.29.2")
+-- found pkg-config
+-- found yaml-cpp at /home/hyoklee/miniconda3/lib/cmake/yaml-cpp
+-- Using yaml-cpp target: yaml-cpp::yaml-cpp
+-- found cereal at /home/hyoklee/miniconda3/lib/cmake/cereal
+-- found msgpack-c at /home/hyoklee/miniconda3/lib/cmake/msgpack-c
+--   using shared msgpack-c (static not available)
+-- Found MPI_C: /opt/cray/pe/mpich/9.0.1/ofi/nvidia/23.3/lib/libmpi_nvidia.so (found version "4.0")
+-- Found MPI_CXX: /opt/cray/pe/mpich/9.0.1/ofi/nvidia/23.3/lib/libmpi_nvidia.so (found version "4.0")
+-- Found MPI: TRUE (found version "4.0") found components: C CXX
+-- found mpi.h at /opt/cray/pe/mpich/9.0.1/ofi/nvidia/23.3/include
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- found HDF5 at /opt/cray/pe/hdf5-parallel/1.14.3.7/nvidia/23.3/include
+-- Gray-Scott example disabled
+-- Python bindings disabled
+-- GCC detected - enabling coroutines with -fcoroutines
+-- ccache not found — install ccache for faster rebuilds
+-- RPATH: Using relative paths ($ORIGIN/../lib)
+--   INSTALL_RPATH: $ORIGIN;$ORIGIN/../lib
+--   BUILD_RPATH:   /home/hyoklee/core.iowarp/build-polaris/bin
+-- yaml-cpp already found by IowarpCoreCommon
+-- Building context-transport-primitives component
+-- Checking for module 'libelf'
+--   Found libelf, version 0.185
+-- found libelf.h at /home/hyoklee/miniconda3/include;/usr/include
+-- Detected UNIX OS
+IN RELEASE MODE
+-- Building runtime component
+-- using hermes_shm as subdirectory (target: cxx)
+-- Chimaera namespace: chimaera
+-- Building Chimaera modules (ChiMods)...
+-- Runtime chimaera_MOD_NAME_runtime linking to client chimaera_MOD_NAME_client
+-- Created module package: chimaera_MOD_NAME
+--   Targets: chimaera_MOD_NAME_runtime;chimaera_MOD_NAME_client
+--   Aliases: chimaera::MOD_NAME_client, chimaera::MOD_NAME_runtime
+-- Deferred linking: Runtime chimaera_MOD_NAME_runtime linked to client chimaera_MOD_NAME_client
+-- Runtime chimaera_admin_runtime linking to client chimaera_admin_client
+-- Created module package: chimaera_admin
+--   Targets: chimaera_admin_runtime;chimaera_admin_client
+--   Aliases: chimaera::admin_client, chimaera::admin_runtime
+-- Deferred linking: Runtime chimaera_admin_runtime linked to client chimaera_admin_client
+-- Runtime chimaera_bdev_runtime linking to client chimaera_bdev_client
+-- Created module package: chimaera_bdev
+--   Targets: chimaera_bdev_runtime;chimaera_bdev_client
+--   Aliases: chimaera::bdev_client, chimaera::bdev_runtime
+-- Deferred linking: Runtime chimaera_bdev_runtime linked to client chimaera_bdev_client
+-- Created core package: chimaera
+--   Export set: chimaera_coreTargets
+--   Config location: lib/cmake/chimaera
+-- Building context-transfer-engine component
+-- Found Chimaera framework - building full ChiMod implementation
+-- Created module package: wrp_cte_core
+--   Targets: wrp_cte_core_runtime
+--   Aliases: wrp_cte::core_client, wrp_cte::core_runtime
+-- Deferred linking: Runtime wrp_cte_core_runtime linked to client wrp_cte_core_client
+-- CTE: Compression disabled - skipping compressor chimod (use -DWRP_CTE_ENABLE_COMPRESS=ON to enable)
+-- CTE Adapters: ENABLED (ELF support available)
+-- CTE UVM: Skipping (WRP_CORE_ENABLE_CUDA is OFF)
+-- CTE Python bindings disabled: WRP_CORE_ENABLE_PYTHON is OFF
+-- CTE Core and Bdev ChiMods configured for compilation
+-- Context-assimilation-engine component disabled
+-- Context-exploration-engine component disabled
+-- Context-visualizer component disabled (requires WRP_CORE_ENABLE_PYTHON)
+-- Gray-Scott example disabled
+-- iowarp-llm disabled (set WRP_CORE_ENABLE_LLAMA=ON to enable)
+-- 
+-- IOWarp Core unified package configuration:
+--   Package name: iowarp-core
+--   Install destination: lib/cmake/iowarp-core
+--   Components included:
+--     - HermesShm (context-transport-primitives)
+--     - Chimaera (runtime)
+--     - Core ChiMods: admin, bdev
+--     - CTE ChiMod: wrp_cte_core
+-- 
+-- IOWarp Core Configuration Summary:
+--   Build Shared Libraries:       ON
+--   
+--   Component Modules:
+--     Runtime:                    ON
+--     Context Transfer Engine:    ON
+--     Context Assimilation:       OFF
+--     Context Exploration:        OFF
+--   
+--   External Examples:
+--     Gray-Scott (ADIOS2):        OFF
+--   
+--   Global Options:
+--     Enable Tests:               OFF
+--     Python Bindings:            OFF
+--     AddressSanitizer (ASan):    OFF
+--     UndefinedBehaviorSan (UBSan): OFF
+--     MemorySanitizer (MSan):     OFF
+--     Code Coverage:              OFF
+-- 
+CMake Warning (dev) at CMakeLists.txt:1189 (install):
+  Target chimaera_cxx has PUBLIC_HEADER files but no PUBLIC_HEADER
+  DESTINATION.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Configuring done (9.2s)
+-- Generating done (0.8s)
+-- Build files have been written to: /home/hyoklee/core.iowarp/build-polaris
+  CMake configure: OK
+
+=== [4] Build and install (j16) ===
+[  1%] Building CXX object context-transport-primitives/src/CMakeFiles/hermes_shm_host.dir/cmake_pch.hxx.gch
+[  5%] Building CXX object context-transport-primitives/src/CMakeFiles/hermes_shm_host.dir/malloc_allocator.cc.o
+[  5%] Building CXX object context-transport-primitives/src/CMakeFiles/hermes_shm_host.dir/system_info.cc.o
+[  5%] Building CXX object context-transport-primitives/src/CMakeFiles/hermes_shm_host.dir/socket_posix.cc.o
+[  7%] Linking CXX shared library ../../bin/libhermes_shm_host.so
+[  7%] Built target hermes_shm_host
+[  8%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/cmake_pch.hxx.gch
+[ 24%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/scheduler/default_sched.cc.o
+[ 15%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/ipc_manager.cc.o
+[ 15%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/admin.cc.o
+[ 25%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/module_manager.cc.o
+[ 25%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/pool_query.cc.o
+[ 25%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/chimaera.cc.o
+[ 25%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/scheduler/scheduler_factory.cc.o
+[ 25%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/chimaera_manager.cc.o
+[ 25%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/scheduler/local_sched.cc.o
+[ 25%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/config_manager.cc.o
+[ 31%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/types.cc.o
+[ 31%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/pool_manager.cc.o
+[ 31%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/worker.cc.o
+[ 31%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/task_archive.cc.o
+[ 31%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/task.cc.o
+[ 31%] Building CXX object context-runtime/src/CMakeFiles/chimaera_cxx.dir/work_orchestrator.cc.o
+In file included from /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/hermes_shm.h:131,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/types.h:45,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/config_manager.h:40,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/container.h:46,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/worker.h:47,
+                 from /home/hyoklee/core.iowarp/context-runtime/src/worker.cc:41:
+In member function ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::base(T&) [with T = chi::MsgType; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’,
+    inlined from ‘hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:24, auto:25&)> [with auto:24 = hshm::MakeConstexpr<long unsigned int, 1>; auto:25 = chi::MsgType]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:219:37,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 1; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:24, auto:25&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:259:10,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 0; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:24, auto:25&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:260:33,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::Apply(TupleT&&, F&&) [with TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:24, auto:25&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:246:25,
+    inlined from ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::operator()(Args&& ...) [with Args = {std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&}; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:217:39,
+    inlined from ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’ at /home/hyoklee/core.iowarp/context-runtime/include/chimaera/task_archives.h:551:7:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:235:11: warning: ‘value’ may be used uninitialized [-Wmaybe-uninitialized]
+  235 |       obj = static_cast<T>(value);
+      |       ~~~~^~~~~~~~~~~~~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h: In member function ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:233:22: note: ‘value’ was declared here
+  233 |       UnderlyingType value;
+      |                      ^~~~~
+In file included from /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/hermes_shm.h:131,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/types.h:45,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/pool_query.h:37,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/chimaera.h:44,
+                 from /home/hyoklee/core.iowarp/context-runtime/src/../modules/admin/include/chimaera/admin/admin_client.h:37,
+                 from /home/hyoklee/core.iowarp/context-runtime/src/chimaera_manager.cc:42:
+In member function ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::base(T&) [with T = chi::MsgType; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’,
+    inlined from ‘hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:24, auto:25&)> [with auto:24 = hshm::MakeConstexpr<long unsigned int, 1>; auto:25 = chi::MsgType]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:219:37,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 1; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:24, auto:25&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:259:10,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 0; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:24, auto:25&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:260:33,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::Apply(TupleT&&, F&&) [with TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:24, auto:25&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:246:25,
+    inlined from ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::operator()(Args&& ...) [with Args = {std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&}; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:217:39,
+    inlined from ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’ at /home/hyoklee/core.iowarp/context-runtime/include/chimaera/task_archives.h:551:7:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:235:11: warning: ‘value’ may be used uninitialized [-Wmaybe-uninitialized]
+  235 |       obj = static_cast<T>(value);
+      |       ~~~~^~~~~~~~~~~~~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h: In member function ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:233:22: note: ‘value’ was declared here
+  233 |       UnderlyingType value;
+      |                      ^~~~~
+At global scope:
+cc1plus: note: unrecognized command-line option ‘-Wno-self-move’ may have been intended to silence earlier diagnostics
+At global scope:
+cc1plus: note: unrecognized command-line option ‘-Wno-self-move’ may have been intended to silence earlier diagnostics
+In file included from /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/hermes_shm.h:131,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/types.h:45,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/chimaera_manager.h:37,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/ipc_manager.h:48,
+                 from /home/hyoklee/core.iowarp/context-runtime/src/ipc_manager.cc:38:
+In member function ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::base(T&) [with T = chi::MsgType; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’,
+    inlined from ‘hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:24, auto:25&)> [with auto:24 = hshm::MakeConstexpr<long unsigned int, 1>; auto:25 = chi::MsgType]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:219:37,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 1; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:24, auto:25&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:259:10,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 0; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:24, auto:25&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:260:33,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::Apply(TupleT&&, F&&) [with TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:24, auto:25&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:246:25,
+    inlined from ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::operator()(Args&& ...) [with Args = {std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&}; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:217:39,
+    inlined from ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’ at /home/hyoklee/core.iowarp/context-runtime/include/chimaera/task_archives.h:551:7:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:235:11: warning: ‘value’ may be used uninitialized [-Wmaybe-uninitialized]
+  235 |       obj = static_cast<T>(value);
+      |       ~~~~^~~~~~~~~~~~~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h: In member function ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:233:22: note: ‘value’ was declared here
+  233 |       UnderlyingType value;
+      |                      ^~~~~
+At global scope:
+cc1plus: note: unrecognized command-line option ‘-Wno-self-move’ may have been intended to silence earlier diagnostics
+[ 32%] Linking CXX shared library ../../bin/libchimaera_cxx.so
+[ 32%] Built target chimaera_cxx
+[ 34%] Building CXX object context-runtime/modules/admin/CMakeFiles/chimaera_admin_client.dir/cmake_pch.hxx.gch
+[ 35%] Building CXX object context-runtime/modules/MOD_NAME/CMakeFiles/chimaera_MOD_NAME_client.dir/cmake_pch.hxx.gch
+[ 37%] Building CXX object context-runtime/modules/admin/CMakeFiles/chimaera_admin_client.dir/src/admin_client.cc.o
+[ 38%] Building CXX object context-runtime/modules/MOD_NAME/CMakeFiles/chimaera_MOD_NAME_client.dir/src/MOD_NAME_client.cc.o
+[ 40%] Linking CXX shared library ../../../bin/libchimaera_MOD_NAME_client.so
+[ 41%] Linking CXX shared library ../../../bin/libchimaera_admin_client.so
+[ 41%] Built target chimaera_admin_client
+[ 41%] Built target chimaera_MOD_NAME_client
+[ 45%] Building CXX object context-runtime/util/CMakeFiles/chimaera_commands.dir/chimaera_cmd_runtime_start.cc.o
+[ 45%] Building CXX object context-runtime/util/CMakeFiles/chimaera_commands.dir/chimaera_cmd_runtime_stop.cc.o
+[ 50%] Building CXX object context-runtime/modules/admin/CMakeFiles/chimaera_admin_runtime.dir/cmake_pch.hxx.gch
+[ 50%] Building CXX object context-runtime/util/CMakeFiles/chimaera_commands.dir/chimaera_cmd_monitor.cc.o
+[ 52%] Building CXX object context-runtime/util/CMakeFiles/chimaera_commands.dir/chimaera_cmd_refresh_repo.cc.o
+[ 52%] Building CXX object context-runtime/util/CMakeFiles/chimaera_commands.dir/chimaera_cmd_migrate.cc.o
+[ 52%] Building CXX object context-runtime/modules/bdev/CMakeFiles/chimaera_bdev_client.dir/cmake_pch.hxx.gch
+[ 52%] Building CXX object context-runtime/util/CMakeFiles/chimaera_commands.dir/chimaera_cmd_compose.cc.o
+[ 55%] Building CXX object context-runtime/modules/admin/CMakeFiles/chimaera_admin_runtime.dir/src/autogen/admin_lib_exec.cc.o
+[ 55%] Building CXX object context-runtime/modules/admin/CMakeFiles/chimaera_admin_runtime.dir/src/admin_runtime.cc.o
+[ 57%] Building CXX object context-runtime/modules/bdev/CMakeFiles/chimaera_bdev_client.dir/src/bdev_client.cc.o
+[ 58%] Linking CXX shared library ../../../bin/libchimaera_bdev_client.so
+[ 58%] Built target chimaera_bdev_client
+[ 61%] Building CXX object context-transfer-engine/core/CMakeFiles/wrp_cte_core_client.dir/cmake_pch.hxx.gch
+[ 61%] Building CXX object context-runtime/modules/MOD_NAME/CMakeFiles/chimaera_MOD_NAME_runtime.dir/cmake_pch.hxx.gch
+In file included from /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/hermes_shm.h:131,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/types.h:45,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/pool_query.h:37,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/chimaera.h:44,
+                 from /home/hyoklee/core.iowarp/context-runtime/util/chimaera_cmd_migrate.cc:6:
+In member function ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::base(T&) [with T = chi::MsgType; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’,
+    inlined from ‘hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)> [with auto:23 = hshm::MakeConstexpr<long unsigned int, 1>; auto:24 = chi::MsgType]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:219:37,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 1; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:259:10,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 0; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:260:33,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::Apply(TupleT&&, F&&) [with TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:246:25,
+    inlined from ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::operator()(Args&& ...) [with Args = {std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&}; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:217:39,
+    inlined from ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’ at /home/hyoklee/core.iowarp/context-runtime/include/chimaera/task_archives.h:551:7:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:235:11: warning: ‘value’ may be used uninitialized [-Wmaybe-uninitialized]
+  235 |       obj = static_cast<T>(value);
+      |       ~~~~^~~~~~~~~~~~~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h: In member function ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:233:22: note: ‘value’ was declared here
+  233 |       UnderlyingType value;
+      |                      ^~~~~
+In file included from /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/hermes_shm.h:131,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/types.h:45,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/pool_query.h:37,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/chimaera.h:44,
+                 from /home/hyoklee/core.iowarp/context-runtime/util/chimaera_cmd_runtime_start.cc:8:
+In member function ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::base(T&) [with T = chi::MsgType; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’,
+    inlined from ‘hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)> [with auto:23 = hshm::MakeConstexpr<long unsigned int, 1>; auto:24 = chi::MsgType]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:219:37,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 1; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:259:10,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 0; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:260:33,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::Apply(TupleT&&, F&&) [with TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:246:25,
+    inlined from ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::operator()(Args&& ...) [with Args = {std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&}; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:217:39,
+    inlined from ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’ at /home/hyoklee/core.iowarp/context-runtime/include/chimaera/task_archives.h:551:7:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:235:11: warning: ‘value’ may be used uninitialized [-Wmaybe-uninitialized]
+  235 |       obj = static_cast<T>(value);
+      |       ~~~~^~~~~~~~~~~~~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h: In member function ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:233:22: note: ‘value’ was declared here
+  233 |       UnderlyingType value;
+      |                      ^~~~~
+In file included from /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/hermes_shm.h:131,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/types.h:45,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/pool_query.h:37,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/chimaera.h:44,
+                 from /home/hyoklee/core.iowarp/context-runtime/util/chimaera_cmd_monitor.cc:10:
+In member function ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::base(T&) [with T = chi::MsgType; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’,
+    inlined from ‘hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)> [with auto:23 = hshm::MakeConstexpr<long unsigned int, 1>; auto:24 = chi::MsgType]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:219:37,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 1; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:259:10,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 0; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:260:33,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::Apply(TupleT&&, F&&) [with TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:246:25,
+    inlined from ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::operator()(Args&& ...) [with Args = {std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&}; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:217:39,
+    inlined from ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’ at /home/hyoklee/core.iowarp/context-runtime/include/chimaera/task_archives.h:551:7:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:235:11: warning: ‘value’ may be used uninitialized [-Wmaybe-uninitialized]
+  235 |       obj = static_cast<T>(value);
+      |       ~~~~^~~~~~~~~~~~~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h: In member function ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:233:22: note: ‘value’ was declared here
+  233 |       UnderlyingType value;
+      |                      ^~~~~
+At global scope:
+cc1plus: note: unrecognized command-line option ‘-Wno-self-move’ may have been intended to silence earlier diagnostics
+In file included from /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/hermes_shm.h:131,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/types.h:45,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/pool_query.h:37,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/chimaera.h:44,
+                 from /home/hyoklee/core.iowarp/context-runtime/util/chimaera_cmd_compose.cc:7:
+In member function ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::base(T&) [with T = chi::MsgType; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’,
+    inlined from ‘hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:25, auto:26&)> [with auto:25 = hshm::MakeConstexpr<long unsigned int, 1>; auto:26 = chi::MsgType]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:219:37,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 1; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:25, auto:26&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:259:10,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 0; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:25, auto:26&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:260:33,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::Apply(TupleT&&, F&&) [with TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:25, auto:26&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:246:25,
+    inlined from ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::operator()(Args&& ...) [with Args = {std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&}; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:217:39,
+    inlined from ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’ at /home/hyoklee/core.iowarp/context-runtime/include/chimaera/task_archives.h:551:7:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:235:11: warning: ‘value’ may be used uninitialized [-Wmaybe-uninitialized]
+  235 |       obj = static_cast<T>(value);
+      |       ~~~~^~~~~~~~~~~~~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h: In member function ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:233:22: note: ‘value’ was declared here
+  233 |       UnderlyingType value;
+      |                      ^~~~~
+At global scope:
+cc1plus: note: unrecognized command-line option ‘-Wno-self-move’ may have been intended to silence earlier diagnostics
+At global scope:
+cc1plus: note: unrecognized command-line option ‘-Wno-self-move’ may have been intended to silence earlier diagnostics
+At global scope:
+cc1plus: note: unrecognized command-line option ‘-Wno-self-move’ may have been intended to silence earlier diagnostics
+[ 62%] Linking CXX static library ../../bin/libchimaera_commands.a
+[ 65%] Building CXX object context-runtime/modules/MOD_NAME/CMakeFiles/chimaera_MOD_NAME_runtime.dir/src/MOD_NAME_runtime.cc.o
+[ 65%] Building CXX object context-runtime/modules/MOD_NAME/CMakeFiles/chimaera_MOD_NAME_runtime.dir/src/autogen/MOD_NAME_lib_exec.cc.o
+[ 65%] Built target chimaera_commands
+[ 67%] Building CXX object context-transfer-engine/core/CMakeFiles/wrp_cte_core_client.dir/src/content_transfer_engine.cc.o
+[ 70%] Building CXX object context-transfer-engine/core/CMakeFiles/wrp_cte_core_client.dir/src/tag.cc.o
+[ 70%] Building CXX object context-transfer-engine/core/CMakeFiles/wrp_cte_core_client.dir/src/core_client.cc.o
+[ 71%] Building CXX object context-runtime/util/CMakeFiles/chimaera.dir/chimaera.cc.o
+In file included from /usr/include/c++/12/bits/shared_ptr_atomic.h:33,
+                 from /usr/include/c++/12/memory:77,
+                 from /home/hyoklee/core.iowarp/build-polaris/context-runtime/modules/admin/CMakeFiles/chimaera_admin_runtime.dir/cmake_pch.hxx:7,
+                 from <command-line>:
+In member function ‘void std::__atomic_base<_IntTp>::store(__int_type, std::memory_order) [with _ITp = unsigned int]’,
+    inlined from ‘void hshm::ipc::std_atomic<T>::load(Ar&) [with Ar = hshm::ipc::LocalDeserialize<std::vector<char> >; T = unsigned int]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/atomic.h:625:12:
+/usr/include/c++/12/bits/atomic_base.h:464:25: warning: ‘val’ may be used uninitialized [-Wmaybe-uninitialized]
+  464 |         __atomic_store_n(&_M_i, __i, int(__m));
+      |         ~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+In file included from /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/hermes_shm.h:46,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/types.h:45,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/pool_query.h:37,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/chimaera.h:44,
+                 from /home/hyoklee/core.iowarp/context-runtime/modules/admin/include/chimaera/admin/admin_client.h:37,
+                 from /home/hyoklee/core.iowarp/context-runtime/modules/admin/include/chimaera/admin/admin_runtime.h:37,
+                 from /home/hyoklee/core.iowarp/context-runtime/modules/admin/src/autogen/admin_lib_exec.cc:10:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/atomic.h: In member function ‘void hshm::ipc::std_atomic<T>::load(Ar&) [with Ar = hshm::ipc::LocalDeserialize<std::vector<char> >; T = unsigned int]’:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/atomic.h:623:7: note: ‘val’ was declared here
+  623 |     T val;
+      |       ^~~
+[ 72%] Linking CXX executable ../../bin/chimaera
+At global scope:
+cc1plus: note: unrecognized command-line option ‘-Wno-self-move’ may have been intended to silence earlier diagnostics
+[ 72%] Built target chimaera
+In file included from /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/hermes_shm.h:131,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/types.h:45,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/pool_query.h:37,
+                 from /home/hyoklee/core.iowarp/context-runtime/include/chimaera/chimaera.h:44,
+                 from /home/hyoklee/core.iowarp/context-runtime/modules/admin/include/chimaera/admin/admin_client.h:37,
+                 from /home/hyoklee/core.iowarp/context-runtime/modules/admin/include/chimaera/admin/admin_runtime.h:37,
+                 from /home/hyoklee/core.iowarp/context-runtime/modules/admin/src/admin_runtime.cc:41:
+In member function ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::base(T&) [with T = chi::MsgType; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’,
+    inlined from ‘hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)> [with auto:23 = hshm::MakeConstexpr<long unsigned int, 1>; auto:24 = chi::MsgType]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:219:37,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 1; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:259:10,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 0; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:260:33,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::Apply(TupleT&&, F&&) [with TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:246:25,
+    inlined from ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::operator()(Args&& ...) [with Args = {std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&}; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:217:39,
+    inlined from ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’ at /home/hyoklee/core.iowarp/context-runtime/include/chimaera/task_archives.h:551:7:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:235:11: warning: ‘value’ may be used uninitialized [-Wmaybe-uninitialized]
+  235 |       obj = static_cast<T>(value);
+      |       ~~~~^~~~~~~~~~~~~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h: In member function ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:233:22: note: ‘value’ was declared here
+  233 |       UnderlyingType value;
+      |                      ^~~~~
+[ 74%] Linking CXX shared library ../../../bin/libchimaera_MOD_NAME_runtime.so
+In file included from /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/hermes_shm.h:131,
+                 from /home/hyoklee/core.iowarp/context-runtime/src/../include/chimaera/types.h:45,
+                 from /home/hyoklee/core.iowarp/context-runtime/src/../include/chimaera/pool_query.h:37,
+                 from /home/hyoklee/core.iowarp/context-runtime/src/../include/chimaera/chimaera.h:44,
+                 from /home/hyoklee/core.iowarp/context-transfer-engine/core/src/content_transfer_engine.cc:34:
+In member function ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::base(T&) [with T = chi::MsgType; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’,
+    inlined from ‘hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)> [with auto:23 = hshm::MakeConstexpr<long unsigned int, 1>; auto:24 = chi::MsgType]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:219:37,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 1; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:259:10,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 0; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:260:33,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::Apply(TupleT&&, F&&) [with TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:246:25,
+    inlined from ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::operator()(Args&& ...) [with Args = {std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&}; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:217:39,
+    inlined from ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’ at /home/hyoklee/core.iowarp/context-runtime/src/../include/chimaera/task_archives.h:551:7:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:235:11: warning: ‘value’ may be used uninitialized [-Wmaybe-uninitialized]
+  235 |       obj = static_cast<T>(value);
+      |       ~~~~^~~~~~~~~~~~~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h: In member function ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:233:22: note: ‘value’ was declared here
+  233 |       UnderlyingType value;
+      |                      ^~~~~
+[ 74%] Built target chimaera_MOD_NAME_runtime
+In file included from /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/hermes_shm.h:131,
+                 from /home/hyoklee/core.iowarp/context-runtime/src/../include/chimaera/types.h:45,
+                 from /home/hyoklee/core.iowarp/context-runtime/src/../include/chimaera/pool_query.h:37,
+                 from /home/hyoklee/core.iowarp/context-runtime/src/../include/chimaera/chimaera.h:44,
+                 from /home/hyoklee/core.iowarp/context-transfer-engine/core/include/wrp_cte/core/core_client.h:37,
+                 from /home/hyoklee/core.iowarp/context-transfer-engine/core/src/tag.cc:34:
+In member function ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::base(T&) [with T = chi::MsgType; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’,
+    inlined from ‘hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)> [with auto:23 = hshm::MakeConstexpr<long unsigned int, 1>; auto:24 = chi::MsgType]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:219:37,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 1; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:259:10,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 0; TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:260:33,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::Apply(TupleT&&, F&&) [with TupleT = hshm::ArgPack<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>; F = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >::operator()<std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&>(std::vector<chi::TaskInfo>&, chi::MsgType&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:246:25,
+    inlined from ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::operator()(Args&& ...) [with Args = {std::vector<chi::TaskInfo, std::allocator<chi::TaskInfo> >&, chi::MsgType&}; DataT = hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > >]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:217:39,
+    inlined from ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’ at /home/hyoklee/core.iowarp/context-runtime/src/../include/chimaera/task_archives.h:551:7:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:235:11: warning: ‘value’ may be used uninitialized [-Wmaybe-uninitialized]
+  235 |       obj = static_cast<T>(value);
+      |       ~~~~^~~~~~~~~~~~~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h: In member function ‘void chi::LoadTaskArchive::serialize(Ar&) [with Ar = hshm::ipc::LocalDeserialize<hshm::priv::vector<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> > > >]’:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:233:22: note: ‘value’ was declared here
+  233 |       UnderlyingType value;
+      |                      ^~~~~
+At global scope:
+cc1plus: note: unrecognized command-line option ‘-Wno-self-move’ may have been intended to silence earlier diagnostics
+At global scope:
+cc1plus: note: unrecognized command-line option ‘-Wno-self-move’ may have been intended to silence earlier diagnostics
+[ 75%] Linking CXX shared library ../../bin/libwrp_cte_core_client.so
+[ 75%] Built target wrp_cte_core_client
+[ 77%] Building CXX object context-transfer-engine/adapter/CMakeFiles/wrp_cte_cae_config.dir/cae_config.cc.o
+At global scope:
+cc1plus: note: unrecognized command-line option ‘-Wno-self-move’ may have been intended to silence earlier diagnostics
+[ 78%] Linking CXX shared library ../../../bin/libchimaera_admin_runtime.so
+[ 78%] Built target chimaera_admin_runtime
+[ 80%] Building CXX object context-runtime/modules/bdev/CMakeFiles/chimaera_bdev_runtime.dir/cmake_pch.hxx.gch
+[ 82%] Building CXX object context-runtime/modules/bdev/CMakeFiles/chimaera_bdev_runtime.dir/src/bdev_runtime.cc.o
+[ 82%] Building CXX object context-runtime/modules/bdev/CMakeFiles/chimaera_bdev_runtime.dir/src/autogen/bdev_lib_exec.cc.o
+[ 84%] Linking CXX shared library ../../bin/libwrp_cte_cae_config.so
+[ 84%] Built target wrp_cte_cae_config
+[ 85%] Building CXX object context-transfer-engine/adapter/filesystem/CMakeFiles/wrp_cte_fs_base.dir/filesystem.cc.o
+[ 87%] Linking CXX shared library ../../../bin/libchimaera_bdev_runtime.so
+[ 87%] Built target chimaera_bdev_runtime
+[ 88%] Building CXX object context-transfer-engine/core/CMakeFiles/wrp_cte_core_runtime.dir/cmake_pch.hxx.gch
+In file included from /home/hyoklee/core.iowarp/context-transfer-engine/adapter/adapter_constants.h:42,
+                 from /home/hyoklee/core.iowarp/context-transfer-engine/adapter/posix/posix_api.h:46,
+                 from /home/hyoklee/core.iowarp/context-transfer-engine/adapter/adapter_types.h:37,
+                 from /home/hyoklee/core.iowarp/context-transfer-engine/adapter/filesystem/filesystem_io_client.h:45,
+                 from /home/hyoklee/core.iowarp/context-transfer-engine/adapter/filesystem/filesystem_mdm.h:40,
+                 from /home/hyoklee/core.iowarp/context-transfer-engine/adapter/filesystem/filesystem.cc:34:
+/home/hyoklee/core.iowarp/context-transfer-engine/adapter/mapper/abstract_mapper.h: In static member function ‘static chi::priv::string wrp::cae::BlobPlacement::CreateBlobName(size_t)’:
+/home/hyoklee/core.iowarp/context-transfer-engine/adapter/mapper/abstract_mapper.h:60:39: error: no matching function for call to ‘hshm::priv::basic_string<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> >, 32>::basic_string(long unsigned int)’
+   60 |     chi::priv::string buf(sizeof(page));
+      |                                       ^
+In file included from /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/hermes_shm.h:127,
+                 from /home/hyoklee/core.iowarp/context-runtime/src/../include/chimaera/types.h:45,
+                 from /home/hyoklee/core.iowarp/context-runtime/src/../include/chimaera/pool_query.h:37,
+                 from /home/hyoklee/core.iowarp/context-runtime/src/../include/chimaera/chimaera.h:44,
+                 from /home/hyoklee/core.iowarp/context-transfer-engine/core/include/wrp_cte/core/core_client.h:37,
+                 from /home/hyoklee/core.iowarp/context-transfer-engine/adapter/filesystem/filesystem_io_client.h:43:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/priv/string.h:854:3: note: candidate: ‘template<class U> hshm::priv::basic_string<T, AllocT, SSOSize>::basic_string(AllocT*, const std::__cxx11::basic_string<T, U>&) [with T = char; AllocT = hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> >; long unsigned int SSOSize = 32]’
+  854 |   basic_string(AllocT* alloc, const std::basic_string<T, U>& str)
+      |   ^~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/priv/string.h:854:3: note:   template argument deduction/substitution failed:
+/home/hyoklee/core.iowarp/context-transfer-engine/adapter/mapper/abstract_mapper.h:60:39: note:   candidate expects 2 arguments, 1 provided
+   60 |     chi::priv::string buf(sizeof(page));
+      |                                       ^
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/priv/string.h:825:3: note: candidate: ‘hshm::priv::basic_string<T, AllocT, SSOSize>::basic_string(std::initializer_list<_Tp>, AllocT*) [with T = char; AllocT = hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> >; long unsigned int SSOSize = 32]’
+  825 |   basic_string(std::initializer_list<T> init, AllocT* alloc)
+      |   ^~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/priv/string.h:825:3: note:   candidate expects 2 arguments, 1 provided
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/priv/string.h:804:3: note: candidate: ‘hshm::priv::basic_string<T, AllocT, SSOSize>::basic_string(hshm::priv::basic_string<T, AllocT, SSOSize>&&) [with T = char; AllocT = hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> >; long unsigned int SSOSize = 32]’
+  804 |   basic_string(basic_string&& other) noexcept
+      |   ^~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/priv/string.h:804:31: note:   no known conversion for argument 1 from ‘long unsigned int’ to ‘hshm::priv::basic_string<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> >, 32>&&’
+  804 |   basic_string(basic_string&& other) noexcept
+      |                ~~~~~~~~~~~~~~~^~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/priv/string.h:780:3: note: candidate: ‘hshm::priv::basic_string<T, AllocT, SSOSize>::basic_string(const hshm::priv::basic_string<T, AllocT, SSOSize>&) [with T = char; AllocT = hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> >; long unsigned int SSOSize = 32]’
+  780 |   basic_string(const basic_string& other)
+      |   ^~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/priv/string.h:780:36: note:   no known conversion for argument 1 from ‘long unsigned int’ to ‘const hshm::priv::basic_string<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> >, 32>&’
+  780 |   basic_string(const basic_string& other)
+      |                ~~~~~~~~~~~~~~~~~~~~^~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/priv/string.h:749:3: note: candidate: ‘hshm::priv::basic_string<T, AllocT, SSOSize>::basic_string(const hshm::priv::basic_string<T, AllocT, SSOSize>&, size_type, size_type, AllocT*) [with T = char; AllocT = hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> >; long unsigned int SSOSize = 32; size_type = long unsigned int]’
+  749 |   basic_string(const basic_string& other, size_type pos, size_type count,
+      |   ^~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/priv/string.h:749:3: note:   candidate expects 4 arguments, 1 provided
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/priv/string.h:721:3: note: candidate: ‘hshm::priv::basic_string<T, AllocT, SSOSize>::basic_string(size_type, T, AllocT*) [with T = char; AllocT = hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> >; long unsigned int SSOSize = 32; size_type = long unsigned int]’
+  721 |   basic_string(size_type count, T c, AllocT* alloc)
+      |   ^~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/priv/string.h:721:3: note:   candidate expects 3 arguments, 1 provided
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/priv/string.h:710:3: note: candidate: ‘hshm::priv::basic_string<T, AllocT, SSOSize>::basic_string(const T*, AllocT*) [with T = char; AllocT = hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> >; long unsigned int SSOSize = 32]’
+  710 |   basic_string(const T* s, AllocT* alloc)
+      |   ^~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/priv/string.h:710:3: note:   candidate expects 2 arguments, 1 provided
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/priv/string.h:680:3: note: candidate: ‘hshm::priv::basic_string<T, AllocT, SSOSize>::basic_string(AllocT*, const T*) [with T = char; AllocT = hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> >; long unsigned int SSOSize = 32]’
+  680 |   basic_string(AllocT* alloc, const T* s)
+      |   ^~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/priv/string.h:680:3: note:   candidate expects 2 arguments, 1 provided
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/priv/string.h:657:12: note: candidate: ‘hshm::priv::basic_string<T, AllocT, SSOSize>::basic_string(AllocT*) [with T = char; AllocT = hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> >; long unsigned int SSOSize = 32]’ (near match)
+  657 |   explicit basic_string(AllocT* alloc)
+      |            ^~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/priv/string.h:657:12: note:   conversion of argument 1 would be ill-formed:
+/home/hyoklee/core.iowarp/context-transfer-engine/adapter/mapper/abstract_mapper.h:60:27: error: invalid conversion from ‘long unsigned int’ to ‘hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> >*’ [-fpermissive]
+   60 |     chi::priv::string buf(sizeof(page));
+      |                           ^~~~~~~~~~~~
+      |                           |
+      |                           long unsigned int
+/home/hyoklee/core.iowarp/context-transfer-engine/adapter/mapper/abstract_mapper.h: In member function ‘chi::priv::string wrp::cae::BlobPlacement::CreateBlobName() const’:
+/home/hyoklee/core.iowarp/context-transfer-engine/adapter/mapper/abstract_mapper.h:68:40: error: no matching function for call to ‘hshm::priv::basic_string<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> >, 32>::basic_string(long unsigned int)’
+   68 |     chi::priv::string buf(sizeof(page_));
+      |                                        ^
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/priv/string.h:854:3: note: candidate: ‘template<class U> hshm::priv::basic_string<T, AllocT, SSOSize>::basic_string(AllocT*, const std::__cxx11::basic_string<T, U>&) [with T = char; AllocT = hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> >; long unsigned int SSOSize = 32]’
+  854 |   basic_string(AllocT* alloc, const std::basic_string<T, U>& str)
+      |   ^~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/priv/string.h:854:3: note:   template argument deduction/substitution failed:
+/home/hyoklee/core.iowarp/context-transfer-engine/adapter/mapper/abstract_mapper.h:68:40: note:   candidate expects 2 arguments, 1 provided
+   68 |     chi::priv::string buf(sizeof(page_));
+      |                                        ^
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/priv/string.h:825:3: note: candidate: ‘hshm::priv::basic_string<T, AllocT, SSOSize>::basic_string(std::initializer_list<_Tp>, AllocT*) [with T = char; AllocT = hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> >; long unsigned int SSOSize = 32]’
+  825 |   basic_string(std::initializer_list<T> init, AllocT* alloc)
+      |   ^~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/priv/string.h:825:3: note:   candidate expects 2 arguments, 1 provided
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/priv/string.h:804:3: note: candidate: ‘hshm::priv::basic_string<T, AllocT, SSOSize>::basic_string(hshm::priv::basic_string<T, AllocT, SSOSize>&&) [with T = char; AllocT = hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> >; long unsigned int SSOSize = 32]’
+  804 |   basic_string(basic_string&& other) noexcept
+      |   ^~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/priv/string.h:804:31: note:   no known conversion for argument 1 from ‘long unsigned int’ to ‘hshm::priv::basic_string<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> >, 32>&&’
+  804 |   basic_string(basic_string&& other) noexcept
+      |                ~~~~~~~~~~~~~~~^~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/priv/string.h:780:3: note: candidate: ‘hshm::priv::basic_string<T, AllocT, SSOSize>::basic_string(const hshm::priv::basic_string<T, AllocT, SSOSize>&) [with T = char; AllocT = hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> >; long unsigned int SSOSize = 32]’
+  780 |   basic_string(const basic_string& other)
+      |   ^~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/priv/string.h:780:36: note:   no known conversion for argument 1 from ‘long unsigned int’ to ‘const hshm::priv::basic_string<char, hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> >, 32>&’
+  780 |   basic_string(const basic_string& other)
+      |                ~~~~~~~~~~~~~~~~~~~~^~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/priv/string.h:749:3: note: candidate: ‘hshm::priv::basic_string<T, AllocT, SSOSize>::basic_string(const hshm::priv::basic_string<T, AllocT, SSOSize>&, size_type, size_type, AllocT*) [with T = char; AllocT = hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> >; long unsigned int SSOSize = 32; size_type = long unsigned int]’
+  749 |   basic_string(const basic_string& other, size_type pos, size_type count,
+      |   ^~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/priv/string.h:749:3: note:   candidate expects 4 arguments, 1 provided
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/priv/string.h:721:3: note: candidate: ‘hshm::priv::basic_string<T, AllocT, SSOSize>::basic_string(size_type, T, AllocT*) [with T = char; AllocT = hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> >; long unsigned int SSOSize = 32; size_type = long unsigned int]’
+  721 |   basic_string(size_type count, T c, AllocT* alloc)
+      |   ^~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/priv/string.h:721:3: note:   candidate expects 3 arguments, 1 provided
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/priv/string.h:710:3: note: candidate: ‘hshm::priv::basic_string<T, AllocT, SSOSize>::basic_string(const T*, AllocT*) [with T = char; AllocT = hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> >; long unsigned int SSOSize = 32]’
+  710 |   basic_string(const T* s, AllocT* alloc)
+      |   ^~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/priv/string.h:710:3: note:   candidate expects 2 arguments, 1 provided
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/priv/string.h:680:3: note: candidate: ‘hshm::priv::basic_string<T, AllocT, SSOSize>::basic_string(AllocT*, const T*) [with T = char; AllocT = hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> >; long unsigned int SSOSize = 32]’
+  680 |   basic_string(AllocT* alloc, const T* s)
+      |   ^~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/priv/string.h:680:3: note:   candidate expects 2 arguments, 1 provided
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/priv/string.h:657:12: note: candidate: ‘hshm::priv::basic_string<T, AllocT, SSOSize>::basic_string(AllocT*) [with T = char; AllocT = hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> >; long unsigned int SSOSize = 32]’ (near match)
+  657 |   explicit basic_string(AllocT* alloc)
+      |            ^~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/priv/string.h:657:12: note:   conversion of argument 1 would be ill-formed:
+/home/hyoklee/core.iowarp/context-transfer-engine/adapter/mapper/abstract_mapper.h:68:27: error: invalid conversion from ‘long unsigned int’ to ‘hshm::ipc::BaseAllocator<hshm::ipc::_MallocAllocator<false> >*’ [-fpermissive]
+   68 |     chi::priv::string buf(sizeof(page_));
+      |                           ^~~~~~~~~~~~~
+      |                           |
+      |                           long unsigned int
+[ 94%] Building CXX object context-transfer-engine/core/CMakeFiles/wrp_cte_core_runtime.dir/src/core_config.cc.o
+[ 94%] Building CXX object context-transfer-engine/core/CMakeFiles/wrp_cte_core_runtime.dir/src/core_dpe.cc.o
+[ 94%] Building CXX object context-transfer-engine/core/CMakeFiles/wrp_cte_core_runtime.dir/src/autogen/core_lib_exec.cc.o
+[ 94%] Building CXX object context-transfer-engine/core/CMakeFiles/wrp_cte_core_runtime.dir/src/core_runtime.cc.o
+At global scope:
+cc1plus: note: unrecognized command-line option ‘-Wno-self-move’ may have been intended to silence earlier diagnostics
+make[2]: *** [context-transfer-engine/adapter/filesystem/CMakeFiles/wrp_cte_fs_base.dir/build.make:79: context-transfer-engine/adapter/filesystem/CMakeFiles/wrp_cte_fs_base.dir/filesystem.cc.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:966: context-transfer-engine/adapter/filesystem/CMakeFiles/wrp_cte_fs_base.dir/all] Error 2
+make[1]: *** Waiting for unfinished jobs....
+In file included from /usr/include/c++/12/bits/shared_ptr_atomic.h:33,
+                 from /usr/include/c++/12/memory:77,
+                 from /home/hyoklee/core.iowarp/build-polaris/context-transfer-engine/core/CMakeFiles/wrp_cte_core_runtime.dir/cmake_pch.hxx:7,
+                 from <command-line>:
+In member function ‘void std::__atomic_base<_IntTp>::store(__int_type, std::memory_order) [with _ITp = unsigned int]’,
+    inlined from ‘void hshm::ipc::std_atomic<T>::load(Ar&) [with Ar = hshm::ipc::LocalDeserialize<std::vector<char> >; T = unsigned int]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/atomic.h:625:12:
+/usr/include/c++/12/bits/atomic_base.h:464:25: warning: ‘val’ may be used uninitialized [-Wmaybe-uninitialized]
+  464 |         __atomic_store_n(&_M_i, __i, int(__m));
+      |         ~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+In file included from /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/hermes_shm.h:46,
+                 from /home/hyoklee/core.iowarp/context-runtime/src/../include/chimaera/types.h:45,
+                 from /home/hyoklee/core.iowarp/context-runtime/src/../include/chimaera/pool_query.h:37,
+                 from /home/hyoklee/core.iowarp/context-runtime/src/../include/chimaera/chimaera.h:44,
+                 from /home/hyoklee/core.iowarp/context-transfer-engine/core/include/wrp_cte/core/core_runtime.h:38,
+                 from /home/hyoklee/core.iowarp/context-transfer-engine/core/src/autogen/core_lib_exec.cc:10:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/atomic.h: In member function ‘void hshm::ipc::std_atomic<T>::load(Ar&) [with Ar = hshm::ipc::LocalDeserialize<std::vector<char> >; T = unsigned int]’:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/atomic.h:623:7: note: ‘val’ was declared here
+  623 |     T val;
+      |       ^~~
+In file included from /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/hermes_shm.h:131:
+In member function ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::base(T&) [with T = wrp_cte::core::CteOp; DataT = std::vector<char>]’,
+    inlined from ‘hshm::ipc::LocalDeserialize<std::vector<char> >::operator()<wrp_cte::core::CteOp&, long unsigned int&, long unsigned int&, chi::UniqueId&, long int&, long int&, long unsigned int&>(wrp_cte::core::CteOp&, long unsigned int&, long unsigned int&, chi::UniqueId&, long int&, long int&, long unsigned int&)::<lambda(auto:23, auto:24&)> [with auto:23 = hshm::MakeConstexpr<long unsigned int, 0>; auto:24 = wrp_cte::core::CteOp]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:219:37,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::_Apply(TupleT&&, F&&) [with long unsigned int i = 0; TupleT = hshm::ArgPack<wrp_cte::core::CteOp&, long unsigned int&, long unsigned int&, chi::UniqueId&, long int&, long int&, long unsigned int&>; F = hshm::ipc::LocalDeserialize<std::vector<char> >::operator()<wrp_cte::core::CteOp&, long unsigned int&, long unsigned int&, chi::UniqueId&, long int&, long int&, long unsigned int&>(wrp_cte::core::CteOp&, long unsigned int&, long unsigned int&, chi::UniqueId&, long int&, long int&, long unsigned int&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:259:10,
+    inlined from ‘static constexpr void hshm::IterateArgpack<reverse>::Apply(TupleT&&, F&&) [with TupleT = hshm::ArgPack<wrp_cte::core::CteOp&, long unsigned int&, long unsigned int&, chi::UniqueId&, long int&, long int&, long unsigned int&>; F = hshm::ipc::LocalDeserialize<std::vector<char> >::operator()<wrp_cte::core::CteOp&, long unsigned int&, long unsigned int&, chi::UniqueId&, long int&, long int&, long unsigned int&>(wrp_cte::core::CteOp&, long unsigned int&, long unsigned int&, chi::UniqueId&, long int&, long int&, long unsigned int&)::<lambda(auto:23, auto:24&)>; bool reverse = false]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/types/argpack.h:246:25,
+    inlined from ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::operator()(Args&& ...) [with Args = {wrp_cte::core::CteOp&, long unsigned int&, long unsigned int&, chi::UniqueId&, long int&, long int&, long unsigned int&}; DataT = std::vector<char>]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:217:39,
+    inlined from ‘void wrp_cte::core::CteTelemetry::serialize(Archive&) [with Archive = hshm::ipc::LocalDeserialize<std::vector<char> >]’ at /home/hyoklee/core.iowarp/context-transfer-engine/core/include/wrp_cte/core/core_tasks.h:767:7,
+    inlined from ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::base(T&) [with T = wrp_cte::core::CteTelemetry; DataT = std::vector<char>]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:241:20,
+    inlined from ‘hshm::ipc::LocalDeserialize<DataT>& hshm::ipc::LocalDeserialize<DataT>::operator>>(T&) [with T = wrp_cte::core::CteTelemetry; DataT = std::vector<char>]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:205:16,
+    inlined from ‘void hshm::ipc::load_vec(Ar&, ContainerT&) [with Ar = LocalDeserialize<std::vector<char> >; ContainerT = hshm::priv::vector<wrp_cte::core::CteTelemetry, BaseAllocator<_MallocAllocator<false> > >; T = wrp_cte::core::CteTelemetry]’ at /home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/serialize_common.h:185:10:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:235:11: warning: ‘value’ may be used uninitialized [-Wmaybe-uninitialized]
+  235 |       obj = static_cast<T>(value);
+      |       ~~~~^~~~~~~~~~~~~~~~~~~~~~~
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h: In function ‘void hshm::ipc::load_vec(Ar&, ContainerT&) [with Ar = LocalDeserialize<std::vector<char> >; ContainerT = hshm::priv::vector<wrp_cte::core::CteTelemetry, BaseAllocator<_MallocAllocator<false> > >; T = wrp_cte::core::CteTelemetry]’:
+/home/hyoklee/core.iowarp/context-runtime/src/../../context-transport-primitives/include/hermes_shm/data_structures/serialization/local_serialize.h:233:22: note: ‘value’ was declared here
+  233 |       UnderlyingType value;
+      |                      ^~~~~
+At global scope:
+cc1plus: note: unrecognized command-line option ‘-Wno-self-move’ may have been intended to silence earlier diagnostics
+[ 95%] Linking CXX shared library ../../bin/libwrp_cte_core_runtime.so
+[ 95%] Built target wrp_cte_core_runtime
+make: *** [Makefile:136: all] Error 2
+  Build elapsed: 49 s
+ERROR: build failed (exit 2)

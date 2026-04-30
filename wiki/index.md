@@ -57,6 +57,10 @@
 
 - [MiV-Simulator 7-optimization on Aurora](source-MiV_Optimizer_test.md) — PBS jobs 8448630–8452563: dmosopt NSGA-II synaptic weight optimization; Runs 1–8 documented; cells firing confirmed in Run 8; Run 9 running
 
+## LLM / AI
+
+- [IPEX-LLM on Aurora](concept-ipex-llm-aurora.md) — conda env `ipex-llm`; torch 2.8.0 + IPEX 2.8.10 (Aurora wheelhouse) + ipex-llm 2.2.0; INT4 inference on Intel GPU XPU
+
 ## Performance Studies
 
 - [clio-core CTE buffering for MiV optimization](perf-clio-core.md) — PBS jobs 8452562/8452563: Lustre vs /dev/shm (CTE RAM tier) I/O benchmark; baseline setup=25.84 s; full VFD integration path documented

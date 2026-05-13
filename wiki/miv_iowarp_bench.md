@@ -141,27 +141,58 @@ See `perf-clio-core.md` for full Aurora analysis.
 
 ---
 
-### Benchmark A — I/O benchmark (`scatter_read_trees`): **Polaris pending**
+### Blockers resolved for bench5
 
-| Metric | Baseline (Lustre) | IOWarp cold | IOWarp warm | Speedup |
+Two root causes identified and fixed in `~/polaris/pbs/miv_iowarp_bench.pbs` for bench5:
+
+**Blocker 1 — Chimaera TCP bind failure (bench3 + bench4)**  
+Chimaera defaults `server_addr` to `127.0.0.1` when no hostfile is configured.  
+Port 9413 is occupied on `127.0.0.1` on Polaris compute nodes by another process.  
+*Fix*: Get actual node IP at job start (`hostname -I | awk '{print $1}'`), write a
+per-job hostfile (`/tmp/chi_hostfile_${PBS_JOBID}`), add `networking.hostfile` to
+the CTE YAML config, and export `CHI_SERVER_ADDR=$NODE_IP` before starting Chimaera.
+
+**Blocker 2 — n_active=0 / no input spikes (all Polaris runs)**  
+`miv_simulator.network` checks:
+```python
+set(env.spike_input_namespaces).intersection(
+    set(env.spike_input_attribute_info[pop_name].keys())
+)
+```
+The spike file has namespace `'Input Spikes A Diag'` but scripts passed
+`--spike_input_namespace='Input Spikes'`. Intersection is empty → `has_spike_train=False`
+→ STIM cells get no spike vector → PYR/PVBC/OLM never fire → n_active=0.  
+*Fix*: Changed to `--spike_input_namespace='Input Spikes A Diag'` in both bench and
+opt scripts.
+
+---
+
+### Benchmark A — I/O benchmark (`scatter_read_trees`): **baseline measured; IOWarp pending**
+
+From bench3 (PBS 7108868) and bench4 (PBS 7110606) — Chimaera failed in both runs:
+
+| File | Baseline (Lustre) | IOWarp cold | IOWarp warm | Speedup |
 |---|---|---|---|---|
-| OLM_forest.h5 | — | — | — | — |
-| PVBC_forest.h5 | — | — | — | — |
-| PYR_forest_compressed.h5 (~304 s est.) | — | — | — | — |
-| **Total** | **—** | **—** | **—** | **—** |
+| OLM_forest.h5 | **0.37 s** | — (Chimaera failed) | — | — |
+| PVBC_forest.h5 | **0.76 s** | — | — | — |
+| PYR_forest_compressed.h5 | **311 s** | — | — | — |
+| **Total** | **322 s** | **—** | **—** | **—** |
 
-### Benchmark B — Optimization wall time: **Polaris baseline measured**
+*Chimaera fix applied for bench5; IOWarp numbers pending.*
 
-From `miv_opt_7d_test.log` (PBS job, 1hr walltime, full circuit, tstop=1250ms, zero-spike issue present — VecStim fix not yet applied on Polaris):
+### Benchmark B — Optimization wall time: **baseline measured; IOWarp pending**
+
+From bench3 (PBS 7108868) and bench4 (PBS 7110606), `tstop=500ms`, 2 MPI ranks:
 
 | Metric | Baseline (Lustre) | IOWarp | Speedup |
 |---|---|---|---|
-| `connected cells` | **224 s** | — | — |
-| `ran simulation` (tstop=1250ms) | **1073 s** | — | — |
-| Per-evaluation total | **~21 min** | — | — |
-| **Completed evals (1hr job)** | **2 evals** | — | — |
+| `connected cells` (one-time setup) | **225 s** | — | — |
+| `ran simulation` per eval (tstop=500ms) | **~216 s** | — | — |
+| Per-evaluation total | **~441 s (~7.3 min)** | — | — |
+| Evals in 6h job | **22 evals** | — | — |
+| n_active (all populations) | **0** (namespace bug) | — | — |
 
-*Note: n_active=0 for all populations on Polaris (VecStim not registered — same root cause as Aurora Runs 6–7). Fix: apply the `make_cells` VecStim patch from Aurora Run 8 to the Polaris miv_simulator installation.*
+*VecStim namespace fix applied for bench5; actual spike results pending.*
 
 ---
 

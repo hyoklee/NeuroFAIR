@@ -1,6 +1,6 @@
 # MiV-Simulator + IOWarp CTE Performance Benchmark
 
-**Date**: 2026-04-27 (updated; Lustre /lus service restored and stable)  
+**Date**: 2026-04-27 (updated 2026-05-14 bench5 results)  
 **Platform**: Polaris (NVIDIA A100, Cray MPICH 9.0.1)  
 **IOWarp**: `~/core.iowarp` (Context Transfer Engine — Hermes RAM-tier buffering)  
 **PBS scripts**: `~/bin/miv_iowarp_build.pbs` → `~/bin/miv_iowarp_bench.pbs`  
@@ -167,34 +167,69 @@ opt scripts.
 
 ---
 
-### Benchmark A — I/O benchmark (`scatter_read_trees`): **baseline measured; IOWarp pending**
+### Benchmark A — I/O benchmark (`scatter_read_trees`)
 
-From bench3 (PBS 7108868) and bench4 (PBS 7110606) — Chimaera failed in both runs:
-
-| File | Baseline (Lustre) | IOWarp cold | IOWarp warm | Speedup |
+| File | Bench3 (7108868) | Bench4 (7110606) | Bench5 (7158592) | Notes |
 |---|---|---|---|---|
-| OLM_forest.h5 | **0.37 s** | — (Chimaera failed) | — | — |
-| PVBC_forest.h5 | **0.76 s** | — | — | — |
-| PYR_forest_compressed.h5 | **311 s** | — | — | — |
-| **Total** | **322 s** | **—** | **—** | **—** |
+| OLM_forest.h5 | 0.37 s | 0.37 s | **0.43 s** | |
+| PVBC_forest.h5 | 0.76 s | 0.76 s | **1.21 s** | |
+| PYR_forest_compressed.h5 | 311 s | 311 s | **456 s** | Lustre variance |
+| **Total baseline** | **314 s** | **322 s** | **464 s** | Lustre only |
+| IOWarp cold | — | — | — | Chimaera failed all runs |
+| IOWarp warm | — | — | — | |
 
-*Chimaera fix applied for bench5; IOWarp numbers pending.*
+*Chimaera ZMQ bind fails on Polaris compute nodes even with dynamic ports and
+node IP from PBS_NODEFILE. Root cause under investigation (see below).*
 
-### Benchmark B — Optimization wall time: **baseline measured; IOWarp pending**
+### Benchmark B — Optimization wall time
 
-From bench3 (PBS 7108868) and bench4 (PBS 7110606), `tstop=500ms`, 2 MPI ranks:
+| Metric | Bench3–4 (pre-fix) | **Bench5 (PBS 7158592)** |
+|---|---|---|
+| VecStim spike input | **broken** (n_active=0) | **WORKING** (Input Spikes A Diag) |
+| `connected cells` (weight setup/eval) | 225–227 s | **228 s** |
+| `ran simulation` per eval (tstop=500ms) | 216 s (no spikes) | **258 s** (real spikes) |
+| Per-evaluation total | ~441 s | **~486 s** |
+| Evals in 1h debug job | N/A | **2 evals** |
+| n_active PYR | 0/80 | **80/80** (12–13 Hz) |
+| n_active PVBC | 0/53 | **53/53** (14–23 Hz) |
+| n_active OLM | 0/44 | **44/44** (53–75 Hz) |
 
-| Metric | Baseline (Lustre) | IOWarp | Speedup |
-|---|---|---|---|
-| `connected cells` (one-time setup) | **225 s** | — | — |
-| `ran simulation` per eval (tstop=500ms) | **~216 s** | — | — |
-| Per-evaluation total | **~441 s (~7.3 min)** | — | — |
-| Evals in 6h job | **22 evals** | — | — |
-| n_active (all populations) | **0** (namespace bug) | — | — |
+*Per-eval sim time increased from 216s → 258s (+42s) because processing real
+spike events adds NEURON event queue overhead. Weight update cost unchanged.*
 
-*VecStim namespace fix applied for bench5; actual spike results pending.*
+### Chimaera status (all bench runs)
+
+Chimaera has failed to bind on every Polaris run (bench1–bench5). The ZMQ
+`tcp://IP:PORT` bind fails even when:
+- Dynamic port (10000–30000, below ephemeral range 32768–60999)
+- Node IP resolved from `PBS_NODEFILE` hostname
+- 5 retry attempts with different ports
+
+Bench5 error (each attempt):
+```
+ERROR: Could not start TCP server on any host from hostfile
+Port attempted: 28633 (also tried 22254, 29032, 28897, 20520)
+Hosts checked: 10.201.1.169
+```
+
+The ZMQ ROUTER socket cannot bind to `tcp://10.201.1.169:PORT` on Polaris
+compute nodes. Likely cause: the 10.201.x.x interface (management network) does
+not accept TCP server binds from within PBS compute jobs (network policy).
+Next step: try binding to the Slingshot HSN address or use IPC mode.
+
+IOWarp I/O and optimization sections are skipped until Chimaera is fixed.
 
 ---
+
+## Bench run summary
+
+| Job | Date | Queue | Node | I/O (s) | Chimaera | VecStim | Evals | n_active |
+|---|---|---|---|---|---|---|---|---|
+| 7106964 | 2026-04-30 | preemptable | — | — | Build OK | — | — | — |
+| 7107405 (bench2) | 2026-04-30 | preemptable | x3212c0s19b0n0 | — | Port conflict | broken | — | 0 |
+| 7108868 (bench3) | 2026-05-01 | preemptable | x3212c0s13b0n0 | 314 | Port conflict | broken | 22 | 0 |
+| 7110606 (bench4) | 2026-05-02 | preemptable | x3212c0s19b0n0 | 322 | Port conflict | broken | 22 | 0 |
+| 7158592 (bench5) | 2026-05-14 | debug | x3104c0s31b0n0 | 464 | ZMQ bind fails | **FIXED** | 2 | **80/53/44** |
 
 ## Environment
 
@@ -202,17 +237,19 @@ From bench3 (PBS 7108868) and bench4 (PBS 7110606), `tstop=500ms`, 2 MPI ranks:
 Python:    3.11.7 (cray-python venv)
 NEURON:    9.0.1
 mpi4py:    3.1.4 (custom, libmpi_nvidia.so)
-IOWarp:    ~/core.iowarp (Chimaera runtime + CTE/Hermes)
+IOWarp:    ~/core.iowarp → /lus/grand/projects/gpu_hack/hyoklee/core.iowarp
 Install:   /lus/grand/projects/gpu_hack/iowarp/iowarp-install/
-Config:    CASE_DIR/config/cte_config.yaml (64 GB RAM tier)
-POSIX:     LD_PRELOAD=libhermes_posix.so
+Config:    CASE_DIR/config/cte_config.yaml (64 GB RAM tier, dynamic port)
+POSIX:     LD_PRELOAD=libwrp_cte_posix.so (skipped when Chimaera fails)
 Data:      /lus/grand/projects/gpu_hack/iowarp/
+VecStim:   namespace: Input Spikes A Diag (fixed 2026-05-14)
 ```
 
 ---
 
 ## Related
 
+- [VecStim namespace fix (n_active=0 root cause)](miv_vecstim_namespace_fix.md)
 - [MiV-Simulator 7-optimization on Polaris](miv_opt_7_polaris.md)
 - [neuroh5 shared-memory crash fix](neuroh5_shm_crash_fix.md)
 - [Polaris build/test report](miv_polaris_build_test.md)

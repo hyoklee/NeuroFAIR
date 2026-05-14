@@ -132,7 +132,26 @@ STIM VecStim objects will fire at their recorded rates (~60 Hz average). This dr
 AMPA excitation in PYR and PVBC, producing n_active > 0 and meaningful objective
 function evaluations for the dmosopt optimizer.
 
-**Verification**: PBS 7158576 (debug queue, 1h walltime, 2026-05-14).
+**Verification**: PBS 7158592 (debug queue, 1h walltime, 2026-05-14) — **CONFIRMED**.
+
+### First eval results (PBS 7158592, eval 1)
+
+| Population | n_active | n_total | mean rate |
+|---|---|---|---|
+| PYR | **80** | 80 | 12.3 Hz |
+| PVBC | **53** | 53 | 14.1 Hz |
+| OLM | **44** | 44 | 75.3 Hz |
+
+All cells firing (100% active). Optimizer now has real spike data. Per-eval
+wall time: connected_cells 227.85 s + ran_simulation 258.34 s = **486 s/eval**.
+
+### Second eval (PBS 7158592, eval 2)
+
+| Population | n_active | mean rate |
+|---|---|---|
+| PYR | 80/80 | 13.3 Hz |
+| PVBC | 53/53 | 23.4 Hz |
+| OLM | 44/44 | 52.6 Hz |
 
 ---
 

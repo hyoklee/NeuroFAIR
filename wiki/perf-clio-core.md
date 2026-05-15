@@ -186,12 +186,15 @@ PBS scripts: `/home/hyoklee/wrp/run/miv_io_bench.pbs`, `/home/hyoklee/wrp/run/mi
 | Aurora (this study) | Intel GPU, Flare Lustre | /dev/shm proxy | 130 MB (small circuit) | 75 MB/s | 1178 MB/s | **15.7×** |
 | Polaris | NVIDIA A100, Grand Lustre | LD_PRELOAD (pending) | ~26 GB (full circuit) | ~100 MB/s (est.) | ~10 GB/s (est.) | **~35×** (est.) |
 
-Polaris `miv_iowarp_bench.pbs` failed at build (NVHPC `<filesystem>` issue); no Polaris numbers yet. See [MiV-Simulator + IOWarp CTE Benchmark](miv_iowarp_bench.md).
+Polaris IOWarp build succeeded (bench2–bench4, May 2026). Two blockers resolved for bench5:
+Chimaera port conflict (127.0.0.1 → actual node IP via `CHI_SERVER_ADDR`) and
+VecStim n_active=0 (`'Input Spikes'` → `'Input Spikes A Diag'` namespace). See [MiV-Simulator + IOWarp CTE Benchmark](miv_iowarp_bench.md).
 
 ## Next steps
 
-1. ~~Fill I/O benchmark table~~ — done (PBS 8452676)
-2. Fill optimizer comparison table once PBS 8452563 completes
-3. Build `libhdf5_hermes_vfd.so` on Aurora (requires `-DCTE_ENABLE_HDF5_VFD=ON` in cmake) to enable transparent interception without /dev/shm staging
-4. Fix Polaris IOWarp build (NVHPC GCC-13 toolchain fix) and rerun `miv_iowarp_bench.pbs`
-5. Apply Aurora VecStim fix to Polaris miv_simulator install before Polaris optimization benchmark
+1. ~~Fill I/O benchmark table~~ — done (PBS 8452676 Aurora; Polaris bench5 pending)
+2. ~~Fill optimizer comparison table~~ — Aurora done (PBS 8452563); Polaris bench5 pending
+3. ~~Fix Polaris IOWarp build (NVHPC GCC-13 toolchain fix)~~ — done (PBS 7106964)
+4. ~~Fix VecStim namespace~~ — done 2026-05-13: `'Input Spikes A Diag'` applied to bench + opt scripts
+5. Submit bench5 (`qsub ~/bin/miv_iowarp_bench.pbs`) to get Polaris IOWarp I/O speedup and optimization comparison with working spikes
+6. Build `libhdf5_hermes_vfd.so` on Aurora (requires `-DCTE_ENABLE_HDF5_VFD=ON` in cmake) for transparent HDF5 interception

@@ -183,19 +183,22 @@ node IP from PBS_NODEFILE. Root cause under investigation (see below).*
 
 ### Benchmark B — Optimization wall time
 
-| Metric | Bench3–4 (pre-fix) | **Bench5 (PBS 7158592)** |
-|---|---|---|
-| VecStim spike input | **broken** (n_active=0) | **WORKING** (Input Spikes A Diag) |
-| `connected cells` (weight setup/eval) | 225–227 s | **228 s** |
-| `ran simulation` per eval (tstop=500ms) | 216 s (no spikes) | **258 s** (real spikes) |
-| Per-evaluation total | ~441 s | **~486 s** |
-| Evals in 1h debug job | N/A | **2 evals** |
-| n_active PYR | 0/80 | **80/80** (12–13 Hz) |
-| n_active PVBC | 0/53 | **53/53** (14–23 Hz) |
-| n_active OLM | 0/44 | **44/44** (53–75 Hz) |
+| Metric | Bench3–4 (pre-fix) | Bench5 (7158592) | **Bench6 (7158725+7158787)** |
+|---|---|---|---|
+| VecStim spike input | broken (n_active=0) | FIXED | **FIXED** |
+| Queue / walltime | preemptable / 6h | debug / 1h | **preemptable / 6h** |
+| `connected cells` per eval | 225–227 s | 228 s | **222–224 s** |
+| `ran simulation` per eval | 216 s (no spikes) | 258 s | **~260 s** (real spikes) |
+| Per-evaluation total | ~441 s | ~486 s | **~486 s** |
+| Evals completed | 22 (n_active=0) | 2 | **27 (26 active + 1 silent)** |
+| n_active PYR | 0/80 | 80/80 | **80/80** (0–14.0 Hz range) |
+| n_active PVBC | 0/53 | 53/53 | **53/53** (0–56.8 Hz range) |
+| n_active OLM | 0/44 | 44/44 | **44/44** (0–84.9 Hz range) |
+| Eval 12 (silent) | — | — | **0 Hz all pops** — low-weight region found |
 
-*Per-eval sim time increased from 216s → 258s (+42s) because processing real
-spike events adds NEURON event queue overhead. Weight update cost unchanged.*
+Two preemptable jobs ran concurrently on separate nodes (both wrote to same log),
+effectively doubling throughput. The 1 silent eval (eval 12) shows the optimizer
+exploring a low-weight parameter region where inputs are sub-threshold.
 
 ### Chimaera status (all bench runs)
 
@@ -230,6 +233,8 @@ IOWarp I/O and optimization sections are skipped until Chimaera is fixed.
 | 7108868 (bench3) | 2026-05-01 | preemptable | x3212c0s13b0n0 | 314 | Port conflict | broken | 22 | 0 |
 | 7110606 (bench4) | 2026-05-02 | preemptable | x3212c0s19b0n0 | 322 | Port conflict | broken | 22 | 0 |
 | 7158592 (bench5) | 2026-05-14 | debug | x3104c0s31b0n0 | 464 | ZMQ bind fails | **FIXED** | 2 | **80/53/44** |
+| 7158725 (bench6) | 2026-05-15 | preemptable | x3212c0s19b0n0 | 318 | ZMQ bind fails | **FIXED** | 14 | **80/53/44** |
+| 7158787 (bench6b) | 2026-05-15 | preemptable | x3210c0s31b0n0 | 313 | ZMQ bind fails | **FIXED** | 13 | **80/53/44** |
 
 ## Environment
 

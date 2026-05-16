@@ -1,0 +1,55 @@
+==== MiV-Simulator GPU vs CPU Benchmark ====
+Date:    Fri May 15 08:04:23 PM UTC 2026
+Job:     7159410.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov
+Node:    x3006c0s13b0n0.hsn.cm.polaris.alcf.anl.gov
+Python:  Python 3.11.7
+
+=== [1] GPU check ===
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+
+=== [A] Standard NEURON (CPU) ===
+numprocs=2
+append_rank_attr_map: index not found in node rank map: Assertion 'it != node_rank_map.end()' failed in file '/home/hyoklee/neuroh5/src/data/append_rank_attr_map.cc' line 53
+append_rank_attr_map: index not found in node rank map: Assertion 'it != node_rank_map.end()' failed in file '/home/hyoklee/neuroh5/src/data/append_rank_attr_map.cc' line 53
+terminate called after throwing an instance of 'AssertionFailureException'
+  what():  append_rank_attr_map: index not found in node rank map: Assertion 'it != node_rank_map.end()' failed in file '/home/hyoklee/neuroh5/src/data/append_rank_attr_map.cc' line 53
+terminate called after throwing an instance of 'AssertionFailureException'
+  what():  append_rank_attr_map: index not found in node rank map: Assertion 'it != node_rank_map.end()' failed in file '/home/hyoklee/neuroh5/src/data/append_rank_attr_map.cc' line 53
+x3006c0s13b0n0.hsn.cm.polaris.alcf.anl.gov: rank 1 died from signal 6 and dumped core
+  CPU elapsed: 128 s  (exit: 134)
+
+=== [B] CoreNEURON (CPU) ===
+numprocs=2
+append_rank_attr_map: index not found in node rank map: Assertion 'it != node_rank_map.end()' failed in file '/home/hyoklee/neuroh5/src/data/append_rank_attr_map.cc' line 53
+append_rank_attr_map: index not found in node rank map: Assertion 'it != node_rank_map.end()' failed in file '/home/hyoklee/neuroh5/src/data/append_rank_attr_map.cc' line 53
+terminate called after throwing an instance of 'AssertionFailureException'
+  what():  append_rank_attr_map: index not found in node rank map: Assertion 'it != node_rank_map.end()' failed in file '/home/hyoklee/neuroh5/src/data/append_rank_attr_map.cc' line 53
+terminate called after throwing an instance of 'AssertionFailureException'
+  what():  append_rank_attr_map: index not found in node rank map: Assertion 'it != node_rank_map.end()' failed in file '/home/hyoklee/neuroh5/src/data/append_rank_attr_map.cc' line 53
+x3006c0s13b0n0.hsn.cm.polaris.alcf.anl.gov: rank 0 died from signal 6 and dumped core
+  CoreNEURON CPU elapsed: 126 s  (exit: 134)
+
+=== [C] CoreNEURON (GPU — NVIDIA A100) ===
+numprocs=2
+append_rank_attr_map: index not found in node rank map: Assertion 'it != node_rank_map.end()' failed in file '/home/hyoklee/neuroh5/src/data/append_rank_attr_map.cc' line 53
+append_rank_attr_map: index not found in node rank map: Assertion 'it != node_rank_map.end()' failed in file '/home/hyoklee/neuroh5/src/data/append_rank_attr_map.cc' line 53
+terminate called after throwing an instance of 'AssertionFailureException'
+  what():  append_rank_attr_map: index not found in node rank map: Assertion 'it != node_rank_map.end()' failed in file '/home/hyoklee/neuroh5/src/data/append_rank_attr_map.cc' line 53
+terminate called after throwing an instance of 'AssertionFailureException'
+  what():  append_rank_attr_map: index not found in node rank map: Assertion 'it != node_rank_map.end()' failed in file '/home/hyoklee/neuroh5/src/data/append_rank_attr_map.cc' line 53
+x3006c0s13b0n0.hsn.cm.polaris.alcf.anl.gov: rank 1 died from signal 6 and dumped core
+  CoreNEURON GPU elapsed: 127 s  (exit: 134)
+
+=== Summary: GPU vs CPU (tstop=500ms, Microcircuit_Small, 2 ranks) ===
+
+  [A] NEURON CPU:        128 s  (exit 134)
+  [B] CoreNEURON CPU:    126 s  (exit 134)
+  [C] CoreNEURON GPU:    127 s  (exit 134)
+
+  GPU speedup vs CPU: 1.01x
+
+==== Done ====
+Date: Fri May 15 08:10:44 PM UTC 2026

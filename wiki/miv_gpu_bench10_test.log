@@ -1,0 +1,63 @@
+==== neuroh5 rebuild + GPU benchmark ====
+Date:   Wed May 20 02:58:05 AM UTC 2026
+Job:    7161496.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov
+Node:   x3001c0s1b1n0.hsn.cm.polaris.alcf.anl.gov
+
+=== [1] GPU check ===
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+
+=== [2] Rebuilding neuroh5 ===
+Using pip 26.0.1 from /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/pip (python 3.11)
+Processing ./.
+  Preparing metadata (pyproject.toml): started
+  Running command Preparing metadata (pyproject.toml)
+  running dist_info
+  creating /var/tmp/pbs.7161496.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/pip-modern-metadata-pa9l4bje/neuroh5.egg-info
+  writing /var/tmp/pbs.7161496.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/pip-modern-metadata-pa9l4bje/neuroh5.egg-info/PKG-INFO
+  writing dependency_links to /var/tmp/pbs.7161496.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/pip-modern-metadata-pa9l4bje/neuroh5.egg-info/dependency_links.txt
+  writing requirements to /var/tmp/pbs.7161496.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/pip-modern-metadata-pa9l4bje/neuroh5.egg-info/requires.txt
+  writing top-level names to /var/tmp/pbs.7161496.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/pip-modern-metadata-pa9l4bje/neuroh5.egg-info/top_level.txt
+  writing manifest file '/var/tmp/pbs.7161496.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/pip-modern-metadata-pa9l4bje/neuroh5.egg-info/SOURCES.txt'
+  writing manifest file '/var/tmp/pbs.7161496.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/pip-modern-metadata-pa9l4bje/neuroh5.egg-info/SOURCES.txt'
+  creating '/var/tmp/pbs.7161496.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/pip-modern-metadata-pa9l4bje/neuroh5-0.1.18.dist-info'
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Requirement already satisfied: click in /opt/cray/pe/python/3.11.7/lib/python3.11/site-packages (from neuroh5==0.1.18) (8.1.7)
+Requirement already satisfied: h5py>=3.0 in /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages (from neuroh5==0.1.18) (3.16.0)
+Requirement already satisfied: numpy>=1.21.6 in /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages (from neuroh5==0.1.18) (2.4.4)
+Requirement already satisfied: mpi4py>=3.0.0 in /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages (from neuroh5==0.1.18) (3.1.4)
+Building wheels for collected packages: neuroh5
+  Building wheel for neuroh5 (pyproject.toml): started
+  Running command Building wheel for neuroh5 (pyproject.toml)
+  running bdist_wheel
+  running build
+  running build_py
+  running egg_info
+  writing python/neuroh5.egg-info/PKG-INFO
+  writing dependency_links to python/neuroh5.egg-info/dependency_links.txt
+  writing requirements to python/neuroh5.egg-info/requires.txt
+  writing top-level names to python/neuroh5.egg-info/top_level.txt
+  writing manifest file 'python/neuroh5.egg-info/SOURCES.txt'
+  running build_ext
+  error: [Errno 2] No such file or directory: 'cmake'
+  error: subprocess-exited-with-error
+  
+  × Building wheel for neuroh5 (pyproject.toml) did not run successfully.
+  │ exit code: 1
+  ╰─> No available output.
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+  full command: /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/bin/python3 /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py build_wheel /var/tmp/pbs.7161496.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/tmps3r2pu8j
+  cwd: /home/hyoklee/neuroh5
+  Building wheel for neuroh5 (pyproject.toml): finished with status 'error'
+  ERROR: Failed building wheel for neuroh5
+Failed to build neuroh5
+error: failed-wheel-build-for-install
+
+× Failed to build installable wheels for some pyproject.toml based projects
+╰─> neuroh5
+  neuroh5 rebuild exit: 1
+  neuroh5 loaded OK: /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuroh5/__init__.py
+ERROR: neuroh5 rebuild failed — cannot run benchmark with old binary

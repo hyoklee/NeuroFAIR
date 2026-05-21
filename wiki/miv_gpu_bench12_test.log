@@ -1,0 +1,875 @@
+==== neuroh5 rebuild + GPU benchmark ====
+Date:   Wed May 20 04:09:26 AM UTC 2026
+Job:    7161529.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov
+Node:   x3001c0s19b0n0.hsn.cm.polaris.alcf.anl.gov
+
+=== [1] GPU check ===
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+
+=== [2] Rebuilding neuroh5 ===
+Using pip 26.0.1 from /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/pip (python 3.11)
+Processing ./.
+  Preparing metadata (pyproject.toml): started
+  Running command Preparing metadata (pyproject.toml)
+  running dist_info
+  creating /var/tmp/pbs.7161529.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/pip-modern-metadata-2bua7sy0/neuroh5.egg-info
+  writing /var/tmp/pbs.7161529.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/pip-modern-metadata-2bua7sy0/neuroh5.egg-info/PKG-INFO
+  writing dependency_links to /var/tmp/pbs.7161529.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/pip-modern-metadata-2bua7sy0/neuroh5.egg-info/dependency_links.txt
+  writing requirements to /var/tmp/pbs.7161529.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/pip-modern-metadata-2bua7sy0/neuroh5.egg-info/requires.txt
+  writing top-level names to /var/tmp/pbs.7161529.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/pip-modern-metadata-2bua7sy0/neuroh5.egg-info/top_level.txt
+  writing manifest file '/var/tmp/pbs.7161529.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/pip-modern-metadata-2bua7sy0/neuroh5.egg-info/SOURCES.txt'
+  writing manifest file '/var/tmp/pbs.7161529.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/pip-modern-metadata-2bua7sy0/neuroh5.egg-info/SOURCES.txt'
+  creating '/var/tmp/pbs.7161529.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/pip-modern-metadata-2bua7sy0/neuroh5-0.1.18.dist-info'
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Requirement already satisfied: click in /opt/cray/pe/python/3.11.7/lib/python3.11/site-packages (from neuroh5==0.1.18) (8.1.7)
+Requirement already satisfied: h5py>=3.0 in /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages (from neuroh5==0.1.18) (3.16.0)
+Requirement already satisfied: numpy>=1.21.6 in /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages (from neuroh5==0.1.18) (2.4.4)
+Requirement already satisfied: mpi4py>=3.0.0 in /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages (from neuroh5==0.1.18) (3.1.4)
+Building wheels for collected packages: neuroh5
+  Building wheel for neuroh5 (pyproject.toml): started
+  Running command Building wheel for neuroh5 (pyproject.toml)
+  running bdist_wheel
+  running build
+  running build_py
+  creating build/lib.linux-x86_64-cpython-311/neuroh5
+  copying python/neuroh5/importdbs.py -> build/lib.linux-x86_64-cpython-311/neuroh5
+  copying python/neuroh5/types.py -> build/lib.linux-x86_64-cpython-311/neuroh5
+  copying python/neuroh5/h5py_io_utils.py -> build/lib.linux-x86_64-cpython-311/neuroh5
+  copying python/neuroh5/initrange.py -> build/lib.linux-x86_64-cpython-311/neuroh5
+  copying python/neuroh5/table.py -> build/lib.linux-x86_64-cpython-311/neuroh5
+  copying python/neuroh5/__init__.py -> build/lib.linux-x86_64-cpython-311/neuroh5
+  copying python/neuroh5/initprj.py -> build/lib.linux-x86_64-cpython-311/neuroh5
+  copying python/neuroh5/graphlib.py -> build/lib.linux-x86_64-cpython-311/neuroh5
+  copying python/neuroh5/range.py -> build/lib.linux-x86_64-cpython-311/neuroh5
+  running egg_info
+  writing python/neuroh5.egg-info/PKG-INFO
+  writing dependency_links to python/neuroh5.egg-info/dependency_links.txt
+  writing requirements to python/neuroh5.egg-info/requires.txt
+  writing top-level names to python/neuroh5.egg-info/top_level.txt
+  writing manifest file 'python/neuroh5.egg-info/SOURCES.txt'
+  copying python/neuroh5/CMakeLists.txt -> build/lib.linux-x86_64-cpython-311/neuroh5
+  copying python/neuroh5/iomodule.cc -> build/lib.linux-x86_64-cpython-311/neuroh5
+  copying python/neuroh5/shared_array.cc -> build/lib.linux-x86_64-cpython-311/neuroh5
+  copying python/neuroh5/shared_array.hh -> build/lib.linux-x86_64-cpython-311/neuroh5
+  running build_ext
+  -- The C compiler identification is GNU 7.5.0
+  -- The CXX compiler identification is GNU 7.5.0
+  -- Detecting C compiler ABI info
+  -- Detecting C compiler ABI info - done
+  -- Check for working C compiler: /usr/bin/gcc - skipped
+  -- Detecting C compile features
+  -- Detecting C compile features - done
+  -- Detecting CXX compiler ABI info
+  -- Detecting CXX compiler ABI info - done
+  -- Check for working CXX compiler: /usr/bin/g++ - skipped
+  -- Detecting CXX compile features
+  -- Detecting CXX compile features - done
+  -- HDF5 C compiler wrapper is unable to compile a minimal HDF5 program.
+  -- Found HDF5: /opt/cray/pe/hdf5-parallel/1.14.3.7/nvidia/23.3/lib/libhdf5.so (found version "1.14.3")
+  found HDF5 version 1.14.3
+  -- Found MPI_C: /opt/cray/pe/mpich/9.0.1/ofi/nvidia/23.3/lib/libmpi_nvidia.so (found version "4.0")
+  CMake Warning (dev) at /home/hyoklee/miniconda3/share/cmake-4.3/Modules/FindMPI.cmake:1646 (option):
+    Policy CMP0077 is not set: option() honors normal variables.  Run "cmake
+    --help-policy CMP0077" for policy details.  Use the cmake_policy command to
+    set the policy and suppress this warning.
+
+    For compatibility with older versions of CMake, option is clearing the
+    normal variable 'MPI_CXX_SKIP_MPICXX'.
+  Call Stack (most recent call first):
+    CMakeLists.txt:66 (find_package)
+  This warning is for project developers.  Use -Wno-dev to suppress it.
+
+  -- Found MPI_CXX: /opt/cray/pe/mpich/9.0.1/ofi/nvidia/23.3/lib/libmpi_nvidia.so (found version "4.0")
+  -- Found MPI: TRUE (found version "4.0")
+  found MPI version: 4.0
+  MPI libraries: /opt/cray/pe/mpich/9.0.1/ofi/nvidia/23.3/lib/libmpi_nvidia.so
+  -- Found Python: /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/bin/python3.11 (found suitable version "3.11.7", minimum required is "3") found components: Interpreter Development Development.Module Development.Embed
+  -- Python_EXECUTABLE="/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/bin/python3.11"
+  found NumPy include dir /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/numpy/_core/include
+  found mpi4py include dir /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/mpi4py/include
+  -- Could NOT find JeMalloc (missing: JEMALLOC_LIBRARIES JEMALLOC_INCLUDE_DIR)
+  -- ParMETIS library: PARMETIS_LIBRARY-NOTFOUND
+  -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+  -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+  -- Found Threads: TRUE
+  -- Found GTest: /home/hyoklee/miniconda3/lib/cmake/GTest/GTestConfig.cmake (found version "1.11.0")
+  -- Install prefix: /usr/local
+  -- Build type: RelWithDebInfo
+  -- Building tests: ON
+  -- Building documentation:
+  -- Building python bindings: ON
+  -- Configuring done (7.5s)
+  -- Generating done (1.2s)
+  CMake Warning:
+    Manually-specified variables were not used by the project:
+
+      PYTHON_EXECUTABLE
+
+
+  -- Build files have been written to: /home/hyoklee/neuroh5/build/temp.linux-x86_64-cpython-311
+  [  5%] Building CXX object CMakeFiles/neuroh5.mpi.dir/src/mpi/mpe_seq.cc.o
+  [ 11%] Building CXX object CMakeFiles/neuroh5.mpi.dir/src/mpi/rank_range.cc.o
+  [ 11%] Building CXX object CMakeFiles/neuroh5.cell.dir/src/cell/cell_attributes.cc.o
+  [ 11%] Building CXX object CMakeFiles/neuroh5.io.dir/src/io/read_layer_swc.cc.o
+  [ 11%] Building CXX object CMakeFiles/neuroh5.mpi.dir/src/mpi/node_rank_map.cc.o
+  [ 23%] Building CXX object CMakeFiles/neuroh5.cell.dir/src/cell/cell_index.cc.o
+  [ 23%] Building CXX object CMakeFiles/neuroh5.io.dir/src/io/read_txt_projection.cc.o
+  [ 23%] Building CXX object CMakeFiles/neuroh5.cell.dir/src/cell/insert_tree_points.cc.o
+  [ 23%] Building CXX object CMakeFiles/neuroh5.data.dir/src/data/serialize_cell_attributes.cc.o
+  [ 23%] Building CXX object CMakeFiles/neuroh5.cell.dir/src/cell/append_tree.cc.o
+  [ 23%] Building CXX object CMakeFiles/neuroh5.io.dir/src/io/read_syn_projection.cc.o
+  [ 23%] Building CXX object CMakeFiles/neuroh5.cell.dir/src/cell/cell_populations.cc.o
+  [ 23%] Building CXX object CMakeFiles/neuroh5.graph.dir/src/graph/append_graph.cc.o
+  [ 23%] Building CXX object CMakeFiles/neuroh5.data.dir/src/data/append_edge_map.cc.o
+  [ 52%] Building CXX object CMakeFiles/neuroh5.data.dir/src/data/append_edge_map_selection.cc.o
+  [ 52%] Building CXX object CMakeFiles/neuroh5.hdf5.dir/src/hdf5/attr_kind_datatype.cc.o
+  [ 52%] Building CXX object CMakeFiles/neuroh5.data.dir/src/data/append_rank_edge_map.cc.o
+  [ 52%] Building CXX object CMakeFiles/neuroh5.hdf5.dir/src/hdf5/dataset_type.cc.o
+  [ 52%] Building CXX object CMakeFiles/neuroh5.graph.dir/src/graph/balance_graph_indegree.cc.o
+  [ 52%] Building CXX object CMakeFiles/neuroh5.cell.dir/src/cell/validate_tree.cc.o
+  [ 52%] Building CXX object CMakeFiles/neuroh5.data.dir/src/data/attr_val.cc.o
+  [ 52%] Building CXX object CMakeFiles/neuroh5.hdf5.dir/src/hdf5/create_file_toplevel.cc.o
+  [ 52%] Building CXX object CMakeFiles/neuroh5.graph.dir/src/graph/edge_attributes.cc.o
+  [ 52%] Building CXX object CMakeFiles/neuroh5.hdf5.dir/src/hdf5/exists_dataset.cc.o
+  [ 52%] Building CXX object CMakeFiles/neuroh5.hdf5.dir/src/hdf5/num_projection_blocks.cc.o
+  [ 52%] Building CXX object CMakeFiles/neuroh5.graph.dir/src/graph/node_attributes.cc.o
+  [ 52%] Building CXX object CMakeFiles/neuroh5.data.dir/src/data/append_rank_attr_map.cc.o
+  [ 52%] Building CXX object CMakeFiles/neuroh5.data.dir/src/data/append_rank_edge_map_selection.cc.o
+  [ 52%] Building CXX object CMakeFiles/neuroh5.hdf5.dir/src/hdf5/exists_h5types.cc.o
+  [ 52%] Building CXX object CMakeFiles/neuroh5.hdf5.dir/src/hdf5/group_contents.cc.o
+  [ 52%] Building CXX object CMakeFiles/neuroh5.data.dir/src/data/serialize_tree.cc.o
+  [ 52%] Building CXX object CMakeFiles/neuroh5.cell.dir/src/cell/scatter_read_tree.cc.o
+  [ 52%] Building CXX object CMakeFiles/neuroh5.graph.dir/src/graph/compute_vertex_metrics.cc.o
+  [ 52%] Building CXX object CMakeFiles/neuroh5.data.dir/src/data/append_rank_tree_map.cc.o
+  [ 84%] Building CXX object CMakeFiles/neuroh5.graph.dir/src/graph/merge_edge_map.cc.o
+  [ 84%] Building CXX object CMakeFiles/neuroh5.data.dir/src/data/range_sample.cc.o
+  [ 84%] Building CXX object CMakeFiles/neuroh5.graph.dir/src/graph/read_projection_selection.cc.o
+  [ 84%] Building CXX object CMakeFiles/neuroh5.data.dir/src/data/attr_map.cc.o
+  [ 84%] Building CXX object CMakeFiles/neuroh5.hdf5.dir/src/hdf5/create_group.cc.o
+  [ 84%] Building CXX object CMakeFiles/neuroh5.graph.dir/src/graph/read_graph_selection.cc.o
+  [ 84%] Building CXX object CMakeFiles/neuroh5.hdf5.dir/src/hdf5/exists_group.cc.o
+  [ 84%] Building CXX object CMakeFiles/neuroh5.graph.dir/src/graph/read_graph_info.cc.o
+  [ 84%] Building CXX object CMakeFiles/neuroh5.graph.dir/src/graph/scatter_read_projection.cc.o
+  [ 84%] Building CXX object CMakeFiles/neuroh5.hdf5.dir/src/hdf5/read_projection_datasets.cc.o
+  [ 84%] Building CXX object CMakeFiles/neuroh5.graph.dir/src/graph/scatter_read_graph.cc.o
+  [ 84%] Building CXX object CMakeFiles/neuroh5.data.dir/src/data/append_tree_map.cc.o
+  [ 84%] Building CXX object CMakeFiles/neuroh5.graph.dir/src/graph/projection_names.cc.o
+  [ 84%] Building CXX object CMakeFiles/neuroh5.graph.dir/src/graph/read_graph.cc.o
+  [ 84%] Building CXX object CMakeFiles/neuroh5.hdf5.dir/src/hdf5/read_link_names.cc.o
+  [ 84%] Building CXX object CMakeFiles/neuroh5.graph.dir/src/graph/scatter_read_graph_selection.cc.o
+  [ 84%] Building CXX object CMakeFiles/neuroh5.graph.dir/src/graph/read_projection.cc.o
+  [ 84%] Building CXX object CMakeFiles/neuroh5.data.dir/src/data/tokenize.cc.o
+  [ 84%] Building CXX object CMakeFiles/neuroh5.hdf5.dir/src/hdf5/path_names.cc.o
+  [ 84%] Building CXX object CMakeFiles/neuroh5.hdf5.dir/src/hdf5/dataset_num_elements.cc.o
+  [ 84%] Building CXX object CMakeFiles/neuroh5.hdf5.dir/src/hdf5/read_projection_dataset_selection.cc.o
+  [ 84%] Building CXX object CMakeFiles/neuroh5.graph.dir/src/graph/bcast_graph.cc.o
+  [ 84%] Building CXX object CMakeFiles/neuroh5.graph.dir/src/graph/read_projection_info.cc.o
+  [ 84%] Building CXX object CMakeFiles/neuroh5.hdf5.dir/src/hdf5/copy_h5types.cc.o
+  [ 84%] Building CXX object CMakeFiles/neuroh5.hdf5.dir/src/hdf5/read_cell_index_ptr.cc.o
+  [ 88%] Building CXX object CMakeFiles/neuroh5.data.dir/src/data/serialize_edge.cc.o
+  [ 88%] Building CXX object CMakeFiles/neuroh5.graph.dir/src/graph/append_projection.cc.o
+  [ 88%] Building CXX object CMakeFiles/neuroh5.cell.dir/src/cell/contract_tree.cc.o
+  [ 88%] Building CXX object CMakeFiles/neuroh5.cell.dir/src/cell/read_tree.cc.o
+  [ 88%] Building CXX object CMakeFiles/neuroh5.hdf5.dir/src/hdf5/file_access.cc.o
+  [ 90%] Building CXX object CMakeFiles/neuroh5.graph.dir/src/graph/scatter_read_projection_selection.cc.o
+  [ 91%] Building CXX object CMakeFiles/neuroh5.graph.dir/src/graph/validate_edge_list.cc.o
+  /home/hyoklee/neuroh5/src/hdf5/num_projection_blocks.cc: In function ‘hsize_t neuroh5::hdf5::num_projection_blocks(MPI_Comm, const string&, const string&, const string&)’:
+  /home/hyoklee/neuroh5/src/hdf5/num_projection_blocks.cc:23:14: warning: unused variable ‘ierr’ [-Wunused-variable]
+         herr_t ierr = 0;
+                ^~~~
+  /home/hyoklee/neuroh5/src/hdf5/file_access.cc: In function ‘int neuroh5::hdf5::what_is_open(hid_t, int)’:
+  /home/hyoklee/neuroh5/src/hdf5/file_access.cc:86:14: warning: variable ‘status’ set but not used [-Wunused-but-set-variable]
+         herr_t status;
+                ^~~~~~
+  /home/hyoklee/neuroh5/src/data/range_sample.cc: In function ‘void neuroh5::data::range_sample(size_t, size_t, std::set<long unsigned int>&)’:
+  /home/hyoklee/neuroh5/src/data/range_sample.cc:28:14: warning: unused variable ‘val’ [-Wunused-variable]
+         size_t val;
+                ^~~
+  [ 93%] Building CXX object CMakeFiles/neuroh5.graph.dir/src/graph/validate_selection_edge_list.cc.o
+  [ 94%] Building CXX object CMakeFiles/neuroh5.graph.dir/src/graph/vertex_degree.cc.o
+  [ 95%] Building CXX object CMakeFiles/neuroh5.graph.dir/src/graph/write_graph.cc.o
+  [ 97%] Building CXX object CMakeFiles/neuroh5.graph.dir/src/graph/write_projection.cc.o
+  /home/hyoklee/neuroh5/src/hdf5/create_file_toplevel.cc: In function ‘int neuroh5::hdf5::create_file_toplevel(MPI_Comm, const string&, const std::vector<std::__cxx11::basic_string<char> >&)’:
+  /home/hyoklee/neuroh5/src/hdf5/create_file_toplevel.cc:77:14: warning: ‘status’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+         return status;
+                ^~~~~~
+  /home/hyoklee/neuroh5/src/graph/read_graph_info.cc: In function ‘int neuroh5::graph::read_graph_info(MPI_Comm, const string&, const std::vector<std::__cxx11::basic_string<char> >&, bool, std::vector<std::pair<std::__cxx11::basic_string<char>, std::__cxx11::basic_string<char> > >&, std::vector<std::map<std::__cxx11::basic_string<char>, std::vector<std::vector<std::__cxx11::basic_string<char> > > > >&, std::vector<std::vector<unsigned int> >&)’:
+  /home/hyoklee/neuroh5/src/graph/read_graph_info.cc:56:18: warning: unused variable ‘local_prj_num_nodes’ [-Wunused-variable]
+             size_t local_prj_num_nodes;
+                    ^~~~~~~~~~~~~~~~~~~
+  /home/hyoklee/neuroh5/src/graph/read_graph_info.cc:38:11: warning: unused variable ‘status’ [-Wunused-variable]
+         int status = 0;
+             ^~~~~~
+  /home/hyoklee/neuroh5/src/hdf5/read_projection_datasets.cc: In constructor ‘neuroh5::hdf5::RankAssignments::RankAssignments(int)’:
+  /home/hyoklee/neuroh5/src/hdf5/read_projection_datasets.cc:53:14: warning: ‘neuroh5::hdf5::RankAssignments::last_rank’ will be initialized after [-Wreorder]
+         rank_t last_rank;
+                ^~~~~~~~~
+  /home/hyoklee/neuroh5/src/hdf5/read_projection_datasets.cc:50:34: warning:   ‘std::vector<std::vector<unsigned int> > neuroh5::hdf5::RankAssignments::local_dst_indices’ [-Wreorder]
+         vector<vector<NODE_IDX_T>> local_dst_indices;
+                                    ^~~~~~~~~~~~~~~~~
+  /home/hyoklee/neuroh5/src/hdf5/read_projection_datasets.cc:56:7: warning:   when initialized here [-Wreorder]
+         RankAssignments(int size) :
+         ^~~~~~~~~~~~~~~
+  /home/hyoklee/neuroh5/src/mpi/node_rank_map.cc: In function ‘void neuroh5::mpi::compute_node_rank_map(MPI_Comm, std::set<long unsigned int>&, std::vector<unsigned int>&, size_t&, std::map<unsigned int, unsigned int>&)’:
+  /home/hyoklee/neuroh5/src/mpi/node_rank_map.cc:69:28: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+         for (size_t p = 0; p < size; p++)
+                            ~~^~~~~~
+  /home/hyoklee/neuroh5/src/hdf5/read_projection_dataset_selection.cc: In function ‘herr_t neuroh5::hdf5::read_projection_dataset_selection(MPI_Comm, const string&, const string&, const string&, const NODE_IDX_T&, const NODE_IDX_T&, const std::vector<unsigned int>&, neuroh5::DST_PTR_T&, std::vector<unsigned int>&, std::vector<long unsigned int>&, std::vector<std::pair<long unsigned int, long unsigned int> >&, std::vector<unsigned int>&, size_t&, bool)’:
+  /home/hyoklee/neuroh5/src/hdf5/read_projection_dataset_selection.cc:279:27: warning: unused variable ‘src_idx_start’ [-Wunused-variable]
+                     hsize_t src_idx_start=range.first;
+                             ^~~~~~~~~~~~~
+  /home/hyoklee/neuroh5/src/cell/cell_index.cc: In function ‘herr_t neuroh5::cell::create_cell_index(MPI_Comm, const string&, const string&, const string&, size_t)’:
+  /home/hyoklee/neuroh5/src/cell/cell_index.cc:46:38: warning: variable ‘size’ set but not used [-Wunused-but-set-variable]
+         int srank, ssize; size_t rank, size;
+                                        ^~~~
+  /home/hyoklee/neuroh5/src/cell/cell_index.cc: In function ‘herr_t neuroh5::cell::create_cell_index(MPI_Comm, hid_t, const string&, const string&, size_t)’:
+  /home/hyoklee/neuroh5/src/cell/cell_index.cc:128:32: warning: variable ‘rank’ set but not used [-Wunused-but-set-variable]
+         int srank, ssize; size_t rank, size;
+                                  ^~~~
+  /home/hyoklee/neuroh5/src/cell/cell_index.cc:128:38: warning: variable ‘size’ set but not used [-Wunused-but-set-variable]
+         int srank, ssize; size_t rank, size;
+                                        ^~~~
+  /home/hyoklee/neuroh5/src/cell/cell_index.cc: In function ‘herr_t neuroh5::cell::append_cell_index(MPI_Comm, const string&, const string&, const CELL_IDX_T&, const string&, const std::vector<unsigned int>&)’:
+  /home/hyoklee/neuroh5/src/cell/cell_index.cc:265:32: warning: variable ‘rank’ set but not used [-Wunused-but-set-variable]
+         int srank, ssize; size_t rank, size;
+                                  ^~~~
+  /home/hyoklee/neuroh5/src/cell/cell_index.cc:265:38: warning: variable ‘size’ set but not used [-Wunused-but-set-variable]
+         int srank, ssize; size_t rank, size;
+                                        ^~~~
+  /home/hyoklee/neuroh5/src/cell/cell_index.cc: In function ‘herr_t neuroh5::cell::link_cell_index(MPI_Comm, const string&, const string&, const string&, const string&)’:
+  /home/hyoklee/neuroh5/src/cell/cell_index.cc:376:32: warning: variable ‘rank’ set but not used [-Wunused-but-set-variable]
+         int srank, ssize; size_t rank, size;
+                                  ^~~~
+  /home/hyoklee/neuroh5/src/cell/cell_index.cc:376:38: warning: variable ‘size’ set but not used [-Wunused-but-set-variable]
+         int srank, ssize; size_t rank, size;
+                                        ^~~~
+  /home/hyoklee/neuroh5/src/graph/scatter_read_graph_selection.cc: In function ‘int neuroh5::graph::scatter_read_graph_selection(MPI_Comm, const string&, int, const std::vector<std::__cxx11::basic_string<char> >&, const std::vector<std::pair<std::__cxx11::basic_string<char>, std::__cxx11::basic_string<char> > >&, const std::vector<unsigned int>&, std::vector<std::map<unsigned int, std::tuple<std::vector<unsigned int, std::allocator<unsigned int> >, std::vector<neuroh5::data::AttrVal, std::allocator<neuroh5::data::AttrVal> > > > >&, std::vector<std::map<std::__cxx11::basic_string<char>, std::vector<std::vector<std::__cxx11::basic_string<char> > > > >&, size_t&, size_t&, size_t&)’:
+  /home/hyoklee/neuroh5/src/graph/scatter_read_graph_selection.cc:85:31: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+               for (size_t p=0; p<data_size; p++)
+                                ~^~~~~~~~~~
+  /home/hyoklee/neuroh5/src/graph/scatter_read_graph_selection.cc:100:31: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+               for (rank_t p=0; p<data_size; p++)
+                                ~^~~~~~~~~~
+  /home/hyoklee/neuroh5/src/graph/scatter_read_graph_selection.cc:102:45: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+                   for (size_t i = displs[p]; i<displs[p+1]; i++)
+  /home/hyoklee/neuroh5/src/graph/read_projection_info.cc: In function ‘herr_t neuroh5::graph::read_projection_info(MPI_Comm, const string&, const std::vector<std::__cxx11::basic_string<char> >&, bool, const pop_range_map_t&, const std::set<std::pair<short unsigned int, short unsigned int> >&, const string&, const string&, neuroh5::NODE_IDX_T, neuroh5::NODE_IDX_T, std::vector<std::pair<std::__cxx11::basic_string<char>, std::__cxx11::basic_string<char> > >&, std::vector<std::map<std::__cxx11::basic_string<char>, std::vector<std::vector<std::__cxx11::basic_string<char> > > > >&, std::vector<std::vector<unsigned int> >&)’:
+  /home/hyoklee/neuroh5/src/graph/read_projection_info.cc:204:14: warning: unused variable ‘local_prj_num_edges’ [-Wunused-variable]
+         size_t local_prj_num_edges=0;
+                ^~~~~~~~~~~~~~~~~~~
+  /home/hyoklee/neuroh5/src/graph/edge_attributes.cc: In function ‘herr_t neuroh5::graph::read_edge_attribute_selection(MPI_Comm, const string&, const string&, const string&, const string&, const string&, const DST_PTR_T&, const DST_PTR_T&, const std::vector<unsigned int>&, const std::vector<long unsigned int>&, const std::vector<std::pair<long unsigned int, long unsigned int> >&, neuroh5::AttrKind, neuroh5::data::NamedAttrVal&, bool)’:
+  /home/hyoklee/neuroh5/src/graph/edge_attributes.cc:597:19: warning: unused variable ‘start’ [-Wunused-variable]
+             hsize_t start = range.first;
+                     ^~~~~
+  /home/hyoklee/neuroh5/src/graph/edge_attributes.cc:598:19: warning: unused variable ‘count’ [-Wunused-variable]
+             hsize_t count = range.second;
+                     ^~~~~
+  /home/hyoklee/neuroh5/src/graph/edge_attributes.cc:576:15: warning: unused variable ‘block’ [-Wunused-variable]
+         hsize_t block = 0;
+                 ^~~~~
+  In file included from /home/hyoklee/neuroh5/src/hdf5/read_projection_dataset_selection.cc:20:0:
+  /home/hyoklee/neuroh5/include/hdf5/read_template.hh: In instantiation of ‘herr_t neuroh5::hdf5::read_selection(hid_t, const string&, hid_t, const std::vector<std::pair<long unsigned int, long unsigned int> >&, std::vector<T>&, hid_t) [with T = unsigned int; herr_t = int; hid_t = long int; std::__cxx11::string = std::__cxx11::basic_string<char>]’:
+  /home/hyoklee/neuroh5/src/hdf5/read_projection_dataset_selection.cc:331:16:   required from here
+  /home/hyoklee/neuroh5/include/hdf5/read_template.hh:93:19: warning: unused variable ‘start’ [-Wunused-variable]
+             hsize_t start = range.first;
+                     ^~~~~
+  In file included from /home/hyoklee/neuroh5/include/hdf5/hdf5_edge_attributes.hh:13:0,
+                   from /home/hyoklee/neuroh5/include/graph/edge_attributes.hh:8,
+                   from /home/hyoklee/neuroh5/src/graph/edge_attributes.cc:12:
+  /home/hyoklee/neuroh5/include/hdf5/read_template.hh: In instantiation of ‘herr_t neuroh5::hdf5::read_selection(hid_t, const string&, hid_t, const std::vector<std::pair<long unsigned int, long unsigned int> >&, std::vector<T>&, hid_t) [with T = unsigned int; herr_t = int; hid_t = long int; std::__cxx11::string = std::__cxx11::basic_string<char>]’:
+  /home/hyoklee/neuroh5/src/graph/edge_attributes.cc:616:81:   required from here
+  /home/hyoklee/neuroh5/include/hdf5/read_template.hh:93:19: warning: unused variable ‘start’ [-Wunused-variable]
+             hsize_t start = range.first;
+                     ^~~~~
+  /home/hyoklee/neuroh5/include/hdf5/read_template.hh: In instantiation of ‘herr_t neuroh5::hdf5::read_selection(hid_t, const string&, hid_t, const std::vector<std::pair<long unsigned int, long unsigned int> >&, std::vector<T>&, hid_t) [with T = short unsigned int; herr_t = int; hid_t = long int; std::__cxx11::string = std::__cxx11::basic_string<char>]’:
+  /home/hyoklee/neuroh5/src/graph/edge_attributes.cc:623:81:   required from here
+  /home/hyoklee/neuroh5/include/hdf5/read_template.hh:93:19: warning: unused variable ‘start’ [-Wunused-variable]
+  /home/hyoklee/neuroh5/include/hdf5/read_template.hh: In instantiation of ‘herr_t neuroh5::hdf5::read_selection(hid_t, const string&, hid_t, const std::vector<std::pair<long unsigned int, long unsigned int> >&, std::vector<T>&, hid_t) [with T = unsigned char; herr_t = int; hid_t = long int; std::__cxx11::string = std::__cxx11::basic_string<char>]’:
+  /home/hyoklee/neuroh5/src/graph/edge_attributes.cc:630:79:   required from here
+  /home/hyoklee/neuroh5/include/hdf5/read_template.hh:93:19: warning: unused variable ‘start’ [-Wunused-variable]
+  /home/hyoklee/neuroh5/include/hdf5/read_template.hh: In instantiation of ‘herr_t neuroh5::hdf5::read_selection(hid_t, const string&, hid_t, const std::vector<std::pair<long unsigned int, long unsigned int> >&, std::vector<T>&, hid_t) [with T = int; herr_t = int; hid_t = long int; std::__cxx11::string = std::__cxx11::basic_string<char>]’:
+  /home/hyoklee/neuroh5/src/graph/edge_attributes.cc:643:79:   required from here
+  /home/hyoklee/neuroh5/include/hdf5/read_template.hh:93:19: warning: unused variable ‘start’ [-Wunused-variable]
+  /home/hyoklee/neuroh5/include/hdf5/read_template.hh: In instantiation of ‘herr_t neuroh5::hdf5::read_selection(hid_t, const string&, hid_t, const std::vector<std::pair<long unsigned int, long unsigned int> >&, std::vector<T>&, hid_t) [with T = short int; herr_t = int; hid_t = long int; std::__cxx11::string = std::__cxx11::basic_string<char>]’:
+  /home/hyoklee/neuroh5/src/graph/edge_attributes.cc:650:79:   required from here
+  /home/hyoklee/neuroh5/include/hdf5/read_template.hh:93:19: warning: unused variable ‘start’ [-Wunused-variable]
+  /home/hyoklee/neuroh5/include/hdf5/read_template.hh: In instantiation of ‘herr_t neuroh5::hdf5::read_selection(hid_t, const string&, hid_t, const std::vector<std::pair<long unsigned int, long unsigned int> >&, std::vector<T>&, hid_t) [with T = signed char; herr_t = int; hid_t = long int; std::__cxx11::string = std::__cxx11::basic_string<char>]’:
+  /home/hyoklee/neuroh5/src/graph/edge_attributes.cc:657:77:   required from here
+  /home/hyoklee/neuroh5/include/hdf5/read_template.hh:93:19: warning: unused variable ‘start’ [-Wunused-variable]
+  /home/hyoklee/neuroh5/include/hdf5/read_template.hh: In instantiation of ‘herr_t neuroh5::hdf5::read_selection(hid_t, const string&, hid_t, const std::vector<std::pair<long unsigned int, long unsigned int> >&, std::vector<T>&, hid_t) [with T = float; herr_t = int; hid_t = long int; std::__cxx11::string = std::__cxx11::basic_string<char>]’:
+  /home/hyoklee/neuroh5/src/graph/edge_attributes.cc:669:75:   required from here
+  /home/hyoklee/neuroh5/include/hdf5/read_template.hh:93:19: warning: unused variable ‘start’ [-Wunused-variable]
+  /home/hyoklee/neuroh5/src/cell/scatter_read_tree.cc: In function ‘int neuroh5::cell::scatter_read_trees(MPI_Comm, const string&, int, const std::vector<std::__cxx11::basic_string<char> >&, const node_rank_map_t&, const string&, neuroh5::CELL_IDX_T, std::map<unsigned int, std::tuple<unsigned int, std::deque<short unsigned int, std::allocator<short unsigned int> >, std::deque<short unsigned int, std::allocator<short unsigned int> >, std::deque<short unsigned int, std::allocator<short unsigned int> >, std::deque<float, std::allocator<float> >, std::deque<float, std::allocator<float> >, std::deque<float, std::allocator<float> >, std::deque<float, std::allocator<float> >, std::deque<signed char, std::allocator<signed char> >, std::deque<int, std::allocator<int> >, std::deque<signed char, std::allocator<signed char> > > >&, std::map<std::__cxx11::basic_string<char>, neuroh5::data::NamedAttrMap>&, size_t, size_t)’:
+  /home/hyoklee/neuroh5/src/cell/scatter_read_tree.cc:75:48: warning: variable ‘io_rank’ set but not used [-Wunused-but-set-variable]
+         int srank, ssize; size_t rank=0, size=0, io_rank;
+                                                  ^~~~~~~
+  /home/hyoklee/neuroh5/src/graph/scatter_read_projection_selection.cc: In function ‘herr_t neuroh5::graph::scatter_read_projection_selection(MPI_Comm, int, const string&, const pop_search_range_map_t&, const std::set<std::pair<short unsigned int, short unsigned int> >&, const string&, const string&, const NODE_IDX_T&, const NODE_IDX_T&, const std::vector<std::__cxx11::basic_string<char> >&, const std::vector<unsigned int>&, const node_rank_map_t&, std::vector<std::map<unsigned int, std::tuple<std::vector<unsigned int, std::allocator<unsigned int> >, std::vector<neuroh5::data::AttrVal, std::allocator<neuroh5::data::AttrVal> > > > >&, std::vector<std::map<std::__cxx11::basic_string<char>, std::vector<std::vector<std::__cxx11::basic_string<char> > > > >&, size_t&, size_t&, size_t&, bool)’:
+  /home/hyoklee/neuroh5/src/graph/scatter_read_projection_selection.cc:111:23: warning: unused variable ‘local_read_blocks’ [-Wunused-variable]
+                 hsize_t local_read_blocks;
+                         ^~~~~~~~~~~~~~~~~
+  /home/hyoklee/neuroh5/src/graph/compute_vertex_metrics.cc: In function ‘void neuroh5::graph::append_vertex_degree_map(MPI_Comm, const node_rank_map_t&, const std::vector<std::pair<std::__cxx11::basic_string<char>, std::__cxx11::basic_string<char> > >&, size_t, const std::vector<std::map<unsigned int, long unsigned int> >&, const string&, const string&, const string&)’:
+  /home/hyoklee/neuroh5/src/graph/compute_vertex_metrics.cc:70:20: warning: variable ‘size’ set but not used [-Wunused-but-set-variable]
+         size_t rank, size;
+                      ^~~~
+  /home/hyoklee/neuroh5/src/graph/compute_vertex_metrics.cc: In function ‘int neuroh5::graph::compute_vertex_indegree(MPI_Comm, const string&, std::vector<std::pair<std::__cxx11::basic_string<char>, std::__cxx11::basic_string<char> > >, size_t)’:
+  /home/hyoklee/neuroh5/src/graph/compute_vertex_metrics.cc:144:14: warning: variable ‘rank’ set but not used [-Wunused-but-set-variable]
+         size_t rank, size;
+                ^~~~
+  /home/hyoklee/neuroh5/src/graph/compute_vertex_metrics.cc: In function ‘int neuroh5::graph::compute_vertex_outdegree(MPI_Comm, const string&, std::vector<std::pair<std::__cxx11::basic_string<char>, std::__cxx11::basic_string<char> > >, size_t)’:
+  /home/hyoklee/neuroh5/src/graph/compute_vertex_metrics.cc:213:14: warning: variable ‘rank’ set but not used [-Wunused-but-set-variable]
+         size_t rank, size;
+                ^~~~
+  /home/hyoklee/neuroh5/src/cell/cell_attributes.cc: In function ‘void neuroh5::cell::scatter_read_cell_attribute_selection(MPI_Comm, const string&, int, const string&, const std::set<std::__cxx11::basic_string<char> >&, const string&, const CELL_IDX_T&, const std::vector<unsigned int>&, neuroh5::data::NamedAttrMap&)’:
+  /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:1575:27: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+           for (size_t p=0; p<size; p++)
+                            ~^~~~~
+  /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:1590:27: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+           for (rank_t p=0; p<size; p++)
+                            ~^~~~~
+  /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:1592:41: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+               for (size_t i = displs[p]; i<displs[p+1]; i++)
+  /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:1615:24: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+         if (io_data_size > size)
+             ~~~~~~~~~~~~~^~~~~~
+  /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:1689:31: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+           if (io_root_data_rank == rank)
+               ~~~~~~~~~~~~~~~~~~^~~~~~~
+  /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:1696:31: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+           if (io_root_data_rank != rank)
+               ~~~~~~~~~~~~~~~~~~^~~~~~~
+  /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:1702:19: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+           if ((rank != io_root_data_rank) && (attr_names_sendbuf.size() > 0))
+                ~~~~~^~~~~~~~~~~~~~~~~~~~
+  /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:1549:14: warning: unused variable ‘status’ [-Wunused-variable]
+         herr_t status;
+                ^~~~~~
+  /home/hyoklee/neuroh5/src/cell/append_tree.cc: In function ‘int neuroh5::cell::append_trees(MPI_Comm, MPI_Comm, hid_t, const string&, const CELL_IDX_T&, std::forward_list<std::tuple<unsigned int, std::deque<short unsigned int, std::allocator<short unsigned int> >, std::deque<short unsigned int, std::allocator<short unsigned int> >, std::deque<short unsigned int, std::allocator<short unsigned int> >, std::deque<float, std::allocator<float> >, std::deque<float, std::allocator<float> >, std::deque<float, std::allocator<float> >, std::deque<float, std::allocator<float> >, std::deque<signed char, std::allocator<signed char> >, std::deque<int, std::allocator<int> >, std::deque<signed char, std::allocator<signed char> > > >&, const std::set<long unsigned int>&, neuroh5::CellPtr, size_t, size_t)’:
+  /home/hyoklee/neuroh5/src/cell/append_tree.cc:416:13: warning: unused variable ‘file’ [-Wunused-variable]
+         hid_t file;
+               ^~~~
+  In file included from /home/hyoklee/neuroh5/include/cell/cell_attributes.hh:19:0,
+                   from /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:15:
+  /home/hyoklee/neuroh5/include/hdf5/hdf5_cell_attributes.hh: In instantiation of ‘herr_t neuroh5::hdf5::read_cell_attribute_selection(MPI_Comm, const hid_t&, const string&, neuroh5::CELL_IDX_T, const std::vector<unsigned int>&, const std::vector<unsigned int>&, const std::vector<long unsigned int>&, std::vector<unsigned int>&, std::vector<long unsigned int>&, std::vector<T>&) [with T = unsigned int; herr_t = int; MPI_Comm = int; hid_t = long int; std::__cxx11::string = std::__cxx11::basic_string<char>; neuroh5::CELL_IDX_T = unsigned int]’:
+  /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:1441:84:   required from here
+  /home/hyoklee/neuroh5/include/hdf5/hdf5_cell_attributes.hh:233:13: warning: unused variable ‘value_start’ [-Wunused-variable]
+       hsize_t value_start=range.first;
+               ^~~~~~~~~~~
+  /home/hyoklee/neuroh5/include/hdf5/hdf5_cell_attributes.hh: In instantiation of ‘herr_t neuroh5::hdf5::read_cell_attribute_selection(MPI_Comm, const hid_t&, const string&, neuroh5::CELL_IDX_T, const std::vector<unsigned int>&, const std::vector<unsigned int>&, const std::vector<long unsigned int>&, std::vector<unsigned int>&, std::vector<long unsigned int>&, std::vector<T>&) [with T = short unsigned int; herr_t = int; MPI_Comm = int; hid_t = long int; std::__cxx11::string = std::__cxx11::basic_string<char>; neuroh5::CELL_IDX_T = unsigned int]’:
+  /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:1449:84:   required from here
+  /home/hyoklee/neuroh5/include/hdf5/hdf5_cell_attributes.hh:233:13: warning: unused variable ‘value_start’ [-Wunused-variable]
+  /home/hyoklee/neuroh5/include/hdf5/hdf5_cell_attributes.hh: In instantiation of ‘herr_t neuroh5::hdf5::read_cell_attribute_selection(MPI_Comm, const hid_t&, const string&, neuroh5::CELL_IDX_T, const std::vector<unsigned int>&, const std::vector<unsigned int>&, const std::vector<long unsigned int>&, std::vector<unsigned int>&, std::vector<long unsigned int>&, std::vector<T>&) [with T = unsigned char; herr_t = int; MPI_Comm = int; hid_t = long int; std::__cxx11::string = std::__cxx11::basic_string<char>; neuroh5::CELL_IDX_T = unsigned int]’:
+  /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:1457:83:   required from here
+  /home/hyoklee/neuroh5/include/hdf5/hdf5_cell_attributes.hh:233:13: warning: unused variable ‘value_start’ [-Wunused-variable]
+  /home/hyoklee/neuroh5/include/hdf5/hdf5_cell_attributes.hh: In instantiation of ‘herr_t neuroh5::hdf5::read_cell_attribute_selection(MPI_Comm, const hid_t&, const string&, neuroh5::CELL_IDX_T, const std::vector<unsigned int>&, const std::vector<unsigned int>&, const std::vector<long unsigned int>&, std::vector<unsigned int>&, std::vector<long unsigned int>&, std::vector<T>&) [with T = int; herr_t = int; MPI_Comm = int; hid_t = long int; std::__cxx11::string = std::__cxx11::basic_string<char>; neuroh5::CELL_IDX_T = unsigned int]’:
+  /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:1473:83:   required from here
+  /home/hyoklee/neuroh5/include/hdf5/hdf5_cell_attributes.hh:233:13: warning: unused variable ‘value_start’ [-Wunused-variable]
+  /home/hyoklee/neuroh5/include/hdf5/hdf5_cell_attributes.hh: In instantiation of ‘herr_t neuroh5::hdf5::read_cell_attribute_selection(MPI_Comm, const hid_t&, const string&, neuroh5::CELL_IDX_T, const std::vector<unsigned int>&, const std::vector<unsigned int>&, const std::vector<long unsigned int>&, std::vector<unsigned int>&, std::vector<long unsigned int>&, std::vector<T>&) [with T = short int; herr_t = int; MPI_Comm = int; hid_t = long int; std::__cxx11::string = std::__cxx11::basic_string<char>; neuroh5::CELL_IDX_T = unsigned int]’:
+  /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:1481:83:   required from here
+  /home/hyoklee/neuroh5/include/hdf5/hdf5_cell_attributes.hh:233:13: warning: unused variable ‘value_start’ [-Wunused-variable]
+  /home/hyoklee/neuroh5/include/hdf5/hdf5_cell_attributes.hh: In instantiation of ‘herr_t neuroh5::hdf5::read_cell_attribute_selection(MPI_Comm, const hid_t&, const string&, neuroh5::CELL_IDX_T, const std::vector<unsigned int>&, const std::vector<unsigned int>&, const std::vector<long unsigned int>&, std::vector<unsigned int>&, std::vector<long unsigned int>&, std::vector<T>&) [with T = signed char; herr_t = int; MPI_Comm = int; hid_t = long int; std::__cxx11::string = std::__cxx11::basic_string<char>; neuroh5::CELL_IDX_T = unsigned int]’:
+  /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:1489:82:   required from here
+  /home/hyoklee/neuroh5/include/hdf5/hdf5_cell_attributes.hh:233:13: warning: unused variable ‘value_start’ [-Wunused-variable]
+  /home/hyoklee/neuroh5/include/hdf5/hdf5_cell_attributes.hh: In instantiation of ‘herr_t neuroh5::hdf5::read_cell_attribute_selection(MPI_Comm, const hid_t&, const string&, neuroh5::CELL_IDX_T, const std::vector<unsigned int>&, const std::vector<unsigned int>&, const std::vector<long unsigned int>&, std::vector<unsigned int>&, std::vector<long unsigned int>&, std::vector<T>&) [with T = float; herr_t = int; MPI_Comm = int; hid_t = long int; std::__cxx11::string = std::__cxx11::basic_string<char>; neuroh5::CELL_IDX_T = unsigned int]’:
+  /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:1503:79:   required from here
+  /home/hyoklee/neuroh5/include/hdf5/hdf5_cell_attributes.hh:233:13: warning: unused variable ‘value_start’ [-Wunused-variable]
+  In file included from /home/hyoklee/neuroh5/include/data/attr_val.hh:16:0,
+                   from /home/hyoklee/neuroh5/include/neuroh5_types.hh:34,
+                   from /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:10:
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh: In instantiation of ‘void neuroh5::cell::append_cell_attribute_map(MPI_Comm, const hid_t&, const string&, const string&, const CELL_IDX_T&, const string&, const std::map<unsigned int, std::deque<_Tp> >&, neuroh5::data::optional_hid, const std::set<long unsigned int>&, neuroh5::CellIndex, neuroh5::CellPtr, size_t, size_t, size_t) [with T = float; MPI_Comm = int; hid_t = long int; std::__cxx11::string = std::__cxx11::basic_string<char>; neuroh5::CELL_IDX_T = unsigned int; neuroh5::data::optional_hid = compact_optional_ns::compact_optional<neuroh5::data::hid_empty_value>; size_t = long unsigned int]’:
+  /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:1849:91:   required from here
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh:422:38: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+             throw_assert(io_size_value == io_size, "io_size mismatch");
+  /home/hyoklee/neuroh5/include/throw_assert.hh:145:48: note: in definition of macro ‘throw_assert’
+   #define throw_assert(EXPRESSION, MESSAGE) if(!(EXPRESSION)) { throw AssertionFailureException(#EXPRESSION, __FILE__, __LINE__, (AssertionFailureException::StreamFormatter() << MESSAGE)); }
+                                                  ^~~~~~~~~~
+  In file included from /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:15:0:
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh:492:31: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+               for (size_t s=0; s<ssize; s++)
+                                ~^~~~~~
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh:520:30: warning: unused variable ‘gid’ [-Wunused-variable]
+               const CELL_IDX_T gid = element.first;
+                                ^~~
+  In file included from /home/hyoklee/neuroh5/include/data/attr_val.hh:16:0,
+                   from /home/hyoklee/neuroh5/include/neuroh5_types.hh:34,
+                   from /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:10:
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh: In instantiation of ‘void neuroh5::cell::append_cell_attribute_map(MPI_Comm, const hid_t&, const string&, const string&, const CELL_IDX_T&, const string&, const std::map<unsigned int, std::deque<_Tp> >&, neuroh5::data::optional_hid, const std::set<long unsigned int>&, neuroh5::CellIndex, neuroh5::CellPtr, size_t, size_t, size_t) [with T = unsigned int; MPI_Comm = int; hid_t = long int; std::__cxx11::string = std::__cxx11::basic_string<char>; neuroh5::CELL_IDX_T = unsigned int; neuroh5::data::optional_hid = compact_optional_ns::compact_optional<neuroh5::data::hid_empty_value>; size_t = long unsigned int]’:
+  /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:1857:94:   required from here
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh:422:38: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+             throw_assert(io_size_value == io_size, "io_size mismatch");
+  /home/hyoklee/neuroh5/include/throw_assert.hh:145:48: note: in definition of macro ‘throw_assert’
+   #define throw_assert(EXPRESSION, MESSAGE) if(!(EXPRESSION)) { throw AssertionFailureException(#EXPRESSION, __FILE__, __LINE__, (AssertionFailureException::StreamFormatter() << MESSAGE)); }
+                                                  ^~~~~~~~~~
+  In file included from /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:15:0:
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh:492:31: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+               for (size_t s=0; s<ssize; s++)
+                                ~^~~~~~
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh:520:30: warning: unused variable ‘gid’ [-Wunused-variable]
+               const CELL_IDX_T gid = element.first;
+                                ^~~
+  In file included from /home/hyoklee/neuroh5/include/data/attr_val.hh:16:0,
+                   from /home/hyoklee/neuroh5/include/neuroh5_types.hh:34,
+                   from /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:10:
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh: In instantiation of ‘void neuroh5::cell::append_cell_attribute_map(MPI_Comm, const hid_t&, const string&, const string&, const CELL_IDX_T&, const string&, const std::map<unsigned int, std::deque<_Tp> >&, neuroh5::data::optional_hid, const std::set<long unsigned int>&, neuroh5::CellIndex, neuroh5::CellPtr, size_t, size_t, size_t) [with T = short unsigned int; MPI_Comm = int; hid_t = long int; std::__cxx11::string = std::__cxx11::basic_string<char>; neuroh5::CELL_IDX_T = unsigned int; neuroh5::data::optional_hid = compact_optional_ns::compact_optional<neuroh5::data::hid_empty_value>; size_t = long unsigned int]’:
+  /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:1865:94:   required from here
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh:422:38: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+             throw_assert(io_size_value == io_size, "io_size mismatch");
+  /home/hyoklee/neuroh5/include/throw_assert.hh:145:48: note: in definition of macro ‘throw_assert’
+   #define throw_assert(EXPRESSION, MESSAGE) if(!(EXPRESSION)) { throw AssertionFailureException(#EXPRESSION, __FILE__, __LINE__, (AssertionFailureException::StreamFormatter() << MESSAGE)); }
+                                                  ^~~~~~~~~~
+  In file included from /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:15:0:
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh:492:31: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+               for (size_t s=0; s<ssize; s++)
+                                ~^~~~~~
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh:520:30: warning: unused variable ‘gid’ [-Wunused-variable]
+               const CELL_IDX_T gid = element.first;
+                                ^~~
+  In file included from /home/hyoklee/neuroh5/include/data/attr_val.hh:16:0,
+                   from /home/hyoklee/neuroh5/include/neuroh5_types.hh:34,
+                   from /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:10:
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh: In instantiation of ‘void neuroh5::cell::append_cell_attribute_map(MPI_Comm, const hid_t&, const string&, const string&, const CELL_IDX_T&, const string&, const std::map<unsigned int, std::deque<_Tp> >&, neuroh5::data::optional_hid, const std::set<long unsigned int>&, neuroh5::CellIndex, neuroh5::CellPtr, size_t, size_t, size_t) [with T = unsigned char; MPI_Comm = int; hid_t = long int; std::__cxx11::string = std::__cxx11::basic_string<char>; neuroh5::CELL_IDX_T = unsigned int; neuroh5::data::optional_hid = compact_optional_ns::compact_optional<neuroh5::data::hid_empty_value>; size_t = long unsigned int]’:
+  /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:1873:93:   required from here
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh:422:38: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+             throw_assert(io_size_value == io_size, "io_size mismatch");
+  /home/hyoklee/neuroh5/include/throw_assert.hh:145:48: note: in definition of macro ‘throw_assert’
+   #define throw_assert(EXPRESSION, MESSAGE) if(!(EXPRESSION)) { throw AssertionFailureException(#EXPRESSION, __FILE__, __LINE__, (AssertionFailureException::StreamFormatter() << MESSAGE)); }
+                                                  ^~~~~~~~~~
+  In file included from /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:15:0:
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh:492:31: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+               for (size_t s=0; s<ssize; s++)
+                                ~^~~~~~
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh:520:30: warning: unused variable ‘gid’ [-Wunused-variable]
+               const CELL_IDX_T gid = element.first;
+                                ^~~
+  In file included from /home/hyoklee/neuroh5/include/data/attr_val.hh:16:0,
+                   from /home/hyoklee/neuroh5/include/neuroh5_types.hh:34,
+                   from /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:10:
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh: In instantiation of ‘void neuroh5::cell::append_cell_attribute_map(MPI_Comm, const hid_t&, const string&, const string&, const CELL_IDX_T&, const string&, const std::map<unsigned int, std::deque<_Tp> >&, neuroh5::data::optional_hid, const std::set<long unsigned int>&, neuroh5::CellIndex, neuroh5::CellPtr, size_t, size_t, size_t) [with T = int; MPI_Comm = int; hid_t = long int; std::__cxx11::string = std::__cxx11::basic_string<char>; neuroh5::CELL_IDX_T = unsigned int; neuroh5::data::optional_hid = compact_optional_ns::compact_optional<neuroh5::data::hid_empty_value>; size_t = long unsigned int]’:
+  /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:1881:95:   required from here
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh:422:38: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+             throw_assert(io_size_value == io_size, "io_size mismatch");
+  /home/hyoklee/neuroh5/include/throw_assert.hh:145:48: note: in definition of macro ‘throw_assert’
+   #define throw_assert(EXPRESSION, MESSAGE) if(!(EXPRESSION)) { throw AssertionFailureException(#EXPRESSION, __FILE__, __LINE__, (AssertionFailureException::StreamFormatter() << MESSAGE)); }
+                                                  ^~~~~~~~~~
+  In file included from /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:15:0:
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh:492:31: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+               for (size_t s=0; s<ssize; s++)
+                                ~^~~~~~
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh:520:30: warning: unused variable ‘gid’ [-Wunused-variable]
+               const CELL_IDX_T gid = element.first;
+                                ^~~
+  In file included from /home/hyoklee/neuroh5/include/data/attr_val.hh:16:0,
+                   from /home/hyoklee/neuroh5/include/neuroh5_types.hh:34,
+                   from /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:10:
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh: In instantiation of ‘void neuroh5::cell::append_cell_attribute_map(MPI_Comm, const hid_t&, const string&, const string&, const CELL_IDX_T&, const string&, const std::map<unsigned int, std::deque<_Tp> >&, neuroh5::data::optional_hid, const std::set<long unsigned int>&, neuroh5::CellIndex, neuroh5::CellPtr, size_t, size_t, size_t) [with T = short int; MPI_Comm = int; hid_t = long int; std::__cxx11::string = std::__cxx11::basic_string<char>; neuroh5::CELL_IDX_T = unsigned int; neuroh5::data::optional_hid = compact_optional_ns::compact_optional<neuroh5::data::hid_empty_value>; size_t = long unsigned int]’:
+  /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:1889:95:   required from here
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh:422:38: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+             throw_assert(io_size_value == io_size, "io_size mismatch");
+  /home/hyoklee/neuroh5/include/throw_assert.hh:145:48: note: in definition of macro ‘throw_assert’
+   #define throw_assert(EXPRESSION, MESSAGE) if(!(EXPRESSION)) { throw AssertionFailureException(#EXPRESSION, __FILE__, __LINE__, (AssertionFailureException::StreamFormatter() << MESSAGE)); }
+                                                  ^~~~~~~~~~
+  In file included from /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:15:0:
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh:492:31: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+               for (size_t s=0; s<ssize; s++)
+                                ~^~~~~~
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh:520:30: warning: unused variable ‘gid’ [-Wunused-variable]
+               const CELL_IDX_T gid = element.first;
+                                ^~~
+  In file included from /home/hyoklee/neuroh5/include/data/attr_val.hh:16:0,
+                   from /home/hyoklee/neuroh5/include/neuroh5_types.hh:34,
+                   from /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:10:
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh: In instantiation of ‘void neuroh5::cell::append_cell_attribute_map(MPI_Comm, const hid_t&, const string&, const string&, const CELL_IDX_T&, const string&, const std::map<unsigned int, std::deque<_Tp> >&, neuroh5::data::optional_hid, const std::set<long unsigned int>&, neuroh5::CellIndex, neuroh5::CellPtr, size_t, size_t, size_t) [with T = signed char; MPI_Comm = int; hid_t = long int; std::__cxx11::string = std::__cxx11::basic_string<char>; neuroh5::CELL_IDX_T = unsigned int; neuroh5::data::optional_hid = compact_optional_ns::compact_optional<neuroh5::data::hid_empty_value>; size_t = long unsigned int]’:
+  /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:1897:94:   required from here
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh:422:38: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+             throw_assert(io_size_value == io_size, "io_size mismatch");
+  /home/hyoklee/neuroh5/include/throw_assert.hh:145:48: note: in definition of macro ‘throw_assert’
+   #define throw_assert(EXPRESSION, MESSAGE) if(!(EXPRESSION)) { throw AssertionFailureException(#EXPRESSION, __FILE__, __LINE__, (AssertionFailureException::StreamFormatter() << MESSAGE)); }
+                                                  ^~~~~~~~~~
+  In file included from /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:15:0:
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh:492:31: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+               for (size_t s=0; s<ssize; s++)
+                                ~^~~~~~
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh:520:30: warning: unused variable ‘gid’ [-Wunused-variable]
+               const CELL_IDX_T gid = element.first;
+                                ^~~
+  [ 97%] Built target neuroh5.mpi
+  In file included from /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:12:0:
+  /home/hyoklee/neuroh5/include/hdf5/read_template.hh: In instantiation of ‘herr_t neuroh5::hdf5::read_selection(hid_t, const string&, hid_t, const std::vector<std::pair<long unsigned int, long unsigned int> >&, std::vector<T>&, hid_t) [with T = unsigned int; herr_t = int; hid_t = long int; std::__cxx11::string = std::__cxx11::basic_string<char>]’:
+  /home/hyoklee/neuroh5/include/hdf5/hdf5_cell_attributes.hh:259:38:   required from ‘herr_t neuroh5::hdf5::read_cell_attribute_selection(MPI_Comm, const hid_t&, const string&, neuroh5::CELL_IDX_T, const std::vector<unsigned int>&, const std::vector<unsigned int>&, const std::vector<long unsigned int>&, std::vector<unsigned int>&, std::vector<long unsigned int>&, std::vector<T>&) [with T = unsigned int; herr_t = int; MPI_Comm = int; hid_t = long int; std::__cxx11::string = std::__cxx11::basic_string<char>; neuroh5::CELL_IDX_T = unsigned int]’
+  /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:1441:84:   required from here
+  /home/hyoklee/neuroh5/include/hdf5/read_template.hh:93:19: warning: unused variable ‘start’ [-Wunused-variable]
+             hsize_t start = range.first;
+                     ^~~~~
+  /home/hyoklee/neuroh5/include/hdf5/read_template.hh: In instantiation of ‘herr_t neuroh5::hdf5::read_selection(hid_t, const string&, hid_t, const std::vector<std::pair<long unsigned int, long unsigned int> >&, std::vector<T>&, hid_t) [with T = short unsigned int; herr_t = int; hid_t = long int; std::__cxx11::string = std::__cxx11::basic_string<char>]’:
+  /home/hyoklee/neuroh5/include/hdf5/hdf5_cell_attributes.hh:259:38:   required from ‘herr_t neuroh5::hdf5::read_cell_attribute_selection(MPI_Comm, const hid_t&, const string&, neuroh5::CELL_IDX_T, const std::vector<unsigned int>&, const std::vector<unsigned int>&, const std::vector<long unsigned int>&, std::vector<unsigned int>&, std::vector<long unsigned int>&, std::vector<T>&) [with T = short unsigned int; herr_t = int; MPI_Comm = int; hid_t = long int; std::__cxx11::string = std::__cxx11::basic_string<char>; neuroh5::CELL_IDX_T = unsigned int]’
+  /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:1449:84:   required from here
+  /home/hyoklee/neuroh5/include/hdf5/read_template.hh:93:19: warning: unused variable ‘start’ [-Wunused-variable]
+  /home/hyoklee/neuroh5/include/hdf5/read_template.hh: In instantiation of ‘herr_t neuroh5::hdf5::read_selection(hid_t, const string&, hid_t, const std::vector<std::pair<long unsigned int, long unsigned int> >&, std::vector<T>&, hid_t) [with T = unsigned char; herr_t = int; hid_t = long int; std::__cxx11::string = std::__cxx11::basic_string<char>]’:
+  /home/hyoklee/neuroh5/include/hdf5/hdf5_cell_attributes.hh:259:38:   required from ‘herr_t neuroh5::hdf5::read_cell_attribute_selection(MPI_Comm, const hid_t&, const string&, neuroh5::CELL_IDX_T, const std::vector<unsigned int>&, const std::vector<unsigned int>&, const std::vector<long unsigned int>&, std::vector<unsigned int>&, std::vector<long unsigned int>&, std::vector<T>&) [with T = unsigned char; herr_t = int; MPI_Comm = int; hid_t = long int; std::__cxx11::string = std::__cxx11::basic_string<char>; neuroh5::CELL_IDX_T = unsigned int]’
+  /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:1457:83:   required from here
+  /home/hyoklee/neuroh5/include/hdf5/read_template.hh:93:19: warning: unused variable ‘start’ [-Wunused-variable]
+  /home/hyoklee/neuroh5/include/hdf5/read_template.hh: In instantiation of ‘herr_t neuroh5::hdf5::read_selection(hid_t, const string&, hid_t, const std::vector<std::pair<long unsigned int, long unsigned int> >&, std::vector<T>&, hid_t) [with T = int; herr_t = int; hid_t = long int; std::__cxx11::string = std::__cxx11::basic_string<char>]’:
+  /home/hyoklee/neuroh5/include/hdf5/hdf5_cell_attributes.hh:259:38:   required from ‘herr_t neuroh5::hdf5::read_cell_attribute_selection(MPI_Comm, const hid_t&, const string&, neuroh5::CELL_IDX_T, const std::vector<unsigned int>&, const std::vector<unsigned int>&, const std::vector<long unsigned int>&, std::vector<unsigned int>&, std::vector<long unsigned int>&, std::vector<T>&) [with T = int; herr_t = int; MPI_Comm = int; hid_t = long int; std::__cxx11::string = std::__cxx11::basic_string<char>; neuroh5::CELL_IDX_T = unsigned int]’
+  /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:1473:83:   required from here
+  /home/hyoklee/neuroh5/include/hdf5/read_template.hh:93:19: warning: unused variable ‘start’ [-Wunused-variable]
+  /home/hyoklee/neuroh5/include/hdf5/read_template.hh: In instantiation of ‘herr_t neuroh5::hdf5::read_selection(hid_t, const string&, hid_t, const std::vector<std::pair<long unsigned int, long unsigned int> >&, std::vector<T>&, hid_t) [with T = short int; herr_t = int; hid_t = long int; std::__cxx11::string = std::__cxx11::basic_string<char>]’:
+  /home/hyoklee/neuroh5/include/hdf5/hdf5_cell_attributes.hh:259:38:   required from ‘herr_t neuroh5::hdf5::read_cell_attribute_selection(MPI_Comm, const hid_t&, const string&, neuroh5::CELL_IDX_T, const std::vector<unsigned int>&, const std::vector<unsigned int>&, const std::vector<long unsigned int>&, std::vector<unsigned int>&, std::vector<long unsigned int>&, std::vector<T>&) [with T = short int; herr_t = int; MPI_Comm = int; hid_t = long int; std::__cxx11::string = std::__cxx11::basic_string<char>; neuroh5::CELL_IDX_T = unsigned int]’
+  /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:1481:83:   required from here
+  /home/hyoklee/neuroh5/include/hdf5/read_template.hh:93:19: warning: unused variable ‘start’ [-Wunused-variable]
+  /home/hyoklee/neuroh5/include/hdf5/read_template.hh: In instantiation of ‘herr_t neuroh5::hdf5::read_selection(hid_t, const string&, hid_t, const std::vector<std::pair<long unsigned int, long unsigned int> >&, std::vector<T>&, hid_t) [with T = signed char; herr_t = int; hid_t = long int; std::__cxx11::string = std::__cxx11::basic_string<char>]’:
+  /home/hyoklee/neuroh5/include/hdf5/hdf5_cell_attributes.hh:259:38:   required from ‘herr_t neuroh5::hdf5::read_cell_attribute_selection(MPI_Comm, const hid_t&, const string&, neuroh5::CELL_IDX_T, const std::vector<unsigned int>&, const std::vector<unsigned int>&, const std::vector<long unsigned int>&, std::vector<unsigned int>&, std::vector<long unsigned int>&, std::vector<T>&) [with T = signed char; herr_t = int; MPI_Comm = int; hid_t = long int; std::__cxx11::string = std::__cxx11::basic_string<char>; neuroh5::CELL_IDX_T = unsigned int]’
+  /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:1489:82:   required from here
+  /home/hyoklee/neuroh5/include/hdf5/read_template.hh:93:19: warning: unused variable ‘start’ [-Wunused-variable]
+  /home/hyoklee/neuroh5/include/hdf5/read_template.hh: In instantiation of ‘herr_t neuroh5::hdf5::read_selection(hid_t, const string&, hid_t, const std::vector<std::pair<long unsigned int, long unsigned int> >&, std::vector<T>&, hid_t) [with T = float; herr_t = int; hid_t = long int; std::__cxx11::string = std::__cxx11::basic_string<char>]’:
+  /home/hyoklee/neuroh5/include/hdf5/hdf5_cell_attributes.hh:259:38:   required from ‘herr_t neuroh5::hdf5::read_cell_attribute_selection(MPI_Comm, const hid_t&, const string&, neuroh5::CELL_IDX_T, const std::vector<unsigned int>&, const std::vector<unsigned int>&, const std::vector<long unsigned int>&, std::vector<unsigned int>&, std::vector<long unsigned int>&, std::vector<T>&) [with T = float; herr_t = int; MPI_Comm = int; hid_t = long int; std::__cxx11::string = std::__cxx11::basic_string<char>; neuroh5::CELL_IDX_T = unsigned int]’
+  /home/hyoklee/neuroh5/src/cell/cell_attributes.cc:1503:79:   required from here
+  /home/hyoklee/neuroh5/include/hdf5/read_template.hh:93:19: warning: unused variable ‘start’ [-Wunused-variable]
+  [ 97%] Built target neuroh5.hdf5
+  /home/hyoklee/neuroh5/src/graph/append_graph.cc: In function ‘int neuroh5::graph::append_graph(MPI_Comm, int, const string&, const string&, const string&, const std::map<std::__cxx11::basic_string<char>, std::pair<long unsigned int, neuroh5::data::AttrIndex> >&, const edge_map_t&, hsize_t)’:
+  /home/hyoklee/neuroh5/src/graph/append_graph.cc:106:41: warning: ‘dst_pop_idx’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+         dst_start = pop_ranges[dst_pop_idx].start;
+                                           ^
+  /home/hyoklee/neuroh5/src/graph/append_graph.cc:108:41: warning: ‘src_pop_idx’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+         src_start = pop_ranges[src_pop_idx].start;
+                                           ^
+  /home/hyoklee/neuroh5/src/graph/write_graph.cc: In function ‘int neuroh5::graph::write_graph(MPI_Comm, int, const string&, const string&, const string&, const std::map<std::__cxx11::basic_string<char>, std::pair<long unsigned int, neuroh5::data::AttrIndex> >&, const edge_map_t&, hsize_t)’:
+  /home/hyoklee/neuroh5/src/graph/write_graph.cc:95:41: warning: ‘dst_pop_idx’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+         dst_start = pop_ranges[dst_pop_idx].start;
+                                           ^
+  /home/hyoklee/neuroh5/src/graph/write_graph.cc:97:41: warning: ‘src_pop_idx’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+         src_start = pop_ranges[src_pop_idx].start;
+                                           ^
+  [ 97%] Built target neuroh5.io
+  [ 97%] Built target neuroh5.data
+  [ 97%] Built target neuroh5.graph
+  [ 97%] Built target neuroh5.cell
+  [ 98%] Building CXX object python/neuroh5/CMakeFiles/python_neuroh5_io.dir/iomodule.cc.o
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc: In function ‘void build_node_rank_map(MPI_Comm, PyObject*, neuroh5::node_rank_map_t&)’:
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:203:42: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+           for (rank_t rank_idx=0; rank_idx < comm_size; rank_idx++)
+                                   ~~~~~~~~~^~~~~~~~~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:207:59: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+               vector<char>::const_iterator last = (rank_idx < comm_size-1) ? recvbuf.begin() + rdispls[rank_idx+1] : recvbuf.end();
+                                                    ~~~~~~~~~^~~~~~~~~~~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc: In function ‘PyObject* py_build_tree_value(neuroh5::CELL_IDX_T, const neurotree_t&, const std::map<std::__cxx11::basic_string<char>, neuroh5::data::NamedAttrMap>&, bool, bool)’:
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:1186:16: warning: variable ‘topology_dims’ set but not used [-Wunused-but-set-variable]
+         npy_intp topology_dims[1];
+                  ^~~~~~~~~~~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:1192:16: warning: variable ‘sections_dims’ set but not used [-Wunused-but-set-variable]
+         npy_intp sections_dims[1];
+                  ^~~~~~~~~~~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:1200:12: warning: variable ‘dims’ set but not used [-Wunused-but-set-variable]
+     npy_intp dims[1];
+              ^~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc: In function ‘PyObject* py_build_cell_attr_values_dict(neuroh5::CELL_IDX_T, const neuroh5::data::NamedAttrMap&, const std::vector<std::vector<std::__cxx11::basic_string<char> > >&)’:
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:1522:12: warning: variable ‘dims’ set but not used [-Wunused-but-set-variable]
+     npy_intp dims[1];
+              ^~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:1523:12: warning: unused variable ‘ind’ [-Wunused-variable]
+     npy_intp ind = 0;
+              ^~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc: In function ‘PyObject* py_build_cell_attr_values_tuple(neuroh5::CELL_IDX_T, const neuroh5::data::NamedAttrMap&, const std::vector<std::vector<std::__cxx11::basic_string<char> > >&)’:
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:1710:12: warning: variable ‘dims’ set but not used [-Wunused-but-set-variable]
+     npy_intp dims[1];
+              ^~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:1711:12: warning: unused variable ‘ind’ [-Wunused-variable]
+     npy_intp ind = 0;
+              ^~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc: In function ‘PyObject* py_build_cell_attr_values_struct(neuroh5::CELL_IDX_T, const neuroh5::data::NamedAttrMap&, const std::vector<std::vector<std::__cxx11::basic_string<char> > >&, PyTypeObject*)’:
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:1891:12: warning: variable ‘dims’ set but not used [-Wunused-but-set-variable]
+     npy_intp dims[1];
+              ^~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:1892:12: warning: unused variable ‘ind’ [-Wunused-variable]
+     npy_intp ind = 0;
+              ^~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc: In function ‘PyObject* py_build_edge_tuple_value(neuroh5::NODE_IDX_T, const edge_tuple_t&, const std::vector<std::__cxx11::basic_string<char> >&)’:
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:2329:12: warning: variable ‘dims’ set but not used [-Wunused-but-set-variable]
+     npy_intp dims[1], ind = 0;
+              ^~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:2329:21: warning: unused variable ‘ind’ [-Wunused-variable]
+     npy_intp dims[1], ind = 0;
+                       ^~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc: In function ‘PyObject* py_build_edge_array_dict_value(neuroh5::NODE_IDX_T, const edge_tuple_t&, const std::vector<std::__cxx11::basic_string<char> >&, const std::map<std::__cxx11::basic_string<char>, std::vector<std::vector<std::__cxx11::basic_string<char> > > >&)’:
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:2422:12: warning: variable ‘dims’ set but not used [-Wunused-but-set-variable]
+     npy_intp dims[1], ind = 0;
+              ^~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:2422:21: warning: unused variable ‘ind’ [-Wunused-variable]
+     npy_intp dims[1], ind = 0;
+                       ^~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc: In function ‘PyObject* py_read_cell_attribute_info(PyObject*, PyObject*, PyObject*)’:
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:3743:36: warning: variable ‘size’ set but not used [-Wunused-but-set-variable]
+       int srank, ssize; size_t rank, size;
+                                      ^~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc: In function ‘PyObject* py_read_graph_info(PyObject*, PyObject*, PyObject*)’:
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:4188:32: warning: unused variable ‘py_pop_names’ [-Wunused-variable]
+       PyObject *py_comm = NULL, *py_pop_names = NULL;
+                                  ^~~~~~~~~~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:4228:36: warning: variable ‘size’ set but not used [-Wunused-but-set-variable]
+       int srank, ssize; size_t rank, size;
+                                      ^~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc: In function ‘PyObject* py_read_tree_selection(PyObject*, PyObject*, PyObject*)’:
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:5062:12: warning: variable ‘pop_count’ set but not used [-Wunused-but-set-variable]
+       size_t pop_count = 0;
+              ^~~~~~~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc: In function ‘PyObject* py_scatter_read_tree_selection(PyObject*, PyObject*, PyObject*)’:
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:5246:12: warning: variable ‘pop_count’ set but not used [-Wunused-but-set-variable]
+       size_t pop_count = 0;
+              ^~~~~~~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc: In function ‘PyObject* py_scatter_read_cell_attributes(PyObject*, PyObject*, PyObject*)’:
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:5465:12: warning: variable ‘pop_count’ set but not used [-Wunused-but-set-variable]
+       size_t pop_count = 0;
+              ^~~~~~~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc: In function ‘PyObject* py_read_cell_attributes(PyObject*, PyObject*, PyObject*)’:
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:5675:12: warning: variable ‘pop_count’ set but not used [-Wunused-but-set-variable]
+       size_t pop_count = 0;
+              ^~~~~~~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc: In function ‘PyObject* py_read_cell_attribute_selection(PyObject*, PyObject*, PyObject*)’:
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:5883:42: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+           for (size_t i = 0; (Py_ssize_t)i < pop_count; i++)
+                              ~~~~~~~~~~~~~~^~~~~~~~~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc: In function ‘PyObject* py_scatter_read_cell_attribute_selection(PyObject*, PyObject*, PyObject*)’:
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:6101:42: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+           for (size_t i = 0; (Py_ssize_t)i < pop_count; i++)
+                              ~~~~~~~~~~~~~~^~~~~~~~~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc: In function ‘PyObject* py_bcast_cell_attributes(PyObject*, PyObject*, PyObject*)’:
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:6228:30: warning: variable ‘size’ set but not used [-Wunused-but-set-variable]
+       int srank, ssize; size_t size, rank;
+                                ^~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:6228:36: warning: variable ‘rank’ set but not used [-Wunused-but-set-variable]
+       int srank, ssize; size_t size, rank;
+                                      ^~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:6266:12: warning: variable ‘pop_count’ set but not used [-Wunused-but-set-variable]
+       size_t pop_count = 0;
+              ^~~~~~~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc: In function ‘PyObject* py_write_cell_attributes(PyObject*, PyObject*, PyObject*)’:
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:6433:16: warning: variable ‘pop_count’ set but not used [-Wunused-but-set-variable]
+           size_t pop_count = 0;
+                  ^~~~~~~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:6443:13: warning: unused variable ‘npy_type’ [-Wunused-variable]
+           int npy_type=0;
+               ^~~~~~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc: In function ‘PyObject* py_append_cell_attributes(PyObject*, PyObject*, PyObject*)’:
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:6654:16: warning: variable ‘pop_count’ set but not used [-Wunused-but-set-variable]
+           size_t pop_count = 0;
+                  ^~~~~~~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:6665:13: warning: unused variable ‘npy_type’ [-Wunused-variable]
+           int npy_type=0;
+               ^~~~~~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc: In function ‘PyObject* py_append_cell_trees(PyObject*, PyObject*, PyObject*)’:
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:6842:16: warning: variable ‘pop_count’ set but not used [-Wunused-but-set-variable]
+           size_t pop_count = 0;
+                  ^~~~~~~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc: In function ‘PyObject* neuroh5_tree_gen_new(PyTypeObject*, PyObject*, PyObject*)’:
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:7366:12: warning: variable ‘pop_count’ set but not used [-Wunused-but-set-variable]
+       size_t pop_count = 0;
+              ^~~~~~~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc: In function ‘PyObject* neuroh5_cell_attr_gen_new(PyTypeObject*, PyObject*, PyObject*)’:
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:7556:12: warning: variable ‘pop_count’ set but not used [-Wunused-but-set-variable]
+       size_t pop_count = 0;
+              ^~~~~~~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc: In function ‘PyObject* neuroh5_prj_gen_next(PyNeuroH5ProjectionGenState*)’:
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:8050:9: warning: unused variable ‘status’ [-Wunused-variable]
+       int status = 0;
+           ^~~~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc: At global scope:
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:8373:1: warning: converting to non-pointer type ‘long int’ from NULL [-Wconversion-null]
+   };
+   ^
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc: In instantiation of ‘void py_build_edge_attr_value(std::vector<std::vector<T> >&, NPY_TYPES, size_t, const std::vector<std::vector<std::__cxx11::basic_string<char> > >&, PyObject*) [with T = float; size_t = long unsigned int; PyObject = _object]’:
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:2287:74:   required from here
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:2237:20: warning: variable ‘dims’ set but not used [-Wunused-but-set-variable]
+             npy_intp dims[1]; npy_intp ind = 0;
+                      ^~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:2237:38: warning: unused variable ‘ind’ [-Wunused-variable]
+             npy_intp dims[1]; npy_intp ind = 0;
+                                        ^~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc: In instantiation of ‘void py_build_edge_attr_value(std::vector<std::vector<T> >&, NPY_TYPES, size_t, const std::vector<std::vector<std::__cxx11::basic_string<char> > >&, PyObject*) [with T = unsigned char; size_t = long unsigned int; PyObject = _object]’:
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:2289:74:   required from here
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:2237:20: warning: variable ‘dims’ set but not used [-Wunused-but-set-variable]
+             npy_intp dims[1]; npy_intp ind = 0;
+                      ^~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:2237:38: warning: unused variable ‘ind’ [-Wunused-variable]
+             npy_intp dims[1]; npy_intp ind = 0;
+                                        ^~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc: In instantiation of ‘void py_build_edge_attr_value(std::vector<std::vector<T> >&, NPY_TYPES, size_t, const std::vector<std::vector<std::__cxx11::basic_string<char> > >&, PyObject*) [with T = short unsigned int; size_t = long unsigned int; PyObject = _object]’:
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:2291:74:   required from here
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:2237:20: warning: variable ‘dims’ set but not used [-Wunused-but-set-variable]
+             npy_intp dims[1]; npy_intp ind = 0;
+                      ^~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:2237:38: warning: unused variable ‘ind’ [-Wunused-variable]
+             npy_intp dims[1]; npy_intp ind = 0;
+                                        ^~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc: In instantiation of ‘void py_build_edge_attr_value(std::vector<std::vector<T> >&, NPY_TYPES, size_t, const std::vector<std::vector<std::__cxx11::basic_string<char> > >&, PyObject*) [with T = unsigned int; size_t = long unsigned int; PyObject = _object]’:
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:2293:74:   required from here
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:2237:20: warning: variable ‘dims’ set but not used [-Wunused-but-set-variable]
+             npy_intp dims[1]; npy_intp ind = 0;
+                      ^~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:2237:38: warning: unused variable ‘ind’ [-Wunused-variable]
+             npy_intp dims[1]; npy_intp ind = 0;
+                                        ^~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc: In instantiation of ‘void py_build_edge_attr_value(std::vector<std::vector<T> >&, NPY_TYPES, size_t, const std::vector<std::vector<std::__cxx11::basic_string<char> > >&, PyObject*) [with T = signed char; size_t = long unsigned int; PyObject = _object]’:
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:2295:74:   required from here
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:2237:20: warning: variable ‘dims’ set but not used [-Wunused-but-set-variable]
+             npy_intp dims[1]; npy_intp ind = 0;
+                      ^~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:2237:38: warning: unused variable ‘ind’ [-Wunused-variable]
+             npy_intp dims[1]; npy_intp ind = 0;
+                                        ^~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc: In instantiation of ‘void py_build_edge_attr_value(std::vector<std::vector<T> >&, NPY_TYPES, size_t, const std::vector<std::vector<std::__cxx11::basic_string<char> > >&, PyObject*) [with T = short int; size_t = long unsigned int; PyObject = _object]’:
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:2297:74:   required from here
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:2237:20: warning: variable ‘dims’ set but not used [-Wunused-but-set-variable]
+             npy_intp dims[1]; npy_intp ind = 0;
+                      ^~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:2237:38: warning: unused variable ‘ind’ [-Wunused-variable]
+             npy_intp dims[1]; npy_intp ind = 0;
+                                        ^~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc: In instantiation of ‘void py_build_edge_attr_value(std::vector<std::vector<T> >&, NPY_TYPES, size_t, const std::vector<std::vector<std::__cxx11::basic_string<char> > >&, PyObject*) [with T = int; size_t = long unsigned int; PyObject = _object]’:
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:2299:74:   required from here
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:2237:20: warning: variable ‘dims’ set but not used [-Wunused-but-set-variable]
+             npy_intp dims[1]; npy_intp ind = 0;
+                      ^~~~
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:2237:38: warning: unused variable ‘ind’ [-Wunused-variable]
+             npy_intp dims[1]; npy_intp ind = 0;
+                                        ^~~
+  In file included from /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:44:0:
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh: In instantiation of ‘void neuroh5::cell::write_cell_attribute_map(MPI_Comm, const string&, const string&, const string&, const CELL_IDX_T&, const string&, const std::map<unsigned int, std::deque<_Tp> >&, size_t, neuroh5::data::optional_hid, neuroh5::CellIndex, neuroh5::CellPtr, size_t, size_t, size_t) [with T = float; MPI_Comm = int; std::__cxx11::string = std::__cxx11::basic_string<char>; neuroh5::CELL_IDX_T = unsigned int; size_t = long unsigned int; neuroh5::data::optional_hid = compact_optional_ns::compact_optional<neuroh5::data::hid_empty_value>]’:
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh:1026:34:   required from ‘void neuroh5::cell::write_cell_attribute_map(MPI_Comm, const string&, const string&, const string&, const CELL_IDX_T&, const string&, const std::map<unsigned int, std::deque<_Tp> >&, size_t, neuroh5::data::optional_hid, size_t, size_t, size_t) [with T = float; MPI_Comm = int; std::__cxx11::string = std::__cxx11::basic_string<char>; neuroh5::CELL_IDX_T = unsigned int; size_t = long unsigned int; neuroh5::data::optional_hid = compact_optional_ns::compact_optional<neuroh5::data::hid_empty_value>]’
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:6469:92:   required from here
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh:955:30: warning: unused variable ‘gid’ [-Wunused-variable]
+               const CELL_IDX_T gid = element.first;
+                                ^~~
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh: In instantiation of ‘void neuroh5::cell::write_cell_attribute_map(MPI_Comm, const string&, const string&, const string&, const CELL_IDX_T&, const string&, const std::map<unsigned int, std::deque<_Tp> >&, size_t, neuroh5::data::optional_hid, neuroh5::CellIndex, neuroh5::CellPtr, size_t, size_t, size_t) [with T = unsigned int; MPI_Comm = int; std::__cxx11::string = std::__cxx11::basic_string<char>; neuroh5::CELL_IDX_T = unsigned int; size_t = long unsigned int; neuroh5::data::optional_hid = compact_optional_ns::compact_optional<neuroh5::data::hid_empty_value>]’:
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh:1026:34:   required from ‘void neuroh5::cell::write_cell_attribute_map(MPI_Comm, const string&, const string&, const string&, const CELL_IDX_T&, const string&, const std::map<unsigned int, std::deque<_Tp> >&, size_t, neuroh5::data::optional_hid, size_t, size_t, size_t) [with T = unsigned int; MPI_Comm = int; std::__cxx11::string = std::__cxx11::basic_string<char>; neuroh5::CELL_IDX_T = unsigned int; size_t = long unsigned int; neuroh5::data::optional_hid = compact_optional_ns::compact_optional<neuroh5::data::hid_empty_value>]’
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:6476:95:   required from here
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh:955:30: warning: unused variable ‘gid’ [-Wunused-variable]
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh: In instantiation of ‘void neuroh5::cell::write_cell_attribute_map(MPI_Comm, const string&, const string&, const string&, const CELL_IDX_T&, const string&, const std::map<unsigned int, std::deque<_Tp> >&, size_t, neuroh5::data::optional_hid, neuroh5::CellIndex, neuroh5::CellPtr, size_t, size_t, size_t) [with T = short unsigned int; MPI_Comm = int; std::__cxx11::string = std::__cxx11::basic_string<char>; neuroh5::CELL_IDX_T = unsigned int; size_t = long unsigned int; neuroh5::data::optional_hid = compact_optional_ns::compact_optional<neuroh5::data::hid_empty_value>]’:
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh:1026:34:   required from ‘void neuroh5::cell::write_cell_attribute_map(MPI_Comm, const string&, const string&, const string&, const CELL_IDX_T&, const string&, const std::map<unsigned int, std::deque<_Tp> >&, size_t, neuroh5::data::optional_hid, size_t, size_t, size_t) [with T = short unsigned int; MPI_Comm = int; std::__cxx11::string = std::__cxx11::basic_string<char>; neuroh5::CELL_IDX_T = unsigned int; size_t = long unsigned int; neuroh5::data::optional_hid = compact_optional_ns::compact_optional<neuroh5::data::hid_empty_value>]’
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:6483:95:   required from here
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh:955:30: warning: unused variable ‘gid’ [-Wunused-variable]
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh: In instantiation of ‘void neuroh5::cell::write_cell_attribute_map(MPI_Comm, const string&, const string&, const string&, const CELL_IDX_T&, const string&, const std::map<unsigned int, std::deque<_Tp> >&, size_t, neuroh5::data::optional_hid, neuroh5::CellIndex, neuroh5::CellPtr, size_t, size_t, size_t) [with T = unsigned char; MPI_Comm = int; std::__cxx11::string = std::__cxx11::basic_string<char>; neuroh5::CELL_IDX_T = unsigned int; size_t = long unsigned int; neuroh5::data::optional_hid = compact_optional_ns::compact_optional<neuroh5::data::hid_empty_value>]’:
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh:1026:34:   required from ‘void neuroh5::cell::write_cell_attribute_map(MPI_Comm, const string&, const string&, const string&, const CELL_IDX_T&, const string&, const std::map<unsigned int, std::deque<_Tp> >&, size_t, neuroh5::data::optional_hid, size_t, size_t, size_t) [with T = unsigned char; MPI_Comm = int; std::__cxx11::string = std::__cxx11::basic_string<char>; neuroh5::CELL_IDX_T = unsigned int; size_t = long unsigned int; neuroh5::data::optional_hid = compact_optional_ns::compact_optional<neuroh5::data::hid_empty_value>]’
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:6490:94:   required from here
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh:955:30: warning: unused variable ‘gid’ [-Wunused-variable]
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh: In instantiation of ‘void neuroh5::cell::write_cell_attribute_map(MPI_Comm, const string&, const string&, const string&, const CELL_IDX_T&, const string&, const std::map<unsigned int, std::deque<_Tp> >&, size_t, neuroh5::data::optional_hid, neuroh5::CellIndex, neuroh5::CellPtr, size_t, size_t, size_t) [with T = int; MPI_Comm = int; std::__cxx11::string = std::__cxx11::basic_string<char>; neuroh5::CELL_IDX_T = unsigned int; size_t = long unsigned int; neuroh5::data::optional_hid = compact_optional_ns::compact_optional<neuroh5::data::hid_empty_value>]’:
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh:1026:34:   required from ‘void neuroh5::cell::write_cell_attribute_map(MPI_Comm, const string&, const string&, const string&, const CELL_IDX_T&, const string&, const std::map<unsigned int, std::deque<_Tp> >&, size_t, neuroh5::data::optional_hid, size_t, size_t, size_t) [with T = int; MPI_Comm = int; std::__cxx11::string = std::__cxx11::basic_string<char>; neuroh5::CELL_IDX_T = unsigned int; size_t = long unsigned int; neuroh5::data::optional_hid = compact_optional_ns::compact_optional<neuroh5::data::hid_empty_value>]’
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:6497:94:   required from here
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh:955:30: warning: unused variable ‘gid’ [-Wunused-variable]
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh: In instantiation of ‘void neuroh5::cell::write_cell_attribute_map(MPI_Comm, const string&, const string&, const string&, const CELL_IDX_T&, const string&, const std::map<unsigned int, std::deque<_Tp> >&, size_t, neuroh5::data::optional_hid, neuroh5::CellIndex, neuroh5::CellPtr, size_t, size_t, size_t) [with T = short int; MPI_Comm = int; std::__cxx11::string = std::__cxx11::basic_string<char>; neuroh5::CELL_IDX_T = unsigned int; size_t = long unsigned int; neuroh5::data::optional_hid = compact_optional_ns::compact_optional<neuroh5::data::hid_empty_value>]’:
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh:1026:34:   required from ‘void neuroh5::cell::write_cell_attribute_map(MPI_Comm, const string&, const string&, const string&, const CELL_IDX_T&, const string&, const std::map<unsigned int, std::deque<_Tp> >&, size_t, neuroh5::data::optional_hid, size_t, size_t, size_t) [with T = short int; MPI_Comm = int; std::__cxx11::string = std::__cxx11::basic_string<char>; neuroh5::CELL_IDX_T = unsigned int; size_t = long unsigned int; neuroh5::data::optional_hid = compact_optional_ns::compact_optional<neuroh5::data::hid_empty_value>]’
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:6504:94:   required from here
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh:955:30: warning: unused variable ‘gid’ [-Wunused-variable]
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh: In instantiation of ‘void neuroh5::cell::write_cell_attribute_map(MPI_Comm, const string&, const string&, const string&, const CELL_IDX_T&, const string&, const std::map<unsigned int, std::deque<_Tp> >&, size_t, neuroh5::data::optional_hid, neuroh5::CellIndex, neuroh5::CellPtr, size_t, size_t, size_t) [with T = signed char; MPI_Comm = int; std::__cxx11::string = std::__cxx11::basic_string<char>; neuroh5::CELL_IDX_T = unsigned int; size_t = long unsigned int; neuroh5::data::optional_hid = compact_optional_ns::compact_optional<neuroh5::data::hid_empty_value>]’:
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh:1026:34:   required from ‘void neuroh5::cell::write_cell_attribute_map(MPI_Comm, const string&, const string&, const string&, const CELL_IDX_T&, const string&, const std::map<unsigned int, std::deque<_Tp> >&, size_t, neuroh5::data::optional_hid, size_t, size_t, size_t) [with T = signed char; MPI_Comm = int; std::__cxx11::string = std::__cxx11::basic_string<char>; neuroh5::CELL_IDX_T = unsigned int; size_t = long unsigned int; neuroh5::data::optional_hid = compact_optional_ns::compact_optional<neuroh5::data::hid_empty_value>]’
+  /home/hyoklee/neuroh5/python/neuroh5/iomodule.cc:6511:93:   required from here
+  /home/hyoklee/neuroh5/include/cell/cell_attributes.hh:955:30: warning: unused variable ‘gid’ [-Wunused-variable]
+  [100%] Linking C shared module /home/hyoklee/neuroh5/build/lib.linux-x86_64-cpython-311/neuroh5/io.so
+  [100%] Built target python_neuroh5_io
+  installing to build/bdist.linux-x86_64/wheel
+  running install
+  running install_lib
+  creating build/bdist.linux-x86_64/wheel
+  creating build/bdist.linux-x86_64/wheel/neuroh5
+  copying build/lib.linux-x86_64-cpython-311/neuroh5/CMakeLists.txt -> build/bdist.linux-x86_64/wheel/./neuroh5
+  copying build/lib.linux-x86_64-cpython-311/neuroh5/types.py -> build/bdist.linux-x86_64/wheel/./neuroh5
+  copying build/lib.linux-x86_64-cpython-311/neuroh5/range.py -> build/bdist.linux-x86_64/wheel/./neuroh5
+  copying build/lib.linux-x86_64-cpython-311/neuroh5/shared_array.cc -> build/bdist.linux-x86_64/wheel/./neuroh5
+  copying build/lib.linux-x86_64-cpython-311/neuroh5/table.py -> build/bdist.linux-x86_64/wheel/./neuroh5
+  copying build/lib.linux-x86_64-cpython-311/neuroh5/h5py_io_utils.py -> build/bdist.linux-x86_64/wheel/./neuroh5
+  copying build/lib.linux-x86_64-cpython-311/neuroh5/__init__.py -> build/bdist.linux-x86_64/wheel/./neuroh5
+  copying build/lib.linux-x86_64-cpython-311/neuroh5/shared_array.hh -> build/bdist.linux-x86_64/wheel/./neuroh5
+  copying build/lib.linux-x86_64-cpython-311/neuroh5/importdbs.py -> build/bdist.linux-x86_64/wheel/./neuroh5
+  copying build/lib.linux-x86_64-cpython-311/neuroh5/iomodule.cc -> build/bdist.linux-x86_64/wheel/./neuroh5
+  copying build/lib.linux-x86_64-cpython-311/neuroh5/graphlib.py -> build/bdist.linux-x86_64/wheel/./neuroh5
+  copying build/lib.linux-x86_64-cpython-311/neuroh5/io.so -> build/bdist.linux-x86_64/wheel/./neuroh5
+  copying build/lib.linux-x86_64-cpython-311/neuroh5/initprj.py -> build/bdist.linux-x86_64/wheel/./neuroh5
+  copying build/lib.linux-x86_64-cpython-311/neuroh5/initrange.py -> build/bdist.linux-x86_64/wheel/./neuroh5
+  running install_egg_info
+  Copying python/neuroh5.egg-info to build/bdist.linux-x86_64/wheel/./neuroh5-0.1.18-py3.11.egg-info
+  running install_scripts
+  creating build/bdist.linux-x86_64/wheel/neuroh5-0.1.18.dist-info/WHEEL
+  creating '/var/tmp/pbs.7161529.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/pip-ephem-wheel-cache-a5vcy5c7/wheels/e1/4a/f3/6a3fc7b9f6e97fa778066765de22f767017ffb089f26bf312d/tmpg5fie3dt/.tmp-fym2phuu/neuroh5-0.1.18-cp311-cp311-linux_x86_64.whl' and adding 'build/bdist.linux-x86_64/wheel' to it
+  adding 'neuroh5/CMakeLists.txt'
+  adding 'neuroh5/__init__.py'
+  adding 'neuroh5/graphlib.py'
+  adding 'neuroh5/h5py_io_utils.py'
+  adding 'neuroh5/importdbs.py'
+  adding 'neuroh5/initprj.py'
+  adding 'neuroh5/initrange.py'
+  adding 'neuroh5/io.so'
+  adding 'neuroh5/iomodule.cc'
+  adding 'neuroh5/range.py'
+  adding 'neuroh5/shared_array.cc'
+  adding 'neuroh5/shared_array.hh'
+  adding 'neuroh5/table.py'
+  adding 'neuroh5/types.py'
+  adding 'neuroh5-0.1.18.dist-info/METADATA'
+  adding 'neuroh5-0.1.18.dist-info/WHEEL'
+  adding 'neuroh5-0.1.18.dist-info/top_level.txt'
+  adding 'neuroh5-0.1.18.dist-info/RECORD'
+  removing build/bdist.linux-x86_64/wheel
+  Building wheel for neuroh5 (pyproject.toml): finished with status 'done'
+  Created wheel for neuroh5: filename=neuroh5-0.1.18-cp311-cp311-linux_x86_64.whl size=19775230 sha256=0c613931f928da5b5e33a953569536ba82ae799da2e3eb196ecee05b66b169af
+  Stored in directory: /var/tmp/pbs.7161529.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/pip-ephem-wheel-cache-a5vcy5c7/wheels/e1/4a/f3/6a3fc7b9f6e97fa778066765de22f767017ffb089f26bf312d
+Successfully built neuroh5
+Installing collected packages: neuroh5
+Successfully installed neuroh5-0.1.18
+  neuroh5 rebuild exit: 0
+  neuroh5 loaded OK: /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuroh5/__init__.py
+
+=== [A] Standard NEURON (CPU, 1 rank) ===
+numprocs=1
+Traceback (most recent call last):
+  File "/home/hyoklee/bin/miv_gpu_bench.py", line 73, in <module>
+    run_bench(use_coreneuron=args.use_coreneuron, coreneuron_gpu=args.coreneuron_gpu)
+  File "/home/hyoklee/bin/miv_gpu_bench.py", line 52, in run_bench
+    network.init(env)
+  File "/home/hyoklee/MiV-Simulator/src/miv_simulator/network.py", line 1709, in init
+    init_input_cells(env)
+  File "/home/hyoklee/MiV-Simulator/src/miv_simulator/network.py", line 1420, in init_input_cells
+    cell = env.artificial_cells[pop_name][gid]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+KeyError: 10
+x3001c0s19b0n0.hsn.cm.polaris.alcf.anl.gov: rank 0 exited with code 1
+  CPU elapsed: 334 s  (exit: 1)
+
+=== [B] CoreNEURON CPU (1 rank) ===
+numprocs=1
+Traceback (most recent call last):
+  File "/home/hyoklee/bin/miv_gpu_bench.py", line 73, in <module>
+    run_bench(use_coreneuron=args.use_coreneuron, coreneuron_gpu=args.coreneuron_gpu)
+  File "/home/hyoklee/bin/miv_gpu_bench.py", line 52, in run_bench
+    network.init(env)
+  File "/home/hyoklee/MiV-Simulator/src/miv_simulator/network.py", line 1709, in init
+    init_input_cells(env)
+  File "/home/hyoklee/MiV-Simulator/src/miv_simulator/network.py", line 1420, in init_input_cells
+    cell = env.artificial_cells[pop_name][gid]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+KeyError: 10
+x3001c0s19b0n0.hsn.cm.polaris.alcf.anl.gov: rank 0 exited with code 1
+  CoreNEURON CPU elapsed: 242 s  (exit: 1)
+
+=== [C] CoreNEURON GPU (1 rank, NVIDIA A100) ===
+numprocs=1
+Traceback (most recent call last):
+  File "/home/hyoklee/bin/miv_gpu_bench.py", line 73, in <module>
+    run_bench(use_coreneuron=args.use_coreneuron, coreneuron_gpu=args.coreneuron_gpu)
+  File "/home/hyoklee/bin/miv_gpu_bench.py", line 52, in run_bench
+    network.init(env)
+  File "/home/hyoklee/MiV-Simulator/src/miv_simulator/network.py", line 1709, in init
+    init_input_cells(env)
+  File "/home/hyoklee/MiV-Simulator/src/miv_simulator/network.py", line 1420, in init_input_cells
+    cell = env.artificial_cells[pop_name][gid]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+KeyError: 10
+x3001c0s19b0n0.hsn.cm.polaris.alcf.anl.gov: rank 0 exited with code 1
+  CoreNEURON GPU elapsed: 240 s  (exit: 1)
+
+=== Summary (tstop=500ms, Microcircuit_Small, 1 rank) ===
+  [A] NEURON CPU:      334 s  (exit 1)
+  [B] CoreNEURON CPU:  242 s  (exit 1)
+  [C] CoreNEURON GPU:  240 s  (exit 1)
+  GPU speedup vs CPU: 1.39x
+
+==== Done ====
+Date: Wed May 20 04:24:15 AM UTC 2026

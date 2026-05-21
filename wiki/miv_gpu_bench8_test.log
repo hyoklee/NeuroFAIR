@@ -1,0 +1,134 @@
+==== neuroh5 rebuild + GPU benchmark ====
+Date:   Wed May 20 02:39:09 AM UTC 2026
+Job:    7161482.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov
+Node:   x3112c0s37b1n0.hsn.cm.polaris.alcf.anl.gov
+
+=== [1] GPU check ===
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+
+=== [2] Rebuilding neuroh5 ===
+Using pip 26.0.1 from /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/pip (python 3.11)
+Processing ./.
+  Preparing metadata (pyproject.toml): started
+  Running command Preparing metadata (pyproject.toml)
+  running dist_info
+  creating /var/tmp/pbs.7161482.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/pip-modern-metadata-ojau3apk/neuroh5.egg-info
+  writing /var/tmp/pbs.7161482.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/pip-modern-metadata-ojau3apk/neuroh5.egg-info/PKG-INFO
+  writing dependency_links to /var/tmp/pbs.7161482.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/pip-modern-metadata-ojau3apk/neuroh5.egg-info/dependency_links.txt
+  writing requirements to /var/tmp/pbs.7161482.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/pip-modern-metadata-ojau3apk/neuroh5.egg-info/requires.txt
+  writing top-level names to /var/tmp/pbs.7161482.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/pip-modern-metadata-ojau3apk/neuroh5.egg-info/top_level.txt
+  writing manifest file '/var/tmp/pbs.7161482.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/pip-modern-metadata-ojau3apk/neuroh5.egg-info/SOURCES.txt'
+  writing manifest file '/var/tmp/pbs.7161482.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/pip-modern-metadata-ojau3apk/neuroh5.egg-info/SOURCES.txt'
+  creating '/var/tmp/pbs.7161482.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/pip-modern-metadata-ojau3apk/neuroh5-0.1.18.dist-info'
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Requirement already satisfied: click in /opt/cray/pe/python/3.11.7/lib/python3.11/site-packages (from neuroh5==0.1.18) (8.1.7)
+Requirement already satisfied: h5py>=3.0 in /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages (from neuroh5==0.1.18) (3.16.0)
+Requirement already satisfied: numpy>=1.21.6 in /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages (from neuroh5==0.1.18) (2.4.4)
+Requirement already satisfied: mpi4py>=3.0.0 in /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages (from neuroh5==0.1.18) (3.1.4)
+Building wheels for collected packages: neuroh5
+  Building wheel for neuroh5 (pyproject.toml): started
+  Running command Building wheel for neuroh5 (pyproject.toml)
+  running bdist_wheel
+  running build
+  running build_py
+  running egg_info
+  writing python/neuroh5.egg-info/PKG-INFO
+  writing dependency_links to python/neuroh5.egg-info/dependency_links.txt
+  writing requirements to python/neuroh5.egg-info/requires.txt
+  writing top-level names to python/neuroh5.egg-info/top_level.txt
+  writing manifest file 'python/neuroh5.egg-info/SOURCES.txt'
+  running build_ext
+  Traceback (most recent call last):
+    File "<string>", line 43, in build_extensions
+    File "/opt/cray/pe/python/3.11.7/lib/python3.11/subprocess.py", line 466, in check_output
+      return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "/opt/cray/pe/python/3.11.7/lib/python3.11/subprocess.py", line 548, in run
+      with Popen(*popenargs, **kwargs) as process:
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "/opt/cray/pe/python/3.11.7/lib/python3.11/subprocess.py", line 1026, in __init__
+      self._execute_child(args, executable, preexec_fn, close_fds,
+    File "/opt/cray/pe/python/3.11.7/lib/python3.11/subprocess.py", line 1950, in _execute_child
+      raise child_exception_type(errno_num, err_msg, err_filename)
+  FileNotFoundError: [Errno 2] No such file or directory: 'cmake'
+
+  During handling of the above exception, another exception occurred:
+
+  Traceback (most recent call last):
+    File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 389, in <module>
+      main()
+    File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 373, in main
+      json_out["return_val"] = hook(**hook_input["kwargs"])
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 280, in build_wheel
+      return _build_backend().build_wheel(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/setuptools/build_meta.py", line 441, in build_wheel
+      return _build(['bdist_wheel', '--dist-info-dir', str(metadata_directory)])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/setuptools/build_meta.py", line 429, in _build
+      return self._build_with_temp_dir(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/setuptools/build_meta.py", line 410, in _build_with_temp_dir
+      self.run_setup()
+    File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/setuptools/build_meta.py", line 317, in run_setup
+      exec(code, locals())
+    File "<string>", line 140, in <module>
+    File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/setuptools/__init__.py", line 117, in setup
+      return distutils.core.setup(**attrs)  # type: ignore[return-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/setuptools/_distutils/core.py", line 186, in setup
+      return run_commands(dist)
+             ^^^^^^^^^^^^^^^^^^
+    File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/setuptools/_distutils/core.py", line 202, in run_commands
+      dist.run_commands()
+    File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/setuptools/_distutils/dist.py", line 1000, in run_commands
+      self.run_command(cmd)
+    File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/setuptools/dist.py", line 1107, in run_command
+      super().run_command(command)
+    File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/setuptools/_distutils/dist.py", line 1019, in run_command
+      cmd_obj.run()
+    File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/setuptools/command/bdist_wheel.py", line 370, in run
+      self.run_command("build")
+    File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/setuptools/_distutils/cmd.py", line 341, in run_command
+      self.distribution.run_command(command)
+    File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/setuptools/dist.py", line 1107, in run_command
+      super().run_command(command)
+    File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/setuptools/_distutils/dist.py", line 1019, in run_command
+      cmd_obj.run()
+    File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/setuptools/_distutils/command/build.py", line 135, in run
+      self.run_command(cmd_name)
+    File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/setuptools/_distutils/cmd.py", line 341, in run_command
+      self.distribution.run_command(command)
+    File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/setuptools/dist.py", line 1107, in run_command
+      super().run_command(command)
+    File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/setuptools/_distutils/dist.py", line 1019, in run_command
+      cmd_obj.run()
+    File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/setuptools/command/build_ext.py", line 97, in run
+      _build_ext.run(self)
+    File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/setuptools/_distutils/command/build_ext.py", line 367, in run
+      self.build_extensions()
+    File "<string>", line 45, in build_extensions
+  RuntimeError: Cannot find CMake executable
+  error: subprocess-exited-with-error
+  
+  × Building wheel for neuroh5 (pyproject.toml) did not run successfully.
+  │ exit code: 1
+  ╰─> No available output.
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+  full command: /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/bin/python3 /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py build_wheel /var/tmp/pbs.7161482.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/tmps7_mtugr
+  cwd: /home/hyoklee/neuroh5
+  Building wheel for neuroh5 (pyproject.toml): finished with status 'error'
+  ERROR: Failed building wheel for neuroh5
+Failed to build neuroh5
+error: failed-wheel-build-for-install
+
+× Failed to build installable wheels for some pyproject.toml based projects
+╰─> neuroh5
+  neuroh5 rebuild exit: 1
+  neuroh5 loaded OK: /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuroh5/__init__.py
+ERROR: neuroh5 rebuild failed — cannot run benchmark with old binary

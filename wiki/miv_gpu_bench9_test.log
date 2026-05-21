@@ -1,0 +1,43 @@
+==== neuroh5 rebuild + GPU benchmark ====
+Date:   Wed May 20 02:44:30 AM UTC 2026
+Job:    7161486.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov
+Node:   x3001c0s19b1n0.hsn.cm.polaris.alcf.anl.gov
+
+=== [1] GPU check ===
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+
+=== [2] Rebuilding neuroh5 ===
+Using pip 26.1.1 from /home/hyoklee/miniconda3/lib/python3.13/site-packages/pip (python 3.13)
+Processing ./.
+  Preparing metadata (pyproject.toml): started
+  Running command Preparing metadata (pyproject.toml)
+  running dist_info
+  creating /var/tmp/pbs.7161486.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/pip-modern-metadata-l9_40moj/neuroh5.egg-info
+  writing /var/tmp/pbs.7161486.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/pip-modern-metadata-l9_40moj/neuroh5.egg-info/PKG-INFO
+  writing dependency_links to /var/tmp/pbs.7161486.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/pip-modern-metadata-l9_40moj/neuroh5.egg-info/dependency_links.txt
+  writing requirements to /var/tmp/pbs.7161486.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/pip-modern-metadata-l9_40moj/neuroh5.egg-info/requires.txt
+  writing top-level names to /var/tmp/pbs.7161486.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/pip-modern-metadata-l9_40moj/neuroh5.egg-info/top_level.txt
+  writing manifest file '/var/tmp/pbs.7161486.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/pip-modern-metadata-l9_40moj/neuroh5.egg-info/SOURCES.txt'
+  reading manifest file '/var/tmp/pbs.7161486.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/pip-modern-metadata-l9_40moj/neuroh5.egg-info/SOURCES.txt'
+  writing manifest file '/var/tmp/pbs.7161486.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/pip-modern-metadata-l9_40moj/neuroh5.egg-info/SOURCES.txt'
+  creating '/var/tmp/pbs.7161486.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov/pip-modern-metadata-l9_40moj/neuroh5-0.1.18.dist-info'
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Requirement already satisfied: click in /home/hyoklee/miniconda3/lib/python3.13/site-packages (from neuroh5==0.1.18) (8.3.3)
+WARNING: Retrying (Retry(total=4, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPSConnection(host='pypi.org', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable")': /simple/h5py/
+WARNING: Retrying (Retry(total=3, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPSConnection(host='pypi.org', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable")': /simple/h5py/
+WARNING: Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPSConnection(host='pypi.org', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable")': /simple/h5py/
+WARNING: Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPSConnection(host='pypi.org', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable")': /simple/h5py/
+WARNING: Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPSConnection(host='pypi.org', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable")': /simple/h5py/
+INFO: pip is looking at multiple versions of neuroh5 to determine which version is compatible with other requirements. This could take a while.
+ERROR: Could not find a version that satisfies the requirement h5py>=3.0 (from neuroh5) (from versions: none)
+ERROR: No matching distribution found for h5py>=3.0
+  neuroh5 rebuild exit: 1
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import neuroh5; print(f'  neuroh5 loaded OK: {neuroh5.__file__}')
+    ^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'neuroh5'
+ERROR: neuroh5 rebuild failed — cannot run benchmark with old binary

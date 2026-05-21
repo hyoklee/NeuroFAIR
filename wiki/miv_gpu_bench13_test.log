@@ -1,0 +1,37 @@
+==== neuroh5 rebuild + GPU benchmark ====
+Date:   Wed May 20 05:17:01 PM UTC 2026
+Job:    7162307.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov
+Node:   x3001c0s19b1n0.hsn.cm.polaris.alcf.anl.gov
+
+=== [1] GPU check ===
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+NVIDIA A100-SXM4-40GB, 570.124.06, 40960 MiB
+
+=== [2] neuroh5 status ===
+  neuroh5 loaded OK: /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuroh5/__init__.py
+
+=== [A] Standard NEURON (CPU, 1 rank) ===
+numprocs=1
+  CPU elapsed: 515 s  (exit: 0)
+
+=== [B] CoreNEURON CPU (1 rank) ===
+numprocs=1
+x3001c0s19b1n0.hsn.cm.polaris.alcf.anl.gov: rank 0 died from signal 6 and dumped core
+  CoreNEURON CPU elapsed: 262 s  (exit: 134)
+
+=== [C] CoreNEURON GPU (1 rank, NVIDIA A100) ===
+numprocs=1
+Error: GPU support was not enabled at build time but GPU execution was requested.
+x3001c0s19b1n0.hsn.cm.polaris.alcf.anl.gov: rank 0 exited with code 42
+  CoreNEURON GPU elapsed: 227 s  (exit: 42)
+
+=== Summary (tstop=500ms, Microcircuit_Small, 1 rank) ===
+  [A] NEURON CPU:      515 s  (exit 0)
+  [B] CoreNEURON CPU:  262 s  (exit 134)
+  [C] CoreNEURON GPU:  227 s  (exit 42)
+  GPU speedup vs CPU: 2.27x
+
+==== Done ====
+Date: Wed May 20 05:33:46 PM UTC 2026

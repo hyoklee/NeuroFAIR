@@ -137,7 +137,51 @@ neuroh5 build, avoiding the secondary MPI ABI mismatch from the GNU variant.
 - PR submitted to upstream: https://github.com/iraikov/neuroh5/pull/19
 - Commit: `0acad9d fix: replace MPI_Alltoallv with P2P sends to fix int overflow on large datasets`
 
+---
+
+## Fix 2: `append_rank_attr_map` assertion (2026-05-20)
+
+**File**: `src/data/append_rank_attr_map.cc`  
+**Status**: RESOLVED — neuroh5 rebuilt with GCC 7.5 on Polaris (PBS 7161529)
+
+### Root Cause
+
+When writing output after simulation, `append_rank_attr_map` iterates over all
+attribute values and looks up each gid in `node_rank_map`. For the Microcircuit_Small
+circuit, the STIM spike input file contains 1000 gids but only 10 STIM cells are
+in the Small circuit's rank partition. Gids 10–999 appear in `attr_values` but
+not in `node_rank_map` → fatal assertion fired every time.
+
+```
+Assertion 'it != node_rank_map.end()' failed in
+  src/data/append_rank_attr_map.cc line 53
+```
+
+### Fix
+
+Changed all 7 type loops (float, int8, uint8, uint16, int16, uint32, int32) from:
+```cpp
+throw_assert(it != node_rank_map.end(),
+    "append_rank_attr_map: index not found in node rank map");
+```
+to:
+```cpp
+if (it == node_rank_map.end()) continue; // gid not in local partition
+```
+
+This gracefully skips gids that don't belong to this rank's partition — the
+correct behavior when the spike input file covers a superset of the circuit's
+population.
+
+### Build Notes (Polaris, PBS 7161529)
+
+The compute nodes lack `cmake` in PATH. Fix:
+- Symlink `~/miniconda3/bin/cmake` → `$VENV/bin/cmake`
+- Set `CC=gcc CXX=g++` to avoid NVHPC `nvc++` rejecting `-Wno-unknown-pragmas`
+- Set `HDF5_ROOT=$NVIDIA_HDF5` for cmake to find HDF5 headers
+
 ## Related
 
 - Full Polaris build/test report: `~/NeuroFAIR/wiki/miv_polaris_build_test.md`
 - PR #103 test results: `~/NeuroFAIR/wiki/miv_pr103_polaris_test.md`
+- GPU benchmark (found during): `~/NeuroFAIR/wiki/miv_gpu_bench.md`

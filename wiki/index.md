@@ -63,6 +63,8 @@
 
 ## Performance Studies
 
+- [MiV-Simulator GPU vs CPU Benchmark](miv_gpu_bench.md) — Polaris A100; standard NEURON CPU baseline **481–520 s** (tstop=500ms, 1 rank, Microcircuit_Small); CoreNEURON CPU blocked by SIGABRT inside psolve; GPU requires NEURON rebuild with `CORENRN_ENABLE_GPU=ON`; 4 bugs fixed in neuroh5/MiV-Simulator during debugging (2026-05-20/21)
+- [MiV-Simulator + IOWarp CTE Benchmark](miv_iowarp_bench.md) — IOWarp Context Transfer Engine RAM-tier buffering; scatter_read_trees + optimize-network comparison; Chimaera ZMQ bind fails on all Polaris compute node IPs; VecStim namespace fix confirmed n_active=80/53/44; bench6 27 evals, ~486s/eval
 - [clio-core CTE buffering for MiV optimization](perf-clio-core.md) — PBS jobs 8452562/8452563: Lustre vs /dev/shm (CTE RAM tier) I/O benchmark; baseline setup=25.84 s; full VFD integration path documented
 - [clio-core CTE: GPU memory vs CPU DRAM for MiV](concept-clio-core-gpu-memory.md) — why GPU HBM2e does not help current workload (no CoreNEURON, no GPU CTE backend); path to full GPU benefit documented
 - [MiV Case 6 (gap junctions) perf comparison](perf-case6-gapjunctions.md) — PBS 8473164: 4/4 conditions blocked. CPU runs SIGSEGV in `init_network` (gap-junction yaml suspected); `special-core` build fails on `nrnunits.lib` resolution. Pre-stage 129 MB in 8.288 s recorded.
@@ -74,7 +76,6 @@
 - [MiV-Simulator PR #103 on Polaris](miv_pr103_polaris_test.md) — PBS job 7097324: patch fixes np.float_ (test_coding.py 3/3 pass), mpi_env check requires MIV_SKIP_MPI_CHECK=1; 207/226 pass
 - [neuroh5 shared-memory crash fix](neuroh5_shm_crash_fix.md) — int overflow in alltoallv sdispls for >2 GB datasets; P2P Isend/Irecv fix; **12/12 I/O tests pass** (job 7097644); PR: iraikov/neuroh5#19
 - [MiV-Simulator 7-optimization on Polaris](miv_opt_7_polaris.md) — Case 7-optimization; dmosopt MOASMO; epoch 0 completed; tstop tuning + preemptable queue for 3h runs
-- [MiV-Simulator + IOWarp CTE Benchmark](miv_iowarp_bench.md) — IOWarp Context Transfer Engine RAM-tier buffering; scatter_read_trees + optimize-network comparison; GCC build fix (NVHPC &lt;filesystem&gt; failure resolved); Lustre stable 2026-04-27; PBS jobs pending
 
 ## Schema
 

@@ -50,6 +50,29 @@ The 177-cell network **scales to 2 nodes then regresses at 4** (too little work
 per rank). Practical max-useful size = 2 nodes; a real large-scale study needs
 the Large/Full microcircuit.
 
+## Fork vs upstream: `~/core` vs `~/core.iowarp` (1-node, 2 reps each)
+
+Re-ran the IOWarp path against two different IOWarp builds under identical
+current conditions (same node generation, same batch, `--exclusive`):
+
+- **`~/core`** — `hyoklee/core` fork (carries Polaris GPU fixes).
+- **`~/core.iowarp`** — upstream `iowarp/clio-core` **v2.0.0**. Its POSIX adapter
+  is not built by default (upstream defaults `ELF=OFF`); built here with the same
+  recipe as the fork (ELF=ON, MPI from `iowarp-build`, g++) → `~/core.iowarp/install`.
+
+| Build | created | connected | sim | total | vs baseline |
+|-------|--------:|----------:|----:|------:|------------:|
+| baseline (native HDF5) | 6.54 s | 216.0 s | 52.3 s | **313.9 s** | — |
+| `~/core` (mean of 2)   | 7.23 s | 250.4 s | 59.2 s | **358.0 s** | +14.0% |
+| `~/core.iowarp` (mean of 2) | 7.26 s | 252.2 s | 58.6 s | **359.5 s** | +14.5% |
+
+**No meaningful difference between the two IOWarp builds: 358.0 s vs 359.5 s
+(+0.4%), inside run-to-run noise** (reps: core 357.99/357.98 s; core.iowarp
+359.01/360.01 s). Both add the same ~14% POSIX-interception overhead over native
+HDF5. This is expected — the fork's changes are Polaris GPU fixes that don't touch
+the CPU POSIX-adapter path, and both share the same chimaera/CTE lineage. Jobs
+20368–20372; data in `results/comparison_core_vs_iowarp.csv`.
+
 ## Multi-node IOWarp — not viable
 
 The distributed chimaera runtime **started cleanly** (one daemon/node via
@@ -62,6 +85,8 @@ earlier PBS runs (port conflict / sub-comm deadlock).
 
 - For MiV case 6, the IOWarp POSIX adapter **did not help** (1-node ~15% slower);
   multi-node **hangs** the application.
+- The result is **build-independent**: the `hyoklee/core` fork and upstream
+  `iowarp/clio-core` v2.0.0 (`~/core.iowarp`) perform within 0.4% of each other.
 - It is the wrong tool for a **compute-bound, small, read-once** workload.
 - CTE's measured I/O wins ([perf-clio-core.md](perf-clio-core.md)) apply to
   **bandwidth-bound, large, repeated-read** regimes — the opposite end.

@@ -73,6 +73,36 @@ HDF5. This is expected — the fork's changes are Polaris GPU fixes that don't t
 the CPU POSIX-adapter path, and both share the same chimaera/CTE lineage. Jobs
 20368–20372; data in `results/comparison_core_vs_iowarp.csv`.
 
+## Storage tier: RAM vs node-local NVMe (`~/core.iowarp`, 1-node, 2 reps each)
+
+Swapped the CTE storage tier from DRAM to a **file-backed bdev on the compute
+node's local NVMe** (`/mnt/nvme`, 239 GB SSD) — `bdev_type: file`, 8 GB cap,
+config `~/bin/chimaera_case6_nvme.yaml`; `run_case6.sbatch` creates the tier dir
+per run (`NVME_DIR`) for a cold start. The required `chi_default_bdev` (the
+runtime's shared-memory allocator) stays RAM; only the CTE tier moved to NVMe.
+All runs in one batch on the same node generation.
+
+| Tier | created | connected | sim | total | vs baseline |
+|------|--------:|----------:|----:|------:|------------:|
+| baseline (native HDF5) | 6.39 s | 213.7 s | 52.3 s | **287.8 s** | — |
+| RAM tier (mean of 2)   | 7.18 s | 251.5 s | 59.2 s | **338.9 s** | +17.7% |
+| NVMe tier (mean of 2)  | 7.18 s | 250.4 s | 58.9 s | **337.9 s** | +17.4% |
+
+**NVMe makes no difference: 337.9 s vs 338.9 s (−0.3%, i.e. noise)**; both ~17.5%
+over baseline. The tier file (`cte_tier1_node0`, 8 GB) was created and active, so
+the tier was genuinely engaged. The decisive observation: **if data flowed
+heavily through the tier, NVMe (the slower medium) would be measurably slower
+than RAM — it isn't.** That means almost no payload actually transits the CTE
+tier for this workload; the overhead is POSIX-syscall interception on the CPU,
+independent of tier medium. Same root cause as the RAM-tier result: the workload
+is compute-bound with ~45 MB read-once I/O, so neither a RAM nor an NVMe buffer
+has anything to accelerate. Jobs 20376–20380; data in
+`results/comparison_ram_vs_nvme.csv`.
+
+(Note: baseline here is 287.8 s vs 304.9/313.9 s in earlier batches — cluster
+conditions drift between batches, which is exactly why RAM and NVMe were run in
+the *same* batch for a valid within-batch comparison.)
+
 ## Multi-node IOWarp — not viable
 
 The distributed chimaera runtime **started cleanly** (one daemon/node via
@@ -87,6 +117,9 @@ earlier PBS runs (port conflict / sub-comm deadlock).
   multi-node **hangs** the application.
 - The result is **build-independent**: the `hyoklee/core` fork and upstream
   `iowarp/clio-core` v2.0.0 (`~/core.iowarp`) perform within 0.4% of each other.
+- It is also **tier-independent**: a node-local **NVMe** CTE tier performs the
+  same as the RAM tier (within 0.3%) — confirming little payload transits the
+  tier, so the medium is irrelevant.
 - It is the wrong tool for a **compute-bound, small, read-once** workload.
 - CTE's measured I/O wins ([perf-clio-core.md](perf-clio-core.md)) apply to
   **bandwidth-bound, large, repeated-read** regimes — the opposite end.

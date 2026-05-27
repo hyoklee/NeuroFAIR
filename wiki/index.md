@@ -68,7 +68,7 @@
 - [clio-core CTE buffering for MiV optimization](perf-clio-core.md) — PBS jobs 8452562/8452563: Lustre vs /dev/shm (CTE RAM tier) I/O benchmark; baseline setup=25.84 s; full VFD integration path documented
 - [clio-core CTE: GPU memory vs CPU DRAM for MiV](concept-clio-core-gpu-memory.md) — why GPU HBM2e does not help current workload (no CoreNEURON, no GPU CTE backend); path to full GPU benefit documented
 - [MiV Case 6 (gap junctions) perf comparison](perf-case6-gapjunctions.md) — PBS 8473164: 4/4 conditions blocked. CPU runs SIGSEGV in `init_network` (gap-junction yaml suspected); `special-core` build fails on `nrnunits.lib` resolution. Pre-stage 129 MB in 8.288 s recorded.
-- [MiV case 6 — IOWarp core vs native HDF5 (ares, end-to-end)](miv_iowarp_ares_case6.md) — whole-application `run-network` comparison: IOWarp POSIX adapter ~15% slower on 1 node (compute-bound, read-once), multi-node deadlocks; native HDF5 scales to 2 nodes (1.76×). Fork `~/core` vs upstream `iowarp/clio-core` v2.0.0 (`~/core.iowarp`) within 0.4% — no build difference
+- [MiV case 6 — IOWarp core vs native HDF5 (ares, end-to-end)](miv_iowarp_ares_case6.md) — whole-application `run-network` comparison: IOWarp POSIX adapter ~15% slower on 1 node (compute-bound, read-once), multi-node deadlocks; native HDF5 scales to 2 nodes (1.76×). Fork `~/core` vs upstream `iowarp/clio-core` v2.0.0 (`~/core.iowarp`) within 0.4% — no build difference; CTE RAM tier vs node-local NVMe tier within 0.3% — no tier difference
 
 ## Build and Test Reports
 

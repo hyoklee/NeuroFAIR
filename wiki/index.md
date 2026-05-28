@@ -71,6 +71,7 @@
 - [MiV case 6 — IOWarp core vs native HDF5 (ares, end-to-end)](miv_iowarp_ares_case6.md) — whole-application `run-network` comparison: IOWarp POSIX adapter ~15% slower on 1 node (compute-bound, read-once), multi-node deadlocks; native HDF5 scales to 2 nodes (1.76×). Fork `~/core` vs upstream `iowarp/clio-core` v2.0.0 (`~/core.iowarp`) within 0.4% — no build difference; CTE RAM tier vs node-local NVMe tier within 0.3% — no tier difference
 - [MiV case 4 (opsin) — IOWarp core vs native HDF5, RAM vs NVMe (ares)](miv_iowarp_ares_case4.md) — confirms the case-6 finding on a second use case: IOWarp ~17.5% slower (compute-bound), RAM vs NVMe tier no difference; case 4 = case 6 minus gap junctions (opsin is a TODO no-op in run-network)
 - [MiV case 7 (optimization) — IOWarp core vs native HDF5, RAM vs NVMe (ares)](miv_iowarp_ares_case7.md) — `optimize-network` (dmosopt, repeated-read regime): IOWarp ~11% slower, RAM vs NVMe no difference. Even with repeated network reads, per-eval compute (~140 s) dwarfs the ~45 MB read so CTE can't help. optimize-network runs on ares without deadlock (standard NEURON + distwq)
+- [Designing a MiV workload where CTE beats baseline (ares)](miv_iowarp_ares_caseio.md) — write-bound benchmark (dense recording + checkpoints) built to favor CTE; still ~11% slower on the small circuit (compute-dominated + adapter overhead). Measured ares I/O hierarchy (NFS 590/215, NVMe 1.5G/1.0G, 46 GB cache) + the recipe + what's needed for a real win (full-scale data / multi-node)
 
 ## Build and Test Reports
 

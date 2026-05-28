@@ -190,6 +190,46 @@ Polaris IOWarp build succeeded (bench2–bench4, May 2026). Two blockers resolve
 Chimaera port conflict (127.0.0.1 → actual node IP via `CHI_SERVER_ADDR`) and
 VecStim n_active=0 (`'Input Spikes'` → `'Input Spikes A Diag'` namespace). See [MiV-Simulator + IOWarp CTE Benchmark](miv_iowarp_bench.md).
 
+### Important: the 15.7× is a raw-read microbenchmark, not an application speedup
+
+Read the table above carefully — the **15.7×** is *isolated single-rank h5py read
+bandwidth* (PBS 8452676), **not** an end-to-end optimizer speedup. The actual
+Aurora `optimize-network` run shows essentially **no** improvement: Run 11 (Lustre)
+26.27 s setup vs Run 12 (/dev/shm) 25.95 s = **−0.32 s, within noise** (see
+[source-MiV_Optimizer_test.md](source-MiV_Optimizer_test.md)). Reason: `connect_cells`
+is ~21 s of in-memory NEURON synapse construction and only ~4 s of HDF5 I/O, so even
+a 15.7× I/O gain moves the wall clock by <1 %. The microbenchmark gain only converts
+to real wall-time savings for the **full 26 GB CA1 circuit** (§Scalability projection),
+which has not been run on any platform.
+
+Two further factors make that storage-tier gain **specific to Aurora's Lustre** and
+absent elsewhere:
+1. **It was mostly "Lustre is slow."** The 75 MB/s baseline (DBS connection file as
+   low as 30 MB/s) reflects parallel-FS metadata/latency on small jobs, not a property
+   of CTE. On a fast local filesystem there is little of that penalty to remove.
+2. **The Aurora number used a `/dev/shm` *proxy* (a plain copy into tmpfs), not the
+   real adapter.** The Hermes VFD / POSIX interceptor were never built here (see build
+   table above), so the proxy paid **zero per-read overhead**.
+
+### Ares (CPU, local XFS) — measured with the real POSIX adapter
+
+On the **ares** cluster, MiV `Microcircuit_Small` was run end-to-end through the
+*actual* IOWarp CTE POSIX adapter (`LD_PRELOAD=libclio_cte_posix.so`), and there is
+**no Lustre at all** — datasets live on local **XFS (`/dev/sda1`)** + page cache, which
+is already near-RAM speed. Consistent with the two points above, IOWarp does not help
+and in fact adds the adapter's interception overhead:
+
+| Case (ares) | Workload | IOWarp vs native HDF5 | RAM tier vs NVMe tier |
+|---|---|---|---|
+| [case 6](miv_iowarp_ares_case6.md) | run-network (read-once) | **+15 %** (slower) | — |
+| [case 4](miv_iowarp_ares_case4.md) | run-network (opsin) | **+17.5 %** (slower) | no difference (±0.3 %) |
+| [case 7](miv_iowarp_ares_case7.md) | optimize-network (repeated-read) | **+11 %** (slower) | no difference (±0.6 %) |
+
+So the absence of a Lustre→RAM speedup on ares is expected, not anomalous: (a) there is
+no slow Lustre baseline to beat, (b) the real adapter adds ~11–17 % overhead the tmpfs
+proxy never paid, and (c) the workload is compute-bound regardless of platform — the same
+reason the Aurora *optimizer* (as opposed to the read microbenchmark) showed no gain.
+
 ## Next steps
 
 1. ~~Fill I/O benchmark table~~ — done (PBS 8452676 Aurora; Polaris bench5 pending)

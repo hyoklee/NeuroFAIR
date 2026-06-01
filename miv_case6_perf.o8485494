@@ -1,0 +1,105 @@
+=== MiV Case 6 perf sweep Thu 14 May 2026 09:50:58 PM UTC PBS_JOBID=8485494.aurora-pbs-0001.hostmgmt.cm.aurora.alcf.anl.gov ===
+--- Input files ---
+-rw-r--r-- 1 hyoklee gpu_hack 87M Apr 14 03:52 /lus/flare/projects/gpu_hack/iowarp/neuroh5/Microcircuit_Small/MiV_Cells_Microcircuit_Small_20220410.h5
+-rw-r--r-- 1 hyoklee gpu_hack 39M Apr 14 03:52 /lus/flare/projects/gpu_hack/iowarp/neuroh5/Microcircuit_Small/MiV_Connections_Microcircuit_Small_20220410.h5
+-rw-r--r-- 1 hyoklee gpu_hack 19K May  1 20:40 /lus/flare/projects/gpu_hack/iowarp/neuroh5/Microcircuit_Small/MiV_gapjunctions_20230408.h5
+-rw-r--r-- 1 hyoklee gpu_hack 19K May  1 19:37 /lus/flare/projects/gpu_hack/iowarp/neuroh5/Microcircuit_Small/MiV_h5types_gj.h5
+-rw-r--r-- 1 hyoklee gpu_hack 3.2M Apr  9 19:30 /lus/flare/projects/gpu_hack/iowarp/neuroh5/MiV_input_spikes.h5
+--- Pre-staging to /dev/shm ---
+Pre-stage: 1.10 s
+=== Condition A: prefix=/lus/flare/projects/gpu_hack/iowarp/neuroh5/Microcircuit_Small ===
+
+Error: No such option: --output-path (Possible options: --results-path, --spike-input-path, --template-paths)
+Usage: run-network [OPTIONS]
+Try 'run-network --help' for help.
+
+Usage: run-network [OPTIONS]
+Try 'run-network --help' for help.
+
+Usage: run-network [OPTIONS]
+Try 'run-network --help' for help.
+
+Error: No such option: --output-path (Possible options: --results-path, --spike-input-path, --template-paths)
+numprocs=12
+Error: No such option: --output-path (Possible options: --results-path, --spike-input-path, --template-paths)
+Usage: run-network [OPTIONS]
+Try 'run-network --help' for help.
+
+Error: No such option: --output-path (Possible options: --results-path, --spike-input-path, --template-paths)
+Error: No such option: --output-path (Possible options: --results-path, --spike-input-path, --template-paths)
+x4303c7s1b0n0.hsn.cm.aurora.alcf.anl.gov: rank 10 exited with code 2
+Condition A: fail_2 in 14.807s
+=== Condition B: prefix=/dev/shm/miv_case6 ===
+
+Error: No such option: --output-path (Possible options: --results-path, --spike-input-path, --template-paths)
+Usage: run-network [OPTIONS]
+Try 'run-network --help' for help.
+
+Error: No such option: --output-path (Possible options: --results-path, --spike-input-path, --template-paths)
+Usage: run-network [OPTIONS]
+Try 'run-network --help' for help.
+
+Error: No such option: --output-path (Possible options: --results-path, --spike-input-path, --template-paths)
+Usage: run-network [OPTIONS]
+Try 'run-network --help' for help.
+
+Error: No such option: --output-path (Possible options: --results-path, --spike-input-path, --template-paths)
+Usage: run-network [OPTIONS]
+Try 'run-network --help' for help.
+
+Error: No such option: --output-path (Possible options: --results-path, --spike-input-path, --template-paths)
+x4303c7s1b0n0.hsn.cm.aurora.alcf.anl.gov: rank 4 exited with code 2
+x4303c7s1b0n0.hsn.cm.aurora.alcf.anl.gov: rank 1 died from signal 15
+Condition B: fail_143 in 5.526s
+=== Condition C: prefix=/lus/flare/projects/gpu_hack/iowarp/neuroh5/Microcircuit_Small ===
+Try 'run-network --help' for help.
+
+Error: No such option: --output-path (Possible options: --results-path, --spike-input-path, --template-paths)
+Usage: run-network [OPTIONS]
+Try 'run-network --help' for help.
+
+Error: No such option: --output-path (Possible options: --results-path, --spike-input-path, --template-paths)
+Usage: run-network [OPTIONS]
+Try 'run-network --help' for help.
+
+Error: No such option: --output-path (Possible options: --results-path, --spike-input-path, --template-paths)
+Usage: run-network [OPTIONS]
+Try 'run-network --help' for help.
+
+Error: No such option: --output-path (Possible options: --results-path, --spike-input-path, --template-paths)
+Usage: run-network [OPTIONS]
+Try 'run-network --help' for help.
+
+Error: No such option: --output-path (Possible options: --results-path, --spike-input-path, --template-paths)
+x4303c7s1b0n0.hsn.cm.aurora.alcf.anl.gov: rank 8 exited with code 2
+Condition C: fail_2 in 4.814s
+=== Condition D: prefix=/dev/shm/miv_case6 ===
+
+Error: No such option: --output-path (Possible options: --results-path, --spike-input-path, --template-paths)
+Usage: run-network [OPTIONS]
+Try 'run-network --help' for help.
+
+Error: No such option: --output-path (Possible options: --results-path, --spike-input-path, --template-paths)
+Usage: run-network [OPTIONS]
+Try 'run-network --help' for help.
+
+Error: No such option: --output-path (Possible options: --results-path, --spike-input-path, --template-paths)
+Usage: run-network [OPTIONS]
+Try 'run-network --help' for help.
+
+Error: No such option: --output-path (Possible options: --results-path, --spike-input-path, --template-paths)
+Usage: run-network [OPTIONS]
+Try 'run-network --help' for help.
+
+Error: No such option: --output-path (Possible options: --results-path, --spike-input-path, --template-paths)
+x4303c7s1b0n0.hsn.cm.aurora.alcf.anl.gov: rank 10 exited with code 2
+x4303c7s1b0n0.hsn.cm.aurora.alcf.anl.gov: rank 5 died from signal 15
+Condition D: fail_143 in 4.502s
+=== Done Thu 14 May 2026 09:51:29 PM UTC ===
+Timing results: /home/hyoklee/wrp/run/miv_case6_perf_timing.csv
+timestamp,condition,phase,elapsed_s
+2026-05-14T21:51:00Z,prestage,copy,1.010
+2026-05-14T21:51:15Z,A,total,14.807
+2026-05-14T21:51:20Z,B,total,5.526
+2026-05-14T21:51:25Z,C,total,4.814
+2026-05-14T21:51:29Z,D,total,4.502

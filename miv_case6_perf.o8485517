@@ -1,0 +1,77 @@
+=== MiV Case 6 perf sweep Thu 14 May 2026 10:01:43 PM UTC PBS_JOBID=8485517.aurora-pbs-0001.hostmgmt.cm.aurora.alcf.anl.gov ===
+--- Input files ---
+-rw-r--r-- 1 hyoklee gpu_hack 87M Apr 14 03:52 /lus/flare/projects/gpu_hack/iowarp/neuroh5/Microcircuit_Small/MiV_Cells_Microcircuit_Small_20220410.h5
+-rw-r--r-- 1 hyoklee gpu_hack 39M Apr 14 03:52 /lus/flare/projects/gpu_hack/iowarp/neuroh5/Microcircuit_Small/MiV_Connections_Microcircuit_Small_20220410.h5
+-rw-r--r-- 1 hyoklee gpu_hack 19K May  1 20:40 /lus/flare/projects/gpu_hack/iowarp/neuroh5/Microcircuit_Small/MiV_gapjunctions_20230408.h5
+-rw-r--r-- 1 hyoklee gpu_hack 19K May  1 19:37 /lus/flare/projects/gpu_hack/iowarp/neuroh5/Microcircuit_Small/MiV_h5types_gj.h5
+-rw-r--r-- 1 hyoklee gpu_hack 3.2M Apr  9 19:30 /lus/flare/projects/gpu_hack/iowarp/neuroh5/MiV_input_spikes.h5
+--- Pre-staging to /dev/shm ---
+Pre-stage: 0.480 s
+=== Condition A: prefix=/lus/flare/projects/gpu_hack/iowarp/neuroh5/Microcircuit_Small ===
+numprocs=12
+Assertion 'file >= 0' failed in file '/home/hyoklee/neuroh5/src/cell/cell_populations.cc' line 72
+terminate called after throwing an instance of 'AssertionFailureException'
+  what():  Assertion 'file >= 0' failed in file '/home/hyoklee/neuroh5/src/cell/cell_populations.cc' line 72
+x4310c1s1b0n0.hsn.cm.aurora.alcf.anl.gov: rank 0 died from signal 6
+x4310c1s1b0n0.hsn.cm.aurora.alcf.anl.gov: rank 1 died from signal 15
+Condition A: fail_143 in 15.583s
+=== Condition B: prefix=/dev/shm/miv_case6 ===
+numprocs=12
+Assertion 'file >= 0' failed in file '/home/hyoklee/neuroh5/src/cell/cell_populations.cc' line 72
+terminate called after throwing an instance of 'AssertionFailureException'
+  what():  Assertion 'file >= 0' failed in file '/home/hyoklee/neuroh5/src/cell/cell_populations.cc' line 72
+x4310c1s1b0n0.hsn.cm.aurora.alcf.anl.gov: rank 0 died from signal 6
+x4310c1s1b0n0.hsn.cm.aurora.alcf.anl.gov: rank 4 died from signal 15
+Condition B: fail_143 in 5.876s
+=== Condition C: prefix=/lus/flare/projects/gpu_hack/iowarp/neuroh5/Microcircuit_Small ===
+Try 'run-network --help' for help.
+
+Error: No such option: --coreneuron (Possible options: --coreneuron-gpu, --use-coreneuron)
+Usage: run-network [OPTIONS]
+Try 'run-network --help' for help.
+
+Usage: run-network [OPTIONS]
+Try 'run-network --help' for help.
+
+Error: No such option: --coreneuron (Possible options: --coreneuron-gpu, --use-coreneuron)
+Error: No such option: --coreneuron (Possible options: --coreneuron-gpu, --use-coreneuron)
+Usage: run-network [OPTIONS]
+Try 'run-network --help' for help.
+
+Error: No such option: --coreneuron (Possible options: --coreneuron-gpu, --use-coreneuron)
+Usage: run-network [OPTIONS]
+Try 'run-network --help' for help.
+
+Error: No such option: --coreneuron (Possible options: --coreneuron-gpu, --use-coreneuron)
+x4310c1s1b0n0.hsn.cm.aurora.alcf.anl.gov: rank 8 exited with code 2
+Condition C: fail_2 in 4.428s
+=== Condition D: prefix=/dev/shm/miv_case6 ===
+Try 'run-network --help' for help.
+
+Error: No such option: --coreneuron (Possible options: --coreneuron-gpu, --use-coreneuron)
+Usage: run-network [OPTIONS]
+Try 'run-network --help' for help.
+
+Error: No such option: --coreneuron (Possible options: --coreneuron-gpu, --use-coreneuron)
+Usage: run-network [OPTIONS]
+Try 'run-network --help' for help.
+
+Error: No such option: --coreneuron (Possible options: --coreneuron-gpu, --use-coreneuron)
+Usage: run-network [OPTIONS]
+Try 'run-network --help' for help.
+
+Error: No such option: --coreneuron (Possible options: --coreneuron-gpu, --use-coreneuron)
+Usage: run-network [OPTIONS]
+Try 'run-network --help' for help.
+
+Error: No such option: --coreneuron (Possible options: --coreneuron-gpu, --use-coreneuron)
+x4310c1s1b0n0.hsn.cm.aurora.alcf.anl.gov: rank 4 exited with code 2
+Condition D: fail_2 in 4.046s
+=== Done Thu 14 May 2026 10:02:14 PM UTC ===
+Timing results: /home/hyoklee/wrp/run/miv_case6_perf_timing.csv
+timestamp,condition,phase,elapsed_s
+2026-05-14T22:01:44Z,prestage,copy,.480
+2026-05-14T22:01:59Z,A,total,15.583
+2026-05-14T22:02:05Z,B,total,5.876
+2026-05-14T22:02:09Z,C,total,4.428
+2026-05-14T22:02:13Z,D,total,4.046

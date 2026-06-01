@@ -1,0 +1,158 @@
+=== MiV Case 6 perf sweep Fri 15 May 2026 02:57:15 AM UTC PBS_JOBID=8486039.aurora-pbs-0001.hostmgmt.cm.aurora.alcf.anl.gov ===
+--- Input files ---
+-rw-r--r-- 1 hyoklee gpu_hack 87M Apr 14 03:52 /lus/flare/projects/gpu_hack/iowarp/neuroh5/Microcircuit_Small/MiV_Cells_Microcircuit_Small_20220410.h5
+-rw-r--r-- 1 hyoklee gpu_hack 39M Apr 14 03:52 /lus/flare/projects/gpu_hack/iowarp/neuroh5/Microcircuit_Small/MiV_Connections_Microcircuit_Small_20220410.h5
+-rw-r--r-- 1 hyoklee gpu_hack 19K May  1 20:40 /lus/flare/projects/gpu_hack/iowarp/neuroh5/Microcircuit_Small/MiV_gapjunctions_20230408.h5
+-rw-r--r-- 1 hyoklee gpu_hack 19K May  1 19:37 /lus/flare/projects/gpu_hack/iowarp/neuroh5/Microcircuit_Small/MiV_h5types_gj.h5
+-rw-r--r-- 1 hyoklee gpu_hack 3.2M Apr  9 19:30 /lus/flare/projects/gpu_hack/iowarp/neuroh5/MiV_input_spikes.h5
+--- Building special-core (CoreNEURON) ---
+[INFO] Running: make -j4 -f /home/hyoklee/miniconda3/envs/miv/lib/python3.12/site-packages/neuron/.data/share/coreneuron/nrnivmodl_core_makefile ROOT=/home/hyoklee/miniconda3/envs/miv/lib/python3.12/site-packages/neuron/.data MODS_PATH=x86_64/corenrn/mod2c BUILD_TYPE=SHARED NRN_PRCELLSTATE=0
+Default NMODL flags: 
+diff: x86_64/corenrn/mod2c/_mod_func.cpp: No such file or directory
+[NMODL] [warning] :: SemanticAnalysisVisitor :: FUNCTION initps does not have an explicit return statement, but VERBATIM block detected (possible return statement in VERBATIM block?)
+[NMODL] [warning] :: SemanticAnalysisVisitor :: FUNCTION sendgroup does not have an explicit return statement, but VERBATIM block detected (possible return statement in VERBATIM block?)
+icpx: warning: use of '-qopenmp' recommended over '-fopenmp' [-Wrecommended-option]
+icpx: warning: use of '-qopenmp' recommended over '-fopenmp' [-Wrecommended-option]
+icpx: warning: use of '-qopenmp' recommended over '-fopenmp' [-Wrecommended-option]
+icpx: warning: use of '-qopenmp' recommended over '-fopenmp' [-Wrecommended-option]
+icpx: warning: use of '-qopenmp' recommended over '-fopenmp' [-Wrecommended-option]
+icpx: warning: use of '-qopenmp' recommended over '-fopenmp' [-Wrecommended-option]
+x86_64/corenrn/mod2c/expsyn.cpp:271:10: warning: loop not vectorized: the optimizer was unable to perform the requested transformation; the transformation might be disabled or specified as part of an unsupported transformation ordering [-Wpass-failed=transform-warning]
+  271 |     void net_buf_receive_ExpSyn(NrnThread* nt) {
+      |          ^
+x86_64/corenrn/mod2c/expsyn.cpp:301:10: warning: loop not vectorized: the optimizer was unable to perform the requested transformation; the transformation might be disabled or specified as part of an unsupported transformation ordering [-Wpass-failed=transform-warning]
+  301 |     void nrn_init_ExpSyn(NrnThread* nt, Memb_list* ml, int type) {
+      |          ^
+x86_64/corenrn/mod2c/expsyn.cpp:301:10: warning: loop not vectorized: the optimizer was unable to perform the requested transformation; the transformation might be disabled or specified as part of an unsupported transformation ordering [-Wpass-failed=transform-warning]
+x86_64/corenrn/mod2c/exp2syn.cpp:286:10: warning: loop not vectorized: the optimizer was unable to perform the requested transformation; the transformation might be disabled or specified as part of an unsupported transformation ordering [-Wpass-failed=transform-warning]
+  286 |     void net_buf_receive_Exp2Syn(NrnThread* nt) {
+      |          ^
+x86_64/corenrn/mod2c/Gfluct3.cpp:578:10: warning: loop not vectorized: the optimizer was unable to perform the requested transformation; the transformation might be disabled or specified as part of an unsupported transformation ordering [-Wpass-failed=transform-warning]
+  578 |     void net_buf_receive_Gfluct3(NrnThread* nt) {
+      |          ^
+x86_64/corenrn/mod2c/Gfluct3.cpp:621:10: warning: loop not vectorized: the optimizer was unable to perform the requested transformation; the transformation might be disabled or specified as part of an unsupported transformation ordering [-Wpass-failed=transform-warning]
+  621 |     void nrn_init_Gfluct3(NrnThread* nt, Memb_list* ml, int type) {
+      |          ^
+x86_64/corenrn/mod2c/Gfluct3.cpp:730:10: warning: loop not vectorized: the optimizer was unable to perform the requested transformation; the transformation might be disabled or specified as part of an unsupported transformation ordering [-Wpass-failed=transform-warning]
+  730 |     void nrn_cur_Gfluct3(NrnThread* nt, Memb_list* ml, int type) {
+      |          ^
+3 warnings generated.
+icpx: warning: use of '-qopenmp' recommended over '-fopenmp' [-Wrecommended-option]
+1 warning generated.
+icpx: warning: use of '-qopenmp' recommended over '-fopenmp' [-Wrecommended-option]
+icpx: warning: use of '-qopenmp' recommended over '-fopenmp' [-Wrecommended-option]
+3 warnings generated.
+icpx: warning: use of '-qopenmp' recommended over '-fopenmp' [-Wrecommended-option]
+x86_64/corenrn/mod2c/netstim.cpp:478:10: warning: loop not vectorized: the optimizer was unable to perform the requested transformation; the transformation might be disabled or specified as part of an unsupported transformation ordering [-Wpass-failed=transform-warning]
+  478 |     void nrn_init_NetStim(NrnThread* nt, Memb_list* ml, int type) {
+      |          ^
+x86_64/corenrn/mod2c/pattern.cpp:395:10: warning: loop not vectorized: the optimizer was unable to perform the requested transformation; the transformation might be disabled or specified as part of an unsupported transformation ordering [-Wpass-failed=transform-warning]
+  395 |     void nrn_init_PatternStim(NrnThread* nt, Memb_list* ml, int type) {
+      |          ^
+x86_64/corenrn/mod2c/hh.cpp:425:10: warning: loop not vectorized: the optimizer was unable to perform the requested transformation; the transformation might be disabled or specified as part of an unsupported transformation ordering [-Wpass-failed=transform-warning]
+  425 |     void nrn_init_hh(NrnThread* nt, Memb_list* ml, int type) {
+      |          ^
+1 warning generated.
+icpx: warning: use of '-qopenmp' recommended over '-fopenmp' [-Wrecommended-option]
+1 warning generated.
+icpx: warning: use of '-qopenmp' recommended over '-fopenmp' [-Wrecommended-option]
+icpx: warning: use of '-qopenmp' recommended over '-fopenmp' [-Wrecommended-option]
+1 warning generated.
+x86_64/corenrn/mod2c/stim.cpp:265:10: warning: loop not vectorized: the optimizer was unable to perform the requested transformation; the transformation might be disabled or specified as part of an unsupported transformation ordering [-Wpass-failed=transform-warning]
+  265 |     void nrn_cur_IClamp(NrnThread* nt, Memb_list* ml, int type) {
+      |          ^
+x86_64/corenrn/mod2c/vecevent.cpp:423:10: warning: loop not vectorized: the optimizer was unable to perform the requested transformation; the transformation might be disabled or specified as part of an unsupported transformation ordering [-Wpass-failed=transform-warning]
+  423 |     void nrn_init_VecStim(NrnThread* nt, Memb_list* ml, int type) {
+      |          ^
+x86_64/corenrn/mod2c/svclmp.cpp:360:10: warning: loop not vectorized: the optimizer was unable to perform the requested transformation; the transformation might be disabled or specified as part of an unsupported transformation ordering [-Wpass-failed=transform-warning]
+  360 |     void nrn_cur_SEClamp(NrnThread* nt, Memb_list* ml, int type) {
+      |          ^
+x86_64/corenrn/mod2c/svclmp.cpp:410:10: warning: loop not vectorized: the optimizer was unable to perform the requested transformation; the transformation might be disabled or specified as part of an unsupported transformation ordering [-Wpass-failed=transform-warning]
+  410 |     void nrn_state_SEClamp(NrnThread* nt, Memb_list* ml, int type) {
+      |          ^
+1 warning generated.
+1 warning generated.
+2 warnings generated.
+icpx: warning: use of '-qopenmp' recommended over '-fopenmp' [-Wrecommended-option]
+ => [32mBinary[0m creating x86_64/special-core
+icpx: warning: use of '-qopenmp' recommended over '-fopenmp' [-Wrecommended-option]
+[INFO] MOD files built successfully for CoreNEURON
+Traceback (most recent call last):
+  File "/home/hyoklee/miniconda3/envs/miv/lib/python3.12/shutil.py", line 847, in move
+    os.rename(src, real_dst)
+FileNotFoundError: [Errno 2] No such file or directory: 'x86_64/special' -> 'x86_64/special.nrn'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/hyoklee/miniconda3/envs/miv/bin/nrnivmodl-core", line 127, in <module>
+    _wrap_executable("special")
+  File "/home/hyoklee/miniconda3/envs/miv/bin/nrnivmodl-core", line 116, in _wrap_executable
+    shutil.move(file_path, file_path + ".nrn")
+  File "/home/hyoklee/miniconda3/envs/miv/lib/python3.12/shutil.py", line 867, in move
+    copy_function(src, real_dst)
+  File "/home/hyoklee/miniconda3/envs/miv/lib/python3.12/shutil.py", line 475, in copy2
+    copyfile(src, dst, follow_symlinks=follow_symlinks)
+  File "/home/hyoklee/miniconda3/envs/miv/lib/python3.12/shutil.py", line 260, in copyfile
+    with open(src, 'rb') as fsrc:
+         ^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'x86_64/special'
+special-core FAILED
+--- Pre-staging to /dev/shm ---
+Pre-stage: 0.478 s
+--- neuroh5 read sequence WITH NEURON pre-imported (12 ranks) ---
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+Warning: no DISPLAY environment variable.
+=== Condition A: prefix=/lus/flare/projects/gpu_hack/iowarp/neuroh5 ===
+numprocs=12
+hdf5::group_contents: unable to open group Projections: Assertion 'grp >= 0' failed in file '/home/hyoklee/neuroh5/src/hdf5/group_contents.cc' line 67
+terminate called after throwing an instance of 'AssertionFailureException'
+  what():  hdf5::group_contents: unable to open group Projections: Assertion 'grp >= 0' failed in file '/home/hyoklee/neuroh5/src/hdf5/group_contents.cc' line 67
+x4115c5s6b0n0.hsn.cm.aurora.alcf.anl.gov: rank 0 died from signal 6
+x4115c5s6b0n0.hsn.cm.aurora.alcf.anl.gov: rank 3 died from signal 15
+Condition A: fail_143 in 12.602s
+=== Condition B: prefix=/dev/shm/miv_case6 ===
+numprocs=12
+hdf5::group_contents: unable to open group Projections: Assertion 'grp >= 0' failed in file '/home/hyoklee/neuroh5/src/hdf5/group_contents.cc' line 67
+terminate called after throwing an instance of 'AssertionFailureException'
+  what():  hdf5::group_contents: unable to open group Projections: Assertion 'grp >= 0' failed in file '/home/hyoklee/neuroh5/src/hdf5/group_contents.cc' line 67
+x4115c5s6b0n0.hsn.cm.aurora.alcf.anl.gov: rank 0 died from signal 6
+x4115c5s6b0n0.hsn.cm.aurora.alcf.anl.gov: rank 5 died from signal 15
+Condition B: fail_143 in 5.560s
+=== Condition C: prefix=/lus/flare/projects/gpu_hack/iowarp/neuroh5 ===
+numprocs=12
+hdf5::group_contents: unable to open group Projections: Assertion 'grp >= 0' failed in file '/home/hyoklee/neuroh5/src/hdf5/group_contents.cc' line 67
+terminate called after throwing an instance of 'AssertionFailureException'
+  what():  hdf5::group_contents: unable to open group Projections: Assertion 'grp >= 0' failed in file '/home/hyoklee/neuroh5/src/hdf5/group_contents.cc' line 67
+x4115c5s6b0n0.hsn.cm.aurora.alcf.anl.gov: rank 0 died from signal 6
+x4115c5s6b0n0.hsn.cm.aurora.alcf.anl.gov: rank 6 died from signal 15
+Condition C: fail_143 in 4.900s
+=== Condition D: prefix=/dev/shm/miv_case6 ===
+numprocs=12
+hdf5::group_contents: unable to open group Projections: Assertion 'grp >= 0' failed in file '/home/hyoklee/neuroh5/src/hdf5/group_contents.cc' line 67
+terminate called after throwing an instance of 'AssertionFailureException'
+  what():  hdf5::group_contents: unable to open group Projections: Assertion 'grp >= 0' failed in file '/home/hyoklee/neuroh5/src/hdf5/group_contents.cc' line 67
+x4115c5s6b0n0.hsn.cm.aurora.alcf.anl.gov: rank 0 died from signal 6
+x4115c5s6b0n0.hsn.cm.aurora.alcf.anl.gov: rank 1 died from signal 15
+Condition D: fail_143 in 4.716s
+=== Done Fri 15 May 2026 02:57:55 AM UTC ===
+Timing results: /home/hyoklee/wrp/run/miv_case6_perf_timing.csv
+timestamp,condition,phase,elapsed_s
+2026-05-15T02:57:23Z,prestage,copy,.478
+2026-05-15T02:57:40Z,A,total,12.602
+2026-05-15T02:57:45Z,B,total,5.560
+2026-05-15T02:57:50Z,C,total,4.900
+2026-05-15T02:57:55Z,D,total,4.716

@@ -1,0 +1,105 @@
+=== MiV Case 6 perf sweep Thu 14 May 2026 06:26:52 PM UTC PBS_JOBID=8485082.aurora-pbs-0001.hostmgmt.cm.aurora.alcf.anl.gov ===
+--- Input files ---
+-rw-r--r-- 1 hyoklee gpu_hack 87M Apr 14 03:52 /lus/flare/projects/gpu_hack/iowarp/neuroh5/Microcircuit_Small/MiV_Cells_Microcircuit_Small_20220410.h5
+-rw-r--r-- 1 hyoklee gpu_hack 39M Apr 14 03:52 /lus/flare/projects/gpu_hack/iowarp/neuroh5/Microcircuit_Small/MiV_Connections_Microcircuit_Small_20220410.h5
+-rw-r--r-- 1 hyoklee gpu_hack 19K May  1 20:40 /lus/flare/projects/gpu_hack/iowarp/neuroh5/Microcircuit_Small/MiV_gapjunctions_20230408.h5
+-rw-r--r-- 1 hyoklee gpu_hack 19K May  1 19:37 /lus/flare/projects/gpu_hack/iowarp/neuroh5/Microcircuit_Small/MiV_h5types_gj.h5
+-rw-r--r-- 1 hyoklee gpu_hack 3.2M Apr  9 19:30 /lus/flare/projects/gpu_hack/iowarp/neuroh5/MiV_input_spikes.h5
+--- Pre-staging to /dev/shm ---
+Pre-stage: 0.338 s
+=== Condition A: prefix=/lus/flare/projects/gpu_hack/iowarp/neuroh5/Microcircuit_Small ===
+    raise MPIEnvError(
+miv_simulator.mpi_env.MPIEnvError: mpi4py links against /opt/aurora/26.26.0/spack/unified/1.1.1/install/linux-x86_64/mpich-5.0.0.aurora_test.3c70a61-hlkigtk/lib/libmpi.so.12 but mpicc uses /home/hyoklee/miniconda3/envs/miv/lib. mpi4py was likely installed from a pre-built wheel. Reinstall from source: pip install --no-binary=mpi4py mpi4py
+    raise MPIEnvError(
+miv_simulator.mpi_env.MPIEnvError: mpi4py links against /opt/aurora/26.26.0/spack/unified/1.1.1/install/linux-x86_64/mpich-5.0.0.aurora_test.3c70a61-hlkigtk/lib/libmpi.so.12 but mpicc uses /home/hyoklee/miniconda3/envs/miv/lib. mpi4py was likely installed from a pre-built wheel. Reinstall from source: pip install --no-binary=mpi4py mpi4py
+miv_simulator.mpi_env.MPIEnvError: mpi4py links against /opt/aurora/26.26.0/spack/unified/1.1.1/install/linux-x86_64/mpich-5.0.0.aurora_test.3c70a61-hlkigtk/lib/libmpi.so.12 but mpicc uses /home/hyoklee/miniconda3/envs/miv/lib. mpi4py was likely installed from a pre-built wheel. Reinstall from source: pip install --no-binary=mpi4py mpi4py
+    raise MPIEnvError(
+miv_simulator.mpi_env.MPIEnvError: mpi4py links against /opt/aurora/26.26.0/spack/unified/1.1.1/install/linux-x86_64/mpich-5.0.0.aurora_test.3c70a61-hlkigtk/lib/libmpi.so.12 but mpicc uses /home/hyoklee/miniconda3/envs/miv/lib. mpi4py was likely installed from a pre-built wheel. Reinstall from source: pip install --no-binary=mpi4py mpi4py
+    raise MPIEnvError(
+miv_simulator.mpi_env.MPIEnvError: mpi4py links against /opt/aurora/26.26.0/spack/unified/1.1.1/install/linux-x86_64/mpich-5.0.0.aurora_test.3c70a61-hlkigtk/lib/libmpi.so.12 but mpicc uses /home/hyoklee/miniconda3/envs/miv/lib. mpi4py was likely installed from a pre-built wheel. Reinstall from source: pip install --no-binary=mpi4py mpi4py
+    raise MPIEnvError(
+miv_simulator.mpi_env.MPIEnvError: mpi4py links against /opt/aurora/26.26.0/spack/unified/1.1.1/install/linux-x86_64/mpich-5.0.0.aurora_test.3c70a61-hlkigtk/lib/libmpi.so.12 but mpicc uses /home/hyoklee/miniconda3/envs/miv/lib. mpi4py was likely installed from a pre-built wheel. Reinstall from source: pip install --no-binary=mpi4py mpi4py
+    raise MPIEnvError(
+    raise MPIEnvError(
+miv_simulator.mpi_env.MPIEnvError: mpi4py links against /opt/aurora/26.26.0/spack/unified/1.1.1/install/linux-x86_64/mpich-5.0.0.aurora_test.3c70a61-hlkigtk/lib/libmpi.so.12 but mpicc uses /home/hyoklee/miniconda3/envs/miv/lib. mpi4py was likely installed from a pre-built wheel. Reinstall from source: pip install --no-binary=mpi4py mpi4py
+miv_simulator.mpi_env.MPIEnvError: mpi4py links against /opt/aurora/26.26.0/spack/unified/1.1.1/install/linux-x86_64/mpich-5.0.0.aurora_test.3c70a61-hlkigtk/lib/libmpi.so.12 but mpicc uses /home/hyoklee/miniconda3/envs/miv/lib. mpi4py was likely installed from a pre-built wheel. Reinstall from source: pip install --no-binary=mpi4py mpi4py
+    raise MPIEnvError(
+miv_simulator.mpi_env.MPIEnvError: mpi4py links against /opt/aurora/26.26.0/spack/unified/1.1.1/install/linux-x86_64/mpich-5.0.0.aurora_test.3c70a61-hlkigtk/lib/libmpi.so.12 but mpicc uses /home/hyoklee/miniconda3/envs/miv/lib. mpi4py was likely installed from a pre-built wheel. Reinstall from source: pip install --no-binary=mpi4py mpi4py
+    raise MPIEnvError(
+miv_simulator.mpi_env.MPIEnvError: mpi4py links against /opt/aurora/26.26.0/spack/unified/1.1.1/install/linux-x86_64/mpich-5.0.0.aurora_test.3c70a61-hlkigtk/lib/libmpi.so.12 but mpicc uses /home/hyoklee/miniconda3/envs/miv/lib. mpi4py was likely installed from a pre-built wheel. Reinstall from source: pip install --no-binary=mpi4py mpi4py
+x4217c5s2b0n0.hsn.cm.aurora.alcf.anl.gov: rank 2 exited with code 1
+Condition A: fail_1 in 2.818s
+=== Condition B: prefix=/dev/shm/miv_case6 ===
+    from miv_simulator.scripts.run_network import main
+  File "/home/hyoklee/miniconda3/envs/miv/lib/python3.12/site-packages/miv_simulator/__init__.py", line 8, in <module>
+    _check_mpi_env()
+Traceback (most recent call last):
+  File "/home/hyoklee/miniconda3/envs/miv/bin/run-network", line 3, in <module>
+  File "/home/hyoklee/miniconda3/envs/miv/lib/python3.12/site-packages/miv_simulator/mpi_env.py", line 189, in check_mpi_env
+    from miv_simulator.scripts.run_network import main
+  File "/home/hyoklee/miniconda3/envs/miv/lib/python3.12/site-packages/miv_simulator/__init__.py", line 8, in <module>
+    _check_mpi_env()
+  File "/home/hyoklee/miniconda3/envs/miv/lib/python3.12/site-packages/miv_simulator/mpi_env.py", line 189, in check_mpi_env
+    raise MPIEnvError(
+miv_simulator.mpi_env.MPIEnvError: mpi4py links against /opt/aurora/26.26.0/spack/unified/1.1.1/install/linux-x86_64/mpich-5.0.0.aurora_test.3c70a61-hlkigtk/lib/libmpi.so.12 but mpicc uses /home/hyoklee/miniconda3/envs/miv/lib. mpi4py was likely installed from a pre-built wheel. Reinstall from source: pip install --no-binary=mpi4py mpi4py
+    raise MPIEnvError(
+miv_simulator.mpi_env.MPIEnvError: mpi4py links against /opt/aurora/26.26.0/spack/unified/1.1.1/install/linux-x86_64/mpich-5.0.0.aurora_test.3c70a61-hlkigtk/lib/libmpi.so.12 but mpicc uses /home/hyoklee/miniconda3/envs/miv/lib. mpi4py was likely installed from a pre-built wheel. Reinstall from source: pip install --no-binary=mpi4py mpi4py
+    raise MPIEnvError(
+    raise MPIEnvError(
+miv_simulator.mpi_env.MPIEnvError: mpi4py links against /opt/aurora/26.26.0/spack/unified/1.1.1/install/linux-x86_64/mpich-5.0.0.aurora_test.3c70a61-hlkigtk/lib/libmpi.so.12 but mpicc uses /home/hyoklee/miniconda3/envs/miv/lib. mpi4py was likely installed from a pre-built wheel. Reinstall from source: pip install --no-binary=mpi4py mpi4py
+miv_simulator.mpi_env.MPIEnvError: mpi4py links against /opt/aurora/26.26.0/spack/unified/1.1.1/install/linux-x86_64/mpich-5.0.0.aurora_test.3c70a61-hlkigtk/lib/libmpi.so.12 but mpicc uses /home/hyoklee/miniconda3/envs/miv/lib. mpi4py was likely installed from a pre-built wheel. Reinstall from source: pip install --no-binary=mpi4py mpi4py
+x4217c5s2b0n0.hsn.cm.aurora.alcf.anl.gov: rank 6 exited with code 1
+x4217c5s2b0n0.hsn.cm.aurora.alcf.anl.gov: rank 9 died from signal 15
+Condition B: fail_143 in 1.379s
+=== Condition C: prefix=/lus/flare/projects/gpu_hack/iowarp/neuroh5/Microcircuit_Small ===
+  File "/home/hyoklee/miniconda3/envs/miv/lib/python3.12/site-packages/miv_simulator/mpi_env.py", line 189, in check_mpi_env
+Traceback (most recent call last):
+  File "/home/hyoklee/miniconda3/envs/miv/bin/run-network", line 3, in <module>
+    from miv_simulator.scripts.run_network import main
+  File "/home/hyoklee/miniconda3/envs/miv/lib/python3.12/site-packages/miv_simulator/__init__.py", line 8, in <module>
+    _check_mpi_env()
+  File "/home/hyoklee/miniconda3/envs/miv/lib/python3.12/site-packages/miv_simulator/mpi_env.py", line 189, in check_mpi_env
+    raise MPIEnvError(
+miv_simulator.mpi_env.MPIEnvError: mpi4py links against /opt/aurora/26.26.0/spack/unified/1.1.1/install/linux-x86_64/mpich-5.0.0.aurora_test.3c70a61-hlkigtk/lib/libmpi.so.12 but mpicc uses /home/hyoklee/miniconda3/envs/miv/lib. mpi4py was likely installed from a pre-built wheel. Reinstall from source: pip install --no-binary=mpi4py mpi4py
+    raise MPIEnvError(
+miv_simulator.mpi_env.MPIEnvError: mpi4py links against /opt/aurora/26.26.0/spack/unified/1.1.1/install/linux-x86_64/mpich-5.0.0.aurora_test.3c70a61-hlkigtk/lib/libmpi.so.12 but mpicc uses /home/hyoklee/miniconda3/envs/miv/lib. mpi4py was likely installed from a pre-built wheel. Reinstall from source: pip install --no-binary=mpi4py mpi4py
+Traceback (most recent call last):
+  File "/home/hyoklee/miniconda3/envs/miv/bin/run-network", line 3, in <module>
+    from miv_simulator.scripts.run_network import main
+  File "/home/hyoklee/miniconda3/envs/miv/lib/python3.12/site-packages/miv_simulator/__init__.py", line 8, in <module>
+    _check_mpi_env()
+  File "/home/hyoklee/miniconda3/envs/miv/lib/python3.12/site-packages/miv_simulator/mpi_env.py", line 189, in check_mpi_env
+    raise MPIEnvError(
+miv_simulator.mpi_env.MPIEnvError: mpi4py links against /opt/aurora/26.26.0/spack/unified/1.1.1/install/linux-x86_64/mpich-5.0.0.aurora_test.3c70a61-hlkigtk/lib/libmpi.so.12 but mpicc uses /home/hyoklee/miniconda3/envs/miv/lib. mpi4py was likely installed from a pre-built wheel. Reinstall from source: pip install --no-binary=mpi4py mpi4py
+x4217c5s2b0n0.hsn.cm.aurora.alcf.anl.gov: rank 10 exited with code 1
+Condition C: fail_1 in 1.308s
+=== Condition D: prefix=/dev/shm/miv_case6 ===
+    raise MPIEnvError(
+miv_simulator.mpi_env.MPIEnvError: mpi4py links against /opt/aurora/26.26.0/spack/unified/1.1.1/install/linux-x86_64/mpich-5.0.0.aurora_test.3c70a61-hlkigtk/lib/libmpi.so.12 but mpicc uses /home/hyoklee/miniconda3/envs/miv/lib. mpi4py was likely installed from a pre-built wheel. Reinstall from source: pip install --no-binary=mpi4py mpi4py
+Traceback (most recent call last):
+  File "/home/hyoklee/miniconda3/envs/miv/bin/run-network", line 3, in <module>
+    from miv_simulator.scripts.run_network import main
+  File "/home/hyoklee/miniconda3/envs/miv/lib/python3.12/site-packages/miv_simulator/__init__.py", line 8, in <module>
+    _check_mpi_env()
+  File "/home/hyoklee/miniconda3/envs/miv/lib/python3.12/site-packages/miv_simulator/mpi_env.py", line 189, in check_mpi_env
+Traceback (most recent call last):
+  File "/home/hyoklee/miniconda3/envs/miv/bin/run-network", line 3, in <module>
+    from miv_simulator.scripts.run_network import main
+  File "/home/hyoklee/miniconda3/envs/miv/lib/python3.12/site-packages/miv_simulator/__init__.py", line 8, in <module>
+    _check_mpi_env()
+  File "/home/hyoklee/miniconda3/envs/miv/lib/python3.12/site-packages/miv_simulator/mpi_env.py", line 189, in check_mpi_env
+    raise MPIEnvError(
+miv_simulator.mpi_env.MPIEnvError: mpi4py links against /opt/aurora/26.26.0/spack/unified/1.1.1/install/linux-x86_64/mpich-5.0.0.aurora_test.3c70a61-hlkigtk/lib/libmpi.so.12 but mpicc uses /home/hyoklee/miniconda3/envs/miv/lib. mpi4py was likely installed from a pre-built wheel. Reinstall from source: pip install --no-binary=mpi4py mpi4py
+    raise MPIEnvError(
+miv_simulator.mpi_env.MPIEnvError: mpi4py links against /opt/aurora/26.26.0/spack/unified/1.1.1/install/linux-x86_64/mpich-5.0.0.aurora_test.3c70a61-hlkigtk/lib/libmpi.so.12 but mpicc uses /home/hyoklee/miniconda3/envs/miv/lib. mpi4py was likely installed from a pre-built wheel. Reinstall from source: pip install --no-binary=mpi4py mpi4py
+x4217c5s2b0n0.hsn.cm.aurora.alcf.anl.gov: rank 5 exited with code 1
+x4217c5s2b0n0.hsn.cm.aurora.alcf.anl.gov: rank 7 died from signal 15
+Condition D: fail_143 in 1.183s
+=== Done Thu 14 May 2026 06:26:59 PM UTC ===
+Timing results: /home/hyoklee/wrp/run/miv_case6_perf_timing.csv
+timestamp,condition,phase,elapsed_s
+2026-05-14T18:26:53Z,prestage,copy,.338
+2026-05-14T18:26:56Z,A,total,2.818
+2026-05-14T18:26:57Z,B,total,1.379
+2026-05-14T18:26:58Z,C,total,1.308
+2026-05-14T18:26:59Z,D,total,1.183

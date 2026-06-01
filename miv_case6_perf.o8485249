@@ -1,0 +1,101 @@
+=== MiV Case 6 perf sweep Thu 14 May 2026 07:56:51 PM UTC PBS_JOBID=8485249.aurora-pbs-0001.hostmgmt.cm.aurora.alcf.anl.gov ===
+--- Input files ---
+-rw-r--r-- 1 hyoklee gpu_hack 87M Apr 14 03:52 /lus/flare/projects/gpu_hack/iowarp/neuroh5/Microcircuit_Small/MiV_Cells_Microcircuit_Small_20220410.h5
+-rw-r--r-- 1 hyoklee gpu_hack 39M Apr 14 03:52 /lus/flare/projects/gpu_hack/iowarp/neuroh5/Microcircuit_Small/MiV_Connections_Microcircuit_Small_20220410.h5
+-rw-r--r-- 1 hyoklee gpu_hack 19K May  1 20:40 /lus/flare/projects/gpu_hack/iowarp/neuroh5/Microcircuit_Small/MiV_gapjunctions_20230408.h5
+-rw-r--r-- 1 hyoklee gpu_hack 19K May  1 19:37 /lus/flare/projects/gpu_hack/iowarp/neuroh5/Microcircuit_Small/MiV_h5types_gj.h5
+-rw-r--r-- 1 hyoklee gpu_hack 3.2M Apr  9 19:30 /lus/flare/projects/gpu_hack/iowarp/neuroh5/MiV_input_spikes.h5
+--- Pre-staging to /dev/shm ---
+Pre-stage: 0.537 s
+=== Condition A: prefix=/lus/flare/projects/gpu_hack/iowarp/neuroh5/Microcircuit_Small ===
+*** on a NULL communicator
+*** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+***    and MPI will try to terminate your MPI job as well)
+[x4714c1s6b0n0.hsn.cm.aurora.alcf.anl.gov:35322] Local abort before MPI_INIT completed completed successfully, but am not able to aggregate error messages, and not able to guarantee that all other processes were killed!
+*** An error occurred in MPI_Init_thread
+*** on a NULL communicator
+*** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+***    and MPI will try to terminate your MPI job as well)
+[x4714c1s6b0n0.hsn.cm.aurora.alcf.anl.gov:35325] Local abort before MPI_INIT completed completed successfully, but am not able to aggregate error messages, and not able to guarantee that all other processes were killed!
+*** An error occurred in MPI_Init_thread
+*** on a NULL communicator
+*** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+***    and MPI will try to terminate your MPI job as well)
+[x4714c1s6b0n0.hsn.cm.aurora.alcf.anl.gov:35323] Local abort before MPI_INIT completed completed successfully, but am not able to aggregate error messages, and not able to guarantee that all other processes were killed!
+*** An error occurred in MPI_Init_thread
+*** on a NULL communicator
+*** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+***    and MPI will try to terminate your MPI job as well)
+[x4714c1s6b0n0.hsn.cm.aurora.alcf.anl.gov:35324] Local abort before MPI_INIT completed completed successfully, but am not able to aggregate error messages, and not able to guarantee that all other processes were killed!
+x4714c1s6b0n0.hsn.cm.aurora.alcf.anl.gov: rank 10 exited with code 14
+Condition A: fail_14 in 16.173s
+=== Condition B: prefix=/dev/shm/miv_case6 ===
+*** on a NULL communicator
+*** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+***    and MPI will try to terminate your MPI job as well)
+[x4714c1s6b0n0.hsn.cm.aurora.alcf.anl.gov:35636] Local abort before MPI_INIT completed completed successfully, but am not able to aggregate error messages, and not able to guarantee that all other processes were killed!
+*** An error occurred in MPI_Init_thread
+*** on a NULL communicator
+*** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+***    and MPI will try to terminate your MPI job as well)
+[x4714c1s6b0n0.hsn.cm.aurora.alcf.anl.gov:35639] Local abort before MPI_INIT completed completed successfully, but am not able to aggregate error messages, and not able to guarantee that all other processes were killed!
+*** An error occurred in MPI_Init_thread
+*** on a NULL communicator
+*** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+***    and MPI will try to terminate your MPI job as well)
+[x4714c1s6b0n0.hsn.cm.aurora.alcf.anl.gov:35641] Local abort before MPI_INIT completed completed successfully, but am not able to aggregate error messages, and not able to guarantee that all other processes were killed!
+*** An error occurred in MPI_Init_thread
+*** on a NULL communicator
+*** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+***    and MPI will try to terminate your MPI job as well)
+[x4714c1s6b0n0.hsn.cm.aurora.alcf.anl.gov:35634] Local abort before MPI_INIT completed completed successfully, but am not able to aggregate error messages, and not able to guarantee that all other processes were killed!
+x4714c1s6b0n0.hsn.cm.aurora.alcf.anl.gov: rank 10 exited with code 14
+Condition B: fail_14 in 5.251s
+=== Condition C: prefix=/lus/flare/projects/gpu_hack/iowarp/neuroh5/Microcircuit_Small ===
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+*** An error occurred in MPI_Init_thread
+*** on a NULL communicator
+*** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+***    and MPI will try to terminate your MPI job as well)
+[x4714c1s6b0n0.hsn.cm.aurora.alcf.anl.gov:35970] Local abort before MPI_INIT completed completed successfully, but am not able to aggregate error messages, and not able to guarantee that all other processes were killed!
+*** An error occurred in MPI_Init_thread
+*** on a NULL communicator
+*** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+***    and MPI will try to terminate your MPI job as well)
+[x4714c1s6b0n0.hsn.cm.aurora.alcf.anl.gov:35974] Local abort before MPI_INIT completed completed successfully, but am not able to aggregate error messages, and not able to guarantee that all other processes were killed!
+x4714c1s6b0n0.hsn.cm.aurora.alcf.anl.gov: rank 7 exited with code 14
+x4714c1s6b0n0.hsn.cm.aurora.alcf.anl.gov: rank 4 died from signal 15
+Condition C: fail_143 in 4.192s
+=== Condition D: prefix=/dev/shm/miv_case6 ===
+*** on a NULL communicator
+*** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+***    and MPI will try to terminate your MPI job as well)
+[x4714c1s6b0n0.hsn.cm.aurora.alcf.anl.gov:36303] Local abort before MPI_INIT completed completed successfully, but am not able to aggregate error messages, and not able to guarantee that all other processes were killed!
+*** An error occurred in MPI_Init_thread
+*** on a NULL communicator
+*** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+***    and MPI will try to terminate your MPI job as well)
+[x4714c1s6b0n0.hsn.cm.aurora.alcf.anl.gov:36307] Local abort before MPI_INIT completed completed successfully, but am not able to aggregate error messages, and not able to guarantee that all other processes were killed!
+*** An error occurred in MPI_Init_thread
+*** on a NULL communicator
+*** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+***    and MPI will try to terminate your MPI job as well)
+[x4714c1s6b0n0.hsn.cm.aurora.alcf.anl.gov:36298] Local abort before MPI_INIT completed completed successfully, but am not able to aggregate error messages, and not able to guarantee that all other processes were killed!
+*** An error occurred in MPI_Init_thread
+*** on a NULL communicator
+*** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+***    and MPI will try to terminate your MPI job as well)
+[x4714c1s6b0n0.hsn.cm.aurora.alcf.anl.gov:36309] Local abort before MPI_INIT completed completed successfully, but am not able to aggregate error messages, and not able to guarantee that all other processes were killed!
+x4714c1s6b0n0.hsn.cm.aurora.alcf.anl.gov: rank 3 exited with code 14
+Condition D: fail_14 in 4.091s
+=== Done Thu 14 May 2026 07:57:22 PM UTC ===
+Timing results: /home/hyoklee/wrp/run/miv_case6_perf_timing.csv
+timestamp,condition,phase,elapsed_s
+2026-05-14T19:56:52Z,prestage,copy,.537
+2026-05-14T19:57:08Z,A,total,16.173
+2026-05-14T19:57:13Z,B,total,5.251
+2026-05-14T19:57:18Z,C,total,4.192
+2026-05-14T19:57:22Z,D,total,4.091

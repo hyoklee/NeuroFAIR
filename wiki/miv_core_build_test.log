@@ -1,0 +1,842 @@
+==== iowarp-core Build on Polaris ====
+Date: Mon May 25 06:17:37 PM UTC 2026
+Job:  7170853.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov
+Node: x3006c0s13b0n0.hsn.cm.polaris.alcf.anl.gov 
+
+=== [1] Compiler check ===
+  g++: g++-14 (SUSE Linux) 14.3.0 -> /usr/bin/g++-14
+  gcc: gcc-14 (SUSE Linux) 14.3.0 -> /usr/bin/gcc-14
+  mpicc:  gcc (SUSE Linux) 7.5.0
+  mpicxx: g++ (SUSE Linux) 7.5.0
+
+=== [2] Prepare build directory ===
+  Source:  /home/hyoklee/core
+  Build:   /home/hyoklee/core/build-polaris (clean)
+  Install: /lus/grand/projects/gpu_hack/iowarp/core-install
+
+=== [3] CMake configure ===
+/var/spool/pbs/mom_priv/jobs/7170853.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov.SC: line 76: cmake: command not found
+ERROR: cmake configure failed (exit 127)
+==== iowarp-core Build on Polaris ====
+Date: Mon May 25 06:18:23 PM UTC 2026
+Job:  7170854.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov
+Node: x3006c0s13b0n0.hsn.cm.polaris.alcf.anl.gov 
+
+=== [1] Compiler check ===
+  g++: g++-14 (SUSE Linux) 14.3.0 -> /usr/bin/g++-14
+  gcc: gcc-14 (SUSE Linux) 14.3.0 -> /usr/bin/gcc-14
+  mpicc:  gcc (SUSE Linux) 7.5.0
+  mpicxx: g++ (SUSE Linux) 7.5.0
+
+=== [2] Prepare build directory ===
+  Source:  /home/hyoklee/core
+  Build:   /home/hyoklee/core/build-polaris (clean)
+  Install: /lus/grand/projects/gpu_hack/iowarp/core-install
+
+=== [3] CMake configure ===
+-- The C compiler identification is GNU 14.3.0
+-- The CXX compiler identification is GNU 14.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/gcc-14 - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/g++-14 - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Conda environment support disabled (use -DWRP_CORE_ENABLE_CONDA=ON to enable)
+-- Build system configuration:
+--   Conda build:        FALSE
+--   Install prefix:     /lus/grand/projects/gpu_hack/iowarp/core-install
+-- Test/Benchmark Configuration:
+--   CLIO_CORE_ENABLE_TESTS: OFF
+--   CLIO_CORE_ENABLE_BENCHMARKS: OFF
+-- Loading IowarpCoreCommon.cmake
+-- IowarpCoreCommon.cmake loaded successfully
+-- Found PkgConfig: /home/hyoklee/miniconda3/bin/pkg-config (found version "0.29.2")
+-- found pkg-config
+-- found yaml-cpp at /home/hyoklee/miniconda3/lib/cmake/yaml-cpp
+-- Using yaml-cpp target: yaml-cpp::yaml-cpp
+-- found cereal at /home/hyoklee/miniconda3/lib/cmake/cereal
+-- found msgpack-c at /home/hyoklee/miniconda3/lib/cmake/msgpack-c
+--   using shared msgpack-c (static not available)
+-- Found MPI_C: /opt/cray/pe/mpich/8.1.32/ofi/gnu/12.3/lib/libmpi_gnu_123.so (found version "3.1")
+-- Found MPI_CXX: /opt/cray/pe/mpich/8.1.32/ofi/gnu/12.3/lib/libmpi_gnu_123.so (found version "3.1")
+-- Found MPI: TRUE (found version "3.1") found components: C CXX
+-- found mpi.h at /opt/cray/pe/mpich/8.1.32/ofi/gnu/12.3/include
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- HDF5 support disabled
+-- Gray-Scott example disabled
+-- Python bindings disabled
+-- GCC detected - enabling coroutines with -fcoroutines
+-- ccache not found — install ccache for faster rebuilds
+-- RPATH: Using relative paths ($ORIGIN/../lib)
+--   INSTALL_RPATH: $ORIGIN;$ORIGIN/../lib
+--   BUILD_RPATH:   /home/hyoklee/core/build-polaris/bin
+-- Performing Test HAS_WNO_STRINGOP_OVERFLOW
+-- Performing Test HAS_WNO_STRINGOP_OVERFLOW - Success
+-- Performing Test HAS_WNO_STRINGOP_OVERREAD
+-- Performing Test HAS_WNO_STRINGOP_OVERREAD - Success
+-- yaml-cpp already found by ClioCoreCommon
+-- Building context-transport-primitives component
+-- Checking for module 'libelf'
+--   Found libelf, version 0.185
+-- found libelf.h at /home/hyoklee/miniconda3/include;/usr/include
+-- BaM module disabled
+-- Detected UNIX OS
+IN RELEASE MODE
+-- Building runtime component
+-- using clio_ctp as subdirectory (target: cxx)
+-- Chimaera namespace: chimaera (package=chimaera)
+-- Building Chimaera modules (ChiMods)...
+-- Runtime chimaera_MOD_NAME_runtime linking to client chimaera_MOD_NAME_client
+-- Created module package: chimaera_MOD_NAME
+--   Targets: chimaera_MOD_NAME_runtime;chimaera_MOD_NAME_client
+--   Aliases: clio::run::MOD_NAME_client, clio::run::MOD_NAME_runtime
+-- Runtime clio_admin_runtime linking to client clio_admin_client
+-- Created module package: chimaera_admin
+--   Targets: clio_admin_runtime;clio_admin_client
+--   Aliases: clio::run::admin_client, clio::run::admin_runtime
+-- Runtime clio_bdev_runtime linking to client clio_bdev_client
+-- Created module package: chimaera_bdev
+--   Targets: clio_bdev_runtime;clio_bdev_client
+--   Aliases: clio::run::bdev_client, clio::run::bdev_runtime
+-- Created core package: chimaera
+--   Export set: chimaera_coreTargets
+--   Config location: lib/cmake/chimaera
+-- Building context-transfer-engine component
+-- Found Chimaera framework - building full ChiMod implementation
+-- Created module package: clio_cte_core
+--   Targets: clio_cte_core_runtime
+--   Aliases: clio::cte::core_client, clio::cte::core_runtime
+-- Deferred linking: Runtime clio_cte_core_runtime linked to client clio_cte_core_client
+-- CTE: Compression disabled - skipping compressor chimod (use -DWRP_CTE_ENABLE_COMPRESS=ON to enable)
+-- CTE Adapters: ENABLED (ELF support available)
+-- CTE UVM: Skipping (CLIO_CORE_ENABLE_CUDA is OFF)
+-- CTE Python bindings disabled: CLIO_CORE_ENABLE_PYTHON is OFF
+-- CTE Core and Bdev ChiMods configured for compilation
+-- Context-assimilation-engine component disabled
+-- Context-exploration-engine component disabled
+-- Context-visualizer component disabled (requires CLIO_CORE_ENABLE_PYTHON)
+-- Gray-Scott example disabled
+-- llm-hooks disabled (set CLIO_CORE_ENABLE_LLAMA=ON to enable)
+-- 
+-- IOWarp Core unified package configuration:
+--   Package name: iowarp-core (canonical alias: clio-core)
+--   Install destination: lib/cmake/iowarp-core, lib/cmake/clio-core
+--   Components included:
+--     - ClioCtp (context-transport-primitives)
+--     - Chimaera (runtime)
+--     - Core ChiMods: admin, bdev
+--     - CTE ChiMod: clio_cte_core
+-- 
+-- IOWarp Core Configuration Summary:
+--   Build Shared Libraries:       ON
+--   
+--   Component Modules:
+--     Runtime:                    ON
+--     Context Transfer Engine:    ON
+--     Context Assimilation:       OFF
+--     Context Exploration:        OFF
+--   
+--   External Examples:
+--     Gray-Scott (ADIOS2):        OFF
+--   
+--   Global Options:
+--     Enable Tests:               OFF
+--     Python Bindings:            OFF
+--     AddressSanitizer (ASan):    OFF
+--     UndefinedBehaviorSan (UBSan): OFF
+--     MemorySanitizer (MSan):     OFF
+--     Code Coverage:              OFF
+-- 
+-- Configuring done (7.4s)
+-- Generating done (0.6s)
+CMake Warning:
+  Manually-specified variables were not used by the project:
+
+    HDF5_ROOT
+
+
+-- Build files have been written to: /home/hyoklee/core/build-polaris
+  CMake configure: OK
+
+=== [4] Build and install (j32) ===
+[  1%] Building CXX object context-transport-primitives/src/CMakeFiles/clio_ctp_host.dir/cmake_pch.hxx.gch
+[  5%] Building CXX object context-transport-primitives/src/CMakeFiles/clio_ctp_host.dir/system_info.cc.o
+[  5%] Building CXX object context-transport-primitives/src/CMakeFiles/clio_ctp_host.dir/malloc_allocator.cc.o
+[  5%] Building CXX object context-transport-primitives/src/CMakeFiles/clio_ctp_host.dir/socket_posix.cc.o
+[  6%] Linking CXX shared library ../../bin/libclio_ctp_host.so
+[  6%] Built target clio_ctp_host
+[  8%] Building CXX object context-runtime/src/CMakeFiles/clio_run_cxx.dir/cmake_pch.hxx.gch
+[ 12%] Building CXX object context-runtime/src/CMakeFiles/clio_run_cxx.dir/config_manager.cc.o
+[ 19%] Building CXX object context-runtime/src/CMakeFiles/clio_run_cxx.dir/ipc/ipc_gpu2cpu.cc.o
+[ 20%] Building CXX object context-runtime/src/CMakeFiles/clio_run_cxx.dir/ipc/ipc_cpu2cpu_zmq.cc.o
+[ 20%] Building CXX object context-runtime/src/CMakeFiles/clio_run_cxx.dir/ipc/ipc_cpu2cpu.cc.o
+[ 20%] Building CXX object context-runtime/src/CMakeFiles/clio_run_cxx.dir/admin.cc.o
+[ 20%] Building CXX object context-runtime/src/CMakeFiles/clio_run_cxx.dir/chimaera_manager.cc.o
+[ 30%] Building CXX object context-runtime/src/CMakeFiles/clio_run_cxx.dir/ipc/ipc_cpu2self.cc.o
+[ 30%] Building CXX object context-runtime/src/CMakeFiles/clio_run_cxx.dir/scheduler/local_sched.cc.o
+[ 30%] Building CXX object context-runtime/src/CMakeFiles/clio_run_cxx.dir/scheduler/default_sched.cc.o
+[ 30%] Building CXX object context-runtime/src/CMakeFiles/clio_run_cxx.dir/chimaera.cc.o
+[ 30%] Building CXX object context-runtime/src/CMakeFiles/clio_run_cxx.dir/ipc_manager.cc.o
+[ 30%] Building CXX object context-runtime/src/CMakeFiles/clio_run_cxx.dir/module_manager.cc.o
+[ 30%] Building CXX object context-runtime/src/CMakeFiles/clio_run_cxx.dir/pool_manager.cc.o
+[ 36%] Building CXX object context-runtime/src/CMakeFiles/clio_run_cxx.dir/worker.cc.o
+[ 36%] Building CXX object context-runtime/src/CMakeFiles/clio_run_cxx.dir/types.cc.o
+[ 36%] Building CXX object context-runtime/src/CMakeFiles/clio_run_cxx.dir/work_orchestrator.cc.o
+[ 36%] Building CXX object context-runtime/src/CMakeFiles/clio_run_cxx.dir/pool_query.cc.o
+[ 36%] Building CXX object context-runtime/src/CMakeFiles/clio_run_cxx.dir/task.cc.o
+[ 36%] Building CXX object context-runtime/src/CMakeFiles/clio_run_cxx.dir/scheduler/scheduler_factory.cc.o
+[ 36%] Building CXX object context-runtime/src/CMakeFiles/clio_run_cxx.dir/task_archive.cc.o
+[ 37%] Linking CXX shared library ../../bin/libclio_run_cxx.so
+[ 37%] Built target clio_run_cxx
+[ 38%] Building CXX object context-runtime/modules/admin/CMakeFiles/clio_admin_client.dir/cmake_pch.hxx.gch
+[ 40%] Building CXX object context-runtime/modules/MOD_NAME/CMakeFiles/chimaera_MOD_NAME_client.dir/cmake_pch.hxx.gch
+[ 41%] Building CXX object context-runtime/modules/admin/CMakeFiles/clio_admin_client.dir/src/admin_client.cc.o
+[ 43%] Building CXX object context-runtime/modules/MOD_NAME/CMakeFiles/chimaera_MOD_NAME_client.dir/src/MOD_NAME_client.cc.o
+[ 44%] Linking CXX shared library ../../../bin/libchimaera_MOD_NAME_client.so
+[ 45%] Linking CXX shared library ../../../bin/libclio_admin_client.so
+[ 45%] Built target chimaera_MOD_NAME_client
+[ 45%] Built target clio_admin_client
+[ 47%] Building CXX object context-runtime/modules/MOD_NAME/CMakeFiles/chimaera_MOD_NAME_runtime.dir/cmake_pch.hxx.gch
+[ 50%] Building CXX object context-runtime/util/CMakeFiles/clio_run_commands.dir/clio_run_cmd_runtime_start.cc.o
+[ 52%] Building CXX object context-runtime/modules/admin/CMakeFiles/clio_admin_runtime.dir/cmake_pch.hxx.gch
+[ 55%] Building CXX object context-runtime/util/CMakeFiles/clio_run_commands.dir/clio_run_cmd_runtime_stop.cc.o
+[ 55%] Building CXX object context-runtime/util/CMakeFiles/clio_run_commands.dir/clio_run_cmd_monitor.cc.o
+[ 58%] Building CXX object context-runtime/modules/bdev/CMakeFiles/clio_bdev_client.dir/cmake_pch.hxx.gch
+[ 58%] Building CXX object context-runtime/util/CMakeFiles/clio_run_commands.dir/clio_run_cmd_compose.cc.o
+[ 58%] Building CXX object context-runtime/util/CMakeFiles/clio_run_commands.dir/clio_run_cmd_refresh_repo.cc.o
+[ 58%] Building CXX object context-runtime/util/CMakeFiles/clio_run_commands.dir/clio_run_cmd_migrate.cc.o
+[ 61%] Building CXX object context-runtime/modules/admin/CMakeFiles/clio_admin_runtime.dir/src/autogen/admin_lib_exec.cc.o
+[ 61%] Building CXX object context-runtime/modules/admin/CMakeFiles/clio_admin_runtime.dir/src/admin_runtime.cc.o
+[ 63%] Building CXX object context-runtime/modules/bdev/CMakeFiles/clio_bdev_client.dir/src/bdev_client.cc.o
+[ 63%] Building CXX object context-runtime/modules/MOD_NAME/CMakeFiles/chimaera_MOD_NAME_runtime.dir/src/MOD_NAME_runtime.cc.o
+[ 65%] Building CXX object context-runtime/modules/MOD_NAME/CMakeFiles/chimaera_MOD_NAME_runtime.dir/src/autogen/MOD_NAME_lib_exec.cc.o
+[ 66%] Linking CXX shared library ../../../bin/libclio_bdev_client.so
+[ 66%] Built target clio_bdev_client
+[ 68%] Building CXX object context-transfer-engine/core/CMakeFiles/clio_cte_core_client.dir/cmake_pch.hxx.gch
+[ 72%] Building CXX object context-transfer-engine/core/CMakeFiles/clio_cte_core_client.dir/src/tag.cc.o
+[ 72%] Building CXX object context-transfer-engine/core/CMakeFiles/clio_cte_core_client.dir/src/content_transfer_engine.cc.o
+[ 72%] Building CXX object context-transfer-engine/core/CMakeFiles/clio_cte_core_client.dir/src/core_client.cc.o
+[ 73%] Linking CXX static library ../../bin/libclio_run_commands.a
+[ 73%] Built target clio_run_commands
+[ 75%] Building CXX object context-runtime/util/CMakeFiles/clio_run.dir/clio_run.cc.o
+[ 76%] Linking CXX shared library ../../../bin/libchimaera_MOD_NAME_runtime.so
+[ 76%] Built target chimaera_MOD_NAME_runtime
+[ 77%] Linking CXX executable ../../bin/clio_run
+[ 77%] Built target clio_run
+[ 79%] Linking CXX shared library ../../bin/libclio_cte_core_client.so
+[ 79%] Built target clio_cte_core_client
+[ 80%] Building CXX object context-transfer-engine/adapter/filesystem/CMakeFiles/clio_cte_fs_base.dir/filesystem.cc.o
+[ 81%] Linking CXX shared library ../../../bin/libclio_admin_runtime.so
+[ 81%] Built target clio_admin_runtime
+[ 83%] Building CXX object context-runtime/modules/bdev/CMakeFiles/clio_bdev_runtime.dir/cmake_pch.hxx.gch
+[ 86%] Building CXX object context-runtime/modules/bdev/CMakeFiles/clio_bdev_runtime.dir/src/autogen/bdev_lib_exec.cc.o
+[ 86%] Building CXX object context-runtime/modules/bdev/CMakeFiles/clio_bdev_runtime.dir/src/bdev_runtime.cc.o
+[ 87%] Linking CXX shared library ../../../bin/libclio_cte_fs_base.so
+[ 87%] Built target clio_cte_fs_base
+[ 88%] Building CXX object context-transfer-engine/adapter/posix/CMakeFiles/clio_cte_posix.dir/posix_api.cc.o
+[ 90%] Linking CXX shared library ../../../bin/libclio_bdev_runtime.so
+[ 90%] Built target clio_bdev_runtime
+[ 91%] Building CXX object context-transfer-engine/core/CMakeFiles/clio_cte_core_runtime.dir/cmake_pch.hxx.gch
+[ 97%] Building CXX object context-transfer-engine/core/CMakeFiles/clio_cte_core_runtime.dir/src/core_dpe.cc.o
+[ 97%] Building CXX object context-transfer-engine/core/CMakeFiles/clio_cte_core_runtime.dir/src/core_config.cc.o
+[ 97%] Building CXX object context-transfer-engine/core/CMakeFiles/clio_cte_core_runtime.dir/src/core_runtime.cc.o
+[ 97%] Building CXX object context-transfer-engine/core/CMakeFiles/clio_cte_core_runtime.dir/src/autogen/core_lib_exec.cc.o
+[ 98%] Linking CXX shared library ../../../bin/libclio_cte_posix.so
+[ 98%] Built target clio_cte_posix
+[100%] Linking CXX shared library ../../bin/libclio_cte_core_runtime.so
+[100%] Built target clio_cte_core_runtime
+Install the project...
+-- Install configuration: "Release"
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/types
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/types/atomic.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/types/argpack.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/types/bitfield.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/types/numbers.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/types/hash.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/util
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/util/config_parse.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/util/timer.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/util/errors.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/util/type_switch.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/util/real_api.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/util/random.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/util/error.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/util/env_compat.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/util/affinity.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/util/formatter.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/util/gpu_intrinsics.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/util/timer_thread.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/util/gpu_api.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/util/timer_mpi.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/util/logging.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/util/auto_trace.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/util/singleton.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/util/gpu_linker.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/memory
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/memory/backend
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/memory/backend/gpu_malloc.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/memory/backend/posix_mmap.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/memory/backend/posix_shm_mmap.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/memory/backend/array_backend.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/memory/backend/malloc_backend.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/memory/backend/memory_backend.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/memory/backend/gpu_shm_mmap.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/memory/allocator
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/memory/allocator/buddy_allocator.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/memory/allocator/round_robin_allocator.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/memory/allocator/arena_allocator.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/memory/allocator/malloc_allocator.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/memory/allocator/mp_allocator.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/memory/allocator/thread_allocator.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/memory/allocator/allocator.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/memory/allocator/slab_allocator.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/memory/allocator/heap.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/hermes_shm.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/data_structures
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/data_structures/serialization
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/data_structures/serialization/serialize_common.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/data_structures/serialization/local_serialize.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/data_structures/serialization/global_serialize.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/data_structures/ipc
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/data_structures/ipc/vector.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/data_structures/ipc/ring_buffer.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/data_structures/ipc/slist_pre.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/data_structures/ipc/algorithm.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/data_structures/ipc/multi_ring_buffer.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/data_structures/ipc/shm_container.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/data_structures/ipc/rb_tree_pre.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/data_structures/priv
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/data_structures/priv/vector.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/data_structures/priv/string.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/data_structures/priv/unordered_map_lhash.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/data_structures/priv/array.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/data_structures/priv/wrap_vector.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/data_structures/priv/unordered_map_ll.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/data_structures/priv/array_vector.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/solver
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/solver/nonlinear_least_squares.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/compress
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/compress/sz.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/compress/bitgrooming.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/compress/brotli.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/compress/zfp.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/compress/compress.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/compress/blosc.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/compress/libpressio_modes.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/compress/lzma.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/compress/lzo.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/compress/compress_factory.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/compress/zlib.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/compress/data_stats.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/compress/snappy.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/compress/lossless_modes.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/compress/sz3.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/compress/libpressio.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/compress/zstd.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/compress/fpzip.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/compress/bzip2.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/compress/lz4.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/serialize
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/serialize/msgpack_wrapper.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/encrypt
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/encrypt/encrypt.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/encrypt/aes.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/constants
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/constants/macros.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/io
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/io/nixl_io.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/io/async_io.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/io/iouring_io.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/io/iocp_io.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/io/posix_aio.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/io/async_io_factory.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/io/libaio_io.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/introspect
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/introspect/system_info.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/thread
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/thread/lock
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/thread/lock/spin_lock.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/thread/lock/rwlock.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/thread/lock/mutex.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/thread/thread_model
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/thread/thread_model/cuda.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/thread/thread_model/thread_model.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/thread/thread_model/pthread.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/thread/thread_model/rocm.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/thread/thread_model/std_thread.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/thread/thread_model/argobots.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/thread/lock.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/thread/thread_model_manager.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/lightbeam
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/lightbeam/lightbeam.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/lightbeam/posix_socket.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/lightbeam/nixl_transport.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/lightbeam/transport_factory_impl.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/lightbeam/event_manager_win.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/lightbeam/thallium_transport.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/lightbeam/event_manager_linux.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/lightbeam/utils.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/lightbeam/socket_transport.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/lightbeam/zmq_transport.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/lightbeam/shm_transport.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/hermes_shm/lightbeam/event_manager.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/clio_ctp.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/types
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/types/atomic.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/types/argpack.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/types/bitfield.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/types/numbers.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/types/hash.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/util
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/util/config_parse.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/util/timer.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/util/errors.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/util/type_switch.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/util/real_api.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/util/random.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/util/error.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/util/env_compat.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/util/affinity.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/util/formatter.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/util/gpu_intrinsics.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/util/timer_thread.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/util/gpu_api.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/util/timer_mpi.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/util/logging.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/util/auto_trace.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/util/singleton.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/util/gpu_linker.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/memory
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/memory/backend
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/memory/backend/gpu_malloc.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/memory/backend/posix_mmap.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/memory/backend/posix_shm_mmap.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/memory/backend/array_backend.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/memory/backend/malloc_backend.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/memory/backend/memory_backend.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/memory/backend/gpu_shm_mmap.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/memory/allocator
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/memory/allocator/buddy_allocator.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/memory/allocator/round_robin_allocator.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/memory/allocator/arena_allocator.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/memory/allocator/malloc_allocator.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/memory/allocator/mp_allocator.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/memory/allocator/thread_allocator.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/memory/allocator/allocator.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/memory/allocator/slab_allocator.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/memory/allocator/heap.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/data_structures
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/data_structures/serialization
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/data_structures/serialization/serialize_common.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/data_structures/serialization/local_serialize.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/data_structures/serialization/global_serialize.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/data_structures/ipc
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/data_structures/ipc/vector.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/data_structures/ipc/ring_buffer.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/data_structures/ipc/slist_pre.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/data_structures/ipc/algorithm.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/data_structures/ipc/multi_ring_buffer.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/data_structures/ipc/shm_container.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/data_structures/ipc/rb_tree_pre.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/data_structures/priv
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/data_structures/priv/vector.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/data_structures/priv/string.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/data_structures/priv/unordered_map_lhash.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/data_structures/priv/array.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/data_structures/priv/wrap_vector.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/data_structures/priv/unordered_map_ll.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/data_structures/priv/array_vector.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/solver
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/solver/nonlinear_least_squares.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/compress
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/compress/sz.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/compress/bitgrooming.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/compress/brotli.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/compress/zfp.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/compress/compress.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/compress/blosc.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/compress/libpressio_modes.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/compress/lzma.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/compress/lzo.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/compress/compress_factory.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/compress/zlib.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/compress/data_stats.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/compress/snappy.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/compress/lossless_modes.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/compress/sz3.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/compress/libpressio.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/compress/zstd.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/compress/fpzip.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/compress/bzip2.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/compress/lz4.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/serialize
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/serialize/msgpack_wrapper.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/encrypt
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/encrypt/encrypt.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/encrypt/aes.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/constants
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/constants/macros.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/io
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/io/nixl_io.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/io/async_io.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/io/iouring_io.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/io/iocp_io.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/io/posix_aio.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/io/async_io_factory.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/io/libaio_io.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/introspect
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/introspect/system_info.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/thread
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/thread/lock
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/thread/lock/spin_lock.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/thread/lock/rwlock.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/thread/lock/mutex.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/thread/thread_model
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/thread/thread_model/cuda.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/thread/thread_model/thread_model.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/thread/thread_model/pthread.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/thread/thread_model/rocm.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/thread/thread_model/std_thread.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/thread/thread_model/argobots.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/thread/lock.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/thread/thread_model_manager.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/compat
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/compat/hshm_aliases.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/lightbeam
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/lightbeam/lightbeam.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/lightbeam/posix_socket.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/lightbeam/nixl_transport.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/lightbeam/transport_factory_impl.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/lightbeam/event_manager_win.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/lightbeam/thallium_transport.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/lightbeam/event_manager_linux.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/lightbeam/utils.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/lightbeam/socket_transport.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/lightbeam/zmq_transport.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/lightbeam/shm_transport.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_ctp/lightbeam/event_manager.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/cmake/ClioCtp/ClioCtpCoreConfig.cmake
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/cmake/ClioCtp/ClioCtpCoreConfig-release.cmake
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/libclio_ctp_host.so
+-- Set non-toolchain portion of runtime path of "/lus/grand/projects/gpu_hack/iowarp/core-install/lib/libclio_ctp_host.so" to "$ORIGIN:$ORIGIN/../lib:/home/hyoklee/miniconda3/lib"
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/libclio_run_cxx.so.1.0.0
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/libclio_run_cxx.so.1
+-- Set non-toolchain portion of runtime path of "/lus/grand/projects/gpu_hack/iowarp/core-install/lib/libclio_run_cxx.so.1.0.0" to "$ORIGIN:$ORIGIN/../lib:/home/hyoklee/miniconda3/lib"
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/libclio_run_cxx.so
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/clio_runtime.h
+-- Installed legacy symlink libchimaera_cxx.so -> libclio_run_cxx.so
+-- Installed legacy symlink libchimaera_cxx.so.1 -> libclio_run_cxx.so.1
+-- Installed legacy symlink libchimaera_cxx.so.1.0.0 -> libclio_run_cxx.so.1.0.0
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/task_archives.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/worker.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/task.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/ipc
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/ipc/ipc_cpu2cpu_impl.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/ipc/ipc_gpu2cpu.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/ipc/ipc_cpu2self.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/ipc/ipc_cpu2cpu_zmq.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/ipc/ipc_cpu2cpu_zmq_impl.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/ipc/ipc_gpu2cpu_impl.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/ipc/ipc_cpu2cpu.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/container.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/future.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/chimaera_manager.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/local_task_archives.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/pool_query.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/comutex.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/admin.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/work_orchestrator.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/device_memcpy.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/singletons.h
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/clio_runtime.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/ipc_manager.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/types.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/config_manager.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/corwlock.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/scheduler
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/scheduler/scheduler_factory.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/scheduler/scheduler.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/scheduler/default_sched.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/scheduler/local_sched.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/module_manager.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/gpu
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/gpu/future.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/gpu/gpu_info.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/gpu/gpu_ipc_manager.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/compat
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/compat/chimaera_namespace.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/pool_manager.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/task_archives.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/worker.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/task.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/ipc
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/ipc/ipc_cpu2cpu_impl.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/ipc/ipc_gpu2cpu.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/ipc/ipc_cpu2self.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/ipc/ipc_cpu2cpu_zmq.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/ipc/ipc_cpu2cpu_zmq_impl.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/ipc/ipc_gpu2cpu_impl.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/ipc/ipc_cpu2cpu.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/container.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/future.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/chimaera_manager.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/local_task_archives.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/pool_query.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/comutex.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/admin.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/work_orchestrator.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/device_memcpy.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/chimaera.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/singletons.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/ipc_manager.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/types.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/config_manager.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/corwlock.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/scheduler
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/scheduler/scheduler_factory.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/scheduler/scheduler.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/scheduler/default_sched.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/scheduler/local_sched.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/module_manager.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/gpu
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/gpu/future.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/gpu/gpu_info.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/gpu/gpu_ipc_manager.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/pool_manager.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/etc/chimaera
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/etc/chimaera/test_hostfile
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/etc/chimaera/chimaera_default.yaml
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/etc/chimaera/example_hostfile
+-- Seeded default config: /home/hyoklee/.clio/clio.yaml
+-- User config already exists: /home/hyoklee/.chimaera/chimaera.yaml (not overwriting)
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/cmake/chimaera/chimaera_coreTargets.cmake
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/cmake/chimaera/chimaera_coreTargets-release.cmake
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/cmake/chimaera/chimaeraConfig.cmake
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/cmake/chimaera/chimaeraConfigVersion.cmake
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/cmake/chimaera/ClioCoreCommon.cmake
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/bin/clio_run
+-- Set non-toolchain portion of runtime path of "/lus/grand/projects/gpu_hack/iowarp/core-install/bin/clio_run" to "$ORIGIN:$ORIGIN/../lib:/home/hyoklee/miniconda3/lib"
+-- Installed chimaera -> clio_run legacy symlink at /lus/grand/projects/gpu_hack/iowarp/core-install/bin/chimaera
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/libchimaera_MOD_NAME_client.so
+-- Set non-toolchain portion of runtime path of "/lus/grand/projects/gpu_hack/iowarp/core-install/lib/libchimaera_MOD_NAME_client.so" to "$ORIGIN:$ORIGIN/../lib:/home/hyoklee/miniconda3/lib"
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/MOD_NAME
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/MOD_NAME/MOD_NAME_runtime.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/MOD_NAME/autogen
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/MOD_NAME/autogen/MOD_NAME_methods.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/MOD_NAME/MOD_NAME_client.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/MOD_NAME/MOD_NAME_tasks.h
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/MOD_NAME
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/MOD_NAME/MOD_NAME_runtime.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/MOD_NAME/autogen
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/MOD_NAME/autogen/MOD_NAME_methods.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/MOD_NAME/MOD_NAME_client.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/MOD_NAME/MOD_NAME_tasks.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/libchimaera_MOD_NAME_runtime.so
+-- Set non-toolchain portion of runtime path of "/lus/grand/projects/gpu_hack/iowarp/core-install/lib/libchimaera_MOD_NAME_runtime.so" to "$ORIGIN:$ORIGIN/../lib:/home/hyoklee/miniconda3/lib"
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/cmake/chimaera_MOD_NAME/chimaera_MOD_NAME.cmake
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/cmake/chimaera_MOD_NAME/chimaera_MOD_NAME-release.cmake
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/cmake/chimaera_MOD_NAME/chimaera_MOD_NAMEConfig.cmake
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/cmake/chimaera_MOD_NAME/chimaera_MOD_NAMEConfigVersion.cmake
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/libclio_admin_client.so
+-- Set non-toolchain portion of runtime path of "/lus/grand/projects/gpu_hack/iowarp/core-install/lib/libclio_admin_client.so" to "$ORIGIN:$ORIGIN/../lib:/home/hyoklee/miniconda3/lib"
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/admin
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/admin/admin_runtime.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/admin/admin_tasks.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/admin/admin_client.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/admin/autogen
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/admin/autogen/admin_methods.h
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/admin
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/admin/admin_runtime.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/admin/admin_tasks.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/admin/admin_client.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/admin/autogen
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/admin/autogen/admin_methods.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/libclio_admin_runtime.so
+-- Set non-toolchain portion of runtime path of "/lus/grand/projects/gpu_hack/iowarp/core-install/lib/libclio_admin_runtime.so" to "$ORIGIN:$ORIGIN/../lib:/home/hyoklee/miniconda3/lib"
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/cmake/chimaera_admin/chimaera_admin.cmake
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/cmake/chimaera_admin/chimaera_admin-release.cmake
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/cmake/chimaera_admin/chimaera_adminConfig.cmake
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/cmake/chimaera_admin/chimaera_adminConfigVersion.cmake
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/libclio_bdev_client.so
+-- Set non-toolchain portion of runtime path of "/lus/grand/projects/gpu_hack/iowarp/core-install/lib/libclio_bdev_client.so" to "$ORIGIN:$ORIGIN/../lib:/home/hyoklee/miniconda3/lib"
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/bdev
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/bdev/bdev_runtime.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/bdev/bdev_tasks.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/bdev/bdev_client.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/bdev/autogen
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_runtime/bdev/autogen/bdev_methods.h
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/bdev
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/bdev/bdev_runtime.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/bdev/bdev_tasks.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/bdev/bdev_client.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/bdev/autogen
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/bdev/autogen/bdev_methods.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/libclio_bdev_runtime.so
+-- Set non-toolchain portion of runtime path of "/lus/grand/projects/gpu_hack/iowarp/core-install/lib/libclio_bdev_runtime.so" to "$ORIGIN:$ORIGIN/../lib:/home/hyoklee/miniconda3/lib"
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/cmake/chimaera_bdev/chimaera_bdev.cmake
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/cmake/chimaera_bdev/chimaera_bdev-release.cmake
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/cmake/chimaera_bdev/chimaera_bdevConfig.cmake
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/cmake/chimaera_bdev/chimaera_bdevConfigVersion.cmake
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/libclio_cte_core_runtime.so
+-- Set non-toolchain portion of runtime path of "/lus/grand/projects/gpu_hack/iowarp/core-install/lib/libclio_cte_core_runtime.so" to "$ORIGIN:$ORIGIN/../lib:/home/hyoklee/miniconda3/lib"
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_cte
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_cte/core
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_cte/core/core_dpe.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_cte/core/core_tasks.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_cte/core/transaction_log.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_cte/core/core_client.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_cte/core/content_transfer_engine.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_cte/core/core_runtime.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_cte/core/core_config.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_cte/core/gpu_metadata_cache.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_cte/core/autogen
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_cte/core/autogen/core_methods.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/wrp_cte
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/wrp_cte/core
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/wrp_cte/core/core_dpe.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/wrp_cte/core/core_tasks.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/wrp_cte/core/transaction_log.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/wrp_cte/core/core_client.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/wrp_cte/core/content_transfer_engine.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/wrp_cte/core/core_runtime.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/wrp_cte/core/core_config.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/wrp_cte/core/gpu_metadata_cache.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/wrp_cte/core/autogen
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/wrp_cte/core/autogen/core_methods.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/cmake/clio_cte_core/clio_cte_core.cmake
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/cmake/clio_cte_core/clio_cte_core-release.cmake
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/cmake/clio_cte_core/clio_cte_coreConfig.cmake
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/cmake/clio_cte_core/clio_cte_coreConfigVersion.cmake
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/libclio_cte_core_client.so
+-- Set non-toolchain portion of runtime path of "/lus/grand/projects/gpu_hack/iowarp/core-install/lib/libclio_cte_core_client.so" to "$ORIGIN:$ORIGIN/../lib:/home/hyoklee/miniconda3/lib"
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_cte
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_cte/core
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_cte/core/core_dpe.h
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_cte/core/core_tasks.h
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_cte/core/transaction_log.h
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_cte/core/core_client.h
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_cte/core/content_transfer_engine.h
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_cte/core/core_runtime.h
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_cte/core/core_config.h
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_cte/core/gpu_metadata_cache.h
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_cte/core/autogen
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include/clio_cte/core/autogen/core_methods.h
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include/wrp_cte
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include/wrp_cte/core
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include/wrp_cte/core/core_dpe.h
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include/wrp_cte/core/core_tasks.h
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include/wrp_cte/core/transaction_log.h
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include/wrp_cte/core/core_client.h
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include/wrp_cte/core/content_transfer_engine.h
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include/wrp_cte/core/core_runtime.h
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include/wrp_cte/core/core_config.h
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include/wrp_cte/core/gpu_metadata_cache.h
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include/wrp_cte/core/autogen
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include/wrp_cte/core/autogen/core_methods.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/libclio_cte_fs_base.so
+-- Set non-toolchain portion of runtime path of "/lus/grand/projects/gpu_hack/iowarp/core-install/lib/libclio_cte_fs_base.so" to "$ORIGIN:$ORIGIN/../lib:/opt/cray/pe/mpich/8.1.32/ofi/gnu/12.3/lib:/home/hyoklee/miniconda3/lib"
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/adapter/filesystem/filesystem_io_client.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/adapter/filesystem/filesystem.h
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/include/adapter/filesystem/filesystem_io_client.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/adapter/filesystem/filesystem_mdm.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/libclio_cte_posix.so
+-- Set non-toolchain portion of runtime path of "/lus/grand/projects/gpu_hack/iowarp/core-install/lib/libclio_cte_posix.so" to "$ORIGIN:$ORIGIN/../lib:/opt/cray/pe/mpich/8.1.32/ofi/gnu/12.3/lib:/home/hyoklee/miniconda3/lib"
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/adapter/posix/posix_api.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/adapter/posix/posix_fs_api.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/adapter/adapter_constants.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/adapter/adapter_types.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/adapter/iowarp_engine.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/adapter/filesystem.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/adapter/filesystem_io_client.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/adapter/filesystem_mdm.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/adapter/gpu_vector.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/adapter/gpu_vector_kernels.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/adapter/gpu_vector_page.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/adapter/gpu_vector_view.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/adapter/iowarp_vol.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/adapter/fuse_cte.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/adapter/abstract_mapper.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/adapter/balanced_mapper.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/adapter/mapper_factory.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/adapter/mpiio_api.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/adapter/mpiio_fs_api.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/adapter/cufile_api.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/adapter/posix_api.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/adapter/posix_fs_api.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/adapter/stdio_api.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/adapter/stdio_fs_api.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/adapter/H5FDhermes.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/adapter/mapper
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/adapter/mapper/balanced_mapper.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/adapter/mapper/mapper_factory.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/adapter/mapper/abstract_mapper.h
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/cmake/iowarp-core/iowarp-coreConfig.cmake
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/cmake/iowarp-core/iowarp-coreConfigVersion.cmake
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/cmake/iowarp-core/ClioCoreCommon.cmake
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/cmake/iowarp-core/IowarpCoreCommon.cmake
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/cmake/clio-core/clio-coreConfig.cmake
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/cmake/clio-core/clio-coreConfigVersion.cmake
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/libclio_ctp_host.so
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/libclio_run_cxx.so.1.0.0
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/libclio_run_cxx.so.1
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/libclio_run_cxx.so
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/include/chimaera/clio_runtime.h
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/libclio_admin_client.so
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/libclio_admin_runtime.so
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/libclio_bdev_client.so
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/libclio_bdev_runtime.so
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/libchimaera_MOD_NAME_client.so
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/libchimaera_MOD_NAME_runtime.so
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/libclio_cte_core_client.so
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/lib/libclio_cte_core_runtime.so
+-- Up-to-date: /lus/grand/projects/gpu_hack/iowarp/core-install/bin/clio_run
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/data/chimaera_default.yaml
+-- Installing: /lus/grand/projects/gpu_hack/iowarp/core-install/../iowarp_core.pth
+  Build elapsed: 56 s
+  Build: OK
+
+=== [5] Verify install ===
+  Binaries:
+total 512
+lrwxrwxrwx 1 hyoklee gpu_hack    8 May 25 18:19 chimaera -> clio_run
+-rwxr-xr-x 1 hyoklee gpu_hack 511K May 25 18:18 clio_run
+  Libraries:
+lrwxrwxrwx  1 hyoklee gpu_hack    18 May 25 18:19 libchimaera_cxx.so -> libclio_run_cxx.so
+lrwxrwxrwx  1 hyoklee gpu_hack    20 May 25 18:19 libchimaera_cxx.so.1 -> libclio_run_cxx.so.1
+lrwxrwxrwx  1 hyoklee gpu_hack    24 May 25 18:19 libchimaera_cxx.so.1.0.0 -> libclio_run_cxx.so.1.0.0
+-rwxr-xr-x  1 hyoklee gpu_hack  327K May 25 18:19 libclio_cte_core_client.so
+-rwxr-xr-x  1 hyoklee gpu_hack  1.1M May 25 18:19 libclio_cte_core_runtime.so
+-rwxr-xr-x  1 hyoklee gpu_hack  295K May 25 18:19 libclio_cte_posix.so
+lrwxrwxrwx  1 hyoklee gpu_hack    20 May 25 18:19 libclio_run_cxx.so -> libclio_run_cxx.so.1
+lrwxrwxrwx  1 hyoklee gpu_hack    24 May 25 18:19 libclio_run_cxx.so.1 -> libclio_run_cxx.so.1.0.0
+-rwxr-xr-x  1 hyoklee gpu_hack 1015K May 25 18:18 libclio_run_cxx.so.1.0.0
+
+  clio_run:           OK  511K
+  libclio_cte_posix:  OK  295K
+
+==== Build SUCCESSFUL ====
+  Next step: qsub ~/bin/miv_iowarp_bench.pbs
+Date: Mon May 25 06:19:28 PM UTC 2026

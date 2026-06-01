@@ -1,7 +1,7 @@
-# Performance: MiV Case 6 (Gap Junctions) — clio-core CTE and Intel GPU
+# Performance: MiV Case 6 (Gap Junctions) — clio-core CTE
 
-**Date**: 2026-05-07
-**Platform**: Aurora (Intel GPU Max 1550 / Ponte Vecchio, Flare Lustre)
+**Date**: 2026-05-07 (Aurora); 2026-05-25 (Polaris)
+**Platform**: Aurora (Intel GPU Max 1550 / Ponte Vecchio, Flare Lustre) — see below; Polaris results in new section
 **Case**: `~/MiV-Simulator-Cases/6-gapjunctions/` — `Microcircuit_Small.yaml` with gap-junction coupling
 **Network**: 189 cells (80 PYR + 56 OLM + 53 PVBC), `dt=0.025 ms`, `tstop=500 ms`
 **MPI**: 12 ranks on 1 Aurora node, `debug-scaling` queue
@@ -271,5 +271,46 @@ Separately, to unblock C and D:
   GPU HBM doesn't help today's MiV workload
 - [source-MiV_Optimizer_test.md](source-MiV_Optimizer_test.md) — case 7
   optimization run history including GPU evaluation hangs
-- Run log: `/home/hyoklee/wrp/run/miv_case6_perf_run.log`
-- Timing CSV: `/home/hyoklee/wrp/run/miv_case6_perf_timing.csv`
+- [MiV-Simulator + IOWarp CTE Benchmark](miv_iowarp_bench.md) — Polaris CTE bench history
+- Aurora run log: `/home/hyoklee/wrp/run/miv_case6_perf_run.log`
+- Aurora timing CSV: `/home/hyoklee/wrp/run/miv_case6_perf_timing.csv`
+
+---
+
+## Polaris — Case 6 run-network + clio-core CTE (2026-05-25)
+
+**Platform**: Polaris (NVIDIA A100, Cray MPICH 8.1.32, GNU HDF5 1.14.3.7)  
+**IOWarp**: `~/core` (iowarp-core v1.5.8, CLIO namespace — replaces `~/core.iowarp`)  
+**Case**: run-network, `Microcircuit_Small.yaml`, dt=0.025ms, tstop=50ms, 2 ranks  
+**Queue**: debug (1 node, 1 h)  
+**Build job**: 7170854 — `clio_run` 511K, `libclio_cte_posix.so` 295K installed OK  
+**Bench job**: 7170898 (in progress as of 2026-05-25 18:46 UTC)
+
+### Setup blockers resolved for Polaris
+
+The Aurora blockers (mpi4py/neuroh5 MPI incompatibility, nrnivmodl-core nrnunits.lib)
+do not apply to Polaris. Polaris uses Cray MPICH 8.1.32 and neuroh5 was rebuilt from
+source against the same Cray MPICH, avoiding the dual-MPI-library crash.
+
+New Polaris-specific blockers encountered and fixed:
+
+| # | Blocker | Fix |
+|---|---|---|
+| 1 | cmake not in PATH on compute nodes | `export PATH=/home/hyoklee/miniconda3/bin:$PATH` in PBS scripts |
+| 2 | neuroh5 built with nvc++ instead of g++ | `-DCMAKE_CXX_COMPILER=/usr/bin/g++-14` |
+| 3 | neuroh5 linked against serial conda HDF5 | `-DHDF5_ROOT=/opt/cray/pe/hdf5-parallel/1.14.3.7/gnu/12.3` |
+| 4 | `CLIO_CORE_ENABLE_ELF=OFF` (default) → no POSIX adapter | `-DCLIO_CORE_ENABLE_ELF=ON -DCLIO_CTE_ENABLE_POSIX_ADAPTER=ON` |
+| 5 | `MiV_gapjunctions_20230408.h5` missing (not in case source) | Added `make-h5types --gap-junctions` + `generate-gapjunctions` to bench script |
+| 6 | `--dataset-prefix=$CASE_DIR/datasets` wrong (files in `Microcircuit_Small/`) | Changed to `--dataset-prefix=$DATASET_DIR` (= `datasets/Microcircuit_Small`) |
+
+### Results (7170898) — pending
+
+> Results will be filled in after job completion.
+> Log: `~/NeuroFAIR/wiki/miv_iowarp_bench6_test.log`
+
+| Condition | Wall time (s) | Notes |
+|---|---|---|
+| Baseline (Lustre) | pending | 2 ranks, tstop=50ms |
+| CTE cold (staging→RAM) | pending | clio_run + LD_PRELOAD=libclio_cte_posix.so |
+| CTE warm (from RAM) | pending | same config, re-read |
+| Speedup (warm/baseline) | pending | |

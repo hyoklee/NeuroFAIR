@@ -13582,3 +13582,643 @@ INFO:miv_simulator.synapses:config_cell_syns: target: OLM; cell 186: set paramet
 INFO:miv_simulator.synapses:config_cell_syns: target: OLM; cell 186: set parameters for 1000 syns and 1000 netcons for 1000 syn_ids
 INFO:miv_simulator.synapses:config_cell_syns: target: OLM; cell 186: set parameters for 843 syns and 843 netcons for 843 syn_ids
 =>> PBS: job killed: walltime 21674 exceeded limit 21600
+==== MiV Case 6 (gap junctions) + iowarp-core CTE Benchmark ====
+Date:    Mon May 25 06:19:39 PM UTC 2026
+Job:     7170857.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov
+Node:    x3006c0s13b0n0.hsn.cm.polaris.alcf.anl.gov 
+Python:  Python 3.11.7
+
+=== [1] iowarp-core pre-flight check ===
+  clio_run:          OK  511K May 25 18:18
+  libclio_cte_posix: OK  295K May 25 18:19
+
+=== [2] Set up case 6 directory ===
+ [[deprecated("non-void* overloads are preferred")]] Object** vector_pobj(void*);
+                                                              ^~~~~~~~~~~
+ => [32mLINKING[0m shared library "/lus/grand/projects/gpu_hack/iowarp/miv_case6/x86_64/./libnrnmech.so"
+ => [32mLINKING[0m executable "/lus/grand/projects/gpu_hack/iowarp/miv_case6/x86_64/./special" LDFLAGS are:     
+Successfully created x86_64/special
+  Mechanisms compiled: x86_64/special
+OK
+  Dataset links from /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/datasets/Microcircuit_Small: OK
+  WARNING: MiV_gapjunctions_20230408.h5 not found — gap junction run may fail
+    Expected at: /home/hyoklee/MiV-Simulator-Cases/6-gapjunctions/datasets/Microcircuit_Small/MiV_gapjunctions_20230408.h5 or /lus/grand/projects/gpu_hack/iowarp/miv_case6/datasets/Microcircuit_Small/
+  Case 6 dir: /lus/grand/projects/gpu_hack/iowarp/miv_case6
+Microcircuit_Small_input_spikes.h5
+MiV_Cells_Microcircuit_Small_20220410.h5
+MiV_Connections_Microcircuit_Small_20220410.h5
+
+=== [3] BASELINE: run-network case 6 (Lustre) ===
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+==== MiV Case 6 (gap junctions) + iowarp-core CTE Benchmark ====
+Date:    Mon May 25 06:46:23 PM UTC 2026
+Job:     7170898.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov
+Node:    x3109c0s37b0n0.hsn.cm.polaris.alcf.anl.gov 
+Python:  Python 3.11.7
+
+=== [1] iowarp-core pre-flight check ===
+  clio_run:          OK  511K May 25 18:18
+  libclio_cte_posix: OK  295K May 25 18:19
+
+=== [2] Set up case 6 directory ===
+/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/oc_ansi.h:127:62: note: declared here
+ [[deprecated("non-void* overloads are preferred")]] Object** vector_pobj(void*);
+                                                              ^~~~~~~~~~~
+ => [32mLINKING[0m shared library "/lus/grand/projects/gpu_hack/iowarp/miv_case6/x86_64/./libnrnmech.so"
+Successfully created x86_64/special
+  Mechanisms compiled: x86_64/special
+OK
+  Dataset links from /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/datasets/Microcircuit_Small: OK
+  MiV_gapjunctions_20230408.h5 not found — generating now...
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+numprocs=1
+  h5types created: /lus/grand/projects/gpu_hack/iowarp/miv_case6/datasets/MiV_h5types_gj.h5
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+=>> PBS: job killed: walltime 3628 exceeded limit 3600
+==== MiV Case 6 (gap junctions) + iowarp-core CTE Benchmark ====
+Date:    Tue May 26 03:27:21 AM UTC 2026
+Job:     7171557.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov
+Node:    x3109c0s31b0n0.hsn.cm.polaris.alcf.anl.gov 
+Python:  Python 3.11.7
+
+=== [1] iowarp-core pre-flight check ===
+  clio_run:          OK  511K May 25 18:18
+  libclio_cte_posix: OK  295K May 25 18:19
+
+=== [2] Set up case 6 directory ===
+/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/lib/python3.11/site-packages/neuron/.data/include/oc_ansi.h:127:62: note: declared here
+ [[deprecated("non-void* overloads are preferred")]] Object** vector_pobj(void*);
+                                                              ^~~~~~~~~~~
+ => [32mLINKING[0m shared library "/lus/grand/projects/gpu_hack/iowarp/miv_case6/x86_64/./libnrnmech.so"
+Successfully created x86_64/special
+  Mechanisms compiled: x86_64/special
+OK
+  Dataset links from /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/datasets/Microcircuit_Small: OK
+  MiV_gapjunctions_20230408.h5 not found — generating now...
+  h5types already present: /lus/grand/projects/gpu_hack/iowarp/miv_case6/datasets/MiV_h5types_gj.h5
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+numprocs=1
+INFO:miv_simulator:env.dataset_prefix = None
+INFO:miv_simulator:env.cell_selection_path = None
+INFO:miv_simulator:env.microcircuit_inputs = False
+env.microcircuit_input_sources = {'PYR': set(), 'OLM': set(), 'PVBC': set(), 'STIM': set()}
+INFO:miv_simulator.generate_gapjunctions.py:Reading population coordinates...
+INFO:miv_simulator.generate_gapjunctions.py:Reading OLM coordinates...
+INFO:miv_simulator.generate_gapjunctions.py:Reading PVBC coordinates...
+INFO:miv_simulator.generate_gapjunctions.py:Reading PYR coordinates...
+INFO:miv_simulator.generate_gapjunctions.py:Reading STIM coordinates...
+INFO:miv_simulator.gapjunctions:PYR <-> PYR
+INFO:miv_simulator.gapjunctions:Generating gap junction connections between populations PYR and PYR...
+INFO:miv_simulator.utils.neuron:Loaded PoolosPyramidalCell from templates/PoolosPyramidalCell.hoc
+NEURON: ch_Navaxonp is not a MECHANISM
+ in PoolosPyramidalCell.hoc near line 195
+ 		insert ch_Navaxonp gmax_ch_Navaxonp=gNavaxon
+                    ^
+        xopen("PoolosPyra...")
+      execute1("{xopen("Po...")
+    load_file("templates/...")
+NEURON: hoc_Load_file PoolosPyramidalCell.hoc
+ in PoolosPyramidalCell.hoc near line 0
+ ^
+        load_file("templates/...")
+Traceback (most recent call last):
+  File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/bin/generate-gapjunctions", line 6, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/opt/cray/pe/python/3.11.7/lib/python3.11/site-packages/click/core.py", line 1157, in __call__
+    return self.main(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/cray/pe/python/3.11.7/lib/python3.11/site-packages/click/core.py", line 1078, in main
+    rv = self.invoke(ctx)
+         ^^^^^^^^^^^^^^^^
+  File "/opt/cray/pe/python/3.11.7/lib/python3.11/site-packages/click/core.py", line 1434, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/cray/pe/python/3.11.7/lib/python3.11/site-packages/click/core.py", line 783, in invoke
+    return __callback(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hyoklee/MiV-Simulator/src/miv_simulator/scripts/generate_gapjunctions.py", line 141, in main
+    generate_gj_connections(
+  File "/home/hyoklee/MiV-Simulator/src/miv_simulator/gapjunctions.py", line 282, in generate_gj_connections
+    load_cell_template(env, population_a, bcast_template=True)
+  File "/home/hyoklee/MiV-Simulator/src/miv_simulator/utils/neuron.py", line 330, in load_cell_template
+    find_template(
+  File "/home/hyoklee/MiV-Simulator/src/miv_simulator/utils/neuron.py", line 412, in find_template
+    h.load_file(template_path)
+RuntimeError: hocobj_call error: hoc_execerror: hoc_Load_file PoolosPyramidalCell.hoc
+x3109c0s31b0n0.hsn.cm.polaris.alcf.anl.gov: rank 0 exited with code 1
+  Gap junction HDF5 generated: /lus/grand/projects/gpu_hack/iowarp/miv_case6/datasets/Microcircuit_Small/MiV_gapjunctions_20230408.h5
+  Case 6 dir: /lus/grand/projects/gpu_hack/iowarp/miv_case6
+Microcircuit_Small_input_spikes.h5
+MiV_Cells_Microcircuit_Small_20220410.h5
+MiV_Connections_Microcircuit_Small_20220410.h5
+MiV_gapjunctions_20230408.h5
+
+=== [3] BASELINE: run-network case 6 (Lustre) ===
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+=>> PBS: job killed: walltime 3625 exceeded limit 3600
+=== [0] Staging Python site-packages to local SSD ===
+  Copied 776M to /local/scratch/miv_pkg_7171903 in 64s
+
+==== MiV Case 6 (gap junctions) + iowarp-core CTE Benchmark ====
+Date:    Tue May 26 02:00:06 PM UTC 2026
+Job:     7171903.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov
+Node:    x3102c0s1b0n0.hsn.cm.polaris.alcf.anl.gov 
+Python:  Python 3.11.7
+
+=== [1] iowarp-core pre-flight check ===
+  clio_run:          OK  511K May 25 18:18
+  libclio_cte_posix: OK  295K May 25 18:19
+
+=== [2] Set up case 6 directory ===
+ [[deprecated("non-void* overloads are preferred")]] Object** vector_pobj(void*);
+                                                              ^~~~~~~~~~~
+ => [32mLINKING[0m shared library "/lus/grand/projects/gpu_hack/iowarp/miv_case6/x86_64/./libnrnmech.so"
+ => [32mLINKING[0m executable "/lus/grand/projects/gpu_hack/iowarp/miv_case6/x86_64/./special" LDFLAGS are:     
+Successfully created x86_64/special
+  Mechanisms compiled: x86_64/special
+OK
+  Dataset links from /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/datasets/Microcircuit_Small: OK
+  Removing incomplete GJ file (18728 bytes — only H5Types, no connectivity)
+  MiV_gapjunctions_20230408.h5 not found — generating now...
+  h5types already present: /lus/grand/projects/gpu_hack/iowarp/miv_case6/datasets/MiV_h5types_gj.h5
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+numprocs=1
+Compiling *.mod files via nrnivmodl
+/lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c
+cfiles =
+Mod files: "cacumm.mod" "cagk.mod" "cal2.mod" "can2.mod" "cat.mod" "ch_CavL.mod" "ch_CavN.mod" "ch_HCNolm.mod" "ch_HCNp.mod" "ch_KCaS.mod" "ch_Kdrfast.mod" "ch_Kdrp.mod" "ch_KvAdistp.mod" "ch_KvA.mod" "ch_KvAolm.mod" "ch_KvAproxp.mod" "ch_KvCaB.mod" "ch_leak.mod" "ch_Navaxonp.mod" "ch_Nav.mod" "ch_Navp.mod" "Gfluct3.mod" "ggap.mod" "kaprox.mod" "kd_inc_tau.mod" "kd.mod" "kdrca1.mod" "km.mod" "lin_exp2syn.mod" "lin_exp2synNMDA.mod" "na3n.mod" "vecevent.mod"
+
+Creating 'x86_64' directory for .o files.
+
+MODOBJS= ./cacumm.o ./cagk.o ./cal2.o ./can2.o ./cat.o ./ch_CavL.o ./ch_CavN.o ./ch_HCNolm.o ./ch_HCNp.o ./ch_KCaS.o ./ch_Kdrfast.o ./ch_Kdrp.o ./ch_KvAdistp.o ./ch_KvA.o ./ch_KvAolm.o ./ch_KvAproxp.o ./ch_KvCaB.o ./ch_leak.o ./ch_Navaxonp.o ./ch_Nav.o ./ch_Navp.o ./Gfluct3.o ./ggap.o ./kaprox.o ./kd_inc_tau.o ./kd.o ./kdrca1.o ./km.o ./lin_exp2syn.o ./lin_exp2synNMDA.o ./na3n.o ./vecevent.o
+ -> [32mCompiling[0m mod_func.cpp
+ -> [32mNMODL[0m ../cacumm.mod
+ -> [32mNMODL[0m ../cagk.mod
+ -> [32mNMODL[0m ../cal2.mod
+Translating cacumm.mod into /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/cacumm.cpp
+Thread Safe
+Translating cagk.mod into /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/cagk.cpp
+ -> [32mNMODL[0m ../can2.mod
+Thread Safe
+Translating cal2.mod into /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/cal2.cpp
+Thread Safe
+Warning: Default 2 of PARAMETER cao will be ignored and set by NEURON.
+ -> [32mNMODL[0m ../cat.mod
+ -> [32mNMODL[0m ../ch_CavL.mod
+Translating can2.mod into /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/can2.cpp
+Thread Safe
+Warning: Default 2 of PARAMETER cao will be ignored and set by NEURON.
+ -> [32mNMODL[0m ../ch_CavN.mod
+Translating cat.mod into /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/cat.cpp
+Thread Safe
+Warning: Default 2 of PARAMETER cao will be ignored and set by NEURON.
+Warning: Default 5e-05 of PARAMETER cai will be ignored and set by NEURON.
+Warning: Default 25 of PARAMETER celsius will be ignored and set by NEURON.
+Translating ch_CavL.mod into /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/ch_CavL.cpp
+Notice: VERBATIM blocks are not thread safe
+ -> [32mNMODL[0m ../ch_HCNolm.mod
+ -> [32mNMODL[0m ../ch_HCNp.mod
+Translating ch_CavN.mod into /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/ch_CavN.cpp
+Notice: VERBATIM blocks are not thread safe
+Notice: This mechanism cannot be used with CVODE
+Translating ch_HCNolm.mod into /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/ch_HCNolm.cpp
+Notice: Assignment to the GLOBAL variable, "rexp", is not thread safe
+Notice: Assignment to the GLOBAL variable, "rinf", is not thread safe
+Notice: Assignment to the GLOBAL variable, "tau_r", is not thread safe
+ -> [32mNMODL[0m ../ch_KCaS.mod
+Warning: Default -32.9 of PARAMETER eh will be ignored and set by NEURON.
+Translating ch_HCNp.mod into /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/ch_HCNp.cpp
+Notice: Assignment to the GLOBAL variable, "linf", is not thread safe
+Notice: Assignment to the GLOBAL variable, "taul", is not thread safe
+ -> [32mNMODL[0m ../ch_Kdrfast.mod
+ -> [32mNMODL[0m ../ch_Kdrp.mod
+Translating ch_KCaS.mod into /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/ch_KCaS.cpp
+Notice: VERBATIM blocks are not thread safe
+Notice: This mechanism cannot be used with CVODE
+ -> [32mNMODL[0m ../ch_KvAdistp.mod
+Translating ch_Kdrfast.mod into /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/ch_Kdrfast.cpp
+Notice: VERBATIM blocks are not thread safe
+Notice: This mechanism cannot be used with CVODE
+Translating ch_Kdrp.mod into /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/ch_Kdrp.cpp
+Notice: Assignment to the GLOBAL variable, "ninf", is not thread safe
+Notice: Assignment to the GLOBAL variable, "taun", is not thread safe
+ -> [32mNMODL[0m ../ch_KvA.mod
+Translating ch_KvAdistp.mod into /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/ch_KvAdistp.cpp
+Notice: Assignment to the GLOBAL variable, "linf", is not thread safe
+Notice: Assignment to the GLOBAL variable, "ninf", is not thread safe
+Notice: Assignment to the GLOBAL variable, "taun", is not thread safe
+Notice: Assignment to the GLOBAL variable, "taul", is not thread safe
+ -> [32mNMODL[0m ../ch_KvAolm.mod
+ -> [32mNMODL[0m ../ch_KvAproxp.mod
+Translating ch_KvA.mod into /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/ch_KvA.cpp
+Notice: VERBATIM blocks are not thread safe
+ -> [32mNMODL[0m ../ch_KvCaB.mod
+Translating ch_KvAolm.mod into /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/ch_KvAolm.cpp
+Notice: Assignment to the GLOBAL variable, "aexp", is not thread safe
+Notice: Assignment to the GLOBAL variable, "ainf", is not thread safe
+Notice: Assignment to the GLOBAL variable, "bexp", is not thread safe
+Notice: Assignment to the GLOBAL variable, "binf", is not thread safe
+Notice: Assignment to the GLOBAL variable, "tau_b", is not thread safe
+Warning: Default -90 of PARAMETER ek will be ignored and set by NEURON.
+Translating ch_KvAproxp.mod into /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/ch_KvAproxp.cpp
+Notice: Assignment to the GLOBAL variable, "linf", is not thread safe
+Notice: Assignment to the GLOBAL variable, "ninf", is not thread safe
+Notice: Assignment to the GLOBAL variable, "taun", is not thread safe
+Notice: Assignment to the GLOBAL variable, "taul", is not thread safe
+ -> [32mNMODL[0m ../ch_leak.mod
+ -> [32mNMODL[0m ../ch_Navaxonp.mod
+Translating ch_KvCaB.mod into /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/ch_KvCaB.cpp
+Notice: VERBATIM blocks are not thread safe
+Translating ch_leak.mod into /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/ch_leak.cpp
+Notice: VERBATIM blocks are not thread safe
+ -> [32mNMODL[0m ../ch_Nav.mod
+ -> [32mNMODL[0m ../ch_Navp.mod
+Translating ch_Navaxonp.mod into /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/ch_Navaxonp.cpp
+Notice: Assignment to the GLOBAL variable, "htau", is not thread safe
+Notice: Assignment to the GLOBAL variable, "hinf", is not thread safe
+Notice: Assignment to the GLOBAL variable, "mtau", is not thread safe
+Notice: Assignment to the GLOBAL variable, "minf", is not thread safe
+Translating ch_Nav.mod into /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/ch_Nav.cpp
+Notice: VERBATIM blocks are not thread safe
+Notice: This mechanism cannot be used with CVODE
+ -> [32mNMODL[0m ../Gfluct3.mod
+Translating ch_Navp.mod into /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/ch_Navp.cpp
+Notice: Assignment to the GLOBAL variable, "htau", is not thread safe
+Notice: Assignment to the GLOBAL variable, "hinf", is not thread safe
+Notice: Assignment to the GLOBAL variable, "mtau", is not thread safe
+Notice: Assignment to the GLOBAL variable, "minf", is not thread safe
+Notice: Assignment to the GLOBAL variable, "sinf", is not thread safe
+Notice: Assignment to the GLOBAL variable, "taus", is not thread safe
+ -> [32mNMODL[0m ../ggap.mod
+ -> [32mNMODL[0m ../kaprox.mod
+Translating Gfluct3.mod into /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/Gfluct3.cpp
+Thread Safe
+ -> [32mNMODL[0m ../kd_inc_tau.mod
+Translating ggap.mod into /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/ggap.cpp
+Thread Safe
+Translating kaprox.mod into /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/kaprox.cpp
+Thread Safe
+ -> [32mNMODL[0m ../kd.mod
+ -> [32mNMODL[0m ../kdrca1.mod
+Translating kd_inc_tau.mod into /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/kd_inc_tau.cpp
+Thread Safe
+ -> [32mNMODL[0m ../km.mod
+ -> [32mNMODL[0m ../lin_exp2syn.mod
+Translating kd.mod into /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/kd.cpp
+Translating kdrca1.mod into /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/kdrca1.cpp
+Thread Safe
+Thread Safe
+ -> [32mNMODL[0m ../lin_exp2synNMDA.mod
+ -> [32mNMODL[0m ../na3n.mod
+Translating km.mod into /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/km.cpp
+Thread Safe
+Translating lin_exp2syn.mod into /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/lin_exp2syn.cpp
+ -> [32mNMODL[0m ../vecevent.mod
+Thread Safe
+Translating lin_exp2synNMDA.mod into /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/lin_exp2synNMDA.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/cacumm.cpp
+Thread Safe
+Translating na3n.mod into /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/na3n.cpp
+Thread Safe
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/cagk.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/cal2.cpp
+Translating vecevent.mod into /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/vecevent.cpp
+Thread Safe
+Notice: ARTIFICIAL_CELL is a synonym for POINT_PROCESS which hints that it
+only affects and is affected by discrete events. As such it is not
+located in a section and is not associated with an integrator
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/can2.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/cat.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/ch_CavL.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/ch_CavN.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/ch_HCNolm.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/ch_HCNp.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/ch_KCaS.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/ch_Kdrfast.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/ch_Kdrp.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/ch_KvAdistp.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/ch_KvA.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/ch_KvAolm.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/ch_KvAproxp.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/ch_KvCaB.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/ch_leak.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/ch_Navaxonp.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/ch_Nav.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/ch_Navp.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/Gfluct3.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/ggap.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/kaprox.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/kd_inc_tau.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/kd.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/kdrca1.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/km.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/lin_exp2syn.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/lin_exp2synNMDA.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/na3n.cpp
+ -> [32mCompiling[0m /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/vecevent.cpp
+/lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/vecevent.cpp: In function ‘int element__VecStim({anonymous}::_nrn_mechanism_cache_range*, size_t, Datum*, Datum*, double*, NrnThread*)’:
+/lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/vecevent.cpp:370:29: warning: ‘int vector_capacity(void*)’ is deprecated: non-void* overloads are preferred [-Wdeprecated-declarations]
+    size = vector_capacity(vv);
+                             ^
+In file included from /local/scratch/miv_pkg_7171903/site-packages/neuron/.data/include/nrncvode.h:2:0,
+                 from /local/scratch/miv_pkg_7171903/site-packages/neuron/.data/include/mech_api.h:14,
+                 from /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/vecevent.cpp:7:
+/local/scratch/miv_pkg_7171903/site-packages/neuron/.data/include/oc_ansi.h:126:57: note: declared here
+ [[deprecated("non-void* overloads are preferred")]] int vector_capacity(void*);
+                                                         ^~~~~~~~~~~~~~~
+/lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/vecevent.cpp:371:22: warning: ‘double* vector_vec(void*)’ is deprecated: non-void* overloads are preferred [-Wdeprecated-declarations]
+    px = vector_vec(vv);
+                      ^
+In file included from /local/scratch/miv_pkg_7171903/site-packages/neuron/.data/include/nrncvode.h:2:0,
+                 from /local/scratch/miv_pkg_7171903/site-packages/neuron/.data/include/mech_api.h:14,
+                 from /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/vecevent.cpp:7:
+/local/scratch/miv_pkg_7171903/site-packages/neuron/.data/include/oc_ansi.h:129:61: note: declared here
+ [[deprecated("non-void* overloads are preferred")]] double* vector_vec(void*);
+                                                             ^~~~~~~~~~
+/lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/vecevent.cpp: In function ‘int play__VecStim({anonymous}::_nrn_mechanism_cache_range*, size_t, Datum*, Datum*, double*, NrnThread*)’:
+/lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/vecevent.cpp:415:32: warning: ‘Object** vector_pobj(void*)’ is deprecated: non-void* overloads are preferred [-Wdeprecated-declarations]
+   hoc_obj_ref(*vector_pobj(ptmp));
+                                ^
+In file included from /local/scratch/miv_pkg_7171903/site-packages/neuron/.data/include/nrncvode.h:2:0,
+                 from /local/scratch/miv_pkg_7171903/site-packages/neuron/.data/include/mech_api.h:14,
+                 from /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/vecevent.cpp:7:
+/local/scratch/miv_pkg_7171903/site-packages/neuron/.data/include/oc_ansi.h:127:62: note: declared here
+ [[deprecated("non-void* overloads are preferred")]] Object** vector_pobj(void*);
+                                                              ^~~~~~~~~~~
+/lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/vecevent.cpp:419:33: warning: ‘Object** vector_pobj(void*)’ is deprecated: non-void* overloads are preferred [-Wdeprecated-declarations]
+   hoc_obj_unref(*vector_pobj(*pv));
+                                 ^
+In file included from /local/scratch/miv_pkg_7171903/site-packages/neuron/.data/include/nrncvode.h:2:0,
+                 from /local/scratch/miv_pkg_7171903/site-packages/neuron/.data/include/mech_api.h:14,
+                 from /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/vecevent.cpp:7:
+/local/scratch/miv_pkg_7171903/site-packages/neuron/.data/include/oc_ansi.h:127:62: note: declared here
+ [[deprecated("non-void* overloads are preferred")]] Object** vector_pobj(void*);
+                                                              ^~~~~~~~~~~
+/lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/vecevent.cpp: In function ‘void bbcore_write(double*, int*, int*, int*, Memb_list*, size_t, Datum*, Datum*, double*, NrnThread*)’:
+/lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/vecevent.cpp:453:35: warning: ‘int vector_capacity(void*)’ is deprecated: non-void* overloads are preferred [-Wdeprecated-declarations]
+     dsize = vector_capacity(_p_ptr);
+                                   ^
+In file included from /local/scratch/miv_pkg_7171903/site-packages/neuron/.data/include/nrncvode.h:2:0,
+                 from /local/scratch/miv_pkg_7171903/site-packages/neuron/.data/include/mech_api.h:14,
+                 from /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/vecevent.cpp:7:
+/local/scratch/miv_pkg_7171903/site-packages/neuron/.data/include/oc_ansi.h:126:57: note: declared here
+ [[deprecated("non-void* overloads are preferred")]] int vector_capacity(void*);
+                                                         ^~~~~~~~~~~~~~~
+/lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/vecevent.cpp:461:26: warning: ‘double* vector_vec(void*)’ is deprecated: non-void* overloads are preferred [-Wdeprecated-declarations]
+       dv = vector_vec(vec);
+                          ^
+In file included from /local/scratch/miv_pkg_7171903/site-packages/neuron/.data/include/nrncvode.h:2:0,
+                 from /local/scratch/miv_pkg_7171903/site-packages/neuron/.data/include/mech_api.h:14,
+                 from /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/vecevent.cpp:7:
+/local/scratch/miv_pkg_7171903/site-packages/neuron/.data/include/oc_ansi.h:129:61: note: declared here
+ [[deprecated("non-void* overloads are preferred")]] double* vector_vec(void*);
+                                                             ^~~~~~~~~~
+In file included from /usr/include/c++/7/cassert:44:0,
+                 from /local/scratch/miv_pkg_7171903/site-packages/neuron/.data/include/sparse_thread.hpp:11,
+                 from /local/scratch/miv_pkg_7171903/site-packages/neuron/.data/include/scoplib.h:19,
+                 from /local/scratch/miv_pkg_7171903/site-packages/neuron/.data/include/mech_api.h:19,
+                 from /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/vecevent.cpp:7:
+/lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/vecevent.cpp: In function ‘void bbcore_read(double*, int*, int*, int*, Memb_list*, size_t, Datum*, Datum*, double*, NrnThread*)’:
+/lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/vecevent.cpp:481:41: warning: ‘int vector_capacity(void*)’ is deprecated: non-void* overloads are preferred [-Wdeprecated-declarations]
+   assert(dsize == vector_capacity(_p_ptr));
+                                         ^
+In file included from /local/scratch/miv_pkg_7171903/site-packages/neuron/.data/include/nrncvode.h:2:0,
+                 from /local/scratch/miv_pkg_7171903/site-packages/neuron/.data/include/mech_api.h:14,
+                 from /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/vecevent.cpp:7:
+/local/scratch/miv_pkg_7171903/site-packages/neuron/.data/include/oc_ansi.h:126:57: note: declared here
+ [[deprecated("non-void* overloads are preferred")]] int vector_capacity(void*);
+                                                         ^~~~~~~~~~~~~~~
+/lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/vecevent.cpp:482:25: warning: ‘double* vector_vec(void*)’ is deprecated: non-void* overloads are preferred [-Wdeprecated-declarations]
+   dv = vector_vec(_p_ptr);
+                         ^
+In file included from /local/scratch/miv_pkg_7171903/site-packages/neuron/.data/include/nrncvode.h:2:0,
+                 from /local/scratch/miv_pkg_7171903/site-packages/neuron/.data/include/mech_api.h:14,
+                 from /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/vecevent.cpp:7:
+/local/scratch/miv_pkg_7171903/site-packages/neuron/.data/include/oc_ansi.h:129:61: note: declared here
+ [[deprecated("non-void* overloads are preferred")]] double* vector_vec(void*);
+                                                             ^~~~~~~~~~
+/lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/vecevent.cpp: In function ‘void _destructor(Prop*)’:
+/lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/vecevent.cpp:503:32: warning: ‘Object** vector_pobj(void*)’ is deprecated: non-void* overloads are preferred [-Wdeprecated-declarations]
+   hoc_obj_unref(*vector_pobj(vv));
+                                ^
+In file included from /local/scratch/miv_pkg_7171903/site-packages/neuron/.data/include/nrncvode.h:2:0,
+                 from /local/scratch/miv_pkg_7171903/site-packages/neuron/.data/include/mech_api.h:14,
+                 from /lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/vecevent.cpp:7:
+/local/scratch/miv_pkg_7171903/site-packages/neuron/.data/include/oc_ansi.h:127:62: note: declared here
+ [[deprecated("non-void* overloads are preferred")]] Object** vector_pobj(void*);
+                                                              ^~~~~~~~~~~
+ => [32mLINKING[0m shared library "/lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/./libnrnmech.so"
+ => [32mLINKING[0m executable "/lus/grand/projects/gpu_hack/iowarp/miv_case6/mechanisms/compiled/070d009ff979a04c7a74696c5f09627b6951ef901f82db312ea526f3798f236c/x86_64/./special" LDFLAGS are:     
+Successfully created x86_64/special
+NEURON: The user defined name already exists: Gfluct3
+ near line 0
+ objref hoc_obj_[2]
+                   ^
+        nrn_load_dll("/lus/grand...")
+Traceback (most recent call last):
+  File "/lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv/bin/generate-gapjunctions", line 6, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/opt/cray/pe/python/3.11.7/lib/python3.11/site-packages/click/core.py", line 1157, in __call__
+    return self.main(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/cray/pe/python/3.11.7/lib/python3.11/site-packages/click/core.py", line 1078, in main
+    rv = self.invoke(ctx)
+         ^^^^^^^^^^^^^^^^
+  File "/opt/cray/pe/python/3.11.7/lib/python3.11/site-packages/click/core.py", line 1434, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/cray/pe/python/3.11.7/lib/python3.11/site-packages/click/core.py", line 783, in invoke
+    return __callback(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hyoklee/MiV-Simulator/src/miv_simulator/scripts/generate_gapjunctions.py", line 97, in main
+    compile_and_load(directory=mechanisms_path, comm=comm)
+  File "/home/hyoklee/MiV-Simulator/src/miv_simulator/mechanisms.py", line 141, in compile_and_load
+    return load(compiled)
+           ^^^^^^^^^^^^^^
+  File "/home/hyoklee/MiV-Simulator/src/miv_simulator/mechanisms.py", line 115, in load
+    load_mechanisms(dll_path)
+  File "/local/scratch/miv_pkg_7171903/site-packages/neuron/__init__.py", line 393, in load_mechanisms
+    n.nrn_load_dll(lib_path)
+RuntimeError: hocobj_call error: hoc_execerror: The user defined name already exists: Gfluct3
+x3102c0s1b0n0.hsn.cm.polaris.alcf.anl.gov: rank 0 exited with code 1
+  ERROR: generate-gapjunctions failed — check logs above
+=== [0] Staging Python site-packages to local SSD ===
+  Copied 776M to /local/scratch/miv_pkg_7171904 in 10s
+
+==== MiV Case 6 (gap junctions) + iowarp-core CTE Benchmark ====
+Date:    Tue May 26 02:02:39 PM UTC 2026
+Job:     7171904.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov
+Node:    x3102c0s1b0n0.hsn.cm.polaris.alcf.anl.gov 
+Python:  Python 3.11.7
+
+=== [1] iowarp-core pre-flight check ===
+  clio_run:          OK  511K May 25 18:18
+  libclio_cte_posix: OK  295K May 25 18:19
+
+=== [2] Set up case 6 directory ===
+ [[deprecated("non-void* overloads are preferred")]] Object** vector_pobj(void*);
+                                                              ^~~~~~~~~~~
+ => [32mLINKING[0m shared library "/lus/grand/projects/gpu_hack/iowarp/miv_case6/x86_64/./libnrnmech.so"
+ => [32mLINKING[0m executable "/lus/grand/projects/gpu_hack/iowarp/miv_case6/x86_64/./special" LDFLAGS are:     
+Successfully created x86_64/special
+  Mechanisms compiled: x86_64/special
+OK
+  Dataset links from /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/datasets/Microcircuit_Small: OK
+  MiV_gapjunctions_20230408.h5 not found — generating now...
+  h5types already present: /lus/grand/projects/gpu_hack/iowarp/miv_case6/datasets/MiV_h5types_gj.h5
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+numprocs=1
+NEURON: The user defined name already exists: Gfluct3
+ near line 0
+ objref hoc_obj_[2]
+                   ^
+        nrn_load_dll("/lus/grand...")
+INFO:miv_simulator:env.dataset_prefix = None
+INFO:miv_simulator:env.cell_selection_path = None
+INFO:miv_simulator:env.microcircuit_inputs = False
+env.microcircuit_input_sources = {'PYR': set(), 'OLM': set(), 'PVBC': set(), 'STIM': set()}
+INFO:miv_simulator.generate_gapjunctions.py:Reading population coordinates...
+INFO:miv_simulator.generate_gapjunctions.py:Reading OLM coordinates...
+INFO:miv_simulator.generate_gapjunctions.py:Reading PVBC coordinates...
+INFO:miv_simulator.generate_gapjunctions.py:Reading PYR coordinates...
+INFO:miv_simulator.generate_gapjunctions.py:Reading STIM coordinates...
+INFO:miv_simulator.gapjunctions:PYR <-> PYR
+INFO:miv_simulator.gapjunctions:Generating gap junction connections between populations PYR and PYR...
+INFO:miv_simulator.utils.neuron:Loaded PoolosPyramidalCell from /lus/grand/projects/gpu_hack/iowarp/miv_case6/templates/PoolosPyramidalCell.hoc
+INFO:miv_simulator.gapjunctions:Reading tree selection of population PYR (79 cells)...
+INFO:miv_simulator.gapjunctions:Reading tree selection of population PYR (79 cells)...
+INFO:miv_simulator.gapjunctions:Generating gap junction pairs between populations PYR and PYR...
+INFO:miv_simulator.gapjunctions:1 ranks took 16 s to generate 111 edges
+  Gap junction HDF5 generated: /lus/grand/projects/gpu_hack/iowarp/miv_case6/datasets/Microcircuit_Small/MiV_gapjunctions_20230408.h5
+  Case 6 dir: /lus/grand/projects/gpu_hack/iowarp/miv_case6
+Microcircuit_Small_input_spikes.h5
+MiV_Cells_Microcircuit_Small_20220410.h5
+MiV_Connections_Microcircuit_Small_20220410.h5
+MiV_gapjunctions_20230408.h5
+
+=== [3] BASELINE: run-network case 6 (Lustre) ===
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+=>> PBS: job killed: walltime 3626 exceeded limit 3600
+=== [0] Copying venv to node-local SSD ===
+  Copied 802M to /local/scratch/miv_venv_7172299 in 150s
+
+==== MiV Case 6 (gap junctions) + iowarp-core CTE Benchmark ====
+Date:    Tue May 26 07:21:57 PM UTC 2026
+Job:     7172299.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov
+Node:    x3112c0s25b1n0.hsn.cm.polaris.alcf.anl.gov 
+Python:  Python 3.11.7
+
+=== [1] iowarp-core pre-flight check ===
+  clio_run:          OK  511K May 25 18:18
+  libclio_cte_posix: OK  295K May 25 18:19
+
+=== [2] Set up case 6 directory ===
+  Mechanisms already compiled — skipping nrnivmodl
+  Mechanisms: x86_64/special
+OK
+  Dataset links from /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/datasets/Microcircuit_Small: OK
+  Case 6 dir: /lus/grand/projects/gpu_hack/iowarp/miv_case6
+Microcircuit_Small_input_spikes.h5
+MiV_Cells_Microcircuit_Small_20220410.h5
+MiV_Connections_Microcircuit_Small_20220410.h5
+MiV_gapjunctions_20230408.h5
+
+=== [3] BASELINE: run-network case 6 (Lustre) ===
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+=>> PBS: job killed: walltime 3629 exceeded limit 3600
+=== [0] Copying venv + MiV-Simulator source to node-local SSD ===
+  Copied venv+src (802M + 2.6M) in 147s
+
+==== MiV Case 6 (gap junctions) + iowarp-core CTE Benchmark ====
+Date:    Wed May 27 12:10:39 AM UTC 2026
+Job:     7172613.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov
+Node:    x3001c0s19b0n0.hsn.cm.polaris.alcf.anl.gov 
+Python:  Python 3.11.7
+
+=== [1] iowarp-core pre-flight check ===
+  clio_run:          OK  511K May 25 18:18
+  libclio_cte_posix: OK  295K May 25 18:19
+
+=== [2] Set up case 6 directory ===
+  Mechanisms already compiled — skipping nrnivmodl
+  Mechanisms: x86_64/special
+OK
+  Dataset links from /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/datasets/Microcircuit_Small: OK
+  Case 6 dir: /lus/grand/projects/gpu_hack/iowarp/miv_case6
+Microcircuit_Small_input_spikes.h5
+MiV_Cells_Microcircuit_Small_20220410.h5
+MiV_Connections_Microcircuit_Small_20220410.h5
+MiV_gapjunctions_20230408.h5
+
+=== [3] BASELINE: run-network case 6 (Lustre) ===
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+=>> PBS: job killed: walltime 3628 exceeded limit 3600
+=== [0] Copying venv + MiV-Simulator source to node-local SSD ===
+  Node: x3001c0s19b0n0  /local/scratch free: 2.8T
+  venv copied: 802M
+  miv_src copied: 2.6M
+  Total copy time: 11s
+
+==== MiV Case 6 (gap junctions) + iowarp-core CTE Benchmark ====
+Date:    Wed May 27 01:08:59 AM UTC 2026
+Job:     7172619.polaris-pbs-01.hsn.cm.polaris.alcf.anl.gov
+Node:    x3001c0s19b0n0.hsn.cm.polaris.alcf.anl.gov 
+Python:  Python 3.11.7
+
+=== [1] iowarp-core pre-flight check ===
+  clio_run:          OK  511K May 25 18:18
+  libclio_cte_posix: OK  295K May 25 18:19
+
+=== [2] Set up case 6 directory ===
+  Mechanisms already compiled — skipping nrnivmodl
+  Mechanisms: x86_64/special
+OK
+  Dataset links from /lus/grand/projects/gpu_hack/iowarp/miv_opt_case/datasets/Microcircuit_Small: OK
+  Case 6 dir: /lus/grand/projects/gpu_hack/iowarp/miv_case6
+Microcircuit_Small_input_spikes.h5
+MiV_Cells_Microcircuit_Small_20220410.h5
+MiV_Connections_Microcircuit_Small_20220410.h5
+MiV_gapjunctions_20230408.h5
+
+=== [3] BASELINE: run-network case 6 (Lustre) ===
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+Warning: no DISPLAY environment variable.
+--No graphics will be displayed.
+=>> PBS: job killed: walltime 3626 exceeded limit 3600

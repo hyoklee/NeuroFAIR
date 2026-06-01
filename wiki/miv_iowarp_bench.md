@@ -1,8 +1,8 @@
 # MiV-Simulator + IOWarp CTE Performance Benchmark
 
-**Date**: 2026-04-27 (updated 2026-05-14 bench5 results)  
-**Platform**: Polaris (NVIDIA A100, Cray MPICH 9.0.1)  
-**IOWarp**: `~/core.iowarp` (Context Transfer Engine — Hermes RAM-tier buffering)  
+**Date**: 2026-04-27 (updated 2026-05-25 clio-core Case 6 results)  
+**Platform**: Polaris (NVIDIA A100, Cray MPICH 8.1.32 / GNU HDF5 1.14.3.7)  
+**IOWarp**: `~/core` (iowarp-core v1.5.8 — CLIO namespace; was `~/core.iowarp` Hermes namespace)  
 **PBS scripts**: `~/bin/miv_iowarp_build.pbs` → `~/bin/miv_iowarp_bench.pbs`  
 
 ---
@@ -224,7 +224,7 @@ IOWarp I/O and optimization sections are skipped until Chimaera is fixed.
 
 ---
 
-## Bench run summary
+## Bench run summary (Case 7 — optimize-network)
 
 | Job | Date | Queue | Node | I/O (s) | Chimaera | VecStim | Evals | n_active |
 |---|---|---|---|---|---|---|---|---|
@@ -236,7 +236,56 @@ IOWarp I/O and optimization sections are skipped until Chimaera is fixed.
 | 7158725 (bench6) | 2026-05-15 | preemptable | x3212c0s19b0n0 | 318 | ZMQ bind fails | **FIXED** | 14 | **80/53/44** |
 | 7158787 (bench6b) | 2026-05-15 | preemptable | x3210c0s31b0n0 | 313 | ZMQ bind fails | **FIXED** | 13 | **80/53/44** |
 
+---
+
+## Case 6 — run-network with gap junctions + clio-core CTE (2026-05-25)
+
+**Key changes from Case 7 benches above:**
+- Simulation: `run-network` (not `optimize-network`) — single simulation pass
+- Network: 189 cells (80 PYR + 56 OLM + 53 PVBC), gap-junction coupling (PYR↔PYR)
+- Additional mechanism: `ggap.mod`, additional dataset: `MiV_gapjunctions_20230408.h5`
+- IOWarp: `~/core` (CLIO namespace, iowarp-core v1.5.8) — replaces `~/core.iowarp` (Hermes/WRP)
+- CTE binary: `clio_run` + `libclio_cte_posix.so` (was `chimaera` + `libwrp_cte_posix.so`)
+- Build: `~/bin/miv_iowarp_build.pbs` job 7170854 (2026-05-25) — clio_run 511K + libclio_cte_posix.so 295K
+- Install: `/lus/grand/projects/gpu_hack/iowarp/core-install/`
+
+**Setup fixes required (documented in `feedback_build_fixes.md` memory):**
+- cmake not in PATH on compute nodes → add `/home/hyoklee/miniconda3/bin` to PATH
+- neuroh5 must use parallel HDF5 (`-DHDF5_ROOT=/opt/cray/pe/hdf5-parallel/1.14.3.7/gnu/12.3`)
+- `CLIO_CORE_ENABLE_ELF=ON` required for POSIX interceptor to be built
+- `MiV_gapjunctions_20230408.h5` not in case source — must be generated via `generate-gapjunctions`
+- `--dataset-prefix` must point to `datasets/Microcircuit_Small/` (not `datasets/`)
+- `PYTHONUNBUFFERED=1` needed for real-time output from PBS job
+
+**Bench run summary:**
+
+| Job | Date | Queue | Node | GJ gen | Baseline (s) | CTE cold (s) | CTE warm (s) | clio_run |
+|---|---|---|---|---|---|---|---|---|
+| 7170854 (build) | 2026-05-25 | debug | x3006c0s13b0n0 | — | — | — | — | Build OK |
+| 7170857 | 2026-05-25 | debug | x3006c0s13b0n0 | — | killed (dataset-prefix bug) | — | — | — |
+| 7170898 | 2026-05-25 | debug | x3109c0s37b0n0 | pending | pending | pending | pending | pending |
+
+### Results (7170898) — pending
+
+> Results will be filled in after job completion. Log: `wiki/miv_iowarp_bench6_test.log`
+
+---
+
 ## Environment
+
+```
+Python:    3.11.7 (cray-python venv at /lus/grand/projects/gpu_hack/iowarp/miv_polaris/venv)
+NEURON:    9.0.1
+mpi4py:    3.1.4 (venv)
+IOWarp:    ~/core (iowarp-core v1.5.8, CLIO namespace)
+Build:     g++-14, GNU HDF5 1.14.3.7, Cray MPICH 8.1.32/ofi/gnu/12.3
+Install:   /lus/grand/projects/gpu_hack/iowarp/core-install/
+Config:    CASE_DIR/config/cte_config.yaml (64 GB RAM tier, dynamic port, MPI-based)
+POSIX:     LD_PRELOAD=libclio_cte_posix.so
+Data:      /lus/grand/projects/gpu_hack/iowarp/miv_case6/datasets/Microcircuit_Small/
+```
+
+### Previous environment (Case 7 benches)
 
 ```
 Python:    3.11.7 (cray-python venv)

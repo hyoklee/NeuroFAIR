@@ -1,5 +1,11 @@
 # MiV case 7 with the HDF5 **VOL** CTE adapter — can clio-core beat baseline? (ares)
 
+> **Follow-up:** blockers A, B, and C below were subsequently **fixed** and the
+> connector validated end to end — see
+> [Fixing the VOL CTE adapter](miv_iowarp_ares_case7_vol_fix.md). This page is the
+> pre-fix analysis that scoped the work.
+
+
 Every prior case 7 study ([case7](miv_iowarp_ares_case7.md),
 [case7_full](miv_iowarp_ares_case7_full.md), [caseread](miv_iowarp_ares_caseread.md),
 [caseio](miv_iowarp_ares_caseio.md), [feasibility](miv_iowarp_ares_case7_feasibility.md))

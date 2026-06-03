@@ -10,9 +10,13 @@ native files returned zero-filled buffers.
 This page records **fixing A, B, and C across the relevant repos**, validating
 the connector end-to-end, and the read-path performance it yields. All three are
 resolved; the connector now reads pre-existing native HDF5 correctly through the
-CTE read-through cache. Two further findings emerged: neuroh5 needed its own port
-to run under any non-native VOL, and one deeper passthrough-VOL gap (link
-iteration) still blocks full case-7 init.
+CTE read-through cache. Further findings emerged and were fixed: neuroh5 needed
+its own port to run under any non-native VOL, a deeper passthrough-VOL gap (link
+iteration, **D**) was fixed, and a second neuroh5 deprecated-API gap
+(`H5Gget_objinfo`, **E**) was fixed. With D and E landed, a **full case-7 init
+SLURM run** drives neuroh5's entire network-construction read path through the
+VOL successfully; the run then stops at a **write-path** boundary unrelated to
+neuroh5 data — dmosopt's own output file (**F**) — documented below.
 
 ## Branches
 
@@ -178,6 +182,64 @@ the deprecated v1 `H5Ovisit_by_name1`, which HDF5 hard-restricts to the native
 VOL; this is an h5py-internal choice, not a connector gap, and neuroh5 itself uses
 the v2 `H5Literate2` path that now works.)
 
+## E. neuroh5 `H5Gget_objinfo` → `H5Lexists` (full case-7 init, part 1)
+
+With D fixed, a full case-7 init SLURM run (`run_case7_vol.sbatch IOWARP=2`,
+small microcircuit) got through `read_population_names`, `read_population_ranges`,
+`read_projection_names` — but then **every population failed** `make_cells` with
+`unknown cell configuration type for cell type OLM` (`network.py:987`).
+
+Root cause: `env.cell_attribute_info` came back **empty** through the VOL
+(`Population attributes: {}`) while native returned the full
+`{pop: {namespace: [...]}}`. neuroh5's `get_cell_attributes`
+(`cell_attributes.cc`) enumerates each namespace group with `H5Literate2`, and
+its callbacks (`cell_attribute_cb`, `cell_attribute_index_cb`,
+`cell_attribute_index_ptr_cb`) used **`H5Gget_objinfo`** — another deprecated v1
+routine HDF5 restricts to the native VOL. Under the connector it returns −1 for
+every child, so every attribute was silently skipped → empty map → make_cells
+can't classify any cell type.
+
+Fix (neuroh5 `vol-cte-case7-fix`, PR #1): replace
+`H5Gget_objinfo(grp, name, 0, NULL)` with
+`(H5Lexists(grp, name, H5P_DEFAULT) > 0) ? 0 : -1` at all three sites. Verified:
+`read_cell_attribute_info` now returns identical `{pop: {namespace: [...]}}`
+through the VOL vs native on `Microcircuit_Small_coords.h5`. The re-run then
+**passes make_cells** — populations are classified and it proceeds to read
+trees/coordinates (`*** Reading trees for population OLM`) through the VOL.
+
+So **neuroh5's entire case-7 network-construction read path now runs through the
+VOL**: population/range/projection enumeration, cell-attribute-info namespace
+enumeration, and tree/coordinate reads.
+
+## F. Remaining boundary: dmosopt's output file (write-path, not neuroh5 data)
+
+After E, the run stops at a **different** layer — not reading neuroh5 data, but
+**dmosopt creating its own optimization-state file**:
+
+```
+dmosopt.py:2304 init_h5 -> f = h5py.File(fpath, "a")
+h5f.open(name, ACC_RDWR) -> OSError: Unable to synchronously open file (open failed)
+```
+
+This is a write/bookkeeping output file, opened **read-write, create-if-absent**
+(`mode="a"`). Mechanism (confirmed in isolation): h5py's `mode="a"` first tries
+`H5Fopen(ACC_RDWR)` and, for the **SEC2** driver, falls back to *create* **only
+on `FileNotFoundError`**. Native raises `FileNotFoundError` for a missing file;
+through the VOL the same open raises a generic **`OSError`** (HDF5's `H5VL`
+layer pushes its own "can't open via connector" frame on top of the native
+ENOENT error after the connector returns null, masking the errno h5py keys on).
+So h5py never falls back to create, and the file is never made.
+`mode="w"` (plain create) works through the VOL; only `mode="a"`-on-missing
+fails.
+
+This is **not** a neuroh5/data-read issue and not addressed by A–E. Options:
+fix error propagation in the connector (no clean connector-only path — the
+masking frame is added by HDF5 core, outside the callback), pre-create the
+dmosopt output file so `mode="a"` finds it (RDWR-open of an *existing* file
+works through the VOL), or keep write-heavy output files off the read-cache VOL.
+Note this boundary does not affect the **performance** verdict, which is a
+read-path question already answered (CTE ≈ 31% slower on ares; see below).
+
 ## Bottom line
 
 - **A, B, C are fixed and validated.** The HDF5 VOL CTE connector now builds
@@ -187,8 +249,16 @@ the v2 `H5Literate2` path that now works.)
   bootstrap, dataset mis-cast) were fixed along the way.
 - **neuroh5 was ported** off native-VOL-only deprecated APIs so it can run under a
   custom VOL at all.
-- **The 4th blocker — passthrough link-iteration wrapping — is now also fixed
-  and validated** (see below). neuroh5's group enumeration runs through the VOL.
+- **The 4th blocker (D) — passthrough link-iteration wrapping — is fixed and
+  validated** (clio-core PR #480). neuroh5's group enumeration runs through the VOL.
+- **The 5th blocker (E) — neuroh5 `H5Gget_objinfo` — is fixed** (neuroh5 PR #1).
+  A **full case-7 init run** now drives neuroh5's whole network-construction read
+  path through the VOL (enumeration + cell-attribute-info + tree/coordinate
+  reads); make_cells classifies and builds every population.
+- **Remaining boundary (F):** the run stops at dmosopt's own output-file create
+  (`h5py.File(..., "a")` on a missing file → `OSError` instead of
+  `FileNotFoundError` through the VOL). This is a **write/output-path** issue on a
+  non-neuroh5 file, not a data-read gap, and does not affect the perf verdict.
 - **Read-path performance: CTE VOL ≈ 31% slower than native HDF5 on ares**
   (page-cache-resident data) — consistent with all prior POSIX-adapter findings.
   clio-core's CTE does not improve over the native baseline here because ares has
@@ -203,9 +273,12 @@ the v2 `H5Literate2` path that now works.)
 ## Artifacts
 
 - clio-core A/B/C: `~/clio-core` `main` (PR #475, merged); build `~/bin/build_vol.sh`
-- clio-core D (link-iteration): `~/clio-core` branch `vol-cte-link-iter`
-- neuroh5: `~/neuroh5` branch `vol-cte-case7-fix` (PR #1)
+- clio-core D (link-iteration): `~/clio-core` branch `vol-cte-link-iter` (PR #480)
+- neuroh5 (port + E): `~/neuroh5` branch `vol-cte-case7-fix` (PR #1)
 - run harness: `~/bin/run_case7_vol.sbatch` (adds `IOWARP=2` VOL mode)
+- full case-7 init logs: `~/logs/case7_c7vol2_20598.log` (VOL, reaches F),
+  `~/logs/case7_c7base_20597.log` (native baseline, builds all populations)
 - tests/bench: `~/bin/vol_smoke.sh`, `vol_path_sanity.sh`, `vol_n5_api.sh`,
-  `vol_bench.sh`, and for blocker D `vol_iter_test.{c,sh}` (synthetic recursive
-  `H5Literate2`) + `vol_neuroh5_read.{py,sh}` (real neuroh5 `io.so` reads)
+  `vol_bench.sh`; for D `vol_iter_test.{c,sh}` (synthetic recursive `H5Literate2`)
+  + `vol_neuroh5_read.{py,sh}` (real neuroh5 `io.so` reads); for E
+  `vol_objinfo_test.c` (the `H5Gget_objinfo` repro)

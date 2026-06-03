@@ -135,6 +135,49 @@ micro-smoke's 4.4 ms < 7.6 ms was cold-vs-warm on a tiny array, not CTE-vs-nativ
 on a like-for-like read the verdict matches every prior case: **no measurable CTE
 benefit on ares**, where there is no slow shared tier for CTE to hide.
 
+## D. Link-iteration object wrapping (the 4th, deeper blocker) — fixed
+
+After A/B/C, neuroh5's group enumeration still aborted under the VOL with
+`H5Literate2 ... is not a VOL connector ID` (and h5py's `visititems` with the
+analogous deprecated-v1 restriction). Root cause was in the connector's
+**object-wrap machinery**, not the read path:
+
+- `iowarp_get_wrap_ctx` returned the *native* wrap context directly, dropping the
+  under-VOL id.
+- `iowarp_wrap_object` ignored that context and **skipped `H5VLwrap_object()`**,
+  storing the raw iterated object as-is.
+
+During link/object iteration HDF5 re-wraps every visited object through the active
+connector's `wrap_object`; with the object only half-wrapped, the `hid_t` handed
+to the operator callback was not a valid VOL object, so `H5Literate2` aborted.
+neuroh5 enumerates `/Populations`, `/Projections`, and per-cell attribute groups
+exactly this way, so init could never complete.
+
+**Fix** (modelled on the reference pass-through connector `H5VLpassthru`): a real
+`iowarp_wrap_ctx_t { under_vol_id, under_wrap_ctx }`; `get_wrap_ctx` allocates it
+and inc-refs the id; `wrap_object` calls `H5VLwrap_object()` against the under VOL
+first, then wraps the result (dispatching datasets to the full
+`iowarp_dataset_t`, non-cacheable, so the mis-cast guard from C still holds);
+`unwrap_object` made symmetric; `free_wrap_ctx` releases the context and id ref.
+
+**Validated end to end, two ways:**
+
+1. **Synthetic** — a recursive `H5Literate2` (`H5_INDEX_NAME`/`H5_ITER_INC`) walk
+   of `dentate_test.h5` that opens every child group/dataset *inside* the
+   iteration callback (`~/bin/vol_iter_test.c`): **128 datasets, byte-identical
+   content checksum** native vs VOL.
+2. **Real neuroh5** — neuroh5's own `io.so` (`read_population_ranges`,
+   `read_projection_names`, `read_population_names`,
+   `read_cell_attribute_info`; `~/bin/vol_neuroh5_read.py`): **identical** output
+   through the VOL vs native — population ranges (compound `/H5Types`), all 21
+   projection name pairs (the `/Projections` `H5Literate2` enumeration), etc.
+
+So the connector now drives neuroh5's enumeration path without aborting. (Note:
+h5py's `visititems` still can't be used through *any* non-native VOL — it calls
+the deprecated v1 `H5Ovisit_by_name1`, which HDF5 hard-restricts to the native
+VOL; this is an h5py-internal choice, not a connector gap, and neuroh5 itself uses
+the v2 `H5Literate2` path that now works.)
+
 ## Bottom line
 
 - **A, B, C are fixed and validated.** The HDF5 VOL CTE connector now builds
@@ -144,9 +187,8 @@ benefit on ares**, where there is no slow shared tier for CTE to hide.
   bootstrap, dataset mis-cast) were fixed along the way.
 - **neuroh5 was ported** off native-VOL-only deprecated APIs so it can run under a
   custom VOL at all.
-- **Full case-7 init is not yet reachable**: it needs the connector's
-  passthrough link-iteration wrapping (a 4th, deeper issue) and likely more
-  neuroh5-feature coverage after it.
+- **The 4th blocker — passthrough link-iteration wrapping — is now also fixed
+  and validated** (see below). neuroh5's group enumeration runs through the VOL.
 - **Read-path performance: CTE VOL ≈ 31% slower than native HDF5 on ares**
   (page-cache-resident data) — consistent with all prior POSIX-adapter findings.
   clio-core's CTE does not improve over the native baseline here because ares has
@@ -160,7 +202,10 @@ benefit on ares**, where there is no slow shared tier for CTE to hide.
 
 ## Artifacts
 
-- clio-core: `~/core.iowarp` branch `vol-cte-case7-fix`; build `~/bin/build_vol.sh`
-- neuroh5: `~/neuroh5` branch `vol-cte-case7-fix`
+- clio-core A/B/C: `~/clio-core` `main` (PR #475, merged); build `~/bin/build_vol.sh`
+- clio-core D (link-iteration): `~/clio-core` branch `vol-cte-link-iter`
+- neuroh5: `~/neuroh5` branch `vol-cte-case7-fix` (PR #1)
 - run harness: `~/bin/run_case7_vol.sbatch` (adds `IOWARP=2` VOL mode)
-- tests/bench: `~/bin/vol_smoke.sh`, `vol_path_sanity.sh`, `vol_n5_api.sh`, `vol_bench.sh`
+- tests/bench: `~/bin/vol_smoke.sh`, `vol_path_sanity.sh`, `vol_n5_api.sh`,
+  `vol_bench.sh`, and for blocker D `vol_iter_test.{c,sh}` (synthetic recursive
+  `H5Literate2`) + `vol_neuroh5_read.{py,sh}` (real neuroh5 `io.so` reads)

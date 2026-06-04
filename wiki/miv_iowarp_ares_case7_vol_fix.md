@@ -1,4 +1,4 @@
-# Fixing the HDF5 VOL CTE adapter for case 7 — A/B/C resolved, read-path measured (ares)
+# Fixing the HDF5 VOL CTE adapter for case 7 — A–F resolved, full init runs end-to-end through the VOL (ares)
 
 The [first VOL evaluation](miv_iowarp_ares_case7_vol.md) found three blockers
 that made a case-7 measurement impossible with clio-core's HDF5 VOL connector:
@@ -12,11 +12,14 @@ the connector end-to-end, and the read-path performance it yields. All three are
 resolved; the connector now reads pre-existing native HDF5 correctly through the
 CTE read-through cache. Further findings emerged and were fixed: neuroh5 needed
 its own port to run under any non-native VOL, a deeper passthrough-VOL gap (link
-iteration, **D**) was fixed, and a second neuroh5 deprecated-API gap
-(`H5Gget_objinfo`, **E**) was fixed. With D and E landed, a **full case-7 init
-SLURM run** drives neuroh5's entire network-construction read path through the
-VOL successfully; the run then stops at a **write-path** boundary unrelated to
-neuroh5 data — dmosopt's own output file (**F**) — documented below.
+iteration, **D**) was fixed, a second neuroh5 deprecated-API gap
+(`H5Gget_objinfo`, **E**) was fixed, and a write-path boundary on dmosopt's own
+output file (**F** — `mode="a"`-on-missing surfacing as `OSError` not
+`FileNotFoundError` through the VOL) was fixed app-side. With D, E, and F landed,
+a **full case-7 init SLURM run drives the entire pipeline through the VOL
+end-to-end** — neuroh5's network-construction read path plus dmosopt's output
+file create — reaching the NEURON evaluation phase, the same point the native
+baseline reaches. All documented below.
 
 ## Branches
 
@@ -211,9 +214,9 @@ So **neuroh5's entire case-7 network-construction read path now runs through the
 VOL**: population/range/projection enumeration, cell-attribute-info namespace
 enumeration, and tree/coordinate reads.
 
-## F. Remaining boundary: dmosopt's output file (write-path, not neuroh5 data)
+## F. dmosopt's output file (write-path, not neuroh5 data) — fixed
 
-After E, the run stops at a **different** layer — not reading neuroh5 data, but
+After E, the run stopped at a **different** layer — not reading neuroh5 data, but
 **dmosopt creating its own optimization-state file**:
 
 ```
@@ -225,19 +228,54 @@ This is a write/bookkeeping output file, opened **read-write, create-if-absent**
 (`mode="a"`). Mechanism (confirmed in isolation): h5py's `mode="a"` first tries
 `H5Fopen(ACC_RDWR)` and, for the **SEC2** driver, falls back to *create* **only
 on `FileNotFoundError`**. Native raises `FileNotFoundError` for a missing file;
-through the VOL the same open raises a generic **`OSError`** (HDF5's `H5VL`
-layer pushes its own "can't open via connector" frame on top of the native
-ENOENT error after the connector returns null, masking the errno h5py keys on).
-So h5py never falls back to create, and the file is never made.
-`mode="w"` (plain create) works through the VOL; only `mode="a"`-on-missing
-fails.
+through the VOL the same open raises a generic **`OSError`**, so h5py never falls
+back to create and the file is never made. `mode="w"` (plain create) works
+through the VOL; only `mode="a"`-on-missing fails.
 
-This is **not** a neuroh5/data-read issue and not addressed by A–E. Options:
-fix error propagation in the connector (no clean connector-only path — the
-masking frame is added by HDF5 core, outside the callback), pre-create the
-dmosopt output file so `mode="a"` finds it (RDWR-open of an *existing* file
-works through the VOL), or keep write-heavy output files off the read-cache VOL.
-Note this boundary does not affect the **performance** verdict, which is a
+### Why no connector-side fix is possible (error-stack evidence)
+
+`vol_errstack_test.c` dumps the full HDF5 error stack for a missing-file
+`ACC_RDWR` open, native vs VOL, and diffs the frames. h5py decides
+`FileNotFoundError`-vs-`OSError` by inspecting this stack, so the diff is
+decisive:
+
+- **Native — final stack (8 frames)** ends in the signature frame
+  `H5FDsec2.c ... errno = 2, error message = 'No such file or directory'` —
+  the ENOENT marker h5py keys on.
+- **VOL — final stack (only 4 frames)**: `H5Fopen` / `H5F__open_api_common` /
+  `H5VL_file_open` / `H5VL__file_open`, all generic "Can't open object /
+  Unable to open file". The native ENOENT frame is **gone**.
+
+The connector (`iowarp_file_open`) does **not** touch the error stack — it calls
+the native `H5VLfile_open` and, on failure, simply `return nullptr` (the native
+ENOENT frame is even visible auto-printed *inside* the callback). Yet that frame
+is absent from the final stack, which proves **HDF5's `H5VL` core discards
+whatever the connector leaves on the stack** after the callback returns null and
+rebuilds it with generic frames. So a connector-side fix is impossible: the
+ENOENT info exists only transiently inside the callback, the connector has no
+post-return hook, and its only surviving channel (the return value) must stay
+null. (The lone connector-side "workaround" — silently *creating* the file on an
+`ACC_RDWR`-missing open — is semantically wrong for a passthrough open and would
+corrupt genuine read-only-open errors.)
+
+### Fix: `init_h5` opens `mode="w"`
+
+The fix is app-side, in dmosopt. `init_h5` is the **file-creation** path: its
+sole caller (`DistOptimizer.__init__`) gates it on `not os.path.isfile(fpath)`,
+so the file provably does not exist there and `mode="a"` is functionally a
+create. Opening with `mode="w"` (plain `H5Fcreate`, which works through the VOL)
+is therefore semantically correct and cannot truncate anything. This is cleaner
+than a literal sbatch pre-create, which would mis-trigger dmosopt's *restore*
+path (`init_from_h5`, gated on `os.path.isfile`) on an empty file. The four
+`save_*_to_h5` append paths keep `mode="a"` — they always open the
+already-created file, and RDWR-open of an *existing* file works through the VOL.
+
+**Validated:** case-7 init run (job 20650) created
+`dmosopt.optimize_network_*.h5` (66 KB) through the VOL with no `OSError`, then
+proceeded into the NEURON evaluation phase (network built, 33,436 synapses
+configured, simulation running) — the same compute-bound phase the native
+baseline reached. **Full case-7 init now runs end-to-end through the VOL.**
+This write-path boundary never affected the **performance** verdict, which is a
 read-path question already answered (CTE ≈ 31% slower on ares; see below).
 
 ## Bottom line
@@ -255,10 +293,15 @@ read-path question already answered (CTE ≈ 31% slower on ares; see below).
   A **full case-7 init run** now drives neuroh5's whole network-construction read
   path through the VOL (enumeration + cell-attribute-info + tree/coordinate
   reads); make_cells classifies and builds every population.
-- **Remaining boundary (F):** the run stops at dmosopt's own output-file create
-  (`h5py.File(..., "a")` on a missing file → `OSError` instead of
-  `FileNotFoundError` through the VOL). This is a **write/output-path** issue on a
-  non-neuroh5 file, not a data-read gap, and does not affect the perf verdict.
+- **The 6th blocker (F) — dmosopt's output-file create — is fixed.** Through the
+  VOL, `h5py.File(..., "a")` on a missing file raised `OSError` instead of
+  `FileNotFoundError`, so dmosopt never created its state file. An error-stack
+  diff proved HDF5's `H5VL` core discards the native ENOENT frame after the
+  connector returns null, so **no connector-side fix is possible**; the fix is
+  app-side — `init_h5` opens `mode="w"` (a plain create, which works through the
+  VOL, and is the file-creation path anyway). **Full case-7 init now runs
+  end-to-end through the VOL** (validated job 20650: dmosopt file created, network
+  built, NEURON evaluation running).
 - **Read-path performance: CTE VOL ≈ 31% slower than native HDF5 on ares**
   (page-cache-resident data) — consistent with all prior POSIX-adapter findings.
   clio-core's CTE does not improve over the native baseline here because ares has
@@ -275,10 +318,15 @@ read-path question already answered (CTE ≈ 31% slower on ares; see below).
 - clio-core A/B/C: `~/clio-core` `main` (PR #475, merged); build `~/bin/build_vol.sh`
 - clio-core D (link-iteration): `~/clio-core` branch `vol-cte-link-iter` (PR #480)
 - neuroh5 (port + E): `~/neuroh5` branch `vol-cte-case7-fix` (PR #1)
+- dmosopt F fix: `init_h5` opens `mode="w"` —
+  `~/mc3/envs/miv/lib/python3.12/site-packages/dmosopt/dmosopt.py` (site-packages
+  patch; upstream is github.com/iraikov/dmosopt, pip-installed non-editable)
 - run harness: `~/bin/run_case7_vol.sbatch` (adds `IOWARP=2` VOL mode)
-- full case-7 init logs: `~/logs/case7_c7vol2_20598.log` (VOL, reaches F),
-  `~/logs/case7_c7base_20597.log` (native baseline, builds all populations)
+- full case-7 init logs: `~/logs/case7_c7vol3_20650.log` (VOL, **passes F**,
+  creates dmosopt file, reaches NEURON eval), `~/logs/case7_c7vol2_20598.log`
+  (VOL pre-F-fix, stops at F), `~/logs/case7_c7base_20597.log` (native baseline)
 - tests/bench: `~/bin/vol_smoke.sh`, `vol_path_sanity.sh`, `vol_n5_api.sh`,
   `vol_bench.sh`; for D `vol_iter_test.{c,sh}` (synthetic recursive `H5Literate2`)
   + `vol_neuroh5_read.{py,sh}` (real neuroh5 `io.so` reads); for E
-  `vol_objinfo_test.c` (the `H5Gget_objinfo` repro)
+  `vol_objinfo_test.c` (the `H5Gget_objinfo` repro); for F
+  `vol_errstack_test.{c,sh}` (error-stack diff proving no connector-side fix)

@@ -63,6 +63,7 @@
 
 ## Performance Studies
 
+- [MiV case 6 (gap junctions) — native parallel HDF5 on jelly](miv_jelly_case6.md) — full from-scratch bring-up on the HDF Group **jelly** node (gcc 10.2.0 + OpenMPI 5.0.5 + parallel HDF5 1.14.6, NEURON 9.0a0, neuroh5 0.1.18, miv_simulator 0.3.0). Case 6 (187 cells, ~3.27M synaptic edges, 102 PYR↔PYR gap junctions) **builds and runs end-to-end**; **near-ideal single-node rank scaling** (tstop=50): total wall 105.9 s (4) → 58.8 s (8) → 33.1 s (16), connected-cells phase 82.6→43.3→23.4 s (88–95% par. eff.). Native-HDF5 baseline (no IOWarp); 8 bring-up blockers fixed; STIM input spikes omitted (fork `generate-input-features` API bug)
 - [MiV-Simulator GPU vs CPU Benchmark](miv_gpu_bench.md) — Polaris A100; standard NEURON CPU baseline **481–520 s** (tstop=500ms, 1 rank, Microcircuit_Small); CoreNEURON CPU blocked by SIGABRT inside psolve; GPU requires NEURON rebuild with `CORENRN_ENABLE_GPU=ON`; 4 bugs fixed in neuroh5/MiV-Simulator during debugging (2026-05-20/21)
 - [MiV-Simulator + IOWarp CTE Benchmark](miv_iowarp_bench.md) — IOWarp Context Transfer Engine RAM-tier buffering; scatter_read_trees + optimize-network comparison; Chimaera ZMQ bind fails on all Polaris compute node IPs; VecStim namespace fix confirmed n_active=80/53/44; bench6 27 evals, ~486s/eval
 - [clio-core CTE buffering for MiV optimization](perf-clio-core.md) — PBS jobs 8452562/8452563: Lustre vs /dev/shm (CTE RAM tier) I/O benchmark; baseline setup=25.84 s; full VFD integration path documented

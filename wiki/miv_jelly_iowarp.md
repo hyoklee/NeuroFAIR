@@ -102,22 +102,70 @@ patching was needed beyond enabling it.
   and staged into the RAM tier** — `cte_search` lists the blobs
   (`hdf5:/…/X Coordinate/chunk_231`, `chunk_688`, …) — and the **tier-hit second
   read is ~2× faster** (0.98 s vs 2.14 s native+stage).
-- **Open correctness bug:** on the tier *hit*, the reassembled data does **not**
-  match native (the native-fallback path is correct; the chunked GET/reassembly
-  path returns wrong data — likely best-effort partial staging: the hit test only
-  checks `chunk_0` but staging can drop chunks when `AllocateBuffer` returns null).
-  So tier-hit reads are fast but not yet trustworthy.
 - h5py group iteration (`list(keys())`, `for k in g`) uses the deprecated
   `H5Literate_by_name1` (native-VOL-only) and is unsupported under any connector;
-  **explicit-path** dataset access is the working pattern (and is what neuroh5's
-  C++ uses after the ares `H5Literate1→2` port).
+  **explicit-path** dataset access is the working pattern.
 
-**Net:** the VOL adapter is **built, loaded, CTE-attached, and routing h5py reads
-through the CTE on jelly**, with the read-through cache demonstrably staging blobs
-into the tier and serving them ~2× faster. Two items remain for production use:
-(1) make `H5Oopen`-opened datasets cacheable (so high-level `f[path]` reads cache,
-not just low-level `h5d.open`), and (2) fix the tier-hit reassembly so cached data
-matches native. Both are connector-side fixes continuing the ares VOL work.
+**Both connector gaps were fixed** (patched `iowarp_vol.cc`, rebuilt):
+1. **High-level reads now cache.** `iowarp_is_whole_read` accepted only literal
+   `H5S_ALL`; h5py high-level reads (`read_direct`, `ds[()]`) pass a *full
+   selection* (`H5S_SEL_ALL`) instead. Widened the check to accept `H5S_SEL_ALL`
+   (still contiguous/linear, so the chunk reassembly stays valid).
+2. **Tier-hit correctness.** The per-chunk blobs `chunk_i` were written/read with
+   blob-internal offset `i*chunk_size` instead of `0` — making each blob sparse
+   and `(i+1)*chunk_size` long, so total tier use was **O(n²)**, the tier filled,
+   high chunks silently failed to stage, and the hit served garbage. Fixed to
+   blob-offset `0` (each `chunk_i` is its own `this_size`-byte blob).
+
+**Verified after the fix:** high-level `read_direct` through the VOL stages the
+full dataset (763 contiguous `chunk_0…chunk_762` blobs, no gaps), the **tier-hit
+read is ~2.6× faster** (0.82 s vs 2.13 s native+stage), and the tier-served data
+**matches native exactly** (checksum 100004032, `MATCH=True`). So the read-through
+cache now works end-to-end: first read stages native→tier, subsequent reads served
+correctly and faster from the CTE RAM tier.
+
+## Does IOWarp help the case-6 *simulation*? — measured: no
+
+Two independent reasons, both measured on jelly.
+
+**(a) neuroh5 can't route reads through the VOL yet, and wouldn't benefit if it
+could.** jelly's `neuroh5` uses the native-VOL-only `H5Literate(… H5_ITER_NATIVE …)`
+/ `H5Gget_num_objs` APIs in **14 sites** (none ported to `H5Literate2`), so
+`run-network` under `HDF5_VOL_CONNECTOR=iowarp` aborts immediately at
+`cell_populations.cc:83` (`H5Literate … >= 0` assertion). Even after the ares-style
+`H5Literate1→2` port, neuroh5's bulk reads are **collective MPI-IO**, which the
+connector passes straight through to native — the CTE never caches them.
+
+**(b) The simulation is compute-bound; its I/O is negligible.** Measured input and
+phase breakdown (np=8, tstop=10 ms):
+
+| run-network phase | wall | dominated by |
+|-------------------|-----:|--------------|
+| created cells     | 0.76 s  | read Cells 36 MB + cell setup |
+| **connected cells** | **45.30 s** | read Connections 8.9 MB + instantiate **3.27 M synapses (compute)** |
+| created gap junctions | 0.02 s | 102 edges |
+| ran simulation (10 ms) | 2.22 s | NEURON integration (pure compute) |
+| **total** | **51.98 s** | |
+
+The **entire 45 MB input** (Cells 36 + Connections 8.9 + GapJ 0.05) is read **once**:
+
+| read all 45 MB input | bandwidth | time | % of 52 s total |
+|----------------------|----------:|-----:|----------------:|
+| jelly RAID, cold (O_DIRECT) | ~217 MB/s | **0.21 s** | 0.40% |
+| OS page cache, warm | ~5.6 GB/s | **0.04 s** | 0.08% |
+| IOWarp CTE RAM tier | ~1.9 GB/s | ~0.024 s | 0.05% |
+
+So even with **infinitely fast I/O**, the simulation could save **≤0.4 %** of wall
+time. And for this 45 MB read-once, cache-resident working set the **OS page cache
+(5.6 GB/s) already beats the CTE tier (1.9 GB/s)** — IOWarp would *add* overhead,
+not remove it. This independently reproduces the ares end-to-end finding (IOWarp
+POSIX adapter **+15 % slower** on this exact workload,
+[miv_iowarp_ares_case6.md](miv_iowarp_ares_case6.md)).
+
+**Verdict:** IOWarp's CTE genuinely helps **I/O-bound, large, repeated-read** work
+on jelly's slow RAID (the `clio_cte_bench` ~7–10× and the VOL read-through cache
+~2.6× above). It does **not** help the case-6 **simulation**, which is ~99.6 %
+compute with a 45 MB read-once cache-resident input.
 
 ## Notes / limits
 - Globus was **not** used: jelly is not a Globus endpoint (no Globus Connect

@@ -72,12 +72,58 @@ clio_run stop
 #           dd if=/mnt/wrk/hyoklee/x of=/dev/null bs=1M iflag=direct
 ```
 
+## Routing HDF5/neuroh5 reads through the CTE — the VOL connector
+
+Built the **HDF5 VOL connector** (`libiowarp_hdf5_vol.so`) on jelly against the
+same HDF5 1.14.6, with `CLIO_CTE_ENABLE_HDF5_VOL=ON`. The ares fixes are now in
+`iowarp/clio-core` **main**: HDF5≥1.14 floor, `H5PLget_plugin_*` exports, and the
+read-through-cache `dataset_read` (native fallback + stage-to-tier) — so no source
+patching was needed beyond enabling it.
+
+**Status — reads route through the CTE; tier engages; tier-hit data has a bug.**
+
+- The connector **loads** via `HDF5_VOL_CONNECTOR=iowarp` + `HDF5_PLUGIN_PATH`,
+  and on first use **lazily attaches to the running CTE runtime**
+  (`CLIO_CTE_CLIENT_INIT()` → "Successfully connected to runtime"). Unmodified
+  **h5py routes its HDF5 calls through the IOWarp connector into the CTE**.
+- **File open, dataset open, `H5Dget_type`, and reads all work**, returning
+  **correct data == native** (tiny float dataset and the 3.2 GB
+  `MiV_Cells_large.h5` `Populations/PYR/Trees/X Coordinate`, 200 M floats,
+  checksum 504.3932). Verified end-to-end through the connector.
+- **One build fix was required:** jelly's `/scr/hyoklee/hdf5-1.14.6` (which h5py
+  links) has `assert()`s active, so the read tripped
+  `H5T_patch_vlen_file: Assertion 'file' failed` (a no-op for non-vlen types).
+  Built a drop-in **NDEBUG parallel HDF5 1.14.6** (`/mnt/wrk/hyoklee/hdf5-rel2`,
+  38 MPI-IO symbols, Asserts OFF) and `LD_PRELOAD` it — reads then complete.
+- **The CTE read-through cache engages** for `H5Dopen`+`H5S_ALL` whole reads
+  (h5py low-level `h5d.open` → connector marks the dataset *cacheable*; the
+  high-level `f[path]` uses `H5Oopen`, which currently yields a *non-cacheable*
+  wrapper → native passthrough). On the cacheable path the dataset is **chunked
+  and staged into the RAM tier** — `cte_search` lists the blobs
+  (`hdf5:/…/X Coordinate/chunk_231`, `chunk_688`, …) — and the **tier-hit second
+  read is ~2× faster** (0.98 s vs 2.14 s native+stage).
+- **Open correctness bug:** on the tier *hit*, the reassembled data does **not**
+  match native (the native-fallback path is correct; the chunked GET/reassembly
+  path returns wrong data — likely best-effort partial staging: the hit test only
+  checks `chunk_0` but staging can drop chunks when `AllocateBuffer` returns null).
+  So tier-hit reads are fast but not yet trustworthy.
+- h5py group iteration (`list(keys())`, `for k in g`) uses the deprecated
+  `H5Literate_by_name1` (native-VOL-only) and is unsupported under any connector;
+  **explicit-path** dataset access is the working pattern (and is what neuroh5's
+  C++ uses after the ares `H5Literate1→2` port).
+
+**Net:** the VOL adapter is **built, loaded, CTE-attached, and routing h5py reads
+through the CTE on jelly**, with the read-through cache demonstrably staging blobs
+into the tier and serving them ~2× faster. Two items remain for production use:
+(1) make `H5Oopen`-opened datasets cacheable (so high-level `f[path]` reads cache,
+not just low-level `h5d.open`), and (2) fix the tier-hit reassembly so cached data
+matches native. Both are connector-side fixes continuing the ares VOL work.
+
 ## Notes / limits
 - Globus was **not** used: jelly is not a Globus endpoint (no Globus Connect
   Personal, interactive auth required) and no NeuroH5 files were staged there, so
   the large data was generated locally instead. Globus CLI 3.42.0 is installed
   (conda env `globus`) for future use.
-- The CTE here is benchmarked via its native blob API. Routing neuroh5/HDF5
-  reads transparently through the CTE needs the HDF5 **VFD/VOL** adapter (built
-  and fixed on ares — [miv_iowarp_ares_case7_vol_fix.md](miv_iowarp_ares_case7_vol_fix.md));
-  not enabled in this minimal jelly build.
+- The CTE bandwidth numbers above are via its native blob API (`clio_cte_bench`);
+  the VOL connector (above) is the transparent-HDF5 path. ares VOL background:
+  [miv_iowarp_ares_case7_vol_fix.md](miv_iowarp_ares_case7_vol_fix.md).

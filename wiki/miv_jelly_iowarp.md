@@ -167,6 +167,45 @@ on jelly's slow RAID (the `clio_cte_bench` ~7–10× and the VOL read-through ca
 ~2.6× above). It does **not** help the case-6 **simulation**, which is ~99.6 %
 compute with a 45 MB read-once cache-resident input.
 
+## A >125 GB NeuroH5 read benchmark — defeating the page cache
+
+To force the I/O-bound regime, generated **150 GB** of NeuroH5 forest files
+(14 × 10.7 GB, `Populations/PYR/Trees/X Coordinate`) in `/mnt/wrk/hyoklee/nh5_bench/`
+— larger than jelly's **125 GB RAM**, so the OS page cache cannot hold it.
+
+**Native read (`cat`, jelly `/mnt/wrk` RAID):**
+
+| working set | pass 1 (cold) | pass 2 (repeat) | regime |
+|-------------|--------------:|----------------:|--------|
+| 10 GB (< RAM) | 389 MB/s | **4778 MB/s** | page-cache served on re-read |
+| **150 GB (> RAM)** | 384 MB/s | **412 MB/s** | **RAID-bound — page cache defeated** |
+
+The control proves the cache works *when the set fits* (re-read 12× faster); at
+150 GB the repeat read stays at RAID speed (~400 MB/s, O_DIRECT device = 349 MB/s)
+— the genuine I/O-bound regime IOWarp targets.
+
+**Can the IOWarp CTE accelerate it on jelly? No — its only fast tier is RAM:**
+
+| CTE RAM tier condition | bandwidth | vs RAID |
+|------------------------|----------:|--------:|
+| working set ≤ tier, RAM free (staging) | ~1.9–2.4 GB/s | **7–10×** |
+| working set > tier (64 GB vs 32 GB tier) | ~0.39 GB/s | ≈ RAID (thrash/spill) |
+| smaller ops under the 150 GB memory pressure | ~0.37–0.68 GB/s | ≈ RAID (RAM contention) |
+
+The decisive structural fact: **the CTE RAM tier and the OS page cache compete for
+the same DRAM** — the tier adds no capacity, it *reallocates* RAM. After the 150 GB
+benchmark filled the page cache, the CTE tier came up at only 32 GB, and a working
+set larger than the tier collapsed CTE bandwidth to ~0.4 GB/s, no better than the
+RAID it was meant to beat. So on jelly a **>125 GB working set exceeds *both* the
+page cache *and* the CTE RAM tier** → both are RAID-bound, and IOWarp cannot help.
+
+**What it would take:** IOWarp's read win needs the working set to fit a *fast tier*.
+On a single RAM-only node that tier *is* the page cache, so there is no headroom for
+> RAM sets. Accelerating > RAM reads needs a fast **persistent** tier (NVMe) larger
+than RAM — which jelly lacks (the ares NVMe-tier / Lustre studies are exactly that
+hardware). IOWarp's measured jelly wins (`clio_cte_bench` 7–10×, VOL cache 2.6×)
+are all **staging / sub-tier** cases, not > RAM reads.
+
 ## Notes / limits
 - Globus was **not** used: jelly is not a Globus endpoint (no Globus Connect
   Personal, interactive auth required) and no NeuroH5 files were staged there, so

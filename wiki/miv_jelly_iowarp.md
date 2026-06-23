@@ -206,6 +206,15 @@ than RAM — which jelly lacks (the ares NVMe-tier / Lustre studies are exactly 
 hardware). IOWarp's measured jelly wins (`clio_cte_bench` 7–10×, VOL cache 2.6×)
 are all **staging / sub-tier** cases, not > RAM reads.
 
+**Follow-up — a distributed pool *does* add capacity:** the "tier adds no capacity"
+argument is a *single-node* fact (the tier and page cache share one DRAM). A
+two-node CTE pool adds a peer's *separate* RAM. That was built and measured
+(`nene` macOS + `jelly` Linux) in
+[miv_jelly_distributed_pool.md](miv_jelly_distributed_pool.md): the pool forms and
+serves real case-6 data byte-correctly, but the peer is on 100 Mb Fast Ethernet
+(~11 MB/s, ~35× slower than the RAID), so the added capacity doesn't help > RAM
+reads here. Capacity stops being the blocker; **interconnect bandwidth becomes it**.
+
 ## Notes / limits
 - Globus was **not** used: jelly is not a Globus endpoint (no Globus Connect
   Personal, interactive auth required) and no NeuroH5 files were staged there, so

@@ -1,4 +1,7 @@
 # Wiki Log
+## [2026-07-02] build-test | MiV case 6 on TACC Vista (ARM/aarch64) — Slurm jobs 803272/803280/803281/803324/803737-803740
+Full from-scratch bring-up of the MiV stack + clio-core CTE on Vista (NVIDIA Grace, ARM). NEURON 9.0.1, neuroh5 0.1.18, miv_simulator 0.3.0 (branch `vista-arm-fix`, 4 patches), parallel h5py 3.16 on phdf5/1.14.6, mpi4py 4.1.2 on openmpi/5.0.5, gcc-14. clio-core `dev` built aarch64 with ELF=ON (no source patches; env-only: elfutils+zlib, sysroot glibc 2.34 pin) → `libclio_cte_posix.so`. Datasets generated from SWC (187 cells, 160,528 synaptic + 107 gap-junction edges), staged to $SCRATCH. Case 6 runs end-to-end on native HDF5; scales cleanly 1→2→4 nodes (connected phase 45.2→27.4→16.1 s, 2.80×). IOWarp CTE vs native = within noise (1 node): compute-bound + POSIX adapter routes only `clio::` paths so neuroh5 MPI-IO reads bypass the tier. See [miv_vista_case6.md](miv_vista_case6.md); summary in vista/PERFORMANCE.md.
+
 
 ## [2026-06-20] build+perf | IOWarp/clio-core CTE built on jelly (CentOS 7) — measured ~7–10× I/O win on slow RAID
 

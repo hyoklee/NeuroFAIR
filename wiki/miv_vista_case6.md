@@ -58,6 +58,34 @@ every syscall), the Vista `dev` adapter's `clio::`-only routing means non-CTE
 paths pass straight through, so there is **no whole-application slowdown** — the
 overhead is limited to the per-`open` marker check (~0.3 s in create).
 
+## 2-node distributed CTE cluster over InfiniBand vs native HDF5/MPI
+
+A **2-node clio-core CTE cluster** was formed over Vista's fastest interconnect —
+**InfiniBand** (`ib0`, `mlx5_0`; the only non-loopback interface, IPoIB
+`192.168.20.0/21`). The chimaera runtime bootstraps from an ib0 hostfile
+(node_id = line offset), one daemon/node via `srun --overlap`, each binding its
+ZeroMQ ROUTER to its own ib0 IP. Confirmed active during the MiV run (job 810961):
+node 0 `192.168.20.15:9413`, node 1 `192.168.20.16:9413`, **bidirectional peer
+connect over ib0**, `neighborhood=2` on both. MiV ran across both nodes under
+`LD_PRELOAD=libclio_cte_posix.so` (forwarded via `mpirun -x`). Means, 3 reps each
+(2 nodes, 8 ranks, tstop=50):
+
+| Phase | Native HDF5 (MPI) | clio-core CTE (IB) | Δ |
+|-------|------------------:|-------------------:|----:|
+| created cells | 1.77 s | 1.68 s | −4.7% |
+| connected cells | 26.45 s | 26.34 s | −0.4% |
+| ran simulation | 9.24 s | 9.36 s | +1.3% |
+
+**CTE ≈ native within noise, and all 3 clio reps completed with no deadlock**
+(rc=0) — a step past the multi-node chimaera hangs reported on Aurora/ares
+([miv_iowarp_ares_case6.md](miv_iowarp_ares_case6.md)). Same root cause as 1 node:
+compute-bound + neuroh5 MPI-IO bypasses the POSIX interceptor. This `dev` build's
+cross-node shared-file path is additionally node-local (CFS `PoolQuery::Local()`),
+so a `clio::` file written on one node isn't visible on the other — irrelevant for
+MiV's unprefixed MPI-IO paths but noted. Config `bin/chimaera_case6_2node.yaml`;
+launch `bin/clio_env_2node.sh` + `clio_2node_{start,stop}.sh`. Jobs
+810946/810960/810962 (native), 810947/810961/810963 (CTE).
+
 ## Node scaling (native HDF5, tstop=50, 4 ranks/node)
 
 Vista scales **cleanly 1→2→4 nodes** — contrast the Aurora 177-cell run that

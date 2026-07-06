@@ -9,6 +9,15 @@ Grace-Grace, 144 cores/node); no GPUs. Allocation `IBN22011`. Driver scripts in
 `vista/bin/` (`env_miv.sh`, `build_miv_stack.slurm`, `gen_datasets.slurm`,
 `run_case6.slurm`, `clio_env.sh`, `build_clio_core.slurm`).
 
+> **Update 2026-07-06:** clio-core rebuilt from latest `dev` (`f9e7273d`, ~55
+> commits newer). Builds on aarch64 with ELF=ON + sysroot glibc-2.34 after
+> reverting a `context-transport-primitives` thread/lock + `unordered_map_ll`
+> refactor that doesn't compile on ARM (local branch `vista-arm-build`, commit
+> `f12bbbfd`; clio-core's only remote is upstream `iowarp/clio-core`, so the
+> branch is kept local). Case 6 re-verified 1- and 2-node, native + CTE: all
+> rc=0, the 2-node cluster still forms over ib0, **CTE ≈ native within noise —
+> no regression**.
+
 ## Bring-up (everything compiled natively on aarch64)
 
 | Component | Version | |

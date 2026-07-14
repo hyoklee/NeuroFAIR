@@ -126,6 +126,12 @@ RAM pool only accelerates >RAM reads when the peer nodes are on a **fast fabric*
 over Fast Ethernet are not. This refines, rather than overturns, the single-node
 conclusion: *capacity is no longer the blocker — interconnect bandwidth is.*
 
+> **Follow-up (2026-07-14):** this pool was scaled to **4 nodes across 3 OSes and 2
+> ISAs** (adding raven / Windows-x86-64 and macmini-m1 / macOS-arm64) — see
+> [miv_4node_distributed_pool.md](miv_4node_distributed_pool.md). Case-6 data
+> verifies byte-identical on every node; the interconnect-bound conclusion holds at
+> 4 nodes.
+
 ## How to reproduce
 
 ```sh

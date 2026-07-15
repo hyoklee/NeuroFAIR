@@ -175,10 +175,67 @@ is library-level and carries to those tools (h5py is not installed on jelly, so
 `h5dump` stands in). One artifact: the CTE runtime logs to **stdout**, so ~12 INFO
 lines prepend to h5dump's output — filtered out, the data matches native exactly.
 
-**Not shown here:** whether this single-pass VOL read placed cached blobs on
-*remote* nodes (the VOL is a read-through cache: native file → local, then CTE
-placement per the DPE), and the **POSIX** adapter (`libclio_cte_posix.so`), which
-is not built in jelly's current config (needs `CLIO_CTE_ENABLE_ELF=ON`).
+**Did the VOL read actually use the tier?** No — `CLIO_VOL_TRACE=<dir>` (a
+directory the connector fills with per-access `.jsonl` + a summary `.json`
+carrying a `served` classification: `cache` / `native` / `uncacheable`) settles
+it. Two passes of the numeric `distance` dataset (chunked `[1000]`, hyperslab,
+float — cacheable in principle) both report:
+
+```
+read_served: {cache: 0, native: 1, uncacheable: 0}   cache_hit_rate: 0
+read_bytes_from_native: 145952   read_bytes_from_cache: 0   (both passes)
+```
+
+So the VOL reads of **pre-existing native** case-6 files are a **correctness
+passthrough to the native file** — the bytes never traverse CTE blobs and the
+pool's tier stays unused, even on a second pass (the connector delegates to
+native and does not populate the tier on read). This matches the earlier ares
+finding that the tier stays at 0 bytes for read-existing-file workloads. To place
+HDF5 data *on* the pool you must **write through** the connector, not read
+pre-existing files.
+
+## Result 6 — the POSIX interceptor adapter (write-through tier, case-6 round-trip)
+
+The **POSIX** adapter (`libclio_cte_posix.so`) is the complementary path: an
+`LD_PRELOAD` interceptor of libc I/O that routes paths carrying a `clio::` marker
+(as a path component) to the tier via the `clio_cte_filesystem` chimod. It is
+**write-through** (store bytes, then serve them back from the tier) — the opposite
+of the VOL's read-existing passthrough.
+
+**Building it on jelly (CentOS 7 + conda toolchain) took `-DCLIO_CORE_ENABLE_ELF=ON`
+plus three portability shims**, all under `/mnt/wrk/hyoklee/pkgshim` — worth
+recording, as none are obvious:
+
+1. **`libelf.pc`** — the CMake requires `pkg_check_modules(libelf REQUIRED)`, but
+   CentOS 7's elfutils ships `libelf.so` + headers with **no `.pc` file**. Hand-write one.
+2. **`CPLUS_INCLUDE_PATH`** to a dir of symlinked ELF headers — the conda `g++`
+   does not search `/usr/include`, and pkg-config *strips* `-I/usr/include` as a
+   "standard" path, so `<gelf.h>` is invisible. A **non-standard** include dir
+   (symlinks to `gelf.h`/`libelf.h`) survives.
+3. **`LIBRARY_PATH`** to a dir with a `libelf.so` symlink — the conda `ld` does not
+   search `/usr/lib64`, so `-lelf` fails to link otherwise.
+
+With those, the daemon loads the `clio_cte_filesystem` chimod and creates pool
+`560.0` with **4 containers (one per node)** — the tier-backed filesystem spans
+all four nodes.
+
+**Result:** the 8.90 MB `MiV_Connections_…Small` file, written to a
+`clio::/tmp/…` path and read back through the adapter, is **byte-identical**
+(`POSIX_INTEGRITY_PASS`, 8,899,461 bytes). The write got CTE fd **8192** and the
+read fd **8193** (both ≥ `kCfsFdBase`), confirming interception routed through the
+tier rather than the native filesystem.
+
+**Caveat:** the adapter hands out **synthetic fds (≥ 8192)** that are not real
+kernel descriptors, so standard tools that `fstat()` the fd (coreutils `dd`,
+`cat`) fail with `EBADF`, and `openat()` is not intercepted (only
+`open`/`open64`/`creat`). A purpose-built `open`/`read`/`write` harness (no
+`fstat`) exercises it cleanly — which is how the round-trip above was measured.
+
+**VOL vs POSIX, side by side:** on this 4-node pool, the **POSIX** adapter
+genuinely routes case-6 data *through* the tier (write-through, verified), while
+the **VOL** over pre-existing files serves *native* (read passthrough, tier
+unused). They are complementary: POSIX for staging bytes into the pool, VOL for
+transparent correct reads of existing HDF5 without app changes.
 
 ## Verdict
 

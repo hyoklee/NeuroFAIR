@@ -172,8 +172,14 @@ a native (no-VOL) read of the same datasets:
 
 Since `h5dump` uses the same HDF5 C library that `h5py`/`neuroh5` link, the result
 is library-level and carries to those tools (h5py is not installed on jelly, so
-`h5dump` stands in). One artifact: the CTE runtime logs to **stdout**, so ~12 INFO
-lines prepend to h5dump's output — filtered out, the data matches native exactly.
+`h5dump` stands in).
+
+> **Fixed (2026-07-15):** originally the CTE runtime logged Debug/Info/Success to
+> **stdout** (`context-transport-primitives/.../util/logging.h`), so ~12 INFO lines
+> corrupted h5dump's data output and had to be stripped. Logs now go to **stderr**
+> for all levels (stdout is reserved for a program's data). After the fix, a
+> full-file `h5dump` through the VOL is **byte-identical to native with no
+> stripping** (0 log lines on stdout; the runtime logs land on stderr).
 
 **Did the VOL read actually use the tier?** No — `CLIO_VOL_TRACE=<dir>` (a
 directory the connector fills with per-access `.jsonl` + a summary `.json`
@@ -266,12 +272,16 @@ MB/s raw native; still several × the tier methods only because it stays off the
 network). To make the VOL read *from* the tier you must write the HDF5 file
 *through* the connector first (write-through) — a different workload.
 
-Two caveats on the VOL measurement: (1) a full-file `h5dump` through the connector
-registered **0 data reads** in the trace (structure walked, no dataset data served
-— the neuroh5 full-traversal gap), so the 39 MB/s came from an explicit
-single-dataset `-d` read (2.67 MB `syn_types`); (2) per-pass VOL rates were noisy
-(24.7 / 62.3 / 49.3 MB/s) — small payload, per-op overhead dominates. Numbers are
-single-run on the live cluster.
+Two caveats on the VOL measurement: (1) the 39 MB/s came from an explicit
+single-dataset `-d` read (2.67 MB `syn_types`), because the `CLIO_VOL_TRACE`
+instrumentation only records reads on datasets opened **by name** (`-d`), not those
+opened via full-file link/object *iteration* — a **trace under-count**, not a data
+gap. A full-file `h5dump` through the VOL in fact reads **all** data correctly
+(output byte-identical to native — 237/62 DATA blocks on the Cells/Connections
+files), the reads simply aren't tallied in the trace summary. *(This corrects an
+earlier version of this page that mis-reported "0 data reads / full-traversal
+gap".)* (2) per-pass VOL rates were noisy (24.7 / 62.3 / 49.3 MB/s) — small
+payload, per-op overhead dominates. Numbers are single-run on the live cluster.
 
 **Takeaway:** for data resident in the distributed pool, **POSIX is the fastest
 read path (~14 MB/s), ahead of raw blob (~6–8.5 MB/s)**, both LAN-bound; the VOL

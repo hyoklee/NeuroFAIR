@@ -134,6 +134,52 @@ placement:
 The 5 GB set demonstrably occupies all four tiers (Σ deltas ≈ 6 GB with replication
 overhead), exceeding any single node's 4 GB capacity.
 
+## Result 5 — real case-6 reads through the **HDF5 VOL adapter** (not just raw blobs)
+
+Results 2–4 use `cte_stage_file` / `clio_cte_bench`, which call the CTE **client
+API directly** on raw bytes — the `.h5` file is opaque, no HDF5 involved. This
+result exercises the actual **HDF5 access path**: the `clio` VOL connector
+(`libclio_hdf5_vol.so`, built at `b1e087c3`), driven by `h5dump` from the same
+HDF5 (1.14.6) the connector links against, attached to the 4-node pool.
+
+The connector loads with **no application change** via the standard mechanism
+(the `H5PLget_plugin_*` exports are present in `dev`):
+
+```sh
+export HDF5_VOL_CONNECTOR=clio                     # connector name is "clio"
+export HDF5_PLUGIN_PATH=/mnt/wrk/hyoklee/clio-install/lib
+export CLIO_SERVER_CONF=/tmp/clio_4node.yaml CLIO_WITH_RUNTIME=0
+/scr/hyoklee/hdf5-1.14.6/bin/h5dump -d <dataset> <case6_file.h5>
+```
+
+Reading two datasets of `MiV_Connections_…Small` through the VOL, compared against
+a native (no-VOL) read of the same datasets:
+
+| dataset | type | VOL vs native |
+|---------|------|---------------|
+| `/H5Types/Populations` | compound committed datatype | **IDENTICAL** (38/38 lines) |
+| `/Projections/OLM/PVBC/Connections/distance` | numeric array | **IDENTICAL** (5160/5160 lines) |
+
+- On `H5Fopen` the connector **initializes a CTE client and connects to the 4-node
+  runtime** — its `ClientInit` log (`server_pid` = the running daemon) appears only
+  in the VOL run, never the native one, proving the `clio` connector (not HDF5's
+  native VOL) served the open.
+- It then reads the **pre-existing native** case-6 file correctly, including
+  compound committed types and numeric datasets — the read-through-with-native-
+  fallback path works in `dev`. This closes the gap noted in Result 2: real
+  case-6 HDF5 files are now readable *through the HDF5 API* over the pool, not only
+  as raw staged blobs.
+
+Since `h5dump` uses the same HDF5 C library that `h5py`/`neuroh5` link, the result
+is library-level and carries to those tools (h5py is not installed on jelly, so
+`h5dump` stands in). One artifact: the CTE runtime logs to **stdout**, so ~12 INFO
+lines prepend to h5dump's output — filtered out, the data matches native exactly.
+
+**Not shown here:** whether this single-pass VOL read placed cached blobs on
+*remote* nodes (the VOL is a read-through cache: native file → local, then CTE
+placement per the DPE), and the **POSIX** adapter (`libclio_cte_posix.so`), which
+is not built in jelly's current config (needs `CLIO_CTE_ENABLE_ELF=ON`).
+
 ## Verdict
 
 The distributed CTE pool scales cleanly from 2 to **4 nodes across 3 OSes and 2

@@ -237,6 +237,47 @@ the **VOL** over pre-existing files serves *native* (read passthrough, tier
 unused). They are complementary: POSIX for staging bytes into the pool, VOL for
 transparent correct reads of existing HDF5 without app changes.
 
+## Result 7 — read-performance comparison of the three access methods
+
+Reading the same case-6 payload back three ways, from the jelly client against the
+4-node pool. **The methods do not all read from the same place**, which is the
+whole point of the table:
+
+| method | what it reads | backing store | read MB/s |
+|--------|---------------|---------------|----------:|
+| raw blob — `cte_stage_file` GET, `local` | 36.48 MB file as 1 MiB blobs | **CTE tier** | 8.5 |
+| raw blob — `dynamic` | same | **CTE tier** (spread ×4) | 5.7 |
+| POSIX adapter — `clio::` path | 36.48 MB file via filesystem chimod | **CTE tier** | 14.0 |
+| HDF5 VOL — `-d` dataset | 2.67 MB dataset | **native file (tier bypassed)** | ~39 |
+| *native baseline* (reference) | 36.48 MB plain read | page cache | *7268* |
+
+**Only raw-blob and POSIX are an apples-to-apples pair** — both genuinely read from
+the distributed CTE tier over the LAN, so both are interconnect-bound (single
+digits to ~14 MB/s), consistent with the ~11 MB/s Fast-Ethernet ceiling and the
+`neighborhood:4` spread. Between them, **POSIX was ~1.6–2.5× faster** (14.0 vs
+8.5/5.7): `cte_stage_file` issues strictly synchronous one-blob-at-a-time GETs
+(depth 1), whereas the POSIX filesystem-chimod read path is more efficient.
+
+**The VOL number is not a tier read.** `CLIO_VOL_TRACE` confirms every VOL read was
+`served: native` — for pre-existing files the connector delegates to the native
+file (page cache + HDF5 stack + passthrough), never touching the pool. Its ~39
+MB/s is therefore local-file access minus HDF5/VOL overhead (far below the 7268
+MB/s raw native; still several × the tier methods only because it stays off the
+network). To make the VOL read *from* the tier you must write the HDF5 file
+*through* the connector first (write-through) — a different workload.
+
+Two caveats on the VOL measurement: (1) a full-file `h5dump` through the connector
+registered **0 data reads** in the trace (structure walked, no dataset data served
+— the neuroh5 full-traversal gap), so the 39 MB/s came from an explicit
+single-dataset `-d` read (2.67 MB `syn_types`); (2) per-pass VOL rates were noisy
+(24.7 / 62.3 / 49.3 MB/s) — small payload, per-op overhead dominates. Numbers are
+single-run on the live cluster.
+
+**Takeaway:** for data resident in the distributed pool, **POSIX is the fastest
+read path (~14 MB/s), ahead of raw blob (~6–8.5 MB/s)**, both LAN-bound; the VOL
+over existing files reads the native copy and bypasses the pool, so its rate is not
+a distributed-tier measurement.
+
 ## Verdict
 
 The distributed CTE pool scales cleanly from 2 to **4 nodes across 3 OSes and 2

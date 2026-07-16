@@ -288,6 +288,36 @@ read path (~14 MB/s), ahead of raw blob (~6–8.5 MB/s)**, both LAN-bound; the V
 over existing files reads the native copy and bypasses the pool, so its rate is not
 a distributed-tier measurement.
 
+## Result 8 — VOL read-performance *with the compound/whole-read patch* (goes through CTE)
+
+The VOL's "reads native, bypasses the pool" behaviour above was then fixed
+([iowarp/clio-core#750/#751](https://github.com/iowarp/clio-core/pull/751)): fixed
+compound/array datasets are made read-cacheable, and a full-extent hyperslab (what
+`h5dump`/`H5Dread` issue) is treated as a whole read so it populates and serves the
+tier instead of falling into the serve-only partial path. Re-benchmarked with the
+patched connector on a 10.69 MB float dataset
+(`/Populations/PYR/Synapse Attributes/syn_locs/Attribute Value`), reading it four
+times in one process (`H5Dread`, `CLIO_VOL_TRACE` confirms the `served` field):
+
+| path | throughput | `served` |
+|------|-----------:|----------|
+| native, no VOL — cold | 59.6 MB/s | (RAID) |
+| native, no VOL — warm | **~131 MB/s** | (page cache) |
+| VOL patched — pass 1 | 2.7–3.0 MB/s | `native` (miss: native read **+ stage into tier**) |
+| VOL patched — pass 2 → 4 | 8 → 16 → **~21 MB/s** | **`cache`** (served from the CTE tier) |
+
+The patch achieves its goal — **reads are now served from the CTE tier**
+(`served: cache`, trace-confirmed; before the patch this and every compound dataset
+read `native`, tier bypassed). But on **this** cluster it is a *functional*
+enablement, not a speedup: steady-state tier-served read is **~20 MB/s vs ~131 MB/s
+native page-cache (~6× slower)**, and the first touch is expensive (~2.7 MB/s) —
+it stages the whole dataset as blobs across the pool. Same root cause as every
+result here: the tier is LAN-bound (~11 MB/s Fast Ethernet) while native reads hit
+local page cache, so CTE only *wins* when the backing store is slower than the
+fabric (slow shared FS + ≥10–40 GbE) — not here. Of note, the VOL cache read
+(~20 MB/s) is nonetheless the **fastest of the three tier paths** (VOL ~20 > POSIX
+~14 > raw blob ~6–8.5). Single-run on the live cluster.
+
 ## Verdict
 
 The distributed CTE pool scales cleanly from 2 to **4 nodes across 3 OSes and 2

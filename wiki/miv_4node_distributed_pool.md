@@ -206,7 +206,10 @@ The **POSIX** adapter (`libclio_cte_posix.so`) is the complementary path: an
 `LD_PRELOAD` interceptor of libc I/O that routes paths carrying a `clio::` marker
 (as a path component) to the tier via the `clio_cte_filesystem` chimod. It is
 **write-through** (store bytes, then serve them back from the tier) — the opposite
-of the VOL's read-existing passthrough.
+of the VOL's read-existing passthrough. That chimod is
+[clio-fs](concept-clio-fs-vs-hdf5-vfd.md), the shared filesystem layer the POSIX,
+STDIO, MPI-IO, FUSE and HDF5-VFD front ends all delegate to; the `clio::` marker
+is its routing rule (`IsPathTracked` == `HasClioPrefix`).
 
 **Building it on jelly (CentOS 7 + conda toolchain) took `-DCLIO_CORE_ENABLE_ELF=ON`
 plus three portability shims**, all under `/mnt/wrk/hyoklee/pkgshim` — worth

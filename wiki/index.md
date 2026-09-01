@@ -52,6 +52,7 @@
 - [MiV Microcircuit](concept-miv-microcircuit.md) — 4-population CA1 model (STIM/PYR/PVBC/OLM, 82912 neurons)
 - [Morphology SWC Format](concept-morphology-swc.md) — per-cell tree morphology layout in forest/tree files
 - [Cell Coordinates and Arc Distances](concept-cell-coordinates.md) — curvilinear hippocampal coordinate system
+- [clio-fs and the CLIO HDF5 VFD](concept-clio-fs-vs-hdf5-vfd.md) — how the two relate: **clio-fs is the layer the VFD sits on**. clio-fs = the `filesystem` ChiMod over the CTE (pool `clio_cte_filesystem` 560.0, paths→CTE tags, offsets→1 MiB page blobs, `CLIO_CFS_CLIENT` descriptor API); the HDF5 VFD (`clio_vfd`, value 3200) is one of five front ends that delegate to it (verified `CLIO_CFS_CLIENT` call counts: libfuse 36, posix 33, stdio 25, mpiio 8, **vfd 8**, **hdf5_vol 0**). The VFD calls only `OpenFd/PwriteFd/FtruncateFd/CloseFd/RemovePath` — **no `PreadFd` anywhere**, which *is* the populate-only tier and the reason it tracks native on reads. Also: the `clio::` marker is a clio-fs concept the POSIX adapter routes on but the VFD **refuses** (explaining both the "tier stayed at 0 bytes" symptom and why VFD/VOL need no app change); and the VOL bypasses clio-fs entirely for CTE-core blobs, which is why only it can serve reads from the tier. clio-core `dev` `3357ac99`
 
 ## Optimization Experiments
 

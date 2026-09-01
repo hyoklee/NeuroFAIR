@@ -122,3 +122,4 @@ that answer documented above.
 - [Read-bound caseread](miv_iowarp_ares_caseread.md) — adapter-inert and forced-marker results
 - [Write-bound caseio](miv_iowarp_ares_caseio.md) — checkpoint-heavy still ~11% slower
 - [Case 6 build/tier comparison](miv_iowarp_ares_case6.md) — fork vs upstream, RAM vs NVMe tier
+- [clio-fs and the CLIO HDF5 VFD](concept-clio-fs-vs-hdf5-vfd.md) — where blocker #1 lives in code (`IsPathTracked` == `HasClioPrefix`, a clio-fs concept) and why the VFD/VOL front ends do not need the marker

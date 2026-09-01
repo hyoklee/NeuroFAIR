@@ -220,6 +220,7 @@ re-reads with little compute between them) — the recipe already written up in
 - [Fixing the HDF5 VOL CTE adapter for case 7 (A–F)](miv_iowarp_ares_case7_vol_fix.md) — how the VOL path was made to work at all
 - [Case 7 feasibility synthesis (POSIX adapter)](miv_iowarp_ares_case7_feasibility.md)
 - [perf-clio-core](perf-clio-core.md) — where CTE's measured I/O wins come from
+- [clio-fs and the CLIO HDF5 VFD](concept-clio-fs-vs-hdf5-vfd.md) — the architecture behind the numbers above: the VFD delegates to the clio-fs ChiMod and never calls its read path, while the VOL bypasses clio-fs for CTE-core blobs
 
 ## Artifacts
 

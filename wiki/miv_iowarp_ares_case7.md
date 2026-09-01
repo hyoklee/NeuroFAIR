@@ -7,6 +7,13 @@ weight optimization): each evaluation **re-reads and rebuilds the network**, a
 repeated-read pattern — the regime where the IOWarp CTE tier was hypothesized to
 help.
 
+> **Superseded for the adapter-overhead number.** A re-run of this exact
+> workload against clio-core `dev` `3357ac99` (2026-09-01) measures the POSIX
+> adapter at **+1.0 %**, not +11 % — see
+> [case 7 on the updated dev](miv_iowarp_ares_case7_dev.md), which also adds
+> the HDF5 VOL and VFD backends. The *conclusion* below (compute-bound, CTE
+> cannot help this workload) still holds, and is sharpened there.
+
 ## Setup
 
 - **Workload:** `optimize-network`, PR (Bilash) neurons, standard NEURON
@@ -57,3 +64,7 @@ for clean completion.
 
 Jobs 20401–20405. Full report + CSV: `~/MiV-Simulator-Cases/7-optimization/PERFORMANCE.md`,
 `results/comparison_case7.csv`. Logs: `~/logs/case7_*.log`.
+
+## Follow-up
+
+- [Case 7 re-run on the updated clio-core `dev` — POSIX vs HDF5 VOL vs HDF5 VFD](miv_iowarp_ares_case7_dev.md)

@@ -307,8 +307,17 @@ read-path question already answered (CTE ≈ 31% slower on ares; see below).
   clio-core's CTE does not improve over the native baseline here because ares has
   no slow shared storage tier for the cache to win back.
 
+> **The read-path verdict below has since reversed.** On clio-core `dev`
+> `3357ac99` (2026-09-01) the VOL cache reads the *real* case-7 payload
+> **1.65× faster** than native (301.5 vs 497.0 ms), because every case-7
+> dataset is gzip-chunked and the cache serves the decompressed image. The
+> "~31 % slower" figure here holds only for *uncompressed* data (where it is
+> now ~3.9× slower). End-to-end the application still does not benefit. See
+> [case 7 on the updated dev](miv_iowarp_ares_case7_dev.md).
+
 ## Related pages
 
+- [Case 7 on the updated clio-core `dev` — POSIX vs VOL vs VFD](miv_iowarp_ares_case7_dev.md) — the re-run that supersedes the read-path number above
 - [Case 7 VOL adapter — pre-fix evaluation](miv_iowarp_ares_case7_vol.md)
 - [Case 7 feasibility synthesis (POSIX adapter)](miv_iowarp_ares_case7_feasibility.md)
 - [perf-clio-core](perf-clio-core.md) — where CTE's measured I/O wins come from (slow tier + re-read)

@@ -67,7 +67,9 @@ Not intercepted and not hit here, but likely to matter elsewhere: `openat`,
 `copy_file_range`. clio-core's **MPI-IO adapter**
 (`CLIO_CTE_ENABLE_MPIIO_ADAPTER`, intercepting `MPI_File_*` and so sidestepping
 OMPIO's syscalls) is the designed answer for MPI apps; it is **off** in this
-build and was not tested.
+build. **Tested since** ([MPI-IO adapter page](miv_iowarp_ares_case7_mpiio.md)):
+stock it crashes parallel HDF5 and ignores file views; patched, it runs case 7
+at +5.0 %.
 
 ## Correctness
 
@@ -106,7 +108,9 @@ zero-IPC shared-memory read fast path is active: `clio-fs: serving reads from
 shared memory`), but the synapse/connectivity phase — many small attribute
 reads per cell — is slower, and it dominates. The likely contributors are the
 per-request clio-fs overhead and OMPIO's failed `fcntl` lock calls (seen in the
-strace diagnostic), but this was not profiled further. The same shape as the
+strace diagnostic), but this was not profiled further. *(Update 2026-10-13: the
+`fcntl` part is ruled out — the [MPI-IO adapter route](miv_iowarp_ares_case7_mpiio.md)
+issues no `fcntl` at all and costs the same, +5.0 %.)* The same shape as the
 [VOL cache](miv_iowarp_ares_case7_dev_1011.md) (+4.5 %): a per-operation
 cost spread over a compute-bound run whose total I/O is tiny.
 
@@ -124,10 +128,12 @@ cost spread over a compute-bound run whose total I/O is tiny.
    is the first measurement of MiV I/O actually served by clio-fs.
 4. Upstream asks for clio-core: intercept `preadv`/`pwritev`/`readv`/`writev`
    and `fcntl` locks (or return EBADF-safe emulation), and reconsider the
-   `clio::` marker's collision with ROMIO's `prefix:` syntax. Next test: the
-   MPI-IO adapter.
+   `clio::` marker's collision with ROMIO's `prefix:` syntax. MPI-IO adapter:
+   see [its page](miv_iowarp_ares_case7_mpiio.md).
 
 ## Related pages
+
+- [Case 7 from clio-fs via the MPI-IO adapter](miv_iowarp_ares_case7_mpiio.md) — same inputs, `MPI_File_*` interception instead of OMPIO + POSIX
 
 - [Case 7 on clio-core `dev` `5ac2747d` — POSIX vs VOL vs VFD](miv_iowarp_ares_case7_dev_1011.md) — same day, same build, same workload
 - [clio-fs and the CLIO HDF5 VFD](concept-clio-fs-vs-hdf5-vfd.md) — what clio-fs is

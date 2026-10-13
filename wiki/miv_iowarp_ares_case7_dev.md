@@ -10,6 +10,17 @@ and the [June VOL fix page](miv_iowarp_ares_case7_vol_fix.md): clio-core moved o
 by ~3 months of `dev`, and it now ships a second HDF5 integration path (the VFD)
 next to the VOL connector.
 
+> **Follow-up (2026-10-12).** Re-run on `dev` `5ac2747d`:
+> the **VFD overhead fell from +4.2 % to +0.6 %** (at native), POSIX stays free,
+> and the **VOL's +4.5 % is unchanged** — see
+> [case 7 on `dev` `5ac2747d`](miv_iowarp_ares_case7_dev_1011.md).
+
+> **Correction (2026-10-12).** The POSIX-adapter (`IOWARP=1`) runs on this page
+> routed **no** simulation I/O through clio-fs: the interceptor only handles paths
+> containing a `clio::` component, and the case-7 configs use plain paths. The
+> number measures pass-through interception only. MiV I/O actually served by
+> clio-fs is measured in [case 7 with inputs in clio-fs](miv_iowarp_ares_case7_clio_fs.md) (+4.8 %).
+
 ## Setup — identical workload to the previous run
 
 Everything about the workload is unchanged from the May run so the numbers are
@@ -190,7 +201,7 @@ faster and the application does not read enough for that to matter".
 
 ## Bottom line
 
-1. **The POSIX adapter's cost collapsed**: +10.8 % in May → **+1.0 %** on the
+1. *(Pass-through only — see correction at top.)* **The POSIX adapter's cost collapsed**: +10.8 % in May → **+1.0 %** on the
    current `dev`. The prior "IOWarp is ~11 % slower on ares" result is obsolete.
 2. **The HDF5 VFD runs case 7 end-to-end for the first time**, transparently
    (byte-identical h5py *and* neuroh5 reads, verified as the active driver at
@@ -216,7 +227,9 @@ re-reads with little compute between them) — the recipe already written up in
 
 ## Related pages
 
+- [Case 7 with every input in clio-fs](miv_iowarp_ares_case7_clio_fs.md) — the first run with I/O actually served by clio-fs
 - [Case 7 — IOWarp core vs native HDF5, RAM vs NVMe (May 2026)](miv_iowarp_ares_case7.md) — the previous run this compares against
+- [Case 7 on clio-core `dev` `5ac2747d` (Oct 2026)](miv_iowarp_ares_case7_dev_1011.md) — the follow-up re-run
 - [Fixing the HDF5 VOL CTE adapter for case 7 (A–F)](miv_iowarp_ares_case7_vol_fix.md) — how the VOL path was made to work at all
 - [Case 7 feasibility synthesis (POSIX adapter)](miv_iowarp_ares_case7_feasibility.md)
 - [perf-clio-core](perf-clio-core.md) — where CTE's measured I/O wins come from

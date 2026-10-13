@@ -70,6 +70,21 @@ The client's public surface is a POSIX **descriptor API**
 | Authority | the **native on-disk HDF5 file** — plain native format, no driver-info superblock message, so `h5dump`/`h5ls`/`h5diff` read it live with or without CLIO running |
 | CTE tier | **populate-only**: writes push in, reads never come out (read-serving is scoped in `translation/VFD_2.1_READ_CACHE_SCOPING.md`, not implemented) |
 
+> **Update — `dev` `5ac2747d` (2026-10-11).** Two things above changed after the
+> `3357ac99` snapshot this page was written from:
+> - **Vectored I/O is no longer advertised by default** (`656e96e7`). The
+>   `read_vector`/`write_vector` callbacks still exist but are nulled at
+>   registration unless `CLIO_VFD_VECTOR_IO` is set: advertising them switched
+>   HDF5's selection I/O on, which bypasses the data sieve the driver itself
+>   requests. With them withheld the driver measures at parity with `sec2`.
+> - **There is now an opt-in read tier**, `CLIO_VFD_READ_TIER=1` (default off),
+>   with per-session residency tracking so it serves only byte ranges it was
+>   actually given (`85165e57`). With the default, the VFD is still
+>   populate-only, which is what every measurement in this wiki used.
+>
+> End-to-end effect on MiV case 7: VFD overhead **+4.2 % → +0.6 %** — see
+> [case 7 on `dev` `5ac2747d`](miv_iowarp_ares_case7_dev_1011.md).
+
 ---
 
 ## The link, in code
@@ -188,6 +203,8 @@ attach is attempted at all and the driver is a complete, standalone HDF5 driver.
 ## Related pages
 
 - [MiV case 7 on the updated clio-core `dev` — POSIX vs VOL vs VFD](miv_iowarp_ares_case7_dev.md) — the measurements this page explains
+- [MiV case 7 on clio-core `dev` `5ac2747d` (Oct 2026)](miv_iowarp_ares_case7_dev_1011.md) — VFD overhead gone after the data-sieve fix
+- [MiV case 7 with every input in clio-fs](miv_iowarp_ares_case7_clio_fs.md) — clio-fs serving a real simulation: works (+4.8 %), interceptor gaps (`preadv`, `fcntl`, ROMIO `clio::` collision)
 - [4-node distributed CTE pool](miv_4node_distributed_pool.md) — clio-fs (pool 560.0) carrying real case-6 bytes
 - [Can IOWarp/clio-core help MiV case 7 on ares?](miv_iowarp_ares_case7_feasibility.md) — blocker #1 is the `clio::` marker described above
 - [Read-bound CA1 benchmark](miv_iowarp_ares_caseread.md) — the "tier stayed at 0 bytes" symptom of marker-based routing

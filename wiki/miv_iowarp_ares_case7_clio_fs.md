@@ -9,6 +9,8 @@ Same case-7 workload as the [Oct backend matrix](miv_iowarp_ares_case7_dev_1011.
 +4.8 %** — but only after working around three gaps in the POSIX interceptor,
 two of which crash MiV out of the box.
 
+> **Note (2026-10-20).** The "identical objectives" check on this page compared all-zero vectors: the `tstop=200` timing config simulates a silent network (STIM input starts at 256–407 ms). The timings are unaffected; the byte-level read checks are the correctness evidence. See [case 7 on the updated stack](miv_iowarp_ares_case7_1020.md#the-timing-workload-simulates-a-silent-network).
+
 ## First, a correction: the "POSIX adapter" runs never used clio-fs
 
 The POSIX interceptor routes a path into clio-fs **only if it contains a

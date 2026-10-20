@@ -15,6 +15,8 @@ diff) MiV case 7 runs fully through it with bit-identical objectives at
 +5.0 %, the same cost as the OMPIO path (+4.8 %). The per-operation cost is
 in clio-fs itself, not in the interception route.**
 
+> **Note (2026-10-20).** The "identical objectives" check on this page compared all-zero vectors: the `tstop=200` timing config simulates a silent network (STIM input starts at 256–407 ms). The timings are unaffected; the byte-level read checks are the correctness evidence. See [case 7 on the updated stack](miv_iowarp_ares_case7_1020.md#the-timing-workload-simulates-a-silent-network).
+
 ## Build
 
 `~/bin/build_core_dev_miv.sh` now takes `SRC=`, `BUILD=`, `PREFIX=` and
@@ -136,8 +138,14 @@ nothing for clio-fs to win.
    - drop the iowarp-build RPATH from `libclio_cte_mpiio.so`;
    - document that the adapter must precede `libmpi` in `LD_PRELOAD`.
 
-   The patch is a starting point, but it is not upstream-ready: it has no
-   tests and doesn't handle views on the shared-pointer calls.
+   **Upstreamed as [iowarp/clio-core#1272](https://github.com/iowarp/clio-core/pull/1272)**
+   (2026-10-13, branch `hyoklee:mpiio-hdf5-compat` off `dev` `515598ca`). It is
+   a cleaned-up rewrite of the local patch: wrapped calls go through `MpiioApi`;
+   undecoded constructors, non-`native` datarep and file-pointer ops under a
+   view return `MPI_ERR_UNSUPPORTED_OPERATION`. It adds 4 unit test cases
+   (9 cases / 379 assertions pass; `dev` 5 / 37). The MiV smoke test was
+   re-run against the PR build (job 24639): all reads identical, and `strace`
+   confirms the adapter served them. The RPATH is unchanged in the PR.
 
 ## Related pages
 
@@ -146,6 +154,13 @@ nothing for clio-fs to win.
 - [clio-fs and the CLIO HDF5 VFD](concept-clio-fs-vs-hdf5-vfd.md)
 
 ## Artifacts
+
+- PR branch: `~/src/clio-core-mpiio-pr` (`mpiio-hdf5-compat`), build
+  `~/clio_mpiio_pr/build`; unit tests `~/bin/mpiio_pr_diag.sbatch`. Running
+  them on ares needs `LD_LIBRARY_PATH` **without** `~/mc3/lib`, because its
+  legacy `libchimaera_*_runtime.so` are auto-loaded by the runtime and
+  segfault it, and needs `CLIO_SERVER_CONF` set to a config without CAE when
+  CAE is not built.
 
 - builds: `~/core_dev_miv_mpiio/install` (stock), `~/core_dev_miv_mpiio_patch/{src,install,mpiio_hdf5.patch}`;
   logs `~/logs/build_core_dev_miv_mpiio{,_patch}.log`

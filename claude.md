@@ -1,5 +1,6 @@
-Test simulation case 6 in ~/MiV-Simulator-Cases/ using ~/MiV-Simulator, ~/neuroh5~/core, and ~/bin/miv_iowarp_bench.pbs.
-Since ~/core is udpated, update ~/bin/miv_iowarp_bench.pbs if necessary.
+Test simulation case 6 in ~/MiV-Simulator-Cases/ using ~/MiV-Simulator, ~/neuroh5 ~/clio-core, and ~/bin/miv_iowarp_bench.pbs.
+Since ~/clio-core dev is udpated, use HDF5 VOL adapter instead of POSIX.
+update ~/bin/miv_iowarp_bench.pbs if necessary.
 Fix any build and test errors on ~/MiV-Simulator and ~/neuroh5 and ~/core.
 Your goal is to compare the performance of using ~/core or not.
 Use g++-14 for building and testing.

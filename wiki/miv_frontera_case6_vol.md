@@ -17,14 +17,21 @@ conventions; on Frontera (Slurm, no GPUs) they map to the `development` queue
 
 ## Headline result
 
-With one **neuroh5 bug fixed** (below), the clio **VOL** connector reads the
-**entire case-6 network end-to-end for the first time on any machine** — every
-prior study (ares/vista/jelly/Polaris) had the VOL/CTE adapter unable to get
-through neuroh5 init. The measured read/construction path is **native within
-~0.15%**: the VOL routes every read through the connector (mirrored to the CTE
-RAM tier) but there is **no speedup**, because case 6 is compute-bound and
-read-once — the same conclusion reached on every other platform, now demonstrated
-with the VOL actually doing the full read.
+With one **neuroh5 bug fix** plus a small **h5py write-open shim** (both below),
+the clio **VOL** connector runs case 6 **end-to-end at NR=1 — read, construct,
+simulate, and write the results file** — and its output is **bit-for-bit
+identical to native** (`h5diff` = 0). The read/construction path is **native
+within ~0.3%**: the VOL routes every read through the connector (mirrored to the
+CTE RAM tier) but there is **no speedup**, because case 6 is compute-bound and
+read-once — the same conclusion reached on every other platform.
+
+**Update 2026-07-17:** the results-file write-open (previously listed as an open
+limitation) is now resolved by pulling the Vista `sitecustomize.py` h5py shim
+into the Frontera run — the NR=1 VOL run completes and `h5diff` = 0. The
+**multi-rank** collective-read deadlock **persists on Frontera** (MPICH), even
+though the same connector + shim complete at 4/8 ranks on
+[Vista](miv_vista_case6_vol.md) (OpenMPI) — pointing to an MPI-stack difference
+in how collective MPI-IO interacts with the caching VOL, not a connector bug.
 
 ## Environment
 
@@ -82,44 +89,58 @@ through the VOL, identical to native.
 
 ## 1-node result (tstop=50, single node c206-*)
 
-**NR=1 (serial reads) — the VOL reads the whole network; construction ≈ native:**
+**NR=1 — the VOL runs case 6 end-to-end (read + write); construction ≈ native:**
 
 | Phase | Native HDF5 | clio VOL | Δ |
 |-------|------------:|---------:|----:|
-| created cells (read 36 MB) | 10.22 / 10.43 s | 10.43 / — s | +2% (noise) |
+| created cells (read 36 MB) | 10.22 / 10.27 s | 10.43 / 10.26 s | noise |
 | gap junctions | 0.04 s | 0.06 s | noise |
 | LFP objects | 1.77 s | 1.76 s | noise |
-| **connected cells (read + wire)** | **334.63 / 330.01 s** | **335.11 / 329.49 s** | **+0.14% / −0.16%** |
+| **connected cells (read + wire)** | **334.6 / 330.0 / 328.4 s** | **335.1 / 329.5 / 329.5 s** | **+0.14% / −0.16% / +0.32%** |
+| total run (read+construct+sim+write) | 438–445 s | 456 s | +4% |
 
-Two independent NR=1 runs (jobs 7861112, 7861121); the connection-reading phase
-— the read-heavy part the CTE is meant to accelerate — is native within noise.
-Native NR=1 total ≈ 439–445 s; NR=8 (single node) total = **64 s** (≈7× rank
-scaling), consistent with the near-ideal intra-node scaling seen on jelly/Vista.
+Three independent NR=1 runs (jobs 7861112, 7861121, **7861565**); the
+connection-reading phase — the read-heavy part the CTE is meant to accelerate —
+is native within noise. Run 7861565 completes **including the results-file
+write**, and `h5diff results/native vs results/vol` = **0 differences**
+(bit-identical output, both 168,599 bytes). Native NR=8 (single node) total =
+**64–65 s** (≈7× rank scaling), consistent with jelly/Vista intra-node scaling.
 
-## Remaining VOL limitations (characterized, not yet resolved)
+## VOL limitations
 
-1. **Multi-rank MPI-collective reads deadlock.** At NR=8 the VOL arm hangs in
-   neuroh5's collective projection read (`Reading projection PVBC -> OLM`) — a
-   caching pass-through VOL adding per-rank CTE side effects inside a collective
-   HDF5 call breaks MPI collective symmetry. NR=1 (no collective) avoids it. This
-   is why the VOL comparison is serial-read; native scales fine to 8 ranks. (Same
-   class as the multi-node CTE deadlocks noted on ares/Polaris.)
-2. **Results-file write-open fails.** After reading the whole network, the NR=1
-   VOL run fails at `io_utils.mkout` → `h5py.File(results, "a")` →
-   `H5Fopen(ACC_RDWR)` with `OSError: unable to open`. The VOL does not cleanly
-   serve h5py's `"a"` (open-or-create) of a **new** file. The read/construction
-   path — the measured quantity — completes before this; the write is a small
-   output, so it does not affect the performance conclusion.
+**Resolved — results-file write-open (h5py `"a"` of a new file).** Originally the
+NR=1 VOL run failed at `io_utils.mkout` → `h5py.File(results, "a")` →
+`H5Fopen(ACC_RDWR)` with `OSError`. Cause: h5py's `"a"` mode falls back to
+*creating* a missing file only when the failure surfaces as `FileNotFoundError`,
+but HDF5's H5VL layer wraps the underlying `errno=2` as a generic "can't open
+object" above the connector, so h5py raises a plain `OSError` and skips the
+create-fallback. **Fix**: the Vista `sitecustomize.py` h5py shim
+(`frontera.hyoklee/bin/sitecustomize.py`, added to `PYTHONPATH` for the VOL run;
+a no-op unless `HDF5_VOL_CONNECTOR` is set) makes mode-`"a"` create the file when
+absent. With it, NR=1 completes read **and** write, output bit-identical to
+native. Not a connector bug — the masking error frame is added by HDF5 itself.
+
+**Open — multi-rank MPI-collective reads deadlock (Frontera/MPICH-specific).**
+At NR=8 the VOL arm still hangs in neuroh5's collective projection read
+(`Reading projection PVBC -> OLM`; job 7861569 timed out at 900 s, native NR=8 =
+65 s). The same connector + shim complete at **4 and 8 ranks on
+[Vista](miv_vista_case6_vol.md)** (OpenMPI 5.0.5), so this is not a connector bug
+but an **MPI-stack interaction**: the container's MPICH collective MPI-IO does
+not tolerate the caching VOL's per-rank CTE side effects inside a collective HDF5
+call, whereas Vista's OpenMPI does. The Frontera VOL comparison is therefore
+serial-read (NR=1); native scales fine to 8 ranks on both.
 
 ## Conclusion
 
-On Frontera the updated `dev` clio **VOL** connector, plus the one neuroh5
-`H5Gget_objinfo→H5Lexists` fix, reads case 6 end-to-end (NR=1) at **native
-performance within ~0.15%**. As on every prior platform, **IOWarp/clio does not
-speed up case 6** — it is compute-bound and reads its inputs once, so a caching
-tier has nothing to win back. The VOL adapter is now a viable read path for
-single-rank neuroh5 workloads; multi-rank collective I/O and new-file writes
-through the VOL remain open.
+On Frontera the updated `dev` clio **VOL** connector, plus the neuroh5
+`H5Gget_objinfo→H5Lexists` fix and the h5py write-open shim, runs case 6
+**end-to-end at NR=1 — read, construct, simulate, and write — with output
+bit-identical to native** (`h5diff` = 0) at **native performance within ~0.3%**.
+As on every prior platform, **IOWarp/clio does not speed up case 6** — it is
+compute-bound and reads its inputs once, so a caching tier has nothing to win
+back. The only remaining gap is **multi-rank collective I/O**, which deadlocks
+through the VOL under the container's **MPICH** but completes under **OpenMPI on
+Vista** — an MPI-stack interaction, not a connector defect.
 
 ## Deviations from `claude.md`
 

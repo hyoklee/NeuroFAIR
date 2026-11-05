@@ -1,4 +1,7 @@
 # Wiki Log
+## [2026-11-05] link | tmap sibling wiki
+Added a Related wikis section to `index.md` pointing to [tmap](https://github.com/hyoklee/tmap), which ingests the PhysioNet TARGET-MAP HDF5 dataset with CLIO CAE (PR #1331 https sources) on Polaris. tmap's `wiki/neurofair.md` records which NeuroFAIR findings carry over: the VOL is the only CTE read path, #470 (tier-read slowdown) was fixed on 2026-07-15, and page cache vs RAM tier for small data.
+
 ## [2026-10-21] ingest | Globus check + Microcircuit_Small_results_20220928_1620.h5
 Re-listed the MiV Globus guest collection (`0028aea1-ffc7-44b6-aec9-dd748ac839c4`, 29 entries): **no new data**. The newest item is still `Motoneuron_model/` (2024-02-10). The only file without a source page was `Microcircuit_Small/results/Microcircuit_Small_results_20220928_1620.h5` (14.7 MB). Downloaded it to Vista over the collection's HTTPS server (the Vista GCS collection rejects the `alcf.anl.gov` identity) and created [source-Microcircuit_Small_results_20220928_1620_h5.md](source-Microcircuit_Small_results_20220928_1620_h5.md): simulation output with a single 750 ms trial; spike events for STIM/PYR/PVBC/OLM (187 cells); soma v traces; 2 LFP electrodes at dt 0.1 ms.
 

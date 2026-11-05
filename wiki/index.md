@@ -100,6 +100,10 @@
 - [neuroh5 shared-memory crash fix](neuroh5_shm_crash_fix.md) — int overflow in alltoallv sdispls for >2 GB datasets; P2P Isend/Irecv fix; **12/12 I/O tests pass** (job 7097644); PR: iraikov/neuroh5#19
 - [MiV-Simulator 7-optimization on Polaris](miv_opt_7_polaris.md) — Case 7-optimization; dmosopt MOASMO; epoch 0 completed; tstop tuning + preemptable queue for 3h runs
 
+## Related wikis
+
+- [tmap](https://github.com/hyoklee/tmap) — sibling wiki: CLIO CAE ingest of the PhysioNet TARGET-MAP clinical TCD/ABP HDF5 dataset on Polaris. Its [neurofair page](https://github.com/hyoklee/tmap/blob/main/wiki/neurofair.md) maps which NeuroFAIR CTE findings apply there.
+
 ## Schema
 
 - [CLAUDE.md](CLAUDE.md) — wiki schema and workflows for LLM maintenance
